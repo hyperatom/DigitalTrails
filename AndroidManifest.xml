@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="uk.ac.swan.digitaltrails" android:versionCode="3"
+	android:versionName="1.1">
+	<uses-sdk android:minSdkVersion="3"  android:targetSdkVersion="8"/>
+
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+	<application android:icon="@drawable/icon1024" android:label="@string/app_name" android:debuggable="true">
+		<activity android:name="uk.ac.swan.digitaltrails.TownWalks" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar">
+			
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name="uk.ac.swan.digitaltrails.WalkMapActivity" android:theme="@android:style/Theme.NoTitleBar">
+		    </activity>
+		    	<activity android:name="uk.ac.swan.digitaltrails.InfoActivity" android:theme="@android:style/Theme.NoTitleBar">
+		    </activity>
+		<activity android:name="uk.ac.swan.digitaltrails.MainActivity">
+		</activity>
+		<activity android:name="uk.ac.swan.digitaltrails.WalkListActivity">
+		</activity>
+	</application>
+
+
+</manifest> 
