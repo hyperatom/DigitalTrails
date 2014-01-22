@@ -2,46 +2,149 @@ package uk.ac.swan.digitaltrails;
 
 import java.util.ArrayList;
 
-//TODO: Create a Points type or use ArrayList<WalkPoint> points; 
 public class Walk {
 	String title;
 	int id;
-	String description;
+	String shortDescription;
+	String longDescription;
+	Duration duration;
+	double distance; /** Total distance to walk in CHOSEN FORMAT */
+	ArrayList<Place> places;
+	
+	//TODO: Clean up the mess this variable has left across the whole project.
 	ArrayList<Integer> points; // Y????
-	//TODO: WalkPoints should be added as part of the walk, not stored in the middle of nowhere.
-
-	//TODO: Change all params from "in" to something meaningful.
-	public void setID(int in) {
-		id = in;
+	
+	/**
+	 * Setter for id
+	 * @param id to be set
+	 */
+	public void setID(int id) {
+		this.id = id;
+	}
+	
+	/**
+	 * Getter for id
+	 * @return the id
+	 */
+	public int getID() {
+		return id;
 	}
 
-	public void setTitle(String in) {
-		title = in;
+	/**
+	 * Setter for title
+	 * @param title to be set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	/**
+	 * Getter for title
+	 * @return The title
+	 */
+	public String getTitle() {
+		return title;
 	}
 
-	public void setDesc(String in) {
-		description = in;
+	/**
+	 * Setter for short description
+	 * @param shortDescription to be set
+	 */
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+	
+	/**
+	 * Getter for short description
+	 * @return short description
+	 */
+	public String getShortDescription() {
+		return shortDescription;
+	}
+	
+	/**
+	 * Setter for long description
+	 * @param longDescription to be set
+	 */
+	public void setLongDescription(String longDescription) {
+		this.longDescription = longDescription;
+	}
+	
+	/**
+	 * Getter for long description
+	 * @return long description
+	 */
+	public String getLongDescription() {
+		return longDescription;
+	}
+	
+	/**
+	 * Setter for duration
+	 * @param duration to be set
+	 */
+	public void setDuration(Duration duration) {
+		this.duration = duration;
+	}
+	
+	/**
+	 * Getter for duration
+	 * @return duration
+	 */
+	public Duration getDuration() {
+		return duration;
+	}
+	
+	/**
+	 * Setter for distance
+	 * @param distance to be set
+	 */
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+	
+	/**
+	 * Getter for distance
+	 * @return distance
+	 */
+	public double getDistance() {
+		return distance;
+	}
+	
+	/**
+	 * Setter for places
+	 * @param places to be set
+	 */
+	public void setPlaces(ArrayList<Place> places) {
+		this.places = places;
+	}
+	
+	/**
+	 * Getter for places
+	 * @return places
+	 */
+	public ArrayList<Place> getPlaces() {
+		return places;
 	}
 
 	public void setPoints(ArrayList<Integer> in) {
 		points = in;
 	}
-
-	public String getDesc() {
-		return description;
+	
+	/**
+	 * Default Constructor
+	*/
+	public Walk() {
+		setID(-1);
+		setTitle("New Walk");
+		setShortDescription("Short Description");
+		setLongDescription("Long Description");
+		setDuration(new Duration(0, 0));
+		setDistance(-1);
 	}
-
-	public String getTitle() {
-		return title;
+	
+	public Walk(int id) {
+		
 	}
-
-	public ArrayList<Integer> getPoints() {
-		return points;
-	}
-
-	public int getID() {
-		// TODO Auto-generated method stub
-		return id;
-	}
+	
 
 }

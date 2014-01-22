@@ -22,31 +22,32 @@ public class InfoActivity extends Activity {
 		TextView titleText = (TextView) findViewById(R.id.textView1);
 
 		TextView infoText = (TextView) findViewById(R.id.textView2);
-		ImageView imgView= (ImageView) findViewById(R.id.imageView1);
-		imgView.setImageDrawable(this.getResources().getDrawable(R.drawable.abershore));
+		ImageView imgView = (ImageView) findViewById(R.id.imageView1);
+		imgView.setImageDrawable(this.getResources().getDrawable(
+				R.drawable.abershore));
 		infoText.setMovementMethod(new ScrollingMovementMethod());
-		
-		DatabaseHandler dbHandle=new DatabaseHandler(this);
-		  try {
-	         	dbHandle.createDataBase();
-	        } catch (IOException ioe) {
-	         	throw new Error("Unable to create database");
-	        }
-	        
-			try {
-				dbHandle.openDataBase();
-	 		}catch(SQLException sqle){
-	 				throw sqle;
-	 		}
-		
-		
-		WalkPoint thisPoint=dbHandle.getWalkPoint(locationID,walkID);
+
+		DatabaseHandler dbHandle = new DatabaseHandler(this);
+		try {
+			dbHandle.createDataBase();
+		} catch (IOException ioe) {
+			throw new Error("Unable to create database");
+		}
+
+		try {
+			dbHandle.openDataBase();
+		} catch (SQLException sqle) {
+			throw sqle;
+		}
+
+		WalkPoint thisPoint = dbHandle.getWalkPoint(locationID, walkID);
 		dbHandle.close();
-		
-		if(thisPoint.getImgList()!=null|| thisPoint.getImgList().size()>0) {
-			 
-		        String imgName=thisPoint.getImgList().get(0);
-			int path = getResources().getIdentifier(imgName, "drawable", "uk.ac.aber.townwalks");
+
+		if (thisPoint.getImgList() != null || thisPoint.getImgList().size() > 0) {
+
+			String imgName = thisPoint.getImgList().get(0);
+			int path = getResources().getIdentifier(imgName, "drawable",
+					"uk.ac.aber.townwalks");
 			imgView.setImageResource(path);
 		}
 		infoText.setText(thisPoint.getInfoText());
