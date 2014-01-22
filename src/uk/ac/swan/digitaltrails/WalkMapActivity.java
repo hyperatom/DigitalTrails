@@ -1,6 +1,12 @@
+/**
+ * 
+ * Android Activity for maps.
+ * 
+ * 
+ */
+
 package uk.ac.swan.digitaltrails;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -14,7 +20,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -22,31 +27,20 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationListener;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+//TODO: remove OSM references, add Google Maps.
 import org.osmdroid.bonuspack.overlays.ExtendedOverlayItem;
-import org.osmdroid.bonuspack.overlays.ItemizedOverlayWithBubble;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.ResourceProxy;
 import org.osmdroid.tileprovider.MapTileProviderArray;
-import org.osmdroid.tileprovider.modules.ArchiveFileFactory;
-import org.osmdroid.tileprovider.modules.IArchiveFile;
-import org.osmdroid.tileprovider.modules.MapTileFileArchiveProvider;
-import org.osmdroid.tileprovider.modules.MapTileModuleProviderBase;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.tileprovider.tilesource.XYTileSource;
-import org.osmdroid.tileprovider.util.SimpleRegisterReceiver;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
-import org.osmdroid.views.overlay.MyLocationOverlay;
-import org.osmdroid.views.overlay.Overlay;
-import org.osmdroid.views.overlay.OverlayItem;
 
 public class WalkMapActivity extends Activity {
 
@@ -60,13 +54,12 @@ public class WalkMapActivity extends Activity {
 	private MapView mapView;
 	LocationManager locationManager;
 	DatabaseHandler dbHandle;
-    private MapTileProviderArray mapProvider;
-    private ResourceProxy resourceProxy;
+	private MapTileProviderArray mapProvider;
+	private ResourceProxy resourceProxy;
 	LocationListener locationListener = new LocationListener() {
 
 		@Override
-		public void onStatusChanged(String provider, int status,
-				Bundle extras) {
+		public void onStatusChanged(String provider, int status, Bundle extras) {
 			String infoText = new String();
 			switch (status) {
 			case 1:
@@ -82,9 +75,9 @@ public class WalkMapActivity extends Activity {
 
 		@Override
 		public void onProviderEnabled(String provider) {
-			//Toast.makeText(getApplicationContext(),
-			//		"Enabled new provider " + provider,
-			//		Toast.LENGTH_SHORT).show();
+			// Toast.makeText(getApplicationContext(),
+			// "Enabled new provider " + provider,
+			// Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
@@ -93,10 +86,10 @@ public class WalkMapActivity extends Activity {
 		}
 
 		@Override
+		// TODO: minimise GPS updating to save battery life.
 		public void onLocationChanged(Location location) {
 			// if this is a gps location, we can use it
-			if (location.getProvider().equals(
-					LocationManager.GPS_PROVIDER)) {
+			if (location.getProvider().equals(LocationManager.GPS_PROVIDER)) {
 
 			}
 			currentLat = location.getLatitude();
@@ -104,18 +97,20 @@ public class WalkMapActivity extends Activity {
 
 			Log.i("WalkMapActivity", "current Lat: " + currentLat
 					+ " current Long:" + currentLong);
-			// GeoPoint centre =convertToGeoPoint(currentLat,
+			// GeoPoint centre = convertToGeoPoint(currentLat,
 			// currentLong);
 
 			// mapController.setCenter(centre);
 			locationChanged();
 		}
 	};
-	
+
+	// TODO: GeoPoints are an OSM type, find Google Maps equivalent.
 	private GeoPoint convertToGeoPoint(double lat, double lon) {
 		return new GeoPoint((int) (lat * 1E6), (int) (lon * 1E6));
 	}
 
+	// Waypoint icons?
 	private Drawable createMarkerIcon(int markerNumber, int width, int height,
 			boolean visited) {
 		width = 24;
@@ -138,13 +133,13 @@ public class WalkMapActivity extends Activity {
 		imagePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 		imagePaint.setTextAlign(Align.CENTER);
 		imagePaint.setTextSize(15f);
-		//Typeface tf = Typeface.create("Helvetica", 0);
-		//imagePaint.setTypeface(tf);
+		// Typeface tf = Typeface.create("Helvetica", 0);
+		// imagePaint.setTypeface(tf);
 		// Draw the image to our canvas
 		markerImg.draw(imageCanvas);
-          
+
 		// Draw the text on top of our image
-		imageCanvas.drawText(String.valueOf(markerNumber), (width / 2) ,
+		imageCanvas.drawText(String.valueOf(markerNumber), (width / 2),
 				(height / 2) + 5, imagePaint);
 		// Combine background and text to a LayerDrawable
 
@@ -153,8 +148,8 @@ public class WalkMapActivity extends Activity {
 		return layerDrawable;
 	}
 
+	// Draws waypoints, updated when visited.
 	public ArrayList<ExtendedOverlayItem> drawMarkers() {
-
 		ArrayList<ExtendedOverlayItem> markerPoints = new ArrayList<ExtendedOverlayItem>();
 		int markerNum = 0;
 		for (WalkPoint thisPoint : walkPoints) {
@@ -184,11 +179,6 @@ public class WalkMapActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.walkmap);
-
-		
-		
-		
-		
 		Intent i = getIntent();
 		int walkID = i.getIntExtra("walkId", 0);
 		DatabaseHandler dbHandle = new DatabaseHandler(this);
@@ -212,32 +202,40 @@ public class WalkMapActivity extends Activity {
 				+ " points loaded.");
 		dbHandle.close();
 
-		
-		
 		mapView = (MapView) findViewById(R.id.mapview);
-		
-		//can use this for testing when no internet is available - offline maps etc.
-		//mapView.setUseDataConnection(false);
-		
-		
-		//mapView.setTileSource(TileSourceFactory.MAPQUESTOSM);
-		String fileName = "AberaeronTiles.zip";
-        //File destinationFile = new File(Environment.getExternalStorageDirectory()+"/osmdroid/" + fileName);    
-		
-		//XYTileSource TILERENDERER = new XYTileSource("MapQuest", ResourceProxy.string.offline_mode, 14, 18, 256, ".jpg", "http://127.0.0.1");
-		//this.mapView.setTileSource(TILERENDERER);
 
-        //SimpleRegisterReceiver simpleReceiver = new SimpleRegisterReceiver(this.getBaseContext());
-        //IArchiveFile[] archives = { ArchiveFileFactory.getArchiveFile(destinationFile) };
-        //MapTileModuleProviderBase moduleProvider = new MapTileFileArchiveProvider(
-         //       simpleReceiver, 
-         //       TILERENDERER, 
-         //       archives);
-        
-        //this.mapProvider = new MapTileProviderArray(TILERENDERER, null, new MapTileModuleProviderBase[] { moduleProvider });
-       // this.mapView.setUseDataConnection(false);
-       // this.mapView = new MapView(this, 256, this.resourceProxy, this.mapProvider);
-       // this.mapView.setUseDataConnection(false);
+		// can use this for testing when no internet is available - offline maps
+		// etc.
+		// mapView.setUseDataConnection(false);
+
+		// mapView.setTileSource(TileSourceFactory.MAPQUESTOSM);
+		String fileName = "AberaeronTiles.zip";
+		// File destinationFile = new
+		// File(Environment.getExternalStorageDirectory()+"/osmdroid/" +
+		// fileName);
+
+		// XYTileSource TILERENDERER = new XYTileSource("MapQuest",
+		// ResourceProxy.string.offline_mode, 14, 18, 256, ".jpg",
+		// "http://127.0.0.1");
+		// this.mapView.setTileSource(TILERENDERER);
+
+		// SimpleRegisterReceiver simpleReceiver = new
+		// SimpleRegisterReceiver(this.getBaseContext());
+		// IArchiveFile[] archives = {
+		// ArchiveFileFactory.getArchiveFile(destinationFile) };
+		// MapTileModuleProviderBase moduleProvider = new
+		// MapTileFileArchiveProvider(
+		// simpleReceiver,
+		// TILERENDERER,
+		// archives);
+
+		// this.mapProvider = new MapTileProviderArray(TILERENDERER, null, new
+		// MapTileModuleProviderBase[] { moduleProvider });
+		// this.mapView.setUseDataConnection(false);
+		// this.mapView = new MapView(this, 256, this.resourceProxy,
+		// this.mapProvider);
+		// this.mapView.setUseDataConnection(false);
+		
 		mapView.setBuiltInZoomControls(true);
 		mapView.setMultiTouchControls(true);
 
@@ -280,9 +278,9 @@ public class WalkMapActivity extends Activity {
 
 		locationChanged();
 
-		//updates every 5 secs
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000,
-				0, locationListener);
+		// updates every 5 secs
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+				5000, 0, locationListener);
 
 	}
 
@@ -335,13 +333,14 @@ public class WalkMapActivity extends Activity {
 					public boolean onItemLongPress(final int index,
 							final ExtendedOverlayItem item) {
 						if (index < walkPoints.size()) {
-							displayInfo(walkPoints.get(index).getID(),thisWalk.getID()); // display
-																		// info
-																		// screen,
-																		// passing
-																		// global
-																		// point
-																		// id
+							displayInfo(walkPoints.get(index).getID(),
+									thisWalk.getID()); // display
+							// info
+							// screen,
+							// passing
+							// global
+							// point
+							// id
 						}
 						return true;
 					}
@@ -426,7 +425,8 @@ public class WalkMapActivity extends Activity {
 			if (!walkPointIDsVisited.contains(Integer.valueOf(currentPointID))) {
 
 				// get global point ID of the current point
-				displayInfo(walkPoints.get(currentPointID).getID(),thisWalk.getID());
+				displayInfo(walkPoints.get(currentPointID).getID(),
+						thisWalk.getID());
 
 				// add local array index for the visited point to the visited
 				// array
@@ -460,7 +460,7 @@ public class WalkMapActivity extends Activity {
 		i.putExtra("locationID", walkPointID);
 		i.putExtra("walkID", walkID);
 
-		Log.i("","displaying info of point id "+walkPointID);
+		Log.i("", "displaying info of point id " + walkPointID);
 		startActivity(i);
 	}
 

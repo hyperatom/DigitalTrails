@@ -11,7 +11,7 @@ public class WalkPoint {
 	private ArrayList<String> imgList;
 	
 	public WalkPoint() {
-		
+		// TODO: Create dummy constructor values
 	}
 	
 	public WalkPoint(int walkid, double latitude, double longitude, String theTitle, String theInfoText, ArrayList<String> imgArray) {
@@ -24,6 +24,7 @@ public class WalkPoint {
 		infoText=theInfoText;
 		imgList=imgArray;
 	}
+	
 	public WalkPoint(int walkid, double latitude, double longitude, String theTitle, String theInfoText) {
 		lat=0;
 		lon=0;
@@ -31,8 +32,7 @@ public class WalkPoint {
 		lat=latitude;
 		lon=longitude;
 		title=theTitle;
-		infoText=theInfoText;
-		
+		infoText=theInfoText;	
 	}
 	
 	public void setImgList(ArrayList<String> in) {
@@ -81,7 +81,5 @@ public class WalkPoint {
 	
 	public String getInfoText() {
 		return infoText;
-	}
-	
-	
+	}	
 }
