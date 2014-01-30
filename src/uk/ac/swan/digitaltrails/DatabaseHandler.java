@@ -26,8 +26,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	private static String DB_PATH = "/data/data/uk.ac.swan.digitaltrails/databases/";
 
-	private static String DB_NAME = "aberystwyth.sqlite3";
-	// private static String DB_NAME = "aberaeron.sqlite3";
+	//private static String DB_NAME = "aberystwyth.sqlite3";
+	private static String DB_NAME = "aberaeron.sqlite3";
 
 	private SQLiteDatabase myDataBase;
 
