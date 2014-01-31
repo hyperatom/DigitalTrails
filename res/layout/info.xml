@@ -37,8 +37,7 @@
             android:scrollbars="vertical"
             android:selectAllOnFocus="false"
             android:text="TextView"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#FFFFFFFF" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </ScrollView>
 

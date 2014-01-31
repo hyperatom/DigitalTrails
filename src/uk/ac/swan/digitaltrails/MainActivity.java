@@ -1,8 +1,8 @@
 package uk.ac.swan.digitaltrails;
 
 import uk.ac.swan.digitaltrails.R;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,13 +25,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		imgView.setImageDrawable(this.getResources().getDrawable(
 				R.drawable.abershore));
 
-		titleText.setText("ABERYSTWYTH TOWN WALKS");
+		titleText.setText("White Rock Digital Trails");
 		introText
-				.setText("Welcome to Aberystwyth Town Walks for Android. Please select a walk of your choice from the 'Walks' tab to start exploring some of the places of interest within Aberystwyth town.");
+				.setText("Welcome to White Rock Digitial Trails for Android. Please select a walk of your choice from the 'Walks' tab to start exploring some of the places of interest.");
 
 	}
 
 	public void onClick(View src) {
 
+	}
+	
+	public void walks(){
+		Intent intent = new Intent(this, WalkListActivity.class);
+		startActivity(intent);
 	}
 }

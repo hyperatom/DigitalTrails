@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import uk.ac.swan.digitaltrails.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -31,8 +31,16 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.osmdroid.api.IGeoPoint;
+import org.osmdroid.api.IMapController;
+import org.osmdroid.bonuspack.location.POI;
+import org.osmdroid.bonuspack.overlays.DefaultInfoWindow;
 //TODO: remove OSM references, add Google Maps.
 import org.osmdroid.bonuspack.overlays.ExtendedOverlayItem;
+import org.osmdroid.bonuspack.overlays.ItemizedOverlayWithBubble;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.ResourceProxy;
 import org.osmdroid.tileprovider.MapTileProviderArray;
@@ -50,12 +58,13 @@ public class WalkMapActivity extends Activity {
 	ArrayList<Integer> walkPointIDsVisited = new ArrayList<Integer>();
 	double currentLat = 52.2435;
 	double currentLong = -4.26323;
-	private MapController mapController;
+	private IMapController mapController;
 	private MapView mapView;
 	LocationManager locationManager;
 	DatabaseHandler dbHandle;
 	private MapTileProviderArray mapProvider;
 	private ResourceProxy resourceProxy;
+	
 	LocationListener locationListener = new LocationListener() {
 
 		@Override
@@ -133,8 +142,8 @@ public class WalkMapActivity extends Activity {
 		imagePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 		imagePaint.setTextAlign(Align.CENTER);
 		imagePaint.setTextSize(15f);
-		// Typeface tf = Typeface.create("Helvetica", 0);
-		// imagePaint.setTypeface(tf);
+		Typeface tf = Typeface.create("Helvetica", 0);
+		imagePaint.setTypeface(tf);
 		// Draw the image to our canvas
 		markerImg.draw(imageCanvas);
 
@@ -155,25 +164,31 @@ public class WalkMapActivity extends Activity {
 		for (WalkPoint thisPoint : walkPoints) {
 			markerNum++;
 
-			Drawable thisItem;
+			Drawable icon;
 
 			if (walkPointIDsVisited.contains(Integer.valueOf(markerNum - 1))) {
 
-				thisItem = createMarkerIcon(markerNum, 24, 24, true);
+				icon = createMarkerIcon(markerNum, 24, 24, true);
 			} else {
-				thisItem = createMarkerIcon(markerNum, 24, 24, false);
+				icon = createMarkerIcon(markerNum, 24, 24, false);
 
 			}
-			ExtendedOverlayItem myLocationOverlayItem = new ExtendedOverlayItem(
+
+			ExtendedOverlayItem overlay = new ExtendedOverlayItem(
 					thisPoint.getTitle(), "Tap and hold for info...",
 					convertToGeoPoint(thisPoint.getLat(), thisPoint.getLon()),
-					getApplicationContext());
-			myLocationOverlayItem.setMarker(thisItem);
-			markerPoints.add(myLocationOverlayItem);
+					this);
+			overlay.setMarkerHotspot(ExtendedOverlayItem.HotspotPlace.CENTER);
+			overlay.setMarker(icon);
+			overlay.setDescription("Tap and hold for info...");
+			overlay.setSubDescription("");
+			markerPoints.add(overlay);
+			
+			
+
 		}
 
 		return markerPoints;
-
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -206,10 +221,10 @@ public class WalkMapActivity extends Activity {
 
 		// can use this for testing when no internet is available - offline maps
 		// etc.
-		// mapView.setUseDataConnection(false);
+		mapView.setUseDataConnection(true);
 
-		// mapView.setTileSource(TileSourceFactory.MAPQUESTOSM);
-		String fileName = "AberaeronTiles.zip";
+		//mapView.setTileSource(TileSourceFactory.MAPQUESTOSM);
+		//String fileName = "AberaeronTiles.zip";
 		// File destinationFile = new
 		// File(Environment.getExternalStorageDirectory()+"/osmdroid/" +
 		// fileName);
@@ -308,53 +323,47 @@ public class WalkMapActivity extends Activity {
 		ResourceProxy resourceProxy = new DefaultResourceProxyImpl(
 				getApplicationContext());
 		// setup the other markers
+		
 		final ArrayList<ExtendedOverlayItem> items = drawMarkers();
 		items.add(myLocationOverlayItem);
-		ItemizedOverlayWithFocus<ExtendedOverlayItem> currentLocationOverlay = new ItemizedOverlayWithFocus<ExtendedOverlayItem>(
-				items,
-				new ItemizedIconOverlay.OnItemGestureListener<ExtendedOverlayItem>() {
+		
+		ItemizedOverlayWithFocus<ExtendedOverlayItem> currentLocationOverlay = 
+				new ItemizedOverlayWithFocus<ExtendedOverlayItem>( items,
+						new ItemizedIconOverlay.OnItemGestureListener
+							<ExtendedOverlayItem>() {
+					
 					public boolean onItemSingleTapUp(final int index,
 							final ExtendedOverlayItem item) {
-						// Toast.makeText(getApplicationContext(),
-						// walkPoints.get(index).getTitle(),
-						// Toast.LENGTH_SHORT).show();
-						if (index < walkPoints.size()) { // if it's not the
-															// current location
-															// marker
-							mapController.animateTo(walkPoints.get(index)
-									.getLat(), walkPoints.get(index).getLon());
-						} else {
-
-						}
-						// Log.i("mapView","tapped index:"+walkPoints.get(index).getTitle());
+						
+						if (index < walkPoints.size()) { 
+							GeoPoint test = new GeoPoint(
+									walkPoints.get(index).getLat(), 
+									walkPoints.get(index).getLon()
+								);
+							mapController.animateTo(test);
+						} 
 						return true;
 					}
 
 					public boolean onItemLongPress(final int index,
 							final ExtendedOverlayItem item) {
+						
 						if (index < walkPoints.size()) {
 							displayInfo(walkPoints.get(index).getID(),
-									thisWalk.getID()); // display
-							// info
-							// screen,
-							// passing
-							// global
-							// point
-							// id
+									thisWalk.getID()); 
 						}
 						return true;
 					}
 
 				}, resourceProxy);
-		// ItemizedOverlayWithBubble<ExtendedOverlayItem> bubblePoints = new
-		// ItemizedOverlayWithBubble<ExtendedOverlayItem>(this, items, mapView);
+		
 		currentLocationOverlay.setFocusItemsOnTap(true);
+		
+		
 
-		// bubblePoints.setFocusItemsOnTap(true);
 		this.mapView.getOverlays().clear();
 		this.mapView.getOverlays().add(currentLocationOverlay);
 		mapView.invalidate(); // redraw the map
-		// this.mapView.getOverlays().add(bubblePoints);
 		Log.i("walkmapactivity", "updateMapPoints complete");
 
 	}
@@ -437,8 +446,8 @@ public class WalkMapActivity extends Activity {
 																// beyond index
 																// range
 					currentPointID++;
-					mapController.animateTo(walkPoints.get(currentPointID)
-							.getLat(), walkPoints.get(currentPointID).getLon());
+					mapController.animateTo(new GeoPoint(walkPoints.get(currentPointID)
+							.getLat(), walkPoints.get(currentPointID).getLon()));
 
 				} else {
 
@@ -472,4 +481,12 @@ public class WalkMapActivity extends Activity {
 		// LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
 		super.onDestroy();
 	}
+	
+	 class CustomInfoWindow extends DefaultInfoWindow {
+         POI selectedPoi;
+         public CustomInfoWindow(MapView mapView) {
+                 super(R.layout.bonuspack_bubble, mapView);
+                 
+         }
+	 }
 }
