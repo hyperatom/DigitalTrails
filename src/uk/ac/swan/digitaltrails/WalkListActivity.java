@@ -3,9 +3,9 @@ package uk.ac.swan.digitaltrails;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import uk.ac.swan.digitailtrails.utils.DatabaseHandler;
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Walk;
+import uk.ac.swan.digitaltrails.utils.DatabaseHandler;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.SQLException;

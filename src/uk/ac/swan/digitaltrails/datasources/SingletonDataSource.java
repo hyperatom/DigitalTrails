@@ -1,6 +1,6 @@
 package uk.ac.swan.digitaltrails.datasources;
 
-import uk.ac.swan.digitailtrails.utils.DatabaseHandler;
+import uk.ac.swan.digitaltrails.utils.DatabaseHandler;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;

@@ -3,8 +3,8 @@ package uk.ac.swan.digitaltrails.datasources;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.ac.swan.digitailtrails.utils.Duration;
 import uk.ac.swan.digitaltrails.components.Walk;
+import uk.ac.swan.digitaltrails.utils.Duration;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;

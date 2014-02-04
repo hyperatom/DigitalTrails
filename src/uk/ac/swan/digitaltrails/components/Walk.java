@@ -2,7 +2,7 @@ package uk.ac.swan.digitaltrails.components;
 
 import java.util.ArrayList;
 
-import uk.ac.swan.digitailtrails.utils.Duration;
+import uk.ac.swan.digitaltrails.utils.Duration;
 
 public class Walk {
 	private String mTitle;
