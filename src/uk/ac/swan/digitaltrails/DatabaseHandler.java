@@ -26,9 +26,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	private static String DB_PATH = "/data/data/uk.ac.swan.digitaltrails/databases/";
 
-	//private static String DB_NAME = "aberystwyth.sqlite3";
-	private static String DB_NAME = "aberaeron.sqlite3";
-
+	private static String DB_NAME = "aberystwyth.sqlite3"; //TODO: change
+	// private static String DB_NAME = "aberaeron.sqlite3";
+	
 	private SQLiteDatabase myDataBase;
 
 	private final Context myContext;
@@ -211,12 +211,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		if (cursor != null)
 			cursor.moveToFirst();
 
+		// THIS ALL NEEDS CHANGING BASED ON DATABASE.
 		// 0=id, 1=titleEng, 2=titleWelsh, 3=shortWelshDesc, 4=shortEngDesc,
 		// 5=engDesc, 6=welshDesc
 		Walk walk = new Walk();
 		walk.setID(Integer.parseInt(cursor.getString(0)));
 		walk.setTitle(cursor.getString(1));
-		walk.setDesc(cursor.getString(5));
+		walk.setShortDescription(cursor.getString(4));
+		walk.setLongDescription(cursor.getString(5));
 		walk.setPoints(getLocationIDsForWalkID(walk.getID()));
 
 		cursor.close();
@@ -251,7 +253,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				Walk walk = new Walk();
 				walk.setID(Integer.parseInt(cursor.getString(0)));
 				walk.setTitle(cursor.getString(1));
-				walk.setDesc(cursor.getString(5));
+				walk.setShortDescription(cursor.getString(4));
+				walk.setLongDescription(cursor.getString(5));
 				walk.setPoints(getLocationIDsForWalkID(walk.getID()));
 				walkList.add(walk);
 			} while (cursor.moveToNext());

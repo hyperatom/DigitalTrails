@@ -5,6 +5,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 
+// Pretty sure this can be removed when we get google maps installed.,
 public class LocationManagerHelper implements LocationListener {
 
 	private static double latitude;
