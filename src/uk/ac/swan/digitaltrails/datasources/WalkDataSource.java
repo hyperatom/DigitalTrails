@@ -21,12 +21,16 @@ public class WalkDataSource extends SingletonDataSource {
 		mTable = mDbHandler.WALKS_TABLE;
 	}
 
+
+	//TODO: Validation etc, where does the Owner go?
 	/**
-	 * 
-	 * @param fileLocation
+	 * Create a walk and add to db.
+	 * @param duration
+	 * @param distance
+	 * @param downloadCount
+	 * @param difficultyRating
 	 * @return
 	 */
-	//TODO: Validation etc
 	public Walk createWalk(int duration,
 			double distance, int downloadCount, int difficultyRating) {
 		ContentValues values = new ContentValues();
@@ -80,10 +84,9 @@ public class WalkDataSource extends SingletonDataSource {
 		Walk walk = new Walk();
 		walk.setId(cursor.getLong(0));
 		walk.setDuration(new Duration(cursor.getDouble(1)));
-		//TODO: do correct setters.
-		walk.setLongitude(cursor.getDouble(2));
-		walk.setIsRequest(cursor.getInt(3));
-		walk.setVisitOrder(cursor.getInt(4));
+		walk.setDistance(cursor.getDouble(2));
+		walk.setDownloadCount(cursor.getLong(3));
+		walk.setDifficultyRating(cursor.getInt(4));
 		return walk;
 	}
 	

@@ -75,8 +75,7 @@ public class Duration {
 	}
 	
 	public Duration(double minutes) {
-		//TODO: Convert from minutes to hours and minutes
-		setHours((int)minutes/60);
+		setHours((int) Math.floor(minutes/60));
 		setMinutes((int)minutes%60);
 	}
 
