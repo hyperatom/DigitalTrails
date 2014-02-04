@@ -3,8 +3,9 @@ package uk.ac.swan.digitaltrails;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import uk.ac.swan.digitailtrails.utils.DatabaseHandler;
 import uk.ac.swan.digitaltrails.R;
-
+import uk.ac.swan.digitaltrails.components.Walk;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.SQLException;
@@ -67,7 +68,7 @@ public class WalkListActivity extends Activity {
 
 				Walk selectedWalk = dbHandle.getAllWalks().get(position);
 
-				i.putExtra("walkId", selectedWalk.getID());
+				i.putExtra("walkId", selectedWalk.getId());
 				dbHandle.close();
 
 				startActivity(i);

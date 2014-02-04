@@ -1,35 +1,38 @@
-package uk.ac.swan.digitaltrails;
+package uk.ac.swan.digitaltrails.components;
 
 import java.util.ArrayList;
 
+import uk.ac.swan.digitailtrails.utils.Duration;
+
 public class Walk {
-	String title;
-	int id;
-	String shortDescription;
-	String longDescription;
-	String shortDescriptionWelsh;
-	String longDescriptionWelsh;
-	Duration duration;
-	double distance; /** Total distance to walk in CHOSEN FORMAT */
-	ArrayList<Place> places;
+	private String mTitle;
+	private long mId;
+	private String mShortDescription;
+	private String mLongDescription;
+	private String mShortDescriptionWelsh;
+	private String mLongDescriptionWelsh;
+	private Duration mDuration;
+	private double mDistance; /** Total distance to walk in CHOSEN FORMAT */
+	private ArrayList<Place> mPlaces;
+	private String mOwner;
 	
 	//TODO: Clean up the mess this variable has left across the whole project.
-	ArrayList<Integer> points; // Y????
+	private ArrayList<Integer> points; // Y????
 	
 	/**
 	 * Setter for id
 	 * @param id to be set
 	 */
-	public void setID(int id) {
-		this.id = id;
+	public void setId(long id) {
+		this.mId = id;
 	}
 	
 	/**
 	 * Getter for id
 	 * @return the id
 	 */
-	public int getID() {
-		return id;
+	public long getId() {
+		return mId;
 	}
 
 	/**
@@ -37,7 +40,7 @@ public class Walk {
 	 * @param title to be set
 	 */
 	public void setTitle(String title) {
-		this.title = title;
+		this.mTitle = title;
 	}
 	
 	/**
@@ -45,7 +48,7 @@ public class Walk {
 	 * @return The title
 	 */
 	public String getTitle() {
-		return title;
+		return mTitle;
 	}
 
 	/**
@@ -53,7 +56,7 @@ public class Walk {
 	 * @param shortDescription to be set
 	 */
 	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
+		this.mShortDescription = shortDescription;
 	}
 	
 	/**
@@ -61,7 +64,7 @@ public class Walk {
 	 * @return short description
 	 */
 	public String getShortDescription() {
-		return shortDescription;
+		return mShortDescription;
 	}
 	
 	/**
@@ -69,7 +72,7 @@ public class Walk {
 	 * @param longDescription to be set
 	 */
 	public void setLongDescription(String longDescription) {
-		this.longDescription = longDescription;
+		this.mLongDescription = longDescription;
 	}
 	
 	/**
@@ -77,7 +80,7 @@ public class Walk {
 	 * @return long description
 	 */
 	public String getLongDescription() {
-		return longDescription;
+		return mLongDescription;
 	}
 	
 	/**
@@ -85,7 +88,7 @@ public class Walk {
 	 * @param duration to be set
 	 */
 	public void setDuration(Duration duration) {
-		this.duration = duration;
+		this.mDuration = duration;
 	}
 	
 	/**
@@ -93,7 +96,7 @@ public class Walk {
 	 * @return duration
 	 */
 	public Duration getDuration() {
-		return duration;
+		return mDuration;
 	}
 	
 	/**
@@ -101,7 +104,7 @@ public class Walk {
 	 * @param distance to be set
 	 */
 	public void setDistance(double distance) {
-		this.distance = distance;
+		this.mDistance = distance;
 	}
 	
 	/**
@@ -109,7 +112,7 @@ public class Walk {
 	 * @return distance
 	 */
 	public double getDistance() {
-		return distance;
+		return mDistance;
 	}
 	
 	/**
@@ -117,7 +120,7 @@ public class Walk {
 	 * @param places to be set
 	 */
 	public void setPlaces(ArrayList<Place> places) {
-		this.places = places;
+		this.mPlaces = places;
 	}
 	
 	/**
@@ -125,23 +128,30 @@ public class Walk {
 	 * @return places
 	 */
 	public ArrayList<Place> getPlaces() {
-		return places;
+		return mPlaces;
 	}
 
 	public void setPoints(ArrayList<Integer> in) {
 		points = in;
 	}
 	
+	public String getOwner() {
+		return mOwner;
+	}
+	
+	public void setOwner(String owner) {
+		mOwner = owner;
+	}
+	
 	/**
 	 * Default Constructor
 	*/
 	public Walk() {
-		setID(-1);
+		setId(-1);
 		setTitle("New Walk");
-		setShortDescription("Short Description");
-		setLongDescription("Long Description");
 		setDuration(new Duration(0, 0));
 		setDistance(-1);
+		setOwner("none");
 	}
 	
 	/**
@@ -153,13 +163,12 @@ public class Walk {
 	 * @param duration
 	 * @param distance
 	 */
-	public Walk(int id, String title, String shortDescription, String longDescription, Duration duration, double distance) {
-		setID(id);
+	public Walk(int id, String title, String shortDescription, String longDescription, Duration duration, double distance, String owner) {
+		setId(id);
 		setTitle(title);
-		setShortDescription(shortDescription);
-		setLongDescription(longDescription);
 		setDuration(duration);
 		setDistance(distance);
+		setOwner(owner);
 	}
 	
 

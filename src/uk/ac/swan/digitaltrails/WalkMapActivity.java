@@ -10,8 +10,9 @@ package uk.ac.swan.digitaltrails;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import uk.ac.swan.digitailtrails.utils.DatabaseHandler;
 import uk.ac.swan.digitaltrails.R;
-
+import uk.ac.swan.digitaltrails.components.Walk;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +32,8 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
 //TODO: remove OSM references, add Google Maps.
 import org.osmdroid.bonuspack.overlays.ExtendedOverlayItem;
 import org.osmdroid.DefaultResourceProxyImpl;
@@ -333,8 +336,8 @@ public class WalkMapActivity extends Activity {
 					public boolean onItemLongPress(final int index,
 							final ExtendedOverlayItem item) {
 						if (index < walkPoints.size()) {
-							displayInfo(walkPoints.get(index).getID(),
-									thisWalk.getID()); // display
+							displayInfo(walkPoints.get(index).getId(),
+									thisWalk.getId()); // display
 							// info
 							// screen,
 							// passing
@@ -425,8 +428,8 @@ public class WalkMapActivity extends Activity {
 			if (!walkPointIDsVisited.contains(Integer.valueOf(currentPointID))) {
 
 				// get global point ID of the current point
-				displayInfo(walkPoints.get(currentPointID).getID(),
-						thisWalk.getID());
+				displayInfo(walkPoints.get(currentPointID).getId(),
+						thisWalk.getId());
 
 				// add local array index for the visited point to the visited
 				// array
