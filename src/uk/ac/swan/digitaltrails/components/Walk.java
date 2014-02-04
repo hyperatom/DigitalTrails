@@ -7,17 +7,11 @@ import uk.ac.swan.digitailtrails.utils.Duration;
 public class Walk {
 	private String mTitle;
 	private long mId;
-	private String mShortDescription;
-	private String mLongDescription;
-	private String mShortDescriptionWelsh;
-	private String mLongDescriptionWelsh;
+	private ArrayList<Description> mDescriptions;
 	private Duration mDuration;
 	private double mDistance; /** Total distance to walk in CHOSEN FORMAT */
-	private ArrayList<Place> mPlaces;
+	private ArrayList<Waypoint> mWaypoints;
 	private String mOwner;
-	
-	//TODO: Clean up the mess this variable has left across the whole project.
-	private ArrayList<Integer> points; // Y????
 	
 	/**
 	 * Setter for id
@@ -51,36 +45,12 @@ public class Walk {
 		return mTitle;
 	}
 
-	/**
-	 * Setter for short description
-	 * @param shortDescription to be set
-	 */
-	public void setShortDescription(String shortDescription) {
-		this.mShortDescription = shortDescription;
+	public ArrayList<Description> getDescriptions() {
+		return mDescriptions;
 	}
 	
-	/**
-	 * Getter for short description
-	 * @return short description
-	 */
-	public String getShortDescription() {
-		return mShortDescription;
-	}
-	
-	/**
-	 * Setter for long description
-	 * @param longDescription to be set
-	 */
-	public void setLongDescription(String longDescription) {
-		this.mLongDescription = longDescription;
-	}
-	
-	/**
-	 * Getter for long description
-	 * @return long description
-	 */
-	public String getLongDescription() {
-		return mLongDescription;
+	public void setDescriptions(ArrayList<Description> descriptions) {
+		mDescriptions = descriptions;
 	}
 	
 	/**
@@ -117,22 +87,18 @@ public class Walk {
 	
 	/**
 	 * Setter for places
-	 * @param places to be set
+	 * @param waypoints to be set
 	 */
-	public void setPlaces(ArrayList<Place> places) {
-		this.mPlaces = places;
+	public void setWaypoints(ArrayList<Waypoint> waypoints) {
+		this.mWaypoints = waypoints;
 	}
 	
 	/**
 	 * Getter for places
 	 * @return places
 	 */
-	public ArrayList<Place> getPlaces() {
-		return mPlaces;
-	}
-
-	public void setPoints(ArrayList<Integer> in) {
-		points = in;
+	public ArrayList<Waypoint> getWaypoints() {
+		return mWaypoints;
 	}
 	
 	public String getOwner() {

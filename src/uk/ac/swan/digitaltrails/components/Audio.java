@@ -6,8 +6,8 @@ public class Audio extends Media {
 		super();
 	}
 
-	public Audio(int id, String location, Place place) {
-		super();
+	public Audio(int id, String location, Waypoint waypoint) {
+		super(id, location, waypoint);
 	}
 	
 }

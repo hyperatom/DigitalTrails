@@ -3,43 +3,43 @@ package uk.ac.swan.digitaltrails.datasources;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.swan.digitaltrails.components.Video;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;
-import uk.ac.swan.digitaltrails.components.Audio;
 
-public class AudioDataSource extends MediaDataSource {
+public class VideoDataSource extends MediaDataSource {
 
-	private static final String TAG = "AudioDataSource";
-
-	protected AudioDataSource() {
+	private static final String TAG = "VideoDataSource";
+	
+	protected VideoDataSource() {
 		super();
-		mTable = mDbHandler.AUDIO_TABLE;
+		mTable = mDbHandler.VIDEOS_TABLE;
 	}
-
+	
 	/**
 	 * 
 	 * @param fileLocation
 	 * @return
 	 */
-	public Audio createAudio(String fileLocation) {
+	public Video createVideo(String fileLocation) {
 		ContentValues values = new ContentValues();
 		values.put("FileLocation", fileLocation);
 		long insertId = mWhiteRockDB.insert(mTable, null, values);
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, "id" + " = "
 				+ insertId, null, null, null, null);
-		Audio newAudio = cursorToAudio(cursor);
+		Video newVideo = cursorToVideo(cursor);
 		cursor.close();
-		return newAudio;
+		return newVideo;
 	}
 
 	/**
 	 * 
-	 * @param audio
+	 * @param video
 	 */
-	public void deleteAudio(Audio audio) {
-		long id = audio.getId();
-		Log.i(TAG, "Audio deleted with id: " + id);
+	public void deleteVideo(Video video) {
+		long id = video.getId();
+		Log.i(TAG, "Video deleted with id: " + id);
 		mWhiteRockDB.delete(mTable, "id" + " = " + id, null);
 	}
 
@@ -47,33 +47,33 @@ public class AudioDataSource extends MediaDataSource {
 	 * 
 	 * @return
 	 */
-	public List<Audio> getAllAudio() {
-		ArrayList<Audio> audioList = new ArrayList<Audio>();
+	public List<Video> getAllVideo() {
+		ArrayList<Video> videoList = new ArrayList<Video>();
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, null, null,
 				null, null, null);
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
-			Audio audio = cursorToAudio(cursor);
-			audioList.add(audio);
+			Video video = cursorToVideo(cursor);
+			videoList.add(video);
 			cursor.moveToNext();
 		}
 		
 		cursor.close();
-		return audioList;
+		return videoList;
 	}
 
 	/**
-	 * Create Audio from the cursor.
+	 * Create Video from the cursor.
 	 * 
 	 * @param cursor
-	 * @return New Audio.
+	 * @return New Video.
 	 */
-	private Audio cursorToAudio(Cursor cursor) {
-		Audio audio = new Audio();
-		audio.setId(cursor.getLong(0));
-		audio.setFileLocation(cursor.getString(1));
-		return audio;
+	private Video cursorToVideo(Cursor cursor) {
+		Video video = new Video();
+		video.setId(cursor.getLong(0));
+		video.setFileLocation(cursor.getString(1));
+		return video;
 	}
-
+	
 }

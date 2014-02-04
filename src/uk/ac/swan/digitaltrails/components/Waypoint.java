@@ -7,12 +7,14 @@ package uk.ac.swan.digitaltrails.components;
 
 import java.util.ArrayList;
 
-public class Place {
+public class Waypoint {
 
 	private long mId;
 	private String mTitle;
 	private double mLongitude;
 	private double mLatitude;
+	private int mVisitOrder;
+	private boolean mIsRequest; 
 	private ArrayList<Photo> mPhotos;
 	private ArrayList<Audio> mAudioFiles;
 	private ArrayList<Video> mVideos;
@@ -50,6 +52,30 @@ public class Place {
 		this.mLongitude = longitude;
 	}
 
+	public void setIsRequest(boolean isRequest) {
+		mIsRequest = isRequest;
+	}
+	
+	public void setIsRequest(int isRequest) {
+		if (isRequest > 0) {
+			mIsRequest = true;
+		} else {
+			mIsRequest = false;
+		}
+	}
+	
+	public boolean IsRequest() {
+		return mIsRequest;
+	}
+	
+	public void setVisitOrder(int visitOrder) {
+		mVisitOrder = visitOrder;
+	}
+	
+	public int getVisitOrder() {
+		return mVisitOrder;
+	}
+	
 	public ArrayList<Photo> getPhotos() {
 		return mPhotos;
 	}
@@ -82,14 +108,14 @@ public class Place {
 		mDescriptions = descriptions;
 	}
 
-	public Place() {
+	public Waypoint() {
 		setId(0);
 		setTitle("New Place");
 		setLatitude(0);
 		setLongitude(0);
 	}
 
-	public Place(int id, String title, ArrayList<Description> descriptions, double longitude, double latitude,
+	public Waypoint(int id, String title, ArrayList<Description> descriptions, double longitude, double latitude,
 			ArrayList<Photo> photos, ArrayList<Audio> audioFiles,
 			ArrayList<Video> videos) {
 		setId(0);

@@ -6,40 +6,40 @@ import java.util.List;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;
-import uk.ac.swan.digitaltrails.components.Audio;
+import uk.ac.swan.digitaltrails.components.Photo;
 
-public class AudioDataSource extends MediaDataSource {
+public class PhotoDataSource extends MediaDataSource {
 
-	private static final String TAG = "AudioDataSource";
-
-	protected AudioDataSource() {
+	private static final String TAG = "PhotoDataSource";
+	
+	protected PhotoDataSource() {
 		super();
-		mTable = mDbHandler.AUDIO_TABLE;
+		mTable = mDbHandler.IMAGES_TABLE;
 	}
-
+	
 	/**
 	 * 
 	 * @param fileLocation
 	 * @return
 	 */
-	public Audio createAudio(String fileLocation) {
+	public Photo createPhoto(String fileLocation) {
 		ContentValues values = new ContentValues();
 		values.put("FileLocation", fileLocation);
 		long insertId = mWhiteRockDB.insert(mTable, null, values);
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, "id" + " = "
 				+ insertId, null, null, null, null);
-		Audio newAudio = cursorToAudio(cursor);
+		Photo newPhoto = cursorToPhoto(cursor);
 		cursor.close();
-		return newAudio;
+		return newPhoto;
 	}
 
 	/**
 	 * 
-	 * @param audio
+	 * @param photo
 	 */
-	public void deleteAudio(Audio audio) {
-		long id = audio.getId();
-		Log.i(TAG, "Audio deleted with id: " + id);
+	public void deletePhoto(Photo photo) {
+		long id = photo.getId();
+		Log.i(TAG, "Photo deleted with id: " + id);
 		mWhiteRockDB.delete(mTable, "id" + " = " + id, null);
 	}
 
@@ -47,33 +47,33 @@ public class AudioDataSource extends MediaDataSource {
 	 * 
 	 * @return
 	 */
-	public List<Audio> getAllAudio() {
-		ArrayList<Audio> audioList = new ArrayList<Audio>();
+	public List<Photo> getAllPhoto() {
+		ArrayList<Photo> photoList = new ArrayList<Photo>();
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, null, null,
 				null, null, null);
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
-			Audio audio = cursorToAudio(cursor);
-			audioList.add(audio);
+			Photo photo = cursorToPhoto(cursor);
+			photoList.add(photo);
 			cursor.moveToNext();
 		}
 		
 		cursor.close();
-		return audioList;
+		return photoList;
 	}
 
 	/**
-	 * Create Audio from the cursor.
+	 * Create Photo from the cursor.
 	 * 
 	 * @param cursor
-	 * @return New Audio.
+	 * @return New Photo.
 	 */
-	private Audio cursorToAudio(Cursor cursor) {
-		Audio audio = new Audio();
-		audio.setId(cursor.getLong(0));
-		audio.setFileLocation(cursor.getString(1));
-		return audio;
+	private Photo cursorToPhoto(Cursor cursor) {
+		Photo photo = new Photo();
+		photo.setId(cursor.getLong(0));
+		photo.setFileLocation(cursor.getString(1));
+		return photo;
 	}
-
+	
 }

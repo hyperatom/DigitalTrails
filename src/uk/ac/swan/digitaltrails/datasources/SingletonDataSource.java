@@ -12,6 +12,7 @@ public class SingletonDataSource {
 	protected static Context mContext;
 	protected DatabaseHandler mDbHandler;
 	protected SQLiteDatabase mWhiteRockDB;
+	protected String mTable;
 	
 	/**
 	 * Used to initialise class. MUst be called before getInstance() 

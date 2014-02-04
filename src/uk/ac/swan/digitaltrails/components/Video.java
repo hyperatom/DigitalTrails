@@ -6,8 +6,8 @@ public class Video extends Media {
 		super();
 	}
 
-	public Video(int id, String location, Place place) {
-		super();
+	public Video(int id, String location, Waypoint place) {
+		super(id, location, place);
 	}
 	
 }

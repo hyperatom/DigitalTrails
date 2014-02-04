@@ -4,7 +4,7 @@ public class Media {
 
 	protected long mId;
 	protected String mFileLocation;
-	protected Place mPlace;
+	protected Waypoint mWaypoint;
 	
 	public long getId() {
 		return mId;
@@ -22,12 +22,12 @@ public class Media {
 		this.mFileLocation = location;
 	}
 	
-	public Place getPlace() {
-		return mPlace;
+	public Waypoint getWaypoint() {
+		return mWaypoint;
 	}
 	
-	public void setPlace(Place place) {
-		mPlace = place;
+	public void setWaypoint(Waypoint waypoint) {
+		mWaypoint = waypoint;
 	}
 	
 	public Media() {
@@ -35,10 +35,10 @@ public class Media {
 		setFileLocation("NULL");
 	}
 	
-	public Media(int id, String fileLocation, Place place) {
+	public Media(int id, String fileLocation, Waypoint place) {
 		setId(id);
 		setFileLocation(fileLocation);
-		setPlace(place);
+		setWaypoint(place);
 	}
 	
 }
