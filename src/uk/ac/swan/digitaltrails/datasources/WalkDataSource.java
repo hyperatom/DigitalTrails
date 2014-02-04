@@ -80,6 +80,7 @@ public class WalkDataSource extends SingletonDataSource {
 		Walk walk = new Walk();
 		walk.setId(cursor.getLong(0));
 		walk.setDuration(new Duration(cursor.getDouble(1)));
+		//TODO: do correct setters.
 		walk.setLongitude(cursor.getDouble(2));
 		walk.setIsRequest(cursor.getInt(3));
 		walk.setVisitOrder(cursor.getInt(4));
