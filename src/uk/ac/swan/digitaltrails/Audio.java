@@ -1,34 +1,15 @@
 package uk.ac.swan.digitaltrails;
 
-public class Audio {
+public class Audio extends Media {
 
-	private int id;
-	private String location;
-	
-	public int getID() {
-		return id;
-	}
-	
-	public void setID(int id) {
-		this.id = id;
-	}
-	
-	public String getLocation() {
-		return location;
-	}
-	
-	public void setLocation(String location) {
-		this.location = location;
-	}
-	
 	public Audio() {
-		setID(0);
-		setLocation("");
+		super();
 	}
 
 	public Audio(int id, String location) {
+		super();
 		setID(id);
-		setLocation(location);
+		setFileLocation(location);
 	}
 	
 }

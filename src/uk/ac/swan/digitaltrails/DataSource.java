@@ -11,7 +11,7 @@ import android.util.Log;
 public class DataSource {
 
 	private static ArrayList<Walk> allWalks;
-	private static ArrayList<WalkPoint> allPoints;
+	private static ArrayList<Place> allPlaces;
 	private static DataSource instance = null;
 	private static Context mContext;
 
@@ -19,11 +19,13 @@ public class DataSource {
 		// Exists only to defeat instantiation.
 	}
 
+	
+	//fucking static methods and shit inside a non-static class. fuck off.
 	public static DataSource getInstance() {
-		if (instance == null) {
+		if (instance == null) { // WHY WOULD THIS EVER BE THE CASE IF YOU INSTANTIATE THE CLASS?
 			instance = new DataSource();
 			allWalks = new ArrayList<Walk>();
-			allPoints = new ArrayList<WalkPoint>();
+			allPlaces = new ArrayList<Place>();
 			setupWalkList();
 		}
 		return instance;
@@ -33,53 +35,53 @@ public class DataSource {
 		return allWalks;
 	}
 
-	public ArrayList<WalkPoint> getPointsForWalkID(int id) {
+	public ArrayList<Place> getPointsForWalkID(int id) {
 		Log.i("", "Getting points for walkID: " + id + " allWalks.size()="
 				+ allWalks.size());
 
 		Walk thisWalk = allWalks.get(id);
-		ArrayList<Integer> thePointIDs = thisWalk.getPoints();
-		ArrayList<WalkPoint> walkPoints = new ArrayList<WalkPoint>();
+		ArrayList<Integer> thePointIDs = thisWalk.getPoints(); // stupid storing IDs when you can just get the places
+		ArrayList<WalkPoint> walkPoints = new ArrayList<WalkPoint>(); // WHICH THEY DO ANYWAY, SO WHY ARE THEY SO DUMB? Minimal speed gains for messy code.
 		for (Integer pointID : thePointIDs) {
 			Log.i("", "Adding point to return list: " + pointID);
 
-			walkPoints.add(allPoints.get(pointID.intValue()));
+			walkPoints.add(allPlaces.get(pointID.intValue()));
 
-		}
+		} // this is basically just getting wp id's and putting them in some order somewhere
 
 		return walkPoints;
 	}
 
 	public WalkPoint getWalkPointID(int id) {
 		Log.i("", "Getting walkpoint ID: " + id + " allPoints size: "
-				+ allPoints.size());
+				+ allPlaces.size());
 
-		if (allPoints.size() > 0) {
-			return allPoints.get(id);
+		if (allPlaces.size() > 0) {
+			return allPlaces.get(id);
 		} else {
 			return new WalkPoint();
 		}
 
-	}
+	} // why?
 
 	public static void setupWalkList() {
 
 		// setup all walk points into data structure
 
-		allPoints.add(new WalkPoint(0, 52.41630256175995, -4.065622687339783,
+		allPlaces.add(new WalkPoint(0, 52.41630256175995, -4.065622687339783,
 				"Astute Office", "This is the Astute office..."));
-		allPoints.add(new WalkPoint(1, 52.416279, -4.066613, "IBERBach",
+		allPlaces.add(new WalkPoint(1, 52.416279, -4.066613, "IBERBach",
 				"Small cafe."));
-		allPoints.add(new WalkPoint(2, 52.416002, -4.06563, "Physics Main",
+		allPlaces.add(new WalkPoint(2, 52.416002, -4.06563, "Physics Main",
 				"This is the physics building."));
-		allPoints.add(new WalkPoint(3, 52.415713, -4.066304, "Biology Main",
+		allPlaces.add(new WalkPoint(3, 52.415713, -4.066304, "Biology Main",
 				"This is the biology building."));
-		allPoints.add(new WalkPoint(4, 52.416205, -4.065548,
+		allPlaces.add(new WalkPoint(4, 52.416205, -4.065548,
 				"Computer Science", "This is the computer science building."));
-		allPoints.add(new WalkPoint(5, 52.416518, -4.066422, "Union Steps",
+		allPlaces.add(new WalkPoint(5, 52.416518, -4.066422, "Union Steps",
 				"This is the steps to the union."));
 
-		allPoints
+		allPlaces
 				.add(new WalkPoint(
 						6,
 						52.2436,
@@ -87,7 +89,7 @@ public class DataSource {
 						"General Storehouse",
 						"Thought to be one of the oldest buildings along the Quay. In the C19th it stored goods brought in by ship and was later used as a mortuary. When the harbour was first built a plaque was erected to commemorate its completion. In time it disappeared but in 2007 a replica was erected and if you walk to the end of the pier you will see it on the lookout. To the north of the harbour entrance, the Reverend Alban Thomas Gwynne built a row of houses for the labourers employed in building the harbour, called Mynachdy Row, though locals named them Bedlam Barracks and in 1818 a school was built. All were lost to the sea in the late C19th.",
 						new ArrayList<String>(Arrays.asList("image00"))));
-		allPoints
+		allPlaces
 				.add(new WalkPoint(
 						7,
 						52.2435,
@@ -95,7 +97,7 @@ public class DataSource {
 						"Harbourmaster's House",
 						"This building was the first building to be built along the new quay in about 1812. The height of the building made it easy to keep a lookout for smugglers. The ground floor was a public house and up until the 1950s it was known as the Red Lion.",
 						new ArrayList<String>(Arrays.asList("image01"))));
-		allPoints
+		allPlaces
 				.add(new WalkPoint(
 						8,
 						52.2435,
@@ -103,7 +105,7 @@ public class DataSource {
 						"Spillers Flour Warehouse",
 						"Originally built as a house it was reportedly destroyed in a fire. A warehouse was erected in its place and in the early 1900s was owned by Spillers and used for the storage of flour transported by steam ships from the main outlet in Cardiff.",
 						new ArrayList<String>(Arrays.asList("image02"))));
-		allPoints
+		allPlaces
 				.add(new WalkPoint(
 						9,
 						52.2434,
@@ -112,16 +114,16 @@ public class DataSource {
 						"The Steam Navigation Company was established here in 1863 but went into liquidation when its ship the Prince Cadwgan, captained by John Evans, Milford House, was lost in 1876. The Aberayron Steam Packet Company was established in 1877 and ran steam ships on the milk run to Bristol. Payments were made at the harbourmaster’s office until December 1916. Steam ships continued to visit the harbour up until the 1920s. By 1819 there were five houses on Quay Parade; two were to become taverns – No 4, the Hope Inn, and No 10, the Swan Inn.",
 						new ArrayList<String>(Arrays.asList("image03"))));
 
-		allPoints.add(new WalkPoint(10, 52.416631, -4.065773,
+		allPlaces.add(new WalkPoint(10, 52.416631, -4.065773,
 				"Concourse carpark", "Car park near geog concourse."));
-		allPoints
+		allPlaces
 				.add(new WalkPoint(11, 52.416663, -4.066063,
 						"Geog Concourse Entrance",
 						"This is near geography concourse."));
-		allPoints.add(new WalkPoint(12, 52.417776, -4.064748, "Penbryn",
+		allPlaces.add(new WalkPoint(12, 52.417776, -4.064748, "Penbryn",
 				"This is near ta med ."));
-		allPoints.add(new WalkPoint(13, 52.417089, -4.065135, "Junction", ""));
-		allPoints.add(new WalkPoint(14, 52.416971, -4.065564, "Junction", ""));
+		allPlaces.add(new WalkPoint(13, 52.417089, -4.065135, "Junction", ""));
+		allPlaces.add(new WalkPoint(14, 52.416971, -4.065564, "Junction", ""));
 
 		Walk walk1 = new Walk();
 		walk1.setTitle("Aber Campus Longer Walk");

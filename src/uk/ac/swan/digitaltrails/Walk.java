@@ -7,6 +7,8 @@ public class Walk {
 	int id;
 	String shortDescription;
 	String longDescription;
+	String shortDescriptionWelsh;
+	String longDescriptionWelsh;
 	Duration duration;
 	double distance; /** Total distance to walk in CHOSEN FORMAT */
 	ArrayList<Place> places;
@@ -142,8 +144,22 @@ public class Walk {
 		setDistance(-1);
 	}
 	
-	public Walk(int id) {
-		
+	/**
+	 * Constructor method.
+	 * @param id
+	 * @param title
+	 * @param shortDescription
+	 * @param longDescription
+	 * @param duration
+	 * @param distance
+	 */
+	public Walk(int id, String title, String shortDescription, String longDescription, Duration duration, double distance) {
+		setID(id);
+		setTitle(title);
+		setShortDescription(shortDescription);
+		setLongDescription(longDescription);
+		setDuration(duration);
+		setDistance(distance);
 	}
 	
 
