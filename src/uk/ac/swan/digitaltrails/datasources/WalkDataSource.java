@@ -15,8 +15,8 @@ import android.util.Log;
 public class WalkDataSource extends SingletonDataSource {
 
 	private static final String TAG = "WalkDataSource";
-	private static final String[] ALL_COLUMNS = { "id", "DurationMinutes",
-			"DistanceMiles", "DownloadCount", "DifficultyRating" };
+	private static final String[] ALL_COLUMNS = { "id", "duration_minutes",
+			"distance_miles", "download_count", "difficulty_rating" };
 
 	protected WalkDataSource(Context context) {
 		super(context);
@@ -24,7 +24,7 @@ public class WalkDataSource extends SingletonDataSource {
 	}
 
 
-	//TODO: Validation etc, where does the Owner go?
+	//TODO: Validation etc
 	/**
 	 * Create a walk and add to db.
 	 * @param duration
@@ -35,6 +35,19 @@ public class WalkDataSource extends SingletonDataSource {
 	 */
 	public Walk createWalk(int duration,
 			double distance, int downloadCount, int difficultyRating) {
+		// Somewhat awkward validation.
+		if (duration < 0) {
+			duration = 0;
+		}
+		if (distance < 0) {
+			distance = 0;
+		}
+		if (downloadCount < 0) {
+			downloadCount = 0;
+		}
+		if (difficultyRating < 0) {
+			difficultyRating = 0;
+		}
 		ContentValues values = new ContentValues();
 		values.put(ALL_COLUMNS[1], duration);
 		values.put(ALL_COLUMNS[2], distance);
@@ -85,12 +98,13 @@ public class WalkDataSource extends SingletonDataSource {
 	private Walk cursorToWalk(Cursor cursor) {
 		Walk walk = new Walk();
 		walk.setId(cursor.getLong(0));
-		walk.setDuration(new Duration(cursor.getDouble(1)));
+		walk.setDuration(new Duration(cursor.getInt(1)));
 		walk.setDistance(cursor.getDouble(2));
 		walk.setDownloadCount(cursor.getLong(3));
 		walk.setDifficultyRating(cursor.getInt(4));
 		return walk;
 	}
+
 	
 
 }

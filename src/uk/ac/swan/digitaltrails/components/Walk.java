@@ -19,11 +19,16 @@ public class Walk {
 	/**
 	 * Setter for id
 	 * 
-	 * @param id
-	 *            to be set
+	 * @param id to be set
+	 * @return true if set, false otherwise
 	 */
-	public void setId(long id) {
-		this.mId = id;
+	public boolean setId(long id) {
+		if (id >= 0) {
+			this.mId = id;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -41,8 +46,9 @@ public class Walk {
 	 * @param title
 	 *            to be set
 	 */
-	public void setTitle(String title) {
+	public boolean setTitle(String title) {
 		this.mTitle = title;
+		return true;
 	}
 
 	/**
@@ -58,8 +64,9 @@ public class Walk {
 		return mDescriptions;
 	}
 
-	public void setDescriptions(ArrayList<Description> descriptions) {
+	public boolean setDescriptions(ArrayList<Description> descriptions) {
 		mDescriptions = descriptions;
+		return true;
 	}
 
 	/**
@@ -68,8 +75,9 @@ public class Walk {
 	 * @param duration
 	 *            to be set
 	 */
-	public void setDuration(Duration duration) {
+	public boolean setDuration(Duration duration) {
 		this.mDuration = duration;
+		return true;
 	}
 
 	/**
@@ -87,8 +95,9 @@ public class Walk {
 	 * @param distance
 	 *            to be set
 	 */
-	public void setDistance(double distance) {
+	public boolean setDistance(double distance) {
 		this.mDistance = distance;
+		return true;
 	}
 
 	/**
@@ -106,8 +115,9 @@ public class Walk {
 	 * @param waypoints
 	 *            to be set
 	 */
-	public void setWaypoints(ArrayList<Waypoint> waypoints) {
+	public boolean setWaypoints(ArrayList<Waypoint> waypoints) {
 		this.mWaypoints = waypoints;
+		return true;
 	}
 
 	/**
@@ -123,43 +133,50 @@ public class Walk {
 		return mOwnerId;
 	}
 
-	public void setOwnerId(long ownerId) {
-		mOwnerId = ownerId;
+	public boolean setOwnerId(long ownerId) {
+		if (ownerId >= 0) {
+			mOwnerId = ownerId;
+			return true;
+		}
+		return false;
+		
 	}
 
 	public long getDownloadCount() {
 		return mDownloadCount;
 	}
 
-	public void setDownloadCount(long downloadCount) {
+	public boolean setDownloadCount(long downloadCount) {
 		if (downloadCount >= 0) {
 			mDownloadCount = downloadCount;
 		} else {
 			mDownloadCount = 0;
 		}
+		return true;
 	}
 
 	public int getDifficultyRating() {
 		return mDifficultyRating;
 	}
 
-	public void setDifficultyRating(int difficultyRating) {
+	public boolean setDifficultyRating(int difficultyRating) {
 		if (difficultyRating > 0 && difficultyRating < 6) {
 			mDifficultyRating = difficultyRating;
 		} else {
-			difficultyRating = 1;
+			mDifficultyRating = 0;
 		}
+		return true;
+
 	}
 
 	/**
 	 * Default Constructor
 	 */
 	public Walk() {
-		setId(-1);
+		// Does not set id or ownerId cause that would break things.
 		setTitle("New Walk");
 		setDuration(new Duration(0, 0));
-		setDistance(-1);
-		setOwnerId(-1);
+		setDistance(0);
 		setDifficultyRating(0);
 		setDownloadCount(0);
 	}
@@ -185,5 +202,6 @@ public class Walk {
 		setDownloadCount(downloadCount);
 		setDifficultyRating(difficulty);
 	}
+
 
 }

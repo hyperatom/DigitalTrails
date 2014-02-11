@@ -72,7 +72,7 @@ public class Duration {
 		setMinutes(0);
 	}
 	
-	public Duration(double minutes) {
+	public Duration(int minutes) {
 		setHours((int) Math.floor(minutes/60));
 		setMinutes((int)minutes%60);
 	}

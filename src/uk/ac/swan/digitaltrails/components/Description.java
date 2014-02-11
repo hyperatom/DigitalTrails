@@ -2,11 +2,12 @@ package uk.ac.swan.digitaltrails.components;
 
 public class Description {
 
-	protected int mId;
+	protected long mId;
 	protected String mTitle;
 	protected String mShortDescription;
 	protected String mLongDescription;
 	protected Languages mLanguage;
+	protected long mForeignId;
 
 	public enum Languages {
 		ENGLISH, WELSH
@@ -18,7 +19,7 @@ public class Description {
 	 * @param id
 	 *            to be set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.mId = id;
 	}
 
@@ -27,10 +28,26 @@ public class Description {
 	 * 
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return mId;
 	}
 
+	/**
+	 * 
+	 * @param title
+	 */
+	public void setTitle(String title) {
+		mTitle = title;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getTitle() {
+		return mTitle;
+	}
+	
 	/**
 	 * Setter for short description
 	 * 
@@ -67,6 +84,14 @@ public class Description {
 	 */
 	public String getLongDescription() {
 		return mLongDescription;
+	}
+	
+	public void setForeignId(long id) {
+		mForeignId = id;
+	}
+	
+	public long getForeignId() {
+		return mForeignId;
 	}
 
 	public void setLanguage(Languages language) {

@@ -10,10 +10,6 @@ package uk.ac.swan.digitaltrails;
 public final class R {
     public static final class attr {
     }
-    public static final class dimen {
-        public static final int imageHeight=0x7f040000;
-        public static final int thinpadding=0x7f040001;
-    }
     public static final class drawable {
         public static final int aberaeronbg=0x7f020000;
         public static final int aberaeronlogo=0x7f020001;
@@ -98,17 +94,17 @@ public final class R {
         public static final int wr008a=0x7f020050;
     }
     public static final class id {
-        public static final int address=0x7f060003;
-        public static final int description=0x7f060002;
-        public static final int image=0x7f060000;
-        public static final int imageView1=0x7f060005;
-        public static final int listView1=0x7f060009;
-        public static final int mapview=0x7f06000a;
-        public static final int scrollView1=0x7f060006;
-        public static final int tab1Layout=0x7f060008;
-        public static final int textView1=0x7f060004;
-        public static final int textView2=0x7f060007;
-        public static final int title=0x7f060001;
+        public static final int address=0x7f050003;
+        public static final int description=0x7f050002;
+        public static final int image=0x7f050000;
+        public static final int imageView1=0x7f050005;
+        public static final int listView1=0x7f050009;
+        public static final int mapview=0x7f05000a;
+        public static final int scrollView1=0x7f050006;
+        public static final int tab1Layout=0x7f050008;
+        public static final int textView1=0x7f050004;
+        public static final int textView2=0x7f050007;
+        public static final int title=0x7f050001;
     }
     public static final class layout {
         public static final int bonuspack_bubble=0x7f030000;
@@ -119,7 +115,7 @@ public final class R {
         public static final int walkmap=0x7f030005;
     }
     public static final class string {
-        public static final int app_name=0x7f050000;
-        public static final int informationLabel=0x7f050001;
+        public static final int app_name=0x7f040000;
+        public static final int informationLabel=0x7f040001;
     }
 }

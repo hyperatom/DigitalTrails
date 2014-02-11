@@ -19,6 +19,8 @@ public class Waypoint {
 	private ArrayList<Audio> mAudioFiles;
 	private ArrayList<Video> mVideos;
 	private ArrayList<Description> mDescriptions;
+	private long mUserId;
+	private long mWalkId;
 
 	public long getId() {
 		return mId;
@@ -106,6 +108,26 @@ public class Waypoint {
 	
 	public void setDescriptions(ArrayList<Description> descriptions) {
 		mDescriptions = descriptions;
+	}
+	
+	public long getWalkId() {
+		return mWalkId;
+	}
+	
+	public void setWalkId(long walkId) {
+		if (walkId >= 0) {
+			mWalkId = walkId;
+		}
+	}
+	
+	public long getUserId() {
+		return mUserId;
+	}
+	
+	public void setUserId(long userId) {
+		if (userId >= 0) {
+			mUserId = userId;
+		}
 	}
 
 	public Waypoint() {

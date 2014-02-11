@@ -50,7 +50,7 @@ public class VideoDataSource extends MediaDataSource {
 	 * 
 	 * @return
 	 */
-	public List<Video> getAllVideo() {
+	public List<Video> getAllVideos() {
 		ArrayList<Video> videoList = new ArrayList<Video>();
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, null, null,
 				null, null, null);

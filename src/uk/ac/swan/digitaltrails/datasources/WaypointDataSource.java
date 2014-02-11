@@ -14,8 +14,8 @@ import android.util.Log;
 public class WaypointDataSource extends SingletonDataSource {
 
 	private static final String TAG = "WaypointDataSource";
-	private static final String[] ALL_COLUMNS = { "id", "Latitude",
-			"Longitude", "IsRequest", "VisitOrder" };
+	private static final String[] ALL_COLUMNS = { "id", "latitude",
+			"longitude", "is_request", "visit_order", "walk_id", "user_id" };
 
 	protected WaypointDataSource(Context context) {
 		super(context);
@@ -27,14 +27,28 @@ public class WaypointDataSource extends SingletonDataSource {
 	 * @param fileLocation
 	 * @return
 	 */
-	//TODO: Validation etc
 	public Waypoint createWaypoint(double longitude,
-			double latitude, int isRequest, int visitOrder) {
+			double latitude, int isRequest, int visitOrder, long walkId, long userId) {
+		// awkward validation
+		if (isRequest != 1 || isRequest != 0) {
+			isRequest = 0;
+		}
+		if (visitOrder < 0) {
+			visitOrder = 0;
+		}
+		if (walkId < 0) {
+			walkId = 0;
+		}
+		if (userId < 0) {
+			userId = 0;
+		}
 		ContentValues values = new ContentValues();
 		values.put(ALL_COLUMNS[1], latitude);
 		values.put(ALL_COLUMNS[2], longitude);
 		values.put(ALL_COLUMNS[3], isRequest);
 		values.put(ALL_COLUMNS[4], visitOrder);
+		values.put(ALL_COLUMNS[5], walkId);
+		values.put(ALL_COLUMNS[6], userId);
 		long insertId = mWhiteRockDB.insert(mTable, null, values);
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, "id" + " = "
 				+ insertId, null, null, null, null);
@@ -116,6 +130,8 @@ public class WaypointDataSource extends SingletonDataSource {
 		waypoint.setLongitude(cursor.getDouble(2));
 		waypoint.setIsRequest(cursor.getInt(3));
 		waypoint.setVisitOrder(cursor.getInt(4));
+		waypoint.setWalkId(cursor.getLong(5));
+		waypoint.setUserId(cursor.getLong(6));
 		return waypoint;
 	}
 
