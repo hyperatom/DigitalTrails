@@ -64,7 +64,7 @@ public class Waypoint {
 		}
 	}
 	
-	public boolean IsRequest() {
+	public boolean isRequest() {
 		return mIsRequest;
 	}
 	

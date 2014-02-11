@@ -7,8 +7,6 @@ package uk.ac.swan.digitaltrails.utils;
  * Class to hold hours and minutes it takes to complete a walk.
  */
 public class Duration {
-
-	//TODO: Convert from minutes to hours:minutes
 	private int hours;
 	private int minutes;
 	

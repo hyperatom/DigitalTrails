@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import uk.ac.swan.digitaltrails.components.Audio;
+import uk.ac.swan.digitaltrails.components.Waypoint;
+import uk.ac.swan.digitaltrails.utils.DatabaseHandler;
 
 public class AudioDataSource extends MediaDataSource {
 
 	private static final String TAG = "AudioDataSource";
 
-	protected AudioDataSource() {
-		super();
-		mTable = mDbHandler.AUDIO_TABLE;
+	protected AudioDataSource(Context context) {
+		super(context);
+		mTable = DatabaseHandler.AUDIO_TABLE;
 	}
 
 	/**
@@ -59,6 +62,19 @@ public class AudioDataSource extends MediaDataSource {
 			cursor.moveToNext();
 		}
 		
+		cursor.close();
+		return audioList;
+	}
+	
+	public List<Audio> getAllAudioAtWaypoint(Waypoint wp) {
+		ArrayList<Audio> audioList = new ArrayList<Audio>();
+		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS,  "waypoint_id" + " = " + wp.getId(),  null, null, null, null);
+	    cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Audio audio = cursorToAudio(cursor);
+			audioList.add(audio);
+			cursor.moveToNext();
+		}
 		cursor.close();
 		return audioList;
 	}

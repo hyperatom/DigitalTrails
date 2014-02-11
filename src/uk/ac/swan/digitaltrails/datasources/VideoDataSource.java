@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.swan.digitaltrails.components.Video;
+import uk.ac.swan.digitaltrails.components.Waypoint;
+import uk.ac.swan.digitaltrails.utils.DatabaseHandler;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
@@ -12,9 +15,9 @@ public class VideoDataSource extends MediaDataSource {
 
 	private static final String TAG = "VideoDataSource";
 	
-	protected VideoDataSource() {
-		super();
-		mTable = mDbHandler.VIDEOS_TABLE;
+	protected VideoDataSource(Context context) {
+		super(context);
+		mTable = DatabaseHandler.VIDEOS_TABLE;
 	}
 	
 	/**
@@ -62,6 +65,25 @@ public class VideoDataSource extends MediaDataSource {
 		cursor.close();
 		return videoList;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Video> getAllVideosAtWaypoint(Waypoint wp) {
+		ArrayList<Video> videoList = new ArrayList<Video>();
+		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS,  "Waypoint_id" + " = " + wp.getId(),  null, null, null, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Video video = cursorToVideo(cursor);
+			videoList.add(video);
+			cursor.moveToNext();
+		}
+		
+		cursor.close();
+		return videoList;
+	}
+
 
 	/**
 	 * Create Video from the cursor.

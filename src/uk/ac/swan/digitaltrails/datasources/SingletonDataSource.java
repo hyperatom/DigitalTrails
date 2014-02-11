@@ -4,7 +4,6 @@ import uk.ac.swan.digitaltrails.utils.DatabaseHandler;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class SingletonDataSource {
 	
@@ -14,43 +13,16 @@ public class SingletonDataSource {
 	protected SQLiteDatabase mWhiteRockDB;
 	protected String mTable;
 	
-	/**
-	 * Used to initialise class. MUst be called before getInstance() 
-	 * @param context The context used
-	 */
-	public static void initialize(Context context) {
-		mContext = context;
+	public SingletonDataSource(Context context) {
+		mDbHandler = new DatabaseHandler(context);
 	}
 	
-	/**
-	 * Check if class initialised
-	 * @return true if initialised, false otherwise.
-	 */
-	public static boolean isInitialized() {
-		return mContext != null;
+	public void open() throws SQLException {
+		mWhiteRockDB = mDbHandler.getWritableDatabase();
 	}
 	
-	/**
-	 * Private constructor - use mContext to initialise vars.
-	 */
-	protected SingletonDataSource() {
-		// initialize vars with mContext
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public static synchronized SingletonDataSource getInstance() {
-		if (mContext == null) {
-			throw new IllegalArgumentException("Can't get instance. Must initialize class before");
-		}
-		
-		if (mInstance == null) {
-			mInstance = new SingletonDataSource();
-		}
-		
-		return mInstance;
+	public void close() {
+		mDbHandler.close();
 	}
 	
 	/**
@@ -60,13 +32,6 @@ public class SingletonDataSource {
 	public synchronized void initDatabaseHandler() throws SQLException {
 		mDbHandler = new DatabaseHandler(mContext);
 		mWhiteRockDB = mDbHandler.getWritableDatabase();
-	}
-	
-	/**
-	 * 
-	 */
-	public void close() {
-		mDbHandler.close();
 	}
 	
 	/**

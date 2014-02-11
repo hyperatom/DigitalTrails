@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import uk.ac.swan.digitaltrails.components.Photo;
+import uk.ac.swan.digitaltrails.components.Waypoint;
+import uk.ac.swan.digitaltrails.utils.DatabaseHandler;
 
 public class PhotoDataSource extends MediaDataSource {
 
 	private static final String TAG = "PhotoDataSource";
 	
-	protected PhotoDataSource() {
-		super();
-		mTable = mDbHandler.IMAGES_TABLE;
+	protected PhotoDataSource(Context context) {
+		super(context);
+		mTable = DatabaseHandler.IMAGES_TABLE;
 	}
 	
 	/**
@@ -62,6 +65,26 @@ public class PhotoDataSource extends MediaDataSource {
 		cursor.close();
 		return photoList;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Photo> getAllPhotosAtWaypoint(Waypoint wp) {
+		ArrayList<Photo> photoList = new ArrayList<Photo>();
+		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS,  "Waypoint_id" + " = " + wp.getId(),  null, null, null, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Photo photo = cursorToPhoto(cursor);
+			photoList.add(photo);
+			cursor.moveToNext();
+		}
+		
+		cursor.close();
+		return photoList;
+	}
+	
+
 
 	/**
 	 * Create Photo from the cursor.

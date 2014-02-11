@@ -147,7 +147,7 @@ public class Walk {
 		if (difficultyRating > 0 && difficultyRating < 6) {
 			mDifficultyRating = difficultyRating;
 		} else {
-			// TODO: not allowed.
+			difficultyRating = 1;
 		}
 	}
 

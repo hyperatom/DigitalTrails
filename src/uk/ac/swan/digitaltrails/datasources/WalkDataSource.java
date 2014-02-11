@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.swan.digitaltrails.components.Walk;
+import uk.ac.swan.digitaltrails.utils.DatabaseHandler;
 import uk.ac.swan.digitaltrails.utils.Duration;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
@@ -16,9 +18,9 @@ public class WalkDataSource extends SingletonDataSource {
 	private static final String[] ALL_COLUMNS = { "id", "DurationMinutes",
 			"DistanceMiles", "DownloadCount", "DifficultyRating" };
 
-	protected WalkDataSource() {
-		super();
-		mTable = mDbHandler.WALKS_TABLE;
+	protected WalkDataSource(Context context) {
+		super(context);
+		mTable = DatabaseHandler.WALKS_TABLE;
 	}
 
 
