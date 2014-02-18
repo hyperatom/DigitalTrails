@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -13,33 +15,29 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MainActivity extends Activity {
-  static final LatLng HAMBURG = new LatLng(53.558, 9.927);
-  static final LatLng KIEL = new LatLng(53.551, 9.993);
   private GoogleMap map;
-
-  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  private boolean test = true;
+  
 @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    if (test){
+    	try {
+	    	initMapWhiteRock();
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+    } else {
+	    try {
+	    	initMap();
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+    }
 
-    map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-        .getMap();
-    Marker hamburg = map.addMarker(new MarkerOptions().position(HAMBURG)
-        .title("Hamburg"));
-    Marker kiel = map.addMarker(new MarkerOptions()
-        .position(KIEL)
-        .title("Kiel")
-        .snippet("Kiel is cool")
-        .icon(BitmapDescriptorFactory
-            .fromResource(R.drawable.ic_launcher)));
-
-    // Move the camera instantly to hamburg with a zoom of 15.
-    map.moveCamera(CameraUpdateFactory.newLatLngZoom(HAMBURG, 15));
-
-    // Zoom in, animating the camera.
-    map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
   }
 
   @Override
@@ -47,5 +45,51 @@ public class MainActivity extends Activity {
     //getMenuInflater().inflate(R.menu.activity_main, menu);
     return true;
   }
+  
+  protected void onResume() {
+	  super.onResume();
+	  if (test) {
+		  initMapWhiteRock(); // testing only
+	  } else {
+		  initMap();
+	  }
+  }
 
+  private void initMap() {
+	  if (map == null) {
+		  map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		  if (map == null) {
+			  Toast.makeText(getApplicationContext(), "Can't make the map", Toast.LENGTH_LONG);
+		  }
+		  
+	  }
+  }
+  
+  private void initMapWhiteRock() {
+	  // hard coding for demonstration purposes.
+	  LatLng theDock = new LatLng(51.635113, -3.93349);
+	  LatLng smithCanalTunnel = new LatLng(51.634518, -3.932912);
+	  LatLng smithCanal = new LatLng(51.636261, -3.932907);
+	  LatLng riverTawe = new LatLng(51.635872, -3.933305);
+	  
+	  if (map == null) {
+		  map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		  if (map == null) {
+			  Toast.makeText(getApplicationContext(), "Can't make the map", Toast.LENGTH_LONG);
+		  } else {
+			  // add markers
+			  Marker dockMarker = map.addMarker(new MarkerOptions().position(theDock).title("The Dock"));
+			  Marker cananlTunnelMarker = map.addMarker(new MarkerOptions().position(smithCanalTunnel).title("Smith Canal Tunnel"));
+			  Marker canalMarker = map.addMarker(new MarkerOptions().position(smithCanal).title("Smith Canal"));
+			  Marker taweMarker = map.addMarker(new MarkerOptions().position(riverTawe).title("River Tawe"));
+			  map.getUiSettings().setCompassEnabled(false);
+			  map.getUiSettings().setMyLocationButtonEnabled(true);
+			  map.getUiSettings().setZoomControlsEnabled(false);
+			  map.getUiSettings().setZoomGesturesEnabled(true);
+			  map.getUiSettings().setRotateGesturesEnabled(true);
+		  }
+	  }
+	  
+  }
+  
 } 
