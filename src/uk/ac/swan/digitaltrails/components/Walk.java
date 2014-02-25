@@ -9,8 +9,8 @@ public class Walk {
 	private long mId;
 	private ArrayList<Description> mDescriptions;
 	private Duration mDuration;
-	private double mDistance;
 	/** Total distance to walk in CHOSEN FORMAT */
+	private double mDistance;
 	private ArrayList<Waypoint> mWaypoints;
 	private long mOwnerId;
 	private long mDownloadCount;

@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">Digital Trails</string>
     <string name="informationLabel">Information</string>
+    <string name="normalMap">Normal</string>
+    <string name="hybridMap">Hybrid</string>
+    <string name="satelliteMap">Satellite</string>
+    <string name="mapMenu">Map</string>
+
 </resources>

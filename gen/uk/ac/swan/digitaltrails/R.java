@@ -294,14 +294,18 @@ containing a value of this type.
         public static final int address=0x7f050009;
         public static final int description=0x7f050008;
         public static final int hybrid=0x7f050004;
+        public static final int hybridMap=0x7f050013;
         public static final int image=0x7f050006;
         public static final int imageView1=0x7f05000b;
         public static final int listView1=0x7f05000f;
         public static final int map=0x7f050005;
+        public static final int maps=0x7f050011;
         public static final int mapview=0x7f050010;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
+        public static final int normalMap=0x7f050012;
         public static final int satellite=0x7f050002;
+        public static final int satelliteMap=0x7f050014;
         public static final int scrollView1=0x7f05000c;
         public static final int tab1Layout=0x7f05000e;
         public static final int terrain=0x7f050003;
@@ -320,6 +324,9 @@ containing a value of this type.
         public static final int tab1=0x7f030004;
         public static final int tab2=0x7f030005;
         public static final int walkmap=0x7f030006;
+    }
+    public static final class menu {
+        public static final int maps_menu=0x7f080000;
     }
     public static final class string {
         public static final int app_name=0x7f06001a;
@@ -417,7 +424,11 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060013;
+        public static final int hybridMap=0x7f06001d;
         public static final int informationLabel=0x7f06001b;
+        public static final int mapMenu=0x7f06001f;
+        public static final int normalMap=0x7f06001c;
+        public static final int satelliteMap=0x7f06001e;
     }
     public static final class styleable {
         /** Attributes that can be used with a AdsAttrs.
