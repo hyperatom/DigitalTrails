@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#dbdbdb">
+
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        
+        <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp" >
+        
+        	<ExpandableListView
+            	android:id="@+id/expandableListView1"
+            	android:layout_width="match_parent"
+            	android:layout_height="60dp" >
+        	</ExpandableListView>
+
+        	<SearchView
+           		android:id="@+id/searchView1"
+            	android:layout_width="match_parent"
+            	android:layout_height="50dp" >
+        	</SearchView>
+        	
+        </LinearLayout>
+        
+        <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical" 
+        android:layout_marginTop="5dp">
+
+        	<Button
+            	android:id="@+id/button1"
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:text="Walk 1" 
+            	android:background="#FFFFFF"/>
+
+        	<Button
+            	android:id="@+id/button2"
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:text="Walk 2"
+            	android:background="#FFFFFF" />
+
+        	<Button
+            	android:id="@+id/button3"
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:text="Walk 3"
+            	android:background="#FFFFFF" />
+
+        	<Button
+            	android:id="@+id/button4"
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:text="Walk 4"
+            	android:background="#FFFFFF" />
+
+        	<Button
+            	android:id="@+id/button5"
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:text="Walk 5"
+            	android:background="#FFFFFF" />
+
+        	<Button
+            	android:id="@+id/button6"
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:text="Walk 6"
+            	android:background="#FFFFFF" />
+
+        	<Button
+            	android:id="@+id/button7"
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:text="Walk 7"
+            	android:background="#FFFFFF" />
+
+    	</LinearLayout>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="25dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="TOP BAR WITH SETINGS ICONS ETC......" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="The Title - White Rock Trails"
+                android:textSize="50dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+        		android:id="@+id/map"
+        		android:layout_marginLeft="20dp"
+        		android:layout_width="250dp"
+        		android:layout_height="250dp"
+        		android:layout_above="@+id/textView1"
+        		android:layout_centerHorizontal="true"
+        		android:src="@drawable/map_nott" />
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:inputType="textMultiLine"
+                android:textSize="18dp"
+                android:text="In publishing and graphic design, lorem ipsum[1] is a placeholder text commonly used to demonstrate the graphic elements of a document or visual presentation. By replacing the distraction of meaningful content with filler text of scrambled Latin it allows viewers to focus on graphical elements such as font, typography, and layout.
+The lorem ipsum text is typically a mangled section of De finibus bonorum et malorum, a 1st-century BC Latin text by Cicero, with words altered, added, and removed that make it nonsensical, improper Latin.[1]" >
+                
+                
+                <!-- ABOVE TEXT SHOULD BE HARDCODED -->
+                
+ 
+
+            </EditText>
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="                          Walk length :"
+                    android:textSize="20dp" >
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number of walk waypoints :"
+                    android:textSize="20dp" >
+                </TextView>
+                
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="20dp">
+                
+                <Button
+                	android:layout_width="200dp"
+                	android:layout_height="wrap_content"
+                	android:text="Start This Walk" >
+            	</Button>
+                
+            </LinearLayout>
+            
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
