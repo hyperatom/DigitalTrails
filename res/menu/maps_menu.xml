@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 	<item android:id="@+id/maps"
-	      android:title="@string/mapMenu" >
+	      android:title="@string/map_menu" 
+	      android:showAsAction="never" >
 		<menu>
-		    <item android:id="@+id/normalMap"
-		          android:title="@string/normalMap" />
-		    <item android:id="@+id/hybridMap"
-		          android:title="@string/hybridMap" />
-		    <item android:id="@+id/satelliteMap"
-		          android:title="@string/satelliteMap"	/>
+		    <item android:id="@+id/normal_map"
+		          android:title="@string/normal_map" />
+		    <item android:id="@+id/hybrid_map"
+		          android:title="@string/hybrid_map" />
+		    <item android:id="@+id/satellite_map"
+		          android:title="@string/satellite_map"	/>
 		</menu>    
 	</item>
 </menu>

@@ -2,35 +2,38 @@ package uk.ac.swan.digitaltrails;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.graphics.Color;
-import android.location.Location;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
   private GoogleMap map;
-  private boolean test = true;
+  private final boolean TEST = true;
   
 @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    if (test){
+    if (TEST){
     	try {
 	    	initMapWhiteRock();
 	    } catch (Exception e) {
@@ -43,7 +46,6 @@ public class MainActivity extends Activity {
 	    	e.printStackTrace();
 	    }
     }
-
   }
 
   @Override
@@ -57,27 +59,32 @@ public class MainActivity extends Activity {
 	  return changeMap(item);
   }
   
+  private void showInfoViewDialog() {
+	  DialogFragment dialog = InfoViewDialogFragment.newInstance();
+	  dialog.show(getSupportFragmentManager(), "dialog");
+  }
+  
   private boolean changeMap(MenuItem item) {
 	  switch (item.getItemId()) {
-	  case R.id.normalMap:
+	  case R.id.normal_map:
 		  if (map != null) {
-			  map.setMapType(map.MAP_TYPE_NORMAL);
+			  map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 		  } else {
 			  Toast.makeText(getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
 			  return false;
 		  }
 		  return true;
-	  case R.id.hybridMap:
+	  case R.id.hybrid_map:
 		  if (map != null) {
-			  map.setMapType(map.MAP_TYPE_HYBRID);
+			  map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 		  } else {
 			  Toast.makeText(getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
 			  return false;
 		  }
 		  return true;
-	  case R.id.satelliteMap:
+	  case R.id.satellite_map:
 		  if (map != null) {
-			  map.setMapType(map.MAP_TYPE_SATELLITE);
+			  map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 		  } else {
 			  Toast.makeText(getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
 			  return false;
@@ -89,27 +96,31 @@ public class MainActivity extends Activity {
   
   protected void onResume() {
 	  super.onResume();
-	  if (test) {
+	  if (TEST) {
 		 initMapWhiteRock(); // testing only
 	  } else {
 		  initMap();
 	  }
   }
+  
+  @Override
+  protected void onPause() {
+	  super.onPause();
+  }
 
   private void initMap() {
 	  if (map == null) {
-		  map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		  map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 		  if (map == null) {
 			  Toast.makeText(getApplicationContext(), "Can't make the map", Toast.LENGTH_LONG).show();
 		  }
-		  
 	  }
   }
   
   private void initMapWhiteRock() {
 
 	  if (map == null) {
-		  map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		  map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 		  if (map == null) {
 			  Toast.makeText(getApplicationContext(), "Can't make the map", Toast.LENGTH_LONG).show();
 		  } else {
@@ -124,15 +135,7 @@ public class MainActivity extends Activity {
 			  Marker canalTunnelMarker = map.addMarker(WaypointTemp.cananlTunnelMarker);
 			  Marker canalMarker = map.addMarker(WaypointTemp.canalMarker);
 			  Marker taweMarker = map.addMarker(WaypointTemp.taweMarker);
-			  PolylineOptions walkOrderOptions = new PolylineOptions()
-			  			.add(dockMarker.getPosition())
-			  			.add(canalTunnelMarker.getPosition())
-			  			.add(canalMarker.getPosition())
-			  			.add(taweMarker.getPosition())
-			  			.width(10)
-			  			.color(Color.BLUE)
-			  			.geodesic(true);
-			  //Polyline walkOrder = map.addPolyline(walkOrderOptions);
+
 			  map.setOnMarkerClickListener(new OnMarkerClickListener() {
 
 				@Override
@@ -142,13 +145,52 @@ public class MainActivity extends Activity {
 				}
 			  
 			  });
+			  
+			  map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+
+				@Override
+				public void onInfoWindowClick(Marker marker) {
+					showInfoViewDialog();
+					// Display correct information in the thing.
+				}
+			  });
 			 
-			  // In practice we want to set the bounds to be that of the area we are walking in.
+			  // In practice we may want to set the bounds to be that of the area we are walking in.
 			  // for now I'm just going to zoom in this close cause I can.
 			  map.moveCamera(CameraUpdateFactory.newLatLngZoom(WaypointTemp.riverTawe, 15)); 
 		  }
 	  }
+  }
+  
+  // Has to be a static inner class or Android won't let it happen...
+  /**
+   * 
+   * @author Lewis Hancock
+   *
+   */
+  public static class InfoViewDialogFragment extends DialogFragment {
+  
+	  static InfoViewDialogFragment newInstance() {
+		  InfoViewDialogFragment dialog = new InfoViewDialogFragment();
+		  return dialog;
+	  }
+	  
+	  @Override
+	  public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setMessage(R.string.dialog_info_view)
+					.setNeutralButton(R.string.close, new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// user cancelled
+							
+						}
+					});
+			return builder.create();
+	  }
 	  
   }
+
   
 } 

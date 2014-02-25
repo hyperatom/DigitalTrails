@@ -7,12 +7,17 @@ package uk.ac.swan.digitaltrails.components;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+
 public class Waypoint {
 
 	private long mId;
 	private String mTitle;
 	private double mLongitude;
 	private double mLatitude;
+	private LatLng mLatLng;
+	private Marker mMarker;
 	private int mVisitOrder;
 	private boolean mIsRequest; 
 	private ArrayList<Photo> mPhotos;
@@ -22,10 +27,18 @@ public class Waypoint {
 	private long mUserId;
 	private long mWalkId;
 
+	/**
+	 * 
+	 * @return
+	 */
 	public long getId() {
 		return mId;
 	}
 
+	/**
+	 * 
+	 * @param id
+	 */
 	public void setId(long id) {
 		this.mId = id;
 	}
@@ -52,6 +65,22 @@ public class Waypoint {
 
 	public void setLongitude(double longitude) {
 		this.mLongitude = longitude;
+	}
+	
+	public LatLng getLatLng() {
+		return mLatLng;
+	}
+	
+	public void setLatLng(LatLng latLng) {
+		mLatLng = latLng;
+	}
+	
+	public Marker getMarker() {
+		return mMarker;
+	}
+	
+	public void setMarker(Marker marker) {
+		mMarker = marker;
 	}
 
 	public void setIsRequest(boolean isRequest) {

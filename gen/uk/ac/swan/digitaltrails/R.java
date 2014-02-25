@@ -294,23 +294,22 @@ containing a value of this type.
         public static final int address=0x7f050009;
         public static final int description=0x7f050008;
         public static final int hybrid=0x7f050004;
-        public static final int hybridMap=0x7f050013;
+        public static final int hybrid_map=0x7f050012;
         public static final int image=0x7f050006;
-        public static final int imageView1=0x7f05000b;
-        public static final int listView1=0x7f05000f;
+        public static final int imageView1=0x7f05000c;
+        public static final int info_view_view_pager=0x7f05000a;
         public static final int map=0x7f050005;
-        public static final int maps=0x7f050011;
-        public static final int mapview=0x7f050010;
+        public static final int maps=0x7f050010;
+        public static final int mapview=0x7f05000f;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
-        public static final int normalMap=0x7f050012;
+        public static final int normal_map=0x7f050011;
         public static final int satellite=0x7f050002;
-        public static final int satelliteMap=0x7f050014;
-        public static final int scrollView1=0x7f05000c;
-        public static final int tab1Layout=0x7f05000e;
+        public static final int satellite_map=0x7f050013;
+        public static final int scrollView1=0x7f05000d;
         public static final int terrain=0x7f050003;
-        public static final int textView1=0x7f05000a;
-        public static final int textView2=0x7f05000d;
+        public static final int textView1=0x7f05000b;
+        public static final int textView2=0x7f05000e;
         public static final int title=0x7f050007;
     }
     public static final class integer {
@@ -319,11 +318,10 @@ containing a value of this type.
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int bonuspack_bubble=0x7f030001;
-        public static final int info=0x7f030002;
-        public static final int main=0x7f030003;
-        public static final int tab1=0x7f030004;
-        public static final int tab2=0x7f030005;
-        public static final int walkmap=0x7f030006;
+        public static final int dialog_info_view=0x7f030002;
+        public static final int info=0x7f030003;
+        public static final int main=0x7f030004;
+        public static final int walkmap=0x7f030005;
     }
     public static final class menu {
         public static final int maps_menu=0x7f080000;
@@ -353,6 +351,7 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f060014;
+        public static final int close=0x7f060021;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -424,11 +423,12 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060013;
-        public static final int hybridMap=0x7f06001d;
-        public static final int informationLabel=0x7f06001b;
-        public static final int mapMenu=0x7f06001f;
-        public static final int normalMap=0x7f06001c;
-        public static final int satelliteMap=0x7f06001e;
+        public static final int dialog_info_view=0x7f060020;
+        public static final int hybrid_map=0x7f06001d;
+        public static final int information_label=0x7f06001b;
+        public static final int map_menu=0x7f06001f;
+        public static final int normal_map=0x7f06001c;
+        public static final int satellite_map=0x7f06001e;
     }
     public static final class styleable {
         /** Attributes that can be used with a AdsAttrs.
