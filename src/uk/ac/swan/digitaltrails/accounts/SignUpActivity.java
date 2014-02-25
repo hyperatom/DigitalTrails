@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class SignUpActivity extends Activity {
 
 	private String TAG = "SignUpActivity";
@@ -29,10 +30,11 @@ public class SignUpActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				setResult(RESULT_CANCELLED);
+				setResult(RESULT_CANCELED);
 				finish();
 			}
 		});
+		
 		findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -85,6 +87,13 @@ public class SignUpActivity extends Activity {
 				}
 			}
 			
-		}.execute(); //TODO: work from here
+		}.execute(); 
 	}
+	
+	@Override
+	public void onBackPressed() {
+		setResult(RESULT_CANCELED);
+		super.onBackPressed();
+	}
+	
 }
