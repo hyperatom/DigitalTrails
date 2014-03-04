@@ -9,7 +9,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String DB_NAME = DbSchema.DB_NAME;
 	private static final int DB_VERSION = 1;
 	
-	
+	private static final int WALK_TABLE = 0;
+	private static final int WALK_ID = 1;
 	
 	private final Context mContext;
 
