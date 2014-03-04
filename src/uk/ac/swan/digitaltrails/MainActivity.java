@@ -25,10 +25,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		imgView.setImageDrawable(this.getResources().getDrawable(
 				R.drawable.abershore));
 
-		titleText.setText("ABERYSTWYTH TOWN WALKS");
-		introText
-				.setText("Welcome to Aberystwyth Town Walks for Android. Please select a walk of your choice from the 'Walks' tab to start exploring some of the places of interest within Aberystwyth town.");
-
+		titleText.setText("Database branch blah");
 	}
 
 	public void onClick(View src) {

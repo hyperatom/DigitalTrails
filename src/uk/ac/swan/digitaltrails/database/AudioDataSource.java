@@ -1,4 +1,4 @@
-package uk.ac.swan.digitaltrails.datasources;
+package uk.ac.swan.digitaltrails.database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +9,12 @@ import android.database.Cursor;
 import android.util.Log;
 import uk.ac.swan.digitaltrails.components.Audio;
 import uk.ac.swan.digitaltrails.components.Waypoint;
-import uk.ac.swan.digitaltrails.utils.DatabaseHandler;
-
 public class AudioDataSource extends MediaDataSource {
 
 	private static final String TAG = "AudioDataSource";
-
 	protected AudioDataSource(Context context) {
 		super(context);
-		mTable = DatabaseHandler.AUDIO_TABLE;
+		mTable = DbSchema.TABLE_WAYPOINT_AUDIO;
 	}
 
 	/**
@@ -27,7 +24,7 @@ public class AudioDataSource extends MediaDataSource {
 	 */
 	public Audio createAudio(String fileLocation) {
 		ContentValues values = new ContentValues();
-		values.put("FileLocation", fileLocation);
+		values.put(ALL_COLUMNS[1], fileLocation);
 		long insertId = mWhiteRockDB.insert(mTable, null, values);
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, "id" + " = "
 				+ insertId, null, null, null, null);

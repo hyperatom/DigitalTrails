@@ -1,4 +1,4 @@
-package uk.ac.swan.digitaltrails.datasources;
+package uk.ac.swan.digitaltrails.database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.util.Log;
 import uk.ac.swan.digitaltrails.components.Photo;
 import uk.ac.swan.digitaltrails.components.Waypoint;
-import uk.ac.swan.digitaltrails.utils.DatabaseHandler;
 
 public class PhotoDataSource extends MediaDataSource {
 
@@ -17,7 +16,7 @@ public class PhotoDataSource extends MediaDataSource {
 	
 	protected PhotoDataSource(Context context) {
 		super(context);
-		mTable = DatabaseHandler.IMAGES_TABLE;
+		mTable = DbSchema.TABLE_WAYPOINT_IMAGE;
 	}
 	
 	/**
@@ -27,7 +26,7 @@ public class PhotoDataSource extends MediaDataSource {
 	 */
 	public Photo createPhoto(String fileLocation) {
 		ContentValues values = new ContentValues();
-		values.put("FileLocation", fileLocation);
+		values.put(ALL_COLUMNS[1], fileLocation);
 		long insertId = mWhiteRockDB.insert(mTable, null, values);
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, "id" + " = "
 				+ insertId, null, null, null, null);

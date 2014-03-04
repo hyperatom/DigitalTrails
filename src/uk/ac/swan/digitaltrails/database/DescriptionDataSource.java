@@ -1,4 +1,4 @@
-package uk.ac.swan.digitaltrails.datasources;
+package uk.ac.swan.digitaltrails.database;
 
 import android.content.Context;
 

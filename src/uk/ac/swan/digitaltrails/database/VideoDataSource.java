@@ -1,11 +1,10 @@
-package uk.ac.swan.digitaltrails.datasources;
+package uk.ac.swan.digitaltrails.database;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.swan.digitaltrails.components.Video;
 import uk.ac.swan.digitaltrails.components.Waypoint;
-import uk.ac.swan.digitaltrails.utils.DatabaseHandler;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,7 +16,7 @@ public class VideoDataSource extends MediaDataSource {
 	
 	protected VideoDataSource(Context context) {
 		super(context);
-		mTable = DatabaseHandler.VIDEOS_TABLE;
+		mTable = DbSchema.TABLE_WAYPOINT_VIDEO;
 	}
 	
 	/**
@@ -27,7 +26,7 @@ public class VideoDataSource extends MediaDataSource {
 	 */
 	public Video createVideo(String fileLocation) {
 		ContentValues values = new ContentValues();
-		values.put("FileLocation", fileLocation);
+		values.put(ALL_COLUMNS[1], fileLocation);
 		long insertId = mWhiteRockDB.insert(mTable, null, values);
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, "id" + " = "
 				+ insertId, null, null, null, null);

@@ -1,4 +1,4 @@
-package uk.ac.swan.digitaltrails.datasources;
+package uk.ac.swan.digitaltrails.database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,28 +8,26 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import uk.ac.swan.digitaltrails.components.Description;
-import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.components.Description.Languages;
-import uk.ac.swan.digitaltrails.utils.DatabaseHandler;
+import uk.ac.swan.digitaltrails.components.Waypoint;
 
-public class WalkDescriptionDataSource extends DescriptionDataSource {
-
-	private static final String TAG = "WalkDescriptionDataSource";
-	private final String[] ALL_COLUMNS = { "id", "title", "short_description",
-	 "long_description", "walk_id" };
+public class WaypointDescriptionDataSource extends DescriptionDataSource {
 
 	
-	protected WalkDescriptionDataSource(Context context, Languages language) {
+	private static final String TAG = "WaypointDescriptionDataSource";
+	private final String[] ALL_COLUMNS = { "id", "title", "short_description",
+	 "long_description", "waypoint_id" };
+
+	protected WaypointDescriptionDataSource(Context context, Languages language) {
 		super(context);
 		
 		switch (language) {
-		case ENGLISH:	mTable = DatabaseHandler.ENGLISH_WALK_DESC_TABLE;
+		case ENGLISH:	mTable = DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR;
 					 	break;
-		case WELSH: 	mTable = DatabaseHandler.WELSH_WALK_DESC_TABLE;
+		case WELSH: 	mTable = DbSchema.TABLE_WELSH_WAYPOINT_DESCR;
 						break;
 		}
 	}
-
 	
 	/**
 	 * 
@@ -39,12 +37,12 @@ public class WalkDescriptionDataSource extends DescriptionDataSource {
 	 * @param waypointID
 	 * @return
 	 */
-	public Description createDescription(String Title, String shortDescription, String longDescription, long walkId) {
+	public Description createDescription(String Title, String shortDescription, String longDescription, long waypointID) {
 		ContentValues values = new ContentValues();
 		values.put(ALL_COLUMNS[1], Title);
 		values.put(ALL_COLUMNS[2], shortDescription);
 		values.put(ALL_COLUMNS[3], longDescription);
-		values.put(ALL_COLUMNS[4], walkId);
+		values.put(ALL_COLUMNS[4], waypointID);
 		long insertId = mWhiteRockDB.insert(mTable, null, values);
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, "id" + " = " + insertId, null, null, null, null);
 		Description newDescription = cursorToDescription(cursor);
@@ -84,7 +82,7 @@ public class WalkDescriptionDataSource extends DescriptionDataSource {
 	 */
 	public List<Description> getAllDescriptionsAtWaypoint(Waypoint wp) {
 		ArrayList<Description> descriptionList = new ArrayList<Description>();
-		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS,  "walk_id" + " = " + wp.getId(),  null, null, null, null);
+		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS,  "waypoint_id" + " = " + wp.getId(),  null, null, null, null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			Description description = cursorToDescription(cursor);
@@ -110,5 +108,4 @@ public class WalkDescriptionDataSource extends DescriptionDataSource {
 		return description;
 	}
 
-	
 }
