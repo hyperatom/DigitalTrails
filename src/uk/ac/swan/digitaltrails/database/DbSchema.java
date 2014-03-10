@@ -1,5 +1,9 @@
 package uk.ac.swan.digitaltrails.database;
 
+/**
+ * Helper interface which defines constants for database.
+ * @author Lewis Hancock
+ */
 interface DbSchema {
 
 	String DB_NAME = "database.db";
@@ -20,7 +24,40 @@ interface DbSchema {
 	String TABLE_WAYPOINT_IMAGE = "waypoint_image";
 	String TABLE_WAYPOINT_VIDEO = "waypoint_video";
 	
-	// TODO: Create Strings to create tables. Woooo.
+	// TODO: Create Strings to create tables. 
+	// Probably need to update the database SQL to SQLite first. 
+	//Currently all SQL is normal. therefore invalid.
 	
-			
+	String CREATE_TABLE_WALK = 
+			"";
+	
+	String CREATE_TABLE_WALK_BRAND = "";
+	
+	String CREATE_TABLE_WALK_REVIEW = "";
+	
+	String CREATE_TABLE_WAYPOINT = "";
+	
+	String CREATE_TABLE_WAYPOINT_AUDIO = "";
+	
+	String CREATE_TABLE_WAYPOINT_VIDEO = "";
+	
+	String CREATE_TABLE_WAYPOINT_IMAGE = "";
+	
+	String CREATE_TABLE_WESLH_WAYPOINT_DESCR = "";
+	
+	String CREATE_TABLE_WELSH_WALK_DESCR = "";
+	
+	String CREATE_TABLE_ENGLISH_WAYPOINT_DESCR = "";
+	
+	String CREATE_TABLE_ENGLISH_WALK_DESCR = "";
+	
+	String CREATE_TABLE_USER = "";
+	
+	String CREATE_TABLE_USER_SETTINGS = "";
+	
+	String CREATE_TABLE_SETTING_TYPE = "";
+	
+	String CREATE_TABLE_CONTENT_REPORT = "";
+	
+	String CREATE_TABLE_BUG_REPORT = "";
 }

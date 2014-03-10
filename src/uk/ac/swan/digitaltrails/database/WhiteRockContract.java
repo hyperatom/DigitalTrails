@@ -126,7 +126,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	public static final class WelshWaypointDescription implements DescriptionColumns {
+	public static final class WelshWaypointDescriptions implements DescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "welsh_waypoint_descriptions");
 	
@@ -160,13 +160,13 @@ public class WhiteRockContract {
 	
 	public static final class UserSetting implements CommonColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
-				WhiteRockContract.CONTENT_URI, "setting_type");
+				WhiteRockContract.CONTENT_URI, "user_setting");
 	
 		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.setting_type";
+				"vnd.uk.ac.swan.digitaltrails.user_setting";
 		
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.setting_type";
+				"vnd.uk.ac.swan.digitaltrails.user_setting";
 		
 		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
 		
@@ -328,10 +328,8 @@ public class WhiteRockContract {
 	}
 
 		
-	
-	
 	/**
-	 * Defines common columns to all tables.
+	 * Interface to define common columns to all tables.
 	 * @author Lewis Hancock
 	 *
 	 */
@@ -340,7 +338,7 @@ public class WhiteRockContract {
 	}
 	
 	/**
-	 * Defines common columns in media tables.
+	 * Interface to define common columns in media tables.
 	 * @author Lewis Hancock
 	 *
 	 */
@@ -352,7 +350,7 @@ public class WhiteRockContract {
 	}
 	
 	/**
-	 * Defines common columns in description tables.
+	 * Interface to define common columns in description tables.
 	 * @author Lewis Hancock
 	 *
 	 */
@@ -367,7 +365,7 @@ public class WhiteRockContract {
 	}
 	
 	/**
-	 * 
+	 * Interface to define common columns in report tables.
 	 */
 	interface ReportColumns extends CommonColumns {
 		public static final String DESCRIPTION = "description";
