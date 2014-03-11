@@ -202,6 +202,10 @@ public class Walk {
 		setDownloadCount(downloadCount);
 		setDifficultyRating(difficulty);
 	}
+	
+	public String toString() {
+		return this.mTitle;
+	}
 
 
 }
