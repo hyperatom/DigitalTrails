@@ -26,6 +26,7 @@ import android.util.Log;
 public class WhiteRockContentProvider extends ContentProvider {
 
 	private static final UriMatcher URI_MATCHER = buildUriMatcher();
+	private static final String TAG = "WhiteRockContentProvider";
 	
 	// Constants for URI matcher.
 	private static final int WALK_LIST = 1;
@@ -70,10 +71,10 @@ public class WhiteRockContentProvider extends ContentProvider {
 		final String authority = WhiteRockContract.AUTHORITY;
 		matcher.addURI(authority, "walk", WALK_LIST);
 		matcher.addURI(authority, "walk/#", WALK_ID);
-		matcher.addURI(authority, "english_walk_descr", ENGLISH_WALK_DESCR_LIST);
-		matcher.addURI(authority, "english_walk_descr/#", ENGLISH_WALK_DESCR_ID);
-		matcher.addURI(authority, "welsh_walk_descr", WELSH_WALK_DESCR_LIST);
-		matcher.addURI(authority, "welsh_walk_descr/#", WELSH_WALK_DESCR_ID);
+		matcher.addURI(authority, "english_walk_description", ENGLISH_WALK_DESCR_LIST);
+		matcher.addURI(authority, "english_walk_description/#", ENGLISH_WALK_DESCR_ID);
+		matcher.addURI(authority, "welsh_walk_description", WELSH_WALK_DESCR_LIST);
+		matcher.addURI(authority, "welsh_walk_description/#", WELSH_WALK_DESCR_ID);
 		matcher.addURI(authority, "waypoint", WAYPOINT_LIST);
 		matcher.addURI(authority, "waypoint/#", WAYPOINT_ID);
 		matcher.addURI(authority, "waypoint_audio", WAYPOINT_AUDIO_LIST);
@@ -82,10 +83,10 @@ public class WhiteRockContentProvider extends ContentProvider {
 		matcher.addURI(authority, "waypoint_video/#", WAYPOINT_VIDEO_ID);
 		matcher.addURI(authority, "waypoint_image", WAYPOINT_IMAGE_LIST);
 		matcher.addURI(authority, "waypoint_image/#", WAYPOINT_IMAGE_ID);
-		matcher.addURI(authority, "welsh_waypoint_descr", WELSH_WAYPOINT_DESCR_LIST);
-		matcher.addURI(authority, "welsh_waypoint_descr/#", WELSH_WAYPOINT_DESCR_ID);
-		matcher.addURI(authority, "english_waypoint_descr", ENGLISH_WAYPOINT_DESCR_LIST);
-		matcher.addURI(authority, "english_waypoint_descr/#", ENGLISH_WAYPOINT_DESCR_ID);
+		matcher.addURI(authority, "welsh_waypoint_description", WELSH_WAYPOINT_DESCR_LIST);
+		matcher.addURI(authority, "welsh_waypoint_description/#", WELSH_WAYPOINT_DESCR_ID);
+		matcher.addURI(authority, "english_waypoint_description", ENGLISH_WAYPOINT_DESCR_LIST);
+		matcher.addURI(authority, "english_waypoint_description/#", ENGLISH_WAYPOINT_DESCR_ID);
 		matcher.addURI(authority, "bug_report", BUG_REPORT_LIST);
 		matcher.addURI(authority, "bug_report/#", BUG_REPORT_ID);
 		matcher.addURI(authority, "content_report", CONTENT_REPORT_LIST);
@@ -431,21 +432,21 @@ public class WhiteRockContentProvider extends ContentProvider {
 			return getUriForId(id, uri);
 		case USER_LIST:
 			id = 
-			db.insert(DbSchema.TABLE_BUG_REPORT,
+			db.insert(DbSchema.TABLE_USER,
 					  null,
 					  values);
 			db.close();
 			return getUriForId(id, uri);
 		case USER_SETTINGS_LIST:
 			id = 
-			db.insert(DbSchema.TABLE_BUG_REPORT,
+			db.insert(DbSchema.TABLE_USER,
 					  null,
 					  values);
 			db.close();
 			return getUriForId(id, uri);
 		case SETTINGS_TYPE_LIST:
 			id = 
-			db.insert(DbSchema.TABLE_BUG_REPORT,
+			db.insert(DbSchema.TABLE_SETTING_TYPE,
 					  null,
 					  values);
 			db.close();
@@ -604,10 +605,10 @@ public class WhiteRockContentProvider extends ContentProvider {
 			builder.appendWhere(WhiteRockContract.SettingType._ID + " = " + uri.getLastPathSegment());
 			break;
 		default:
-			throw new IllegalArgumentException("Unsupported URI: " + uri);
+			throw new IllegalArgumentException("Unsupported URI: " + uri + " case argument is " + URI_MATCHER.match(uri));
 		}
 		
-		Cursor cursor = builder.query(db,projection, selection, selectionArgs, null, null, sortOrder);
+		Cursor cursor = builder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
 		if (useAuthorityUri) {
 			cursor.setNotificationUri(getContext().getContentResolver(), WhiteRockContract.CONTENT_URI);
 		} else {
@@ -863,6 +864,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 	
 	
 	private Uri getUriForId(long id, Uri uri) {
+		Log.d(TAG, "getUriForId:: "+id);
 		if (id > 0) {
 			Uri itemUri = ContentUris.withAppendedId(uri, id);
 			if (!isInBatchMode()) {
@@ -872,7 +874,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 			return itemUri;
 		}
 		throw new SQLException(
-				"Problem inserting into uri: " + uri);
+				"Problem inserting into uri: " + uri + " " + id);
 	}
 	
 	private boolean isInBatchMode() {

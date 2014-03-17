@@ -18,7 +18,7 @@ import android.content.Context;
 public class WhiteRockContract {
 	
 	public static final String AUTHORITY =
-			"uk.ac.swan.digialtrails.database";
+			"uk.ac.swan.digitaltrails";
 	
 	// content://<authority>/<path to type> is the syntax here.
 	
@@ -65,13 +65,13 @@ public class WhiteRockContract {
 	 */
 	public static final class EnglishWalkDescriptions implements DescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
-				WhiteRockContract.CONTENT_URI, "english_walk_descriptions");
+				WhiteRockContract.CONTENT_URI, "english_walk_description");
 	
 		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.english_walk_descriptions";
+				"vnd.uk.ac.swan.digitaltrails.english_walk_description";
 		
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.english_walk_descriptions";
+				"vnd.uk.ac.swan.digitaltrails.english_walk_description";
 		
 		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
 		
@@ -86,13 +86,13 @@ public class WhiteRockContract {
 	 */
 	public static final class WelshWalkDescriptions implements DescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
-				WhiteRockContract.CONTENT_URI, "welsh_walk_descriptions");
+				WhiteRockContract.CONTENT_URI, "welsh_walk_description");
 	
 		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.welsh_walk_descriptions";
+				"vnd.uk.ac.swan.digitaltrails.welsh_walk_description";
 		
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.welsh_walk_descriptions";
+				"vnd.uk.ac.swan.digitaltrails.welsh_walk_description";
 		
 		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
 		
@@ -107,13 +107,13 @@ public class WhiteRockContract {
 	 */
 	public static final class EnglishWaypointDescriptions implements DescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
-				WhiteRockContract.CONTENT_URI, "english_waypoint_descriptions");
+				WhiteRockContract.CONTENT_URI, "english_waypoint_description");
 	
 		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.english_waypoint_descriptions";
+				"vnd.uk.ac.swan.digitaltrails.english_waypoint_description";
 		
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.english_waypoint_descriptions";
+				"vnd.uk.ac.swan.digitaltrails.english_waypoint_description";
 		
 		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
 		
@@ -128,13 +128,13 @@ public class WhiteRockContract {
 	 */
 	public static final class WelshWaypointDescriptions implements DescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
-				WhiteRockContract.CONTENT_URI, "welsh_waypoint_descriptions");
+				WhiteRockContract.CONTENT_URI, "welsh_waypoint_description");
 	
 		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.welsh_waypoint_descriptions";
+				"vnd.uk.ac.swan.digitaltrails.welsh_waypoint_description";
 		
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.welsh_waypoint_descriptions";
+				"vnd.uk.ac.swan.digitaltrails.welsh_waypoint_description";
 		
 		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
 		
@@ -334,7 +334,7 @@ public class WhiteRockContract {
 	 *
 	 */
 	interface CommonColumns extends BaseColumns {
-		public static final String ID = "id";
+		public static final String ID = "_id";
 	}
 	
 	/**

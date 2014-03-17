@@ -1,28 +1,54 @@
 package uk.ac.swan.digitaltrails;
 
 import java.util.ArrayList;
+
 import uk.ac.swan.digitaltrails.components.Walk;
+import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.utils.ArrayRetrieval;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.*;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class WalkListFragment extends ListFragment {
+public class WalkListFragment extends ListFragment 
+	implements LoaderCallbacks<Cursor>, OnQueryTextListener {
 
 	private OnWalkSelectedListener mCallback;
 	
 	private ArrayList<Walk> mWalkList;
 	
+	private SimpleCursorAdapter mAdapter;
+	private SearchView mSearchView;
+	private String mCurFilter;
+	private int mLayout;
+
+	
 	public interface OnWalkSelectedListener {
 		public void onWalkSelected(int position);
+	}
+	
+	
+	public void setWalkList(ArrayList<Walk> walkList) {
+		mWalkList = walkList;
+	}
+	
+	public ArrayList<Walk> getWalkList() {
+		return mWalkList;
 	}
 	
 	@SuppressLint("InlinedApi")
@@ -30,20 +56,14 @@ public class WalkListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// change layout depending on the version of android running.
-		int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+		mLayout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
 				android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
-	
-		String[] temp = {"W1", "W2", "W3", "W4"};
-		setListAdapter(new ArrayAdapter<String>(getActivity(), layout, temp));
-
-		// hacky "getElementNames" class which just creates a new array of all the toString calls over a type.
-		//setListAdapter(new ArrayAdapter<String>(getActivity(), layout, ArrayRetrieval.getElementNames(mWalkList)));
 	}
 	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		
+
 		try {
 			mCallback = (OnWalkSelectedListener) activity;
 		} catch (ClassCastException e) {
@@ -67,4 +87,63 @@ public class WalkListFragment extends ListFragment {
 		}
 	}
 	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		
+		//setHasOptionsMenu(true);
+		setEmptyText("No Walks");	//TODO load this from resource.
+		mAdapter = new SimpleCursorAdapter(getActivity(), mLayout, null,
+					new String[] {WhiteRockContract.EnglishWalkDescriptions.TITLE },
+					new int[] {android.R.id.text1}, 0);	
+		setListAdapter(mAdapter);
+		setListShown(false);
+		getLoaderManager().initLoader(0, null, this);
+	}
+	
+
+	static String [] WALK_SUMMARY_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions._ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, WhiteRockContract.EnglishWalkDescriptions.LONG_DESCR };
+	
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		Uri baseUri;
+		if (mCurFilter != null) {
+			baseUri = Uri.withAppendedPath(WhiteRockContract.CONTENT_URI, Uri.encode(mCurFilter));
+		} else {
+			baseUri = WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI;
+		}
+		
+		String select = "((_id))";
+		return new CursorLoader(getActivity(), baseUri, WALK_SUMMARY_PROJECTION, select, null, WhiteRockContract.EnglishWalkDescriptions._ID + " COLLATE LOCALIZED ASC");
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		mAdapter.swapCursor(data);
+		
+		if (isResumed()) {
+			setListShown(true);
+		} else {
+			setListShownNoAnimation(true);
+		}
+		
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> arg0) {
+		mAdapter.swapCursor(null);
+	}
+
+	// onQueryTextListener interface
+	@Override
+	public boolean onQueryTextChange(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

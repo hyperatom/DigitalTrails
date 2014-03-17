@@ -6,7 +6,7 @@ package uk.ac.swan.digitaltrails.database;
  */
 interface DbSchema {
 
-	String DB_NAME = "database.db";
+	String DB_NAME = "database.db3";
 	String TABLE_BUG_REPORT = "bug_report";
 	String TABLE_CONTENT_REPORT = "content_report";
 	String TABLE_ENGLISH_WALK_DESCR = "english_walk_description";
@@ -29,35 +29,138 @@ interface DbSchema {
 	//Currently all SQL is normal. therefore invalid.
 	
 	String CREATE_TABLE_WALK = 
-			"";
+			"CREATE TABLE `walk` (" 
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"duration_minutes INT,"
+			+"distance_miles REAL,"
+			+"download_count INT,"
+			+"difficulty_rating INT,"
+			+"user_id INT"
+			+")";
 	
-	String CREATE_TABLE_WALK_BRAND = "";
+	String CREATE_TABLE_WALK_BRAND = 
+			"CREATE TABLE `walk_brand` ("
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"name TEXT,"
+			+"logo_file_name TEXT,"
+			+"walk_id INT"
+			+")";
 	
-	String CREATE_TABLE_WALK_REVIEW = "";
+	String CREATE_TABLE_WALK_REVIEW = 
+			"CREATE TABLE `walk_review` (" 
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"title TEXT,"
+			+"description TEXT,"
+			+"rating INT,"
+			+"walk_id INT,"
+			+"user_id INT"
+			+")";
 	
-	String CREATE_TABLE_WAYPOINT = "";
+	String CREATE_TABLE_WAYPOINT = 
+			"CREATE TABLE `waypoint` (" 
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"latitude REAL,"
+			+"longitude REAL,"
+			+"is_request INT,"
+			+"visit_order INT,"
+			+"walk_id INT,"
+			+"user_id INT"
+			+")";
 	
-	String CREATE_TABLE_WAYPOINT_AUDIO = "";
+	String CREATE_TABLE_WAYPOINT_AUDIO = 
+			"CREATE TABLE `waypoint_audio` (" 
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"file_name TEXT,"
+			+"waypoint_id INT"
+			+")";
 	
-	String CREATE_TABLE_WAYPOINT_VIDEO = "";
+	String CREATE_TABLE_WAYPOINT_VIDEO = 
+			"CREATE TABLE `waypoint_video` (" 
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"file_name TEXT,"
+			+"waypoint_id INT"
+			+")";
 	
-	String CREATE_TABLE_WAYPOINT_IMAGE = "";
+	String CREATE_TABLE_WAYPOINT_IMAGE = 
+			"CREATE TABLE `waypoint_image` ("
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"file_name TEXT,"
+			+"waypoint_id INT"
+			+")";
 	
-	String CREATE_TABLE_WESLH_WAYPOINT_DESCR = "";
+	String CREATE_TABLE_WESLH_WAYPOINT_DESCR = 
+			"CREATE TABLE `welsh_waypoint_description` (" 
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"title TEXT,"
+			+"short_description TEXT,"
+			+"long_description TEXT,"
+			+"waypoint_id INT"
+			+")";
 	
-	String CREATE_TABLE_WELSH_WALK_DESCR = "";
+	String CREATE_TABLE_WELSH_WALK_DESCR = 
+			"CREATE TABLE `welsh_walk_description` (" 
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"title TEXT,"
+			+"short_description TEXT,"
+			+"long_description TEXT,"
+			+"walk_id INT"
+			+")";
 	
-	String CREATE_TABLE_ENGLISH_WAYPOINT_DESCR = "";
+	String CREATE_TABLE_ENGLISH_WAYPOINT_DESCR = 
+			"CREATE TABLE `english_waypoint_description` ("
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"title TEXT,"
+			+"short_description TEXT,"
+			+"long_description TEXT,"
+			+"waypoint_id INT"
+			+")";
 	
-	String CREATE_TABLE_ENGLISH_WALK_DESCR = "";
+	String CREATE_TABLE_ENGLISH_WALK_DESCR = 
+			"CREATE TABLE `english_walk_description` ("
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"title TEXT,"
+			+"short_description TEXT,"
+			+"long_description TEXT,"
+			+"walk_id INT"
+			+")";
 	
-	String CREATE_TABLE_USER = "";
+	String CREATE_TABLE_USER = 
+			"CREATE TABLE `user` ("
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"first_name TEXT,"
+			+"last_name TEXT,"
+			+"email TEXT,"
+			+"password TEXT,"
+			+"salt TEXT,"
+			+"UNIQUE (`email`)"
+			+")";
 	
-	String CREATE_TABLE_USER_SETTINGS = "";
+	String CREATE_TABLE_USER_SETTINGS = 
+			"CREATE TABLE `user_setting` ("
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"value TEXT,"
+			+"user_id INT,"
+			+"setting_type_id INT"
+			+")";
 	
-	String CREATE_TABLE_SETTING_TYPE = "";
+	String CREATE_TABLE_SETTING_TYPE = 
+			"CREATE TABLE `setting_type` ("
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"name TEXT"
+			+")";
 	
-	String CREATE_TABLE_CONTENT_REPORT = "";
+	String CREATE_TABLE_CONTENT_REPORT = 
+			"CREATE TABLE `content_report` ("
+			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+"description TEXT,"
+			+"user_id INT,"
+			+"waypoint_id INT"
+			+")";
 	
-	String CREATE_TABLE_BUG_REPORT = "";
+	String CREATE_TABLE_BUG_REPORT = 
+			"CREATE TABLE `bug_report` (" 
+	       +"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
+	       +"description TEXT,"
+	       +"user_id INT"
+	       +")";
 }

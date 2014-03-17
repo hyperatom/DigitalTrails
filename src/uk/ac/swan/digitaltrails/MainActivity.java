@@ -1,8 +1,15 @@
 package uk.ac.swan.digitaltrails;
 
+import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 
 /**
  * Testing activity for content provider.
@@ -10,10 +17,10 @@ import android.support.v7.app.ActionBarActivity;
  *
  */
 public class MainActivity extends ActionBarActivity
-			implements WalkListFragment.OnWalkSelectedListener {
+			implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, WalkListFragment.OnWalkSelectedListener {
 
 
-
+	private boolean debug = false;
 	/**
 	 * 	Called when the activity is first created
 	 */
@@ -21,6 +28,22 @@ public class MainActivity extends ActionBarActivity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cp_test);
+
+		if (debug) {
+			ContentValues values = new ContentValues();
+			
+			values.put("title", "Test Walk 1");
+			values.put("short_description", "The First Test Walk");
+			values.put("long_description", "The long description of this walk...");
+			values.put("walk_id", "1");
+			getContentResolver().insert(WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI, values);
+		
+			values.put("title", "Test Walk 2");
+			values.put("short_description", "The Second Test Walk");
+			values.put("long_description", "The long description of this walk...");
+			values.put("walk_id", "2");
+			getContentResolver().insert(WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI, values);
+		}
 		
 		// check if using small layout
 		if (findViewById(R.id.fragment_container) != null) {
@@ -64,5 +87,26 @@ public class MainActivity extends ActionBarActivity
 			transaction.commit();
 		
 		}
+	}
+	
+	// LoaderCallbacks interface
+	
+	@Override
+	public Loader onCreateLoader(int arg0, Bundle bundle) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> arg0, Cursor arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
