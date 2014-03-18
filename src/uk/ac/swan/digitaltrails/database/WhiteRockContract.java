@@ -36,7 +36,7 @@ public class WhiteRockContract {
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.bug_report";
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
 		public static final String[] PROJECTION_ALL = {ID, DESCRIPTION, USER_ID};
 
@@ -53,7 +53,7 @@ public class WhiteRockContract {
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.content_report";
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
 		public static final String[] PROJECTION_ALL = {ID, DESCRIPTION, USER_ID};
 
@@ -73,9 +73,9 @@ public class WhiteRockContract {
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.english_walk_description";
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
-		public static final String[] PROJECTION_ALL = {ID, TITLE, SHORT_DESCR, LONG_DESCR, WAYPOINT_ID};
+		public static final String[] PROJECTION_ALL = {ID, TITLE, SHORT_DESCR, LONG_DESCR, WALK_ID};
 
 	}
 	
@@ -94,9 +94,9 @@ public class WhiteRockContract {
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.welsh_walk_description";
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
-		public static final String[] PROJECTION_ALL = {ID, TITLE, SHORT_DESCR, LONG_DESCR, WAYPOINT_ID};
+		public static final String[] PROJECTION_ALL = {ID, TITLE, SHORT_DESCR, LONG_DESCR, WALK_ID};
 
 	}
 	
@@ -115,7 +115,7 @@ public class WhiteRockContract {
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.english_waypoint_description";
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
 		public static final String[] PROJECTION_ALL = {ID, TITLE, SHORT_DESCR, LONG_DESCR, WAYPOINT_ID};
 
@@ -136,7 +136,7 @@ public class WhiteRockContract {
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.welsh_waypoint_description";
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
 		public static final String[] PROJECTION_ALL = {ID, TITLE, SHORT_DESCR, LONG_DESCR, WAYPOINT_ID};
 
@@ -152,7 +152,7 @@ public class WhiteRockContract {
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.setting_type";
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
 		public static final String[] PROJECTION_ALL = {ID, "name"};
 
@@ -168,7 +168,7 @@ public class WhiteRockContract {
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.user_setting";
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
 		public static final String[] PROJECTION_ALL = {ID, "value", "user_id", "setting_type_id"};
 
@@ -189,7 +189,7 @@ public class WhiteRockContract {
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.user";
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
 		public static final String[] PROJECTION_ALL = {ID, "email", "password"};
 
@@ -210,7 +210,7 @@ public class WhiteRockContract {
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.walk";
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
 		public static final String[] PROJECTION_ALL = {ID, "duration_minutes", "distance_miles", "download_count", "difficulty_rating", "user_id"};
 	}
@@ -276,7 +276,7 @@ public class WhiteRockContract {
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.waypoint_audio";
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
 		public static final String[] PROJECTION_ALL = {ID, FILE_LOCATION, WAYPOINT_ID};
 	}
@@ -298,7 +298,7 @@ public class WhiteRockContract {
 				"vnd.uk.ac.swan.digitaltrails.waypoint_video";
 
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";	
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
 	
 		public static final String[] PROJECTION_ALL = {ID, FILE_LOCATION, WAYPOINT_ID};
 
@@ -321,7 +321,7 @@ public class WhiteRockContract {
 				"vnd.uk.ac.swan.digitaltrails.waypoint_image";
 
 		
-		public static final String SORT_ORDER_DEFAULT = "id" + " ASC";	
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
 	
 		public static final String[] PROJECTION_ALL = {ID, FILE_LOCATION, WAYPOINT_ID};
 
@@ -362,6 +362,8 @@ public class WhiteRockContract {
 		public static final String LONG_DESCR = "long_description";
 	
 		public static final String WAYPOINT_ID = "waypoint_id";
+		
+		public static final String WALK_ID = "walk_id";
 	}
 	
 	/**

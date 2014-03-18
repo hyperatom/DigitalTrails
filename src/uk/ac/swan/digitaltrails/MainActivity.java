@@ -17,7 +17,7 @@ import android.support.v7.widget.SearchView;
  *
  */
 public class MainActivity extends ActionBarActivity
-			implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, WalkListFragment.OnWalkSelectedListener {
+			implements WalkListFragment.OnWalkSelectedListener {
 
 
 	private boolean debug = false;
@@ -57,8 +57,7 @@ public class MainActivity extends ActionBarActivity
 			
 			walkListFragment.setArguments(getIntent().getExtras());
 			
-			getSupportFragmentManager().beginTransaction()
-											.add(R.id.fragment_container, walkListFragment).commit();
+			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, walkListFragment).commit();
 		}
 	}
 
@@ -85,28 +84,6 @@ public class MainActivity extends ActionBarActivity
 			transaction.addToBackStack(null);
 			
 			transaction.commit();
-		
 		}
-	}
-	
-	// LoaderCallbacks interface
-	
-	@Override
-	public Loader onCreateLoader(int arg0, Bundle bundle) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void onLoadFinished(Loader<Cursor> arg0, Cursor arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onLoaderReset(Loader<Cursor> arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 }

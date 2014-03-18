@@ -82,7 +82,7 @@ public class WalkListFragment extends ListFragment
 	public void onStart() {
 		super.onStart();
 		
-		if (getFragmentManager().findFragmentById(R.id.details) != null) {
+		if (getFragmentManager().findFragmentById(R.id.title) != null) {
 			getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		}
 	}
@@ -102,7 +102,7 @@ public class WalkListFragment extends ListFragment
 	}
 	
 
-	static String [] WALK_SUMMARY_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions._ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, WhiteRockContract.EnglishWalkDescriptions.LONG_DESCR };
+	static String [] WALK_SUMMARY_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions._ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, WhiteRockContract.EnglishWalkDescriptions.WALK_ID };
 	
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -114,7 +114,7 @@ public class WalkListFragment extends ListFragment
 		}
 		
 		String select = "((_id))";
-		return new CursorLoader(getActivity(), baseUri, WALK_SUMMARY_PROJECTION, select, null, WhiteRockContract.EnglishWalkDescriptions._ID + " COLLATE LOCALIZED ASC");
+		return new CursorLoader(getActivity(), baseUri, WALK_SUMMARY_PROJECTION, select, null, WhiteRockContract.EnglishWalkDescriptions.WALK_ID + " COLLATE LOCALIZED ASC");
 	}
 
 	@Override
