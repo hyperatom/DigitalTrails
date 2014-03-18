@@ -25,7 +25,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class MainActivity extends FragmentActivity {
+public class MapActivity extends FragmentActivity {
   private GoogleMap map;
   private final boolean TEST = true;
   
