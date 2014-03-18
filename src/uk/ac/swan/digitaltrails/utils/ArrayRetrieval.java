@@ -2,6 +2,7 @@ package uk.ac.swan.digitaltrails.utils;
 
 import java.util.ArrayList;
 
+// I can't remember why I wrote this... erghh - Lewis
 public class ArrayRetrieval {
 
 	public static ArrayList<String> getElementNames(ArrayList<?> list) {
