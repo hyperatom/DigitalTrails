@@ -9,7 +9,7 @@ public class Walk {
 	private long mId;
 	private ArrayList<Description> mDescriptions;
 	private Duration mDuration;
-	/** Total distance to walk in CHOSEN FORMAT */
+	/** Total distance to walk in miles */
 	private double mDistance;
 	private ArrayList<Waypoint> mWaypoints;
 	private long mOwnerId;
@@ -201,6 +201,10 @@ public class Walk {
 		setOwnerId(ownerId);
 		setDownloadCount(downloadCount);
 		setDifficultyRating(difficulty);
+	}
+	
+	public String toString() {
+		return this.mTitle;
 	}
 
 
