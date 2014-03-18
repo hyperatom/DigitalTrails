@@ -1,14 +1,13 @@
 package uk.ac.swan.digitaltrails.utils;
 
-
 /**
  * 
  * @author Lewis Hancock
  * Class to hold hours and minutes it takes to complete a walk.
  */
 public class Duration {
-	private int hours;
-	private int minutes;
+	private int mHours;
+	private int mMinutes;
 	
 	/**
 	 * Set the number of hours the walk should take.
@@ -17,7 +16,7 @@ public class Duration {
 	 */
 	public int setHours(int hours) {
 		if (hours >= 0 && hours <= 23) {
-			this.hours = hours;
+			this.mHours = hours;
 			return 0;
 		} else {
 			return -1;
@@ -29,7 +28,7 @@ public class Duration {
 	 * @return the number of hours.
 	 */
 	public int getHours() {
-		return hours;
+		return mHours;
 	}
 	
 	/**
@@ -39,7 +38,7 @@ public class Duration {
 	 */
 	public int setMinutes(int minutes) {
 		if (minutes >= 0 && minutes <= 59) {
-			this.minutes = minutes;
+			this.mMinutes = minutes;
 			return 0;
 		} else {
 			return -1;
@@ -51,7 +50,7 @@ public class Duration {
 	 * @return the number of minutes
 	 */
 	public int getMinutes() {
-		return minutes;
+		return mMinutes;
 	}
 	
 	/**

@@ -1,6 +1,7 @@
 package uk.ac.swan.digitaltrails;
 
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -69,7 +70,7 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		super.onSaveInstanceState(outState); 
 		outState.putInt(ARG_POSITION, mCurrentPos);
 	}
-	
+
 	/**
 	 * Display details for the walk
 	 * @param position
@@ -105,12 +106,12 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		} else {
 			Log.d("DATA LOG", "Cursor is empty, wtf, the mCurrentPos is: " + mCurrentPos);
 		}
-
-
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 	}
+	
+
 	
 }

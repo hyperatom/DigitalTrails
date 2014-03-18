@@ -1,15 +1,13 @@
 package uk.ac.swan.digitaltrails;
 
+import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import android.content.ContentValues;
-import android.database.Cursor;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.SearchView;
+import android.view.View;
 
 /**
  * Testing activity for content provider.
@@ -21,6 +19,8 @@ public class MainActivity extends ActionBarActivity
 
 
 	private boolean debug = false;
+	private int mCurrentPos = -1;
+	
 	/**
 	 * 	Called when the activity is first created
 	 */
@@ -85,5 +85,20 @@ public class MainActivity extends ActionBarActivity
 			
 			transaction.commit();
 		}
+	}
+	
+	public void loadWalkButtonClick(View view) {
+		Intent intent = new Intent(this, MapActivity.class);
+		Bundle bundle = new Bundle();
+		Walk parcel = parcelWalk();
+		bundle.putParcelable("waypoint", parcel);
+		startActivity(intent);
+	}
+	
+	private Walk parcelWalk() {
+		Walk parcel = new Walk();
+		
+		
+		return parcel;
 	}
 }

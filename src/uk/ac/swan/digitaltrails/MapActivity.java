@@ -1,10 +1,13 @@
 package uk.ac.swan.digitaltrails;
 
+import java.util.ArrayList;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -26,171 +29,199 @@ import com.google.android.gms.maps.model.Marker;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MapActivity extends FragmentActivity {
-  private GoogleMap map;
-  private final boolean TEST = true;
-  
-@Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    if (TEST){
-    	try {
-	    	initMapWhiteRock();
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    }
-    } else {
-	    try {
-	    	initMap();
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    }
-    }
-  }
+	private GoogleMap mMap;
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.maps_menu, menu); // fix this to change the map view etc.
-    return true;
-  }
-  
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-	  return changeMap(item);
-  }
-  
-  private void showInfoViewDialog() {
-	  DialogFragment dialog = InfoViewDialogFragment.newInstance();
-	  dialog.show(getSupportFragmentManager(), "dialog");
-  }
-  
-  private boolean changeMap(MenuItem item) {
-	  switch (item.getItemId()) {
-	  case R.id.normal_map:
-		  if (map != null) {
-			  map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-		  } else {
-			  Toast.makeText(getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
-			  return false;
-		  }
-		  return true;
-	  case R.id.hybrid_map:
-		  if (map != null) {
-			  map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-		  } else {
-			  Toast.makeText(getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
-			  return false;
-		  }
-		  return true;
-	  case R.id.satellite_map:
-		  if (map != null) {
-			  map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-		  } else {
-			  Toast.makeText(getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
-			  return false;
-		  }
-		  return true;
-	  }
-	return false;
-  }
-  
-  protected void onResume() {
-	  super.onResume();
-	  if (TEST) {
-		 initMapWhiteRock(); // testing only
-	  } else {
-		  initMap();
-	  }
-  }
-  
-  @Override
-  protected void onPause() {
-	  super.onPause();
-  }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_map);
+		Intent intent = getIntent();
+		
+		initMap();
+	}
 
-  private void initMap() {
-	  if (map == null) {
-		  map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-		  if (map == null) {
-			  Toast.makeText(getApplicationContext(), "Can't make the map", Toast.LENGTH_LONG).show();
-		  }
-	  }
-  }
-  
-  private void initMapWhiteRock() {
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.maps_menu, menu); // fix this to change the map view etc.
+		return true;
+	}
 
-	  if (map == null) {
-		  map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-		  if (map == null) {
-			  Toast.makeText(getApplicationContext(), "Can't make the map", Toast.LENGTH_LONG).show();
-		  } else {
-			  map.getUiSettings().setCompassEnabled(true);
-			  map.getUiSettings().setMyLocationButtonEnabled(true);
-			  map.setMyLocationEnabled(true);
-			  map.getUiSettings().setZoomControlsEnabled(true);
-			  map.getUiSettings().setZoomGesturesEnabled(true);
-			  map.getUiSettings().setRotateGesturesEnabled(true);
-			  // add markers
-			  Marker dockMarker = map.addMarker(WaypointTemp.dockMarker);
-			  Marker canalTunnelMarker = map.addMarker(WaypointTemp.cananlTunnelMarker);
-			  Marker canalMarker = map.addMarker(WaypointTemp.canalMarker);
-			  Marker taweMarker = map.addMarker(WaypointTemp.taweMarker);
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return changeMap(item);
+	}
 
-			  map.setOnMarkerClickListener(new OnMarkerClickListener() {
+	private void showInfoViewDialog() {
+		DialogFragment dialog = InfoViewDialogFragment.newInstance();
+		dialog.show(getSupportFragmentManager(), "dialog");
+	}
 
-				@Override
-				public boolean onMarkerClick(Marker marker) {
-					marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-					return false;
-				}
-			  
-			  });
-			  
-			  map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+	private boolean changeMap(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.normal_map:
+			if (mMap != null) {
+				mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+			} else {
+				Toast.makeText(getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+			return true;
+		case R.id.hybrid_map:
+			if (mMap != null) {
+				mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+			} else {
+				Toast.makeText(getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+			return true;
+		case R.id.satellite_map:
+			if (mMap != null) {
+				mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+			} else {
+				Toast.makeText(getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
 
-				@Override
-				public void onInfoWindowClick(Marker marker) {
-					showInfoViewDialog();
-					// Display correct information in the thing.
-				}
-			  });
-			 
-			  // In practice we may want to set the bounds to be that of the area we are walking in.
-			  // for now I'm just going to zoom in this close cause I can.
-			  map.moveCamera(CameraUpdateFactory.newLatLngZoom(WaypointTemp.riverTawe, 15)); 
-		  }
-	  }
-  }
-  
-  // Has to be a static inner class or Android won't let it happen...
-  /**
-   * 
-   * @author Lewis Hancock
-   *
-   */
-  public static class InfoViewDialogFragment extends DialogFragment {
-  
-	  static InfoViewDialogFragment newInstance() {
-		  InfoViewDialogFragment dialog = new InfoViewDialogFragment();
-		  return dialog;
-	  }
-	  
-	  @Override
-	  public Dialog onCreateDialog(Bundle savedInstanceState) {
+	protected void onResume() {
+		super.onResume();
+		initMap();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
+
+	private void initMap() {
+		if (mMap == null) {
+			mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+			if (mMap == null) {
+				Toast.makeText(getApplicationContext(), "Can't make the map", Toast.LENGTH_LONG).show();
+			} else {
+				setDefaultMapConfig();
+				
+			}
+		}
+	}
+	
+	private void setDefaultMapConfig() {
+		mMap.getUiSettings().setCompassEnabled(true);
+		mMap.getUiSettings().setMyLocationButtonEnabled(true);
+		mMap.setMyLocationEnabled(true);
+		mMap.getUiSettings().setZoomControlsEnabled(true);
+		mMap.getUiSettings().setZoomGesturesEnabled(true);
+		mMap.getUiSettings().setRotateGesturesEnabled(true);
+	}
+	
+	private void createMarkers(ArrayList<Marker> markers) {
+		// add markers
+		Marker dockMarker = mMap.addMarker(WaypointTemp.dockMarker);
+		Marker canalTunnelMarker = mMap.addMarker(WaypointTemp.cananlTunnelMarker);
+		Marker canalMarker = mMap.addMarker(WaypointTemp.canalMarker);
+		Marker taweMarker = mMap.addMarker(WaypointTemp.taweMarker);
+
+		mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
+
+			@Override
+			public boolean onMarkerClick(Marker marker) {
+				marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+				return false;
+			}
+
+		});
+
+		mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+
+			@Override
+			public void onInfoWindowClick(Marker marker) {
+				showInfoViewDialog();
+				// Display correct information in the thing.
+			}
+		});
+	}
+	
+	private void resumeMap() {
+		setDefaultMapConfig();
+	}
+
+	private void initMapWhiteRock() {
+
+		if (mMap == null) {
+			mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+			if (mMap == null) {
+				Toast.makeText(getApplicationContext(), "Can't make the map", Toast.LENGTH_LONG).show();
+			} else {
+				mMap.getUiSettings().setCompassEnabled(true);
+				mMap.getUiSettings().setMyLocationButtonEnabled(true);
+				mMap.setMyLocationEnabled(true);
+				mMap.getUiSettings().setZoomControlsEnabled(true);
+				mMap.getUiSettings().setZoomGesturesEnabled(true);
+				mMap.getUiSettings().setRotateGesturesEnabled(true);
+				// add markers
+				Marker dockMarker = mMap.addMarker(WaypointTemp.dockMarker);
+				Marker canalTunnelMarker = mMap.addMarker(WaypointTemp.cananlTunnelMarker);
+				Marker canalMarker = mMap.addMarker(WaypointTemp.canalMarker);
+				Marker taweMarker = mMap.addMarker(WaypointTemp.taweMarker);
+
+				mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
+
+					@Override
+					public boolean onMarkerClick(Marker marker) {
+						marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+						return false;
+					}
+
+				});
+
+				mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+
+					@Override
+					public void onInfoWindowClick(Marker marker) {
+						showInfoViewDialog();
+						// Display correct information in the thing.
+					}
+				});
+
+				// In practice we may want to set the bounds to be that of the area we are walking in.
+				// for now I'm just going to zoom in this close cause I can.
+				mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(WaypointTemp.riverTawe, 15)); 
+			}
+		}
+	}
+
+	// Has to be a class or Android won't let it happen...
+	/**
+	 * 
+	 * @author Lewis Hancock
+	 *
+	 */
+	public static class InfoViewDialogFragment extends DialogFragment {
+
+		static InfoViewDialogFragment newInstance() {
+			InfoViewDialogFragment dialog = new InfoViewDialogFragment();
+			return dialog;
+		}
+
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			builder.setMessage(R.string.dialog_info_view)
-					.setNeutralButton(R.string.close, new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// user cancelled
-							
-						}
-					});
-			return builder.create();
-	  }
-	  
-  }
+			.setNeutralButton(R.string.close, new DialogInterface.OnClickListener() {
 
-  
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// user cancelled
+
+				}
+			});
+			return builder.create();
+		}
+
+	}
+
+
 } 

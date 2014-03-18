@@ -7,10 +7,14 @@ package uk.ac.swan.digitaltrails.components;
 
 import java.util.ArrayList;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.Parcelable.Creator;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
-public class Waypoint {
+public class Waypoint implements Parcelable {
 
 	private long mId;
 	private String mTitle;
@@ -179,4 +183,51 @@ public class Waypoint {
 		setDescriptions(descriptions);
 	}
 
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeLong(mId);
+		dest.writeString(mTitle);
+		dest.writeParcelable(mLatLng, 0);
+		dest.writeInt(mVisitOrder);
+		int temp = mIsRequest ? 1 : 0;
+		dest.writeInt(temp);
+		dest.writeParcelableArray(mPhotos, 0);
+		
+		
+		
+		/*
+		private long mId;
+		private String mTitle;
+		private double mLongitude;
+		private double mLatitude;
+		private LatLng mLatLng;
+		private Marker mMarker;
+		private int mVisitOrder;
+		private boolean mIsRequest; 
+		private ArrayList<Photo> mPhotos;
+		private ArrayList<Audio> mAudioFiles;
+		private ArrayList<Video> mVideos;
+		private ArrayList<Description> mDescriptions;
+		private long mUserId;
+		private long mWalkId;
+		*/
+	}
+	
+	public static final Parcelable.Creator<Waypoint> CREATOR = new Creator<Waypoint>() {
+		public Waypoint createFromParcel(Parcel in) {
+			return null;
+		}
+
+		@Override
+		public Waypoint[] newArray(int size) {
+			// TODO Auto-generated method stub
+			return new Waypoint[size];
+		}
+	};
 }
