@@ -17,13 +17,6 @@ public final class R {
         public static final int abc_slide_out_top=0x7f040005;
     }
     public static final class attr {
-<<<<<<< HEAD
-        /** 
-    The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
-    MEDIUM_RECTANGLE, SMART_BANNER, WIDE_SKYSCRAPER, or
-    &lt;width&gt;x&lt;height&gt;.
-    
-=======
         /**  Custom divider drawable to use for elements in the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -187,7 +180,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
              and perform operations such as default action for that menu item.
              See {@link android.view.MenuItem#setActionProvider(android.view.ActionProvider)}
              for more info. 
->>>>>>> database
          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -195,19 +187,10 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int adSize=0x7f010000;
-        /** 
-    A comma-separated list of the supported ad sizes. The sizes must be one of
-    BANNER, FULL_BANNER, LEADERBOARD, MEDIUM_RECTANGLE, SMART_BANNER,
-    WIDE_SKYSCRAPER, or &lt;width&gt;x&lt;height&gt;.
-    
-=======
         public static final int actionProviderClass=0x7f01004c;
         /**  The name of an optional View class to instantiate and use as an
              action view. See {@link android.view.MenuItem#setActionView(android.view.View)}
              for more info. 
->>>>>>> database
          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -215,16 +198,47 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int adSizes=0x7f010001;
-        /**  The ad unit ID. 
-=======
         public static final int actionViewClass=0x7f01004b;
         /**  Default ActivityChooserView style. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int activityChooserViewStyle=0x7f010068;
+        /** 
+    The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
+    MEDIUM_RECTANGLE, SMART_BANNER, WIDE_SKYSCRAPER, or
+    &lt;width&gt;x&lt;height&gt;.
+    
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adSize=0x7f01006a;
+        /** 
+    A comma-separated list of the supported ad sizes. The sizes must be one of
+    BANNER, FULL_BANNER, LEADERBOARD, MEDIUM_RECTANGLE, SMART_BANNER,
+    WIDE_SKYSCRAPER, or &lt;width&gt;x&lt;height&gt;.
+    
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adSizes=0x7f01006b;
+        /**  The ad unit ID. 
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adUnitId=0x7f01006c;
         /**  Specifies a background drawable for the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -256,6 +270,46 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int buttonBarStyle=0x7f010013;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraBearing=0x7f01006e;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTargetLat=0x7f01006f;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTargetLng=0x7f010070;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTilt=0x7f010071;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraZoom=0x7f010072;
         /**  Specifies a layout for custom navigation. Overrides navigationMode. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -380,7 +434,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          */
         public static final int indeterminateProgressStyle=0x7f010031;
         /**  The maximal number of items initially shown in the activity list. 
->>>>>>> database
          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -388,10 +441,6 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int adUnitId=0x7f010002;
-        /** <p>Must be a floating point value, such as "<code>1.2</code>".
-=======
         public static final int initialActivityCount=0x7f010066;
         /**  Specifies whether the theme is light, otherwise it is dark. 
          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
@@ -427,96 +476,68 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int cameraBearing=0x7f010004;
-        /** <p>Must be a floating point value, such as "<code>1.2</code>".
-=======
         public static final int listPreferredItemHeight=0x7f010018;
         /**  A larger, more robust list item height. 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int cameraTargetLat=0x7f010005;
-        /** <p>Must be a floating point value, such as "<code>1.2</code>".
-=======
         public static final int listPreferredItemHeightLarge=0x7f01001a;
         /**  A smaller, sleeker list item height. 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int cameraTargetLng=0x7f010006;
-        /** <p>Must be a floating point value, such as "<code>1.2</code>".
-=======
         public static final int listPreferredItemHeightSmall=0x7f010019;
         /**  The preferred padding along the left edge of list items. 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int cameraTilt=0x7f010007;
-        /** <p>Must be a floating point value, such as "<code>1.2</code>".
-=======
         public static final int listPreferredItemPaddingLeft=0x7f01001b;
         /**  The preferred padding along the right edge of list items. 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int cameraZoom=0x7f010008;
-        /** <p>Must be one of the following constant values.</p>
-=======
         public static final int listPreferredItemPaddingRight=0x7f01001c;
         /**  Specifies the drawable used for the application logo. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int logo=0x7f010029;
-        /**  The type of navigation to use. 
-         <p>Must be one of the following constant values.</p>
->>>>>>> database
+        /** <p>Must be one of the following constant values.</p>
 <table>
 <colgroup align="left" />
 <colgroup align="left" />
 <colgroup align="left" />
 <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<<<<<<< HEAD
 <tr><td><code>none</code></td><td>0</td><td></td></tr>
 <tr><td><code>normal</code></td><td>1</td><td></td></tr>
 <tr><td><code>satellite</code></td><td>2</td><td></td></tr>
@@ -524,9 +545,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
 </table>
          */
-        public static final int mapType=0x7f010003;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-=======
+        public static final int mapType=0x7f01006d;
+        /**  The type of navigation to use. 
+         <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
 <tr><td><code>normal</code></td><td>0</td><td> Normal static title text </td></tr>
 <tr><td><code>listMode</code></td><td>1</td><td> The action bar will use a selection list for navigation. </td></tr>
 <tr><td><code>tabMode</code></td><td>2</td><td> The action bar will use a series of horizontal tabs for navigation. </td></tr>
@@ -537,33 +563,23 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int uiCompass=0x7f010009;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-=======
         public static final int paddingEnd=0x7f010035;
         /**  Sets the padding, in pixels, of the start edge; see {@link android.R.attr#padding}. 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int uiRotateGestures=0x7f01000a;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-=======
         public static final int paddingStart=0x7f010034;
         /**  Default Panel Menu style. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -574,17 +590,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int uiScrollGestures=0x7f01000b;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-=======
         public static final int panelMenuListWidth=0x7f010046;
         /**  Default PopupMenu style. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -602,17 +613,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int uiTiltGestures=0x7f01000c;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-=======
         public static final int progressBarPadding=0x7f010032;
         /**  Specifies a style resource to use for an embedded progress bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -764,16 +770,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int spinnerStyle=0x7f010053;
         /**  Specifies subtitle text used for navigationMode="normal" 
          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int uiZoomControls=0x7f01000d;
-=======
         public static final int subtitle=0x7f010025;
         /**  Specifies a style to use for subtitle text. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -836,7 +838,6 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int titleTextStyle=0x7f010026;
->>>>>>> database
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -844,11 +845,63 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int uiZoomGestures=0x7f01000e;
-=======
+        public static final int uiCompass=0x7f010073;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiRotateGestures=0x7f010074;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiScrollGestures=0x7f010075;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiTiltGestures=0x7f010076;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiZoomControls=0x7f010077;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiZoomGestures=0x7f010078;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int useViewLifecycle=0x7f010079;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
         public static final int windowActionBar=0x7f010000;
->>>>>>> database
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -856,11 +909,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int useViewLifecycle=0x7f01000f;
-=======
         public static final int windowActionBarOverlay=0x7f010001;
->>>>>>> database
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -868,170 +917,15 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-<<<<<<< HEAD
-        public static final int zOrderOnTop=0x7f010010;
-    }
-    public static final class color {
-        public static final int common_action_bar_splitter=0x7f040009;
-        /**  Sign-in Button Colors 
-         */
-        public static final int common_signin_btn_dark_text_default=0x7f040000;
-        public static final int common_signin_btn_dark_text_disabled=0x7f040002;
-        public static final int common_signin_btn_dark_text_focused=0x7f040003;
-        public static final int common_signin_btn_dark_text_pressed=0x7f040001;
-        public static final int common_signin_btn_default_background=0x7f040008;
-        public static final int common_signin_btn_light_text_default=0x7f040004;
-        public static final int common_signin_btn_light_text_disabled=0x7f040006;
-        public static final int common_signin_btn_light_text_focused=0x7f040007;
-        public static final int common_signin_btn_light_text_pressed=0x7f040005;
-        public static final int common_signin_btn_text_dark=0x7f04000a;
-        public static final int common_signin_btn_text_light=0x7f04000b;
-    }
-    public static final class drawable {
-        public static final int aberaeronbg=0x7f020000;
-        public static final int aberaeronlogo=0x7f020001;
-        public static final int abershore=0x7f020002;
-        public static final int bonuspack_bubble=0x7f020003;
-        public static final int common_signin_btn_icon_dark=0x7f020004;
-        public static final int common_signin_btn_icon_disabled_dark=0x7f020005;
-        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020006;
-        public static final int common_signin_btn_icon_disabled_focus_light=0x7f020007;
-        public static final int common_signin_btn_icon_disabled_light=0x7f020008;
-        public static final int common_signin_btn_icon_focus_dark=0x7f020009;
-        public static final int common_signin_btn_icon_focus_light=0x7f02000a;
-        public static final int common_signin_btn_icon_light=0x7f02000b;
-        public static final int common_signin_btn_icon_normal_dark=0x7f02000c;
-        public static final int common_signin_btn_icon_normal_light=0x7f02000d;
-        public static final int common_signin_btn_icon_pressed_dark=0x7f02000e;
-        public static final int common_signin_btn_icon_pressed_light=0x7f02000f;
-        public static final int common_signin_btn_text_dark=0x7f020010;
-        public static final int common_signin_btn_text_disabled_dark=0x7f020011;
-        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020012;
-        public static final int common_signin_btn_text_disabled_focus_light=0x7f020013;
-        public static final int common_signin_btn_text_disabled_light=0x7f020014;
-        public static final int common_signin_btn_text_focus_dark=0x7f020015;
-        public static final int common_signin_btn_text_focus_light=0x7f020016;
-        public static final int common_signin_btn_text_light=0x7f020017;
-        public static final int common_signin_btn_text_normal_dark=0x7f020018;
-        public static final int common_signin_btn_text_normal_light=0x7f020019;
-        public static final int common_signin_btn_text_pressed_dark=0x7f02001a;
-        public static final int common_signin_btn_text_pressed_light=0x7f02001b;
-        public static final int currentloc=0x7f02001c;
-        public static final int donepoint=0x7f02001d;
-        public static final int hafodandmiddlebankworks=0x7f02001e;
-        public static final int hafodcopperworks=0x7f02001f;
-        public static final int ic_launcher=0x7f020020;
-        public static final int ic_plusone_medium_off_client=0x7f020021;
-        public static final int ic_plusone_small_off_client=0x7f020022;
-        public static final int ic_plusone_standard_off_client=0x7f020023;
-        public static final int ic_plusone_tall_off_client=0x7f020024;
-        public static final int ic_tab_main=0x7f020025;
-        public static final int ic_tab_main_selected=0x7f020026;
-        public static final int ic_tab_main_unselected=0x7f020027;
-        public static final int ic_tab_setup=0x7f020028;
-        public static final int ic_tab_setup_selected=0x7f020029;
-        public static final int ic_tab_setup_unselected=0x7f02002a;
-        public static final int icon=0x7f02002b;
-        public static final int icon1024=0x7f02002c;
-        public static final int p10a=0x7f02002d;
-        public static final int p10b=0x7f02002e;
-        public static final int p10c=0x7f02002f;
-        public static final int p11a=0x7f020030;
-        public static final int p11b=0x7f020031;
-        public static final int p11c=0x7f020032;
-        public static final int p12a=0x7f020033;
-        public static final int p12b=0x7f020034;
-        public static final int p12c=0x7f020035;
-        public static final int p13a=0x7f020036;
-        public static final int p13b=0x7f020037;
-        public static final int p14a=0x7f020038;
-        public static final int p15a=0x7f020039;
-        public static final int p15b=0x7f02003a;
-        public static final int p15c=0x7f02003b;
-        public static final int p16a=0x7f02003c;
-        public static final int p16b=0x7f02003d;
-        public static final int p16c=0x7f02003e;
-        public static final int p16d=0x7f02003f;
-        public static final int p17a=0x7f020040;
-        public static final int p17b=0x7f020041;
-        public static final int p17c=0x7f020042;
-        public static final int p17d=0x7f020043;
-        public static final int p1a=0x7f020044;
-        public static final int p1b=0x7f020045;
-        public static final int p1c=0x7f020046;
-        public static final int p2a=0x7f020047;
-        public static final int p2b=0x7f020048;
-        public static final int p2c=0x7f020049;
-        public static final int p3a=0x7f02004a;
-        public static final int p3b=0x7f02004b;
-        public static final int p3c=0x7f02004c;
-        public static final int p4a=0x7f02004d;
-        public static final int p4b=0x7f02004e;
-        public static final int p4c=0x7f02004f;
-        public static final int p5a=0x7f020050;
-        public static final int p5b=0x7f020051;
-        public static final int p5c=0x7f020052;
-        public static final int p5d=0x7f020053;
-        public static final int p6a=0x7f020054;
-        public static final int p6b=0x7f020055;
-        public static final int p7a=0x7f020056;
-        public static final int p7b=0x7f020057;
-        public static final int p7c=0x7f020058;
-        public static final int p7d=0x7f020059;
-        public static final int p7e=0x7f02005a;
-        public static final int p7f=0x7f02005b;
-        public static final int p8a=0x7f02005c;
-        public static final int p8b=0x7f02005d;
-        public static final int p8c=0x7f02005e;
-        public static final int p8d=0x7f02005f;
-        public static final int p9a=0x7f020060;
-        public static final int p9b=0x7f020061;
-        public static final int smithtunnel=0x7f020062;
-        public static final int swanseafromkilveyhill=0x7f020063;
-        public static final int todopoint=0x7f020064;
-        public static final int wr001a=0x7f020065;
-        public static final int wr002a=0x7f020066;
-        public static final int wr003a=0x7f020067;
-        public static final int wr004a=0x7f020068;
-        public static final int wr005a=0x7f020069;
-        public static final int wr006a=0x7f02006a;
-        public static final int wr007a=0x7f02006b;
-        public static final int wr008a=0x7f02006c;
-    }
-    public static final class id {
-        public static final int address=0x7f050009;
-        public static final int description=0x7f050008;
-        public static final int hybrid=0x7f050004;
-        public static final int hybrid_map=0x7f050012;
-        public static final int image=0x7f050006;
-        public static final int imageView1=0x7f05000c;
-        public static final int info_view_view_pager=0x7f05000a;
-        public static final int map=0x7f050005;
-        public static final int maps=0x7f050010;
-        public static final int mapview=0x7f05000f;
-        public static final int none=0x7f050000;
-        public static final int normal=0x7f050001;
-        public static final int normal_map=0x7f050011;
-        public static final int satellite=0x7f050002;
-        public static final int satellite_map=0x7f050013;
-        public static final int scrollView1=0x7f05000d;
-        public static final int terrain=0x7f050003;
-        public static final int textView1=0x7f05000b;
-        public static final int textView2=0x7f05000e;
-        public static final int title=0x7f050007;
-    }
-    public static final class integer {
-        public static final int google_play_services_version=0x7f070000;
-    }
-    public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int bonuspack_bubble=0x7f030001;
-        public static final int dialog_info_view=0x7f030002;
-        public static final int info=0x7f030003;
-        public static final int main=0x7f030004;
-        public static final int walkmap=0x7f030005;
-=======
         public static final int windowSplitActionBar=0x7f010002;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int zOrderOnTop=0x7f01007a;
     }
     public static final class bool {
         public static final int abc_action_bar_embed_tabs_pre_jb=0x7f060000;
@@ -1053,10 +947,24 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f060002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070003;
+        public static final int abc_search_url_text_holo=0x7f07000d;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
+        public static final int common_action_bar_splitter=0x7f07000c;
+        /**  Sign-in Button Colors 
+         */
+        public static final int common_signin_btn_dark_text_default=0x7f070003;
+        public static final int common_signin_btn_dark_text_disabled=0x7f070005;
+        public static final int common_signin_btn_dark_text_focused=0x7f070006;
+        public static final int common_signin_btn_dark_text_pressed=0x7f070004;
+        public static final int common_signin_btn_default_background=0x7f07000b;
+        public static final int common_signin_btn_light_text_default=0x7f070007;
+        public static final int common_signin_btn_light_text_disabled=0x7f070009;
+        public static final int common_signin_btn_light_text_focused=0x7f07000a;
+        public static final int common_signin_btn_light_text_pressed=0x7f070008;
+        public static final int common_signin_btn_text_dark=0x7f07000e;
+        public static final int common_signin_btn_text_light=0x7f07000f;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1235,149 +1143,190 @@ containing a value of this type.
         public static final int aberaeronlogo=0x7f020058;
         public static final int abershore=0x7f020059;
         public static final int bonuspack_bubble=0x7f02005a;
-        public static final int currentloc=0x7f02005b;
-        public static final int donepoint=0x7f02005c;
-        public static final int hafodandmiddlebankworks=0x7f02005d;
-        public static final int hafodcopperworks=0x7f02005e;
-        public static final int ic_launcher=0x7f02005f;
-        public static final int ic_tab_main=0x7f020060;
-        public static final int ic_tab_main_selected=0x7f020061;
-        public static final int ic_tab_main_unselected=0x7f020062;
-        public static final int ic_tab_setup=0x7f020063;
-        public static final int ic_tab_setup_selected=0x7f020064;
-        public static final int ic_tab_setup_unselected=0x7f020065;
-        public static final int icon=0x7f020066;
-        public static final int icon1024=0x7f020067;
-        public static final int p10a=0x7f020068;
-        public static final int p10b=0x7f020069;
-        public static final int p10c=0x7f02006a;
-        public static final int p11a=0x7f02006b;
-        public static final int p11b=0x7f02006c;
-        public static final int p11c=0x7f02006d;
-        public static final int p12a=0x7f02006e;
-        public static final int p12b=0x7f02006f;
-        public static final int p12c=0x7f020070;
-        public static final int p13a=0x7f020071;
-        public static final int p13b=0x7f020072;
-        public static final int p14a=0x7f020073;
-        public static final int p15a=0x7f020074;
-        public static final int p15b=0x7f020075;
-        public static final int p15c=0x7f020076;
-        public static final int p16a=0x7f020077;
-        public static final int p16b=0x7f020078;
-        public static final int p16c=0x7f020079;
-        public static final int p16d=0x7f02007a;
-        public static final int p17a=0x7f02007b;
-        public static final int p17b=0x7f02007c;
-        public static final int p17c=0x7f02007d;
-        public static final int p17d=0x7f02007e;
-        public static final int p1a=0x7f02007f;
-        public static final int p1b=0x7f020080;
-        public static final int p1c=0x7f020081;
-        public static final int p2a=0x7f020082;
-        public static final int p2b=0x7f020083;
-        public static final int p2c=0x7f020084;
-        public static final int p3a=0x7f020085;
-        public static final int p3b=0x7f020086;
-        public static final int p3c=0x7f020087;
-        public static final int p4a=0x7f020088;
-        public static final int p4b=0x7f020089;
-        public static final int p4c=0x7f02008a;
-        public static final int p5a=0x7f02008b;
-        public static final int p5b=0x7f02008c;
-        public static final int p5c=0x7f02008d;
-        public static final int p5d=0x7f02008e;
-        public static final int p6a=0x7f02008f;
-        public static final int p6b=0x7f020090;
-        public static final int p7a=0x7f020091;
-        public static final int p7b=0x7f020092;
-        public static final int p7c=0x7f020093;
-        public static final int p7d=0x7f020094;
-        public static final int p7e=0x7f020095;
-        public static final int p7f=0x7f020096;
-        public static final int p8a=0x7f020097;
-        public static final int p8b=0x7f020098;
-        public static final int p8c=0x7f020099;
-        public static final int p8d=0x7f02009a;
-        public static final int p9a=0x7f02009b;
-        public static final int p9b=0x7f02009c;
-        public static final int smithtunnel=0x7f02009d;
-        public static final int swanseafromkilveyhill=0x7f02009e;
-        public static final int todopoint=0x7f02009f;
-        public static final int wr001a=0x7f0200a0;
-        public static final int wr002a=0x7f0200a1;
-        public static final int wr003a=0x7f0200a2;
-        public static final int wr004a=0x7f0200a3;
-        public static final int wr005a=0x7f0200a4;
-        public static final int wr006a=0x7f0200a5;
-        public static final int wr007a=0x7f0200a6;
-        public static final int wr008a=0x7f0200a7;
+        public static final int common_signin_btn_icon_dark=0x7f02005b;
+        public static final int common_signin_btn_icon_disabled_dark=0x7f02005c;
+        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f02005d;
+        public static final int common_signin_btn_icon_disabled_focus_light=0x7f02005e;
+        public static final int common_signin_btn_icon_disabled_light=0x7f02005f;
+        public static final int common_signin_btn_icon_focus_dark=0x7f020060;
+        public static final int common_signin_btn_icon_focus_light=0x7f020061;
+        public static final int common_signin_btn_icon_light=0x7f020062;
+        public static final int common_signin_btn_icon_normal_dark=0x7f020063;
+        public static final int common_signin_btn_icon_normal_light=0x7f020064;
+        public static final int common_signin_btn_icon_pressed_dark=0x7f020065;
+        public static final int common_signin_btn_icon_pressed_light=0x7f020066;
+        public static final int common_signin_btn_text_dark=0x7f020067;
+        public static final int common_signin_btn_text_disabled_dark=0x7f020068;
+        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020069;
+        public static final int common_signin_btn_text_disabled_focus_light=0x7f02006a;
+        public static final int common_signin_btn_text_disabled_light=0x7f02006b;
+        public static final int common_signin_btn_text_focus_dark=0x7f02006c;
+        public static final int common_signin_btn_text_focus_light=0x7f02006d;
+        public static final int common_signin_btn_text_light=0x7f02006e;
+        public static final int common_signin_btn_text_normal_dark=0x7f02006f;
+        public static final int common_signin_btn_text_normal_light=0x7f020070;
+        public static final int common_signin_btn_text_pressed_dark=0x7f020071;
+        public static final int common_signin_btn_text_pressed_light=0x7f020072;
+        public static final int currentloc=0x7f020073;
+        public static final int donepoint=0x7f020074;
+        public static final int hafodandmiddlebankworks=0x7f020075;
+        public static final int hafodcopperworks=0x7f020076;
+        public static final int ic_launcher=0x7f020077;
+        public static final int ic_plusone_medium_off_client=0x7f020078;
+        public static final int ic_plusone_small_off_client=0x7f020079;
+        public static final int ic_plusone_standard_off_client=0x7f02007a;
+        public static final int ic_plusone_tall_off_client=0x7f02007b;
+        public static final int ic_tab_main=0x7f02007c;
+        public static final int ic_tab_main_selected=0x7f02007d;
+        public static final int ic_tab_main_unselected=0x7f02007e;
+        public static final int ic_tab_setup=0x7f02007f;
+        public static final int ic_tab_setup_selected=0x7f020080;
+        public static final int ic_tab_setup_unselected=0x7f020081;
+        public static final int icon=0x7f020082;
+        public static final int icon1024=0x7f020083;
+        public static final int p10a=0x7f020084;
+        public static final int p10b=0x7f020085;
+        public static final int p10c=0x7f020086;
+        public static final int p11a=0x7f020087;
+        public static final int p11b=0x7f020088;
+        public static final int p11c=0x7f020089;
+        public static final int p12a=0x7f02008a;
+        public static final int p12b=0x7f02008b;
+        public static final int p12c=0x7f02008c;
+        public static final int p13a=0x7f02008d;
+        public static final int p13b=0x7f02008e;
+        public static final int p14a=0x7f02008f;
+        public static final int p15a=0x7f020090;
+        public static final int p15b=0x7f020091;
+        public static final int p15c=0x7f020092;
+        public static final int p16a=0x7f020093;
+        public static final int p16b=0x7f020094;
+        public static final int p16c=0x7f020095;
+        public static final int p16d=0x7f020096;
+        public static final int p17a=0x7f020097;
+        public static final int p17b=0x7f020098;
+        public static final int p17c=0x7f020099;
+        public static final int p17d=0x7f02009a;
+        public static final int p1a=0x7f02009b;
+        public static final int p1b=0x7f02009c;
+        public static final int p1c=0x7f02009d;
+        public static final int p2a=0x7f02009e;
+        public static final int p2b=0x7f02009f;
+        public static final int p2c=0x7f0200a0;
+        public static final int p3a=0x7f0200a1;
+        public static final int p3b=0x7f0200a2;
+        public static final int p3c=0x7f0200a3;
+        public static final int p4a=0x7f0200a4;
+        public static final int p4b=0x7f0200a5;
+        public static final int p4c=0x7f0200a6;
+        public static final int p5a=0x7f0200a7;
+        public static final int p5b=0x7f0200a8;
+        public static final int p5c=0x7f0200a9;
+        public static final int p5d=0x7f0200aa;
+        public static final int p6a=0x7f0200ab;
+        public static final int p6b=0x7f0200ac;
+        public static final int p7a=0x7f0200ad;
+        public static final int p7b=0x7f0200ae;
+        public static final int p7c=0x7f0200af;
+        public static final int p7d=0x7f0200b0;
+        public static final int p7e=0x7f0200b1;
+        public static final int p7f=0x7f0200b2;
+        public static final int p8a=0x7f0200b3;
+        public static final int p8b=0x7f0200b4;
+        public static final int p8c=0x7f0200b5;
+        public static final int p8d=0x7f0200b6;
+        public static final int p9a=0x7f0200b7;
+        public static final int p9b=0x7f0200b8;
+        public static final int smithtunnel=0x7f0200b9;
+        public static final int swanseafromkilveyhill=0x7f0200ba;
+        public static final int todopoint=0x7f0200bb;
+        public static final int wr001a=0x7f0200bc;
+        public static final int wr002a=0x7f0200bd;
+        public static final int wr003a=0x7f0200be;
+        public static final int wr004a=0x7f0200bf;
+        public static final int wr005a=0x7f0200c0;
+        public static final int wr006a=0x7f0200c1;
+        public static final int wr007a=0x7f0200c2;
+        public static final int wr008a=0x7f0200c3;
     }
     public static final class id {
-        public static final int action_bar=0x7f05001c;
+        public static final int action_bar=0x7f05001f;
         public static final int action_bar_activity_content=0x7f050015;
-        public static final int action_bar_container=0x7f05001b;
-        public static final int action_bar_overlay_layout=0x7f05001f;
-        public static final int action_bar_root=0x7f05001a;
-        public static final int action_bar_subtitle=0x7f050023;
-        public static final int action_bar_title=0x7f050022;
-        public static final int action_context_bar=0x7f05001d;
+        public static final int action_bar_container=0x7f05001e;
+        public static final int action_bar_overlay_layout=0x7f050022;
+        public static final int action_bar_root=0x7f05001d;
+        public static final int action_bar_subtitle=0x7f050026;
+        public static final int action_bar_title=0x7f050025;
+        public static final int action_context_bar=0x7f050020;
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
-        public static final int action_mode_close_button=0x7f050024;
-        public static final int activity_chooser_view_content=0x7f050025;
+        public static final int action_mode_close_button=0x7f050027;
+        public static final int activity_chooser_view_content=0x7f050028;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
-        public static final int checkbox=0x7f05002d;
+        public static final int checkbox=0x7f050030;
         public static final int collapseActionView=0x7f05000d;
-        public static final int default_activity_button=0x7f050028;
+        public static final int default_activity_button=0x7f05002b;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
         public static final int dropdown=0x7f05000f;
-        public static final int edit_query=0x7f050030;
+        public static final int edit_query=0x7f050033;
         public static final int end=0x7f050013;
-        public static final int expand_activities_button=0x7f050026;
-        public static final int expanded_menu=0x7f05002c;
-        public static final int fragment_container=0x7f05003c;
+        public static final int expand_activities_button=0x7f050029;
+        public static final int expanded_menu=0x7f05002f;
+        public static final int fragment_container=0x7f05003f;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
-        public static final int icon=0x7f05002a;
+        public static final int hybrid=0x7f05001c;
+        public static final int hybrid_map=0x7f05004c;
+        public static final int icon=0x7f05002d;
         public static final int ifRoom=0x7f05000a;
-        public static final int image=0x7f050027;
+        public static final int image=0x7f05002a;
+        public static final int imageView1=0x7f050047;
+        public static final int info_view_view_pager=0x7f050043;
         public static final int listMode=0x7f050001;
-        public static final int list_item=0x7f050029;
-        public static final int long_descr=0x7f050040;
+        public static final int list_item=0x7f05002c;
+        public static final int long_descr=0x7f050045;
+        public static final int map=0x7f050042;
+        public static final int maps=0x7f05004a;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
+        public static final int normal_map=0x7f05004b;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
-        public static final int radio=0x7f05002f;
-        public static final int search_badge=0x7f050032;
-        public static final int search_bar=0x7f050031;
-        public static final int search_button=0x7f050033;
-        public static final int search_close_btn=0x7f050038;
-        public static final int search_edit_frame=0x7f050034;
-        public static final int search_go_btn=0x7f05003a;
-        public static final int search_mag_icon=0x7f050035;
-        public static final int search_plate=0x7f050036;
-        public static final int search_src_text=0x7f050037;
-        public static final int search_voice_btn=0x7f05003b;
-        public static final int short_descr=0x7f05003f;
-        public static final int shortcut=0x7f05002e;
+        public static final int radio=0x7f050032;
+        public static final int satellite=0x7f05001a;
+        public static final int satellite_map=0x7f05004d;
+        public static final int scrollView1=0x7f050048;
+        public static final int search_badge=0x7f050035;
+        public static final int search_bar=0x7f050034;
+        public static final int search_button=0x7f050036;
+        public static final int search_close_btn=0x7f05003b;
+        public static final int search_edit_frame=0x7f050037;
+        public static final int search_go_btn=0x7f05003d;
+        public static final int search_mag_icon=0x7f050038;
+        public static final int search_plate=0x7f050039;
+        public static final int search_src_text=0x7f05003a;
+        public static final int search_voice_btn=0x7f05003e;
+        public static final int short_descr=0x7f050044;
+        public static final int shortcut=0x7f050031;
         public static final int showCustom=0x7f050007;
         public static final int showHome=0x7f050004;
         public static final int showTitle=0x7f050006;
-        public static final int split_action_bar=0x7f05001e;
-        public static final int submit_area=0x7f050039;
+        public static final int split_action_bar=0x7f050021;
+        public static final int submit_area=0x7f05003c;
         public static final int tabMode=0x7f050002;
-        public static final int title=0x7f05002b;
-        public static final int top_action_bar=0x7f050020;
-        public static final int up=0x7f050021;
+        public static final int terrain=0x7f05001b;
+        public static final int textView1=0x7f050046;
+        public static final int textView2=0x7f050049;
+        public static final int title=0x7f05002e;
+        public static final int top_action_bar=0x7f050023;
+        public static final int up=0x7f050024;
         public static final int useLogo=0x7f050003;
-        public static final int walk_details_fragment=0x7f05003e;
-        public static final int walk_list_fragment=0x7f05003d;
+        public static final int walk_details_fragment=0x7f050041;
+        public static final int walk_list_fragment=0x7f050040;
         public static final int withText=0x7f05000c;
     }
     public static final class integer {
@@ -1404,6 +1353,7 @@ containing a value of this type.
          showAsAction="ifRoom" items can fit. "always" items can override this. 
          */
         public static final int abc_max_action_buttons=0x7f090000;
+        public static final int google_play_services_version=0x7f090001;
     }
     public static final class layout {
         public static final int abc_action_bar_decor=0x7f030000;
@@ -1430,122 +1380,17 @@ containing a value of this type.
         public static final int abc_search_dropdown_item_icons_2line=0x7f030015;
         public static final int abc_search_view=0x7f030016;
         public static final int activity_cp_test=0x7f030017;
-        public static final int fragment_walk_details=0x7f030018;
-        public static final int fragment_walk_list=0x7f030019;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001a;
->>>>>>> database
+        public static final int activity_main=0x7f030018;
+        public static final int dialog_info_view=0x7f030019;
+        public static final int fragment_walk_details=0x7f03001a;
+        public static final int fragment_walk_list=0x7f03001b;
+        public static final int info=0x7f03001c;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
     }
     public static final class menu {
-        public static final int maps_menu=0x7f080000;
+        public static final int maps_menu=0x7f0c0000;
     }
     public static final class string {
-<<<<<<< HEAD
-        public static final int app_name=0x7f06001a;
-        /**   Title for notification shown when GooglePlayServices needs to be
-        enabled for a application to work. [CHAR LIMIT=70] 
-         */
-        public static final int auth_client_needs_enabling_title=0x7f060015;
-        /**   Title for notification shown when GooglePlayServices needs to be
-        installed for a application to work. [CHAR LIMIT=70] 
-         */
-        public static final int auth_client_needs_installation_title=0x7f060016;
-        /**   Title for notification shown when GooglePlayServices needs to be
-        udpated for a application to work. [CHAR LIMIT=70] 
-         */
-        public static final int auth_client_needs_update_title=0x7f060017;
-        /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=42] 
-         */
-        public static final int auth_client_play_services_err_notification_msg=0x7f060018;
-        /**   Requested by string saying which app requested the notification. [CHAR LIMIT=42] 
-         */
-        public static final int auth_client_requested_by_msg=0x7f060019;
-        /**   Title for notification shown when a bad version of GooglePlayServices
-        has been installed and needs correction for an application to work.
-        [CHAR LIMIT=70] 
-         */
-        public static final int auth_client_using_bad_version_title=0x7f060014;
-        public static final int close=0x7f060021;
-        /**  Button in confirmation dialog to enable Google Play services.  Clicking it
-        will direct user to application settings of Google Play services where they
-        can enable it [CHAR LIMIT=40] 
-         */
-        public static final int common_google_play_services_enable_button=0x7f060006;
-        /**  Message in confirmation dialog informing user they need to enable
-        Google Play services in application settings [CHAR LIMIT=NONE] 
-         */
-        public static final int common_google_play_services_enable_text=0x7f060005;
-        /**  Title of confirmation dialog informing user they need to enable
-        Google Play services in application settings [CHAR LIMIT=40] 
-         */
-        public static final int common_google_play_services_enable_title=0x7f060004;
-        /**  Button in confirmation dialog for installing Google Play services [CHAR LIMIT=40] 
-         */
-        public static final int common_google_play_services_install_button=0x7f060003;
-        /**  (For phones) Message in confirmation dialog informing user that
-        they need to install Google Play services (from Play Store) [CHAR LIMIT=NONE] 
-         */
-        public static final int common_google_play_services_install_text_phone=0x7f060001;
-        /**  (For tablets) Message in confirmation dialog informing user that
-        they need to install Google Play services (from Play Store) [CHAR LIMIT=NONE] 
-         */
-        public static final int common_google_play_services_install_text_tablet=0x7f060002;
-        /**  Title of confirmation dialog informing user that they need to install
-        Google Play services (from Play Store) [CHAR LIMIT=40] 
-         */
-        public static final int common_google_play_services_install_title=0x7f060000;
-        /**  Message in confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=NONE] 
-         */
-        public static final int common_google_play_services_invalid_account_text=0x7f06000c;
-        /**  Title of confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=40] 
-         */
-        public static final int common_google_play_services_invalid_account_title=0x7f06000b;
-        /**  Message in confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=NONE] 
-         */
-        public static final int common_google_play_services_network_error_text=0x7f06000a;
-        /**  Title of confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=40] 
-         */
-        public static final int common_google_play_services_network_error_title=0x7f060009;
-        /**  Message in confirmation dialog informing user there is an unknown issue in Google Play
-        services [CHAR LIMIT=NONE] 
-         */
-        public static final int common_google_play_services_unknown_issue=0x7f06000d;
-        /**  Message in confirmation dialog informing user that date on the device is not correct,
-    causing certificate checks to fail. [CHAR LIMIT=NONE] 
-         */
-        public static final int common_google_play_services_unsupported_date_text=0x7f060010;
-        /**  Message in confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=NONE] 
-         */
-        public static final int common_google_play_services_unsupported_text=0x7f06000f;
-        /**  Title of confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=40] 
-         */
-        public static final int common_google_play_services_unsupported_title=0x7f06000e;
-        /**  Button in confirmation dialog for updating Google Play services [CHAR LIMIT=40] 
-         */
-        public static final int common_google_play_services_update_button=0x7f060011;
-        /**  Message in confirmation dialog informing user that they need to update
-        Google Play services (from Play Store) [CHAR LIMIT=NONE] 
-         */
-        public static final int common_google_play_services_update_text=0x7f060008;
-        /**  Title of confirmation dialog informing user that they need to update
-        Google Play services (from Play Store) [CHAR LIMIT=40] 
-         */
-        public static final int common_google_play_services_update_title=0x7f060007;
-        /**  Sign-in button text [CHAR LIMIT=15] 
-         */
-        public static final int common_signin_button_text=0x7f060012;
-        /**  Long form sign-in button text [CHAR LIMIT=30] 
-         */
-        public static final int common_signin_button_text_long=0x7f060013;
-        public static final int dialog_info_view=0x7f060020;
-        public static final int hybrid_map=0x7f06001d;
-        public static final int information_label=0x7f06001b;
-        public static final int map_menu=0x7f06001f;
-        public static final int normal_map=0x7f06001c;
-        public static final int satellite_map=0x7f06001e;
-    }
-    public static final class styleable {
-        /** Attributes that can be used with a AdsAttrs.
-=======
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abc_action_bar_home_description=0x7f0a0001;
@@ -1586,9 +1431,109 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
-        public static final int app_name=0x7f0a000d;
-        public static final int informationLabel=0x7f0a000e;
-        public static final int noWalks=0x7f0a000f;
+        public static final int app_name=0x7f0a0027;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        enabled for a application to work. [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_needs_enabling_title=0x7f0a0022;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        installed for a application to work. [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_needs_installation_title=0x7f0a0023;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        udpated for a application to work. [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_needs_update_title=0x7f0a0024;
+        /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=42] 
+         */
+        public static final int auth_client_play_services_err_notification_msg=0x7f0a0025;
+        /**   Requested by string saying which app requested the notification. [CHAR LIMIT=42] 
+         */
+        public static final int auth_client_requested_by_msg=0x7f0a0026;
+        /**   Title for notification shown when a bad version of GooglePlayServices
+        has been installed and needs correction for an application to work.
+        [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_using_bad_version_title=0x7f0a0021;
+        public static final int close=0x7f0a002e;
+        /**  Button in confirmation dialog to enable Google Play services.  Clicking it
+        will direct user to application settings of Google Play services where they
+        can enable it [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_enable_button=0x7f0a0013;
+        /**  Message in confirmation dialog informing user they need to enable
+        Google Play services in application settings [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_enable_text=0x7f0a0012;
+        /**  Title of confirmation dialog informing user they need to enable
+        Google Play services in application settings [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_enable_title=0x7f0a0011;
+        /**  Button in confirmation dialog for installing Google Play services [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_install_button=0x7f0a0010;
+        /**  (For phones) Message in confirmation dialog informing user that
+        they need to install Google Play services (from Play Store) [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_install_text_phone=0x7f0a000e;
+        /**  (For tablets) Message in confirmation dialog informing user that
+        they need to install Google Play services (from Play Store) [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_install_text_tablet=0x7f0a000f;
+        /**  Title of confirmation dialog informing user that they need to install
+        Google Play services (from Play Store) [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_install_title=0x7f0a000d;
+        /**  Message in confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_invalid_account_text=0x7f0a0019;
+        /**  Title of confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_invalid_account_title=0x7f0a0018;
+        /**  Message in confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_network_error_text=0x7f0a0017;
+        /**  Title of confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_network_error_title=0x7f0a0016;
+        /**  Message in confirmation dialog informing user there is an unknown issue in Google Play
+        services [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_unknown_issue=0x7f0a001a;
+        /**  Message in confirmation dialog informing user that date on the device is not correct,
+    causing certificate checks to fail. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_unsupported_date_text=0x7f0a001d;
+        /**  Message in confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_unsupported_text=0x7f0a001c;
+        /**  Title of confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_unsupported_title=0x7f0a001b;
+        /**  Button in confirmation dialog for updating Google Play services [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_update_button=0x7f0a001e;
+        /**  Message in confirmation dialog informing user that they need to update
+        Google Play services (from Play Store) [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_update_text=0x7f0a0015;
+        /**  Title of confirmation dialog informing user that they need to update
+        Google Play services (from Play Store) [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_update_title=0x7f0a0014;
+        /**  Sign-in button text [CHAR LIMIT=15] 
+         */
+        public static final int common_signin_button_text=0x7f0a001f;
+        /**  Long form sign-in button text [CHAR LIMIT=30] 
+         */
+        public static final int common_signin_button_text_long=0x7f0a0020;
+        public static final int dialog_info_view=0x7f0a002d;
+        public static final int hybrid_map=0x7f0a002a;
+        public static final int information_label=0x7f0a0028;
+        public static final int map_menu=0x7f0a002c;
+        public static final int noWalks=0x7f0a002f;
+        public static final int normal_map=0x7f0a0029;
+        public static final int satellite_map=0x7f0a002b;
     }
     public static final class style {
         /**  Mimic text appearance in select_dialog_item.xml 
@@ -1788,26 +1733,11 @@ containing a value of this type.
          Please Note: when overriding attributes for an ActionBar style
          you must specify each attribute twice: once with the "android:"
          namespace prefix and once without. 
->>>>>>> database
            <p>Includes the following attributes:</p>
            <table>
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-<<<<<<< HEAD
-           <tr><td><code>{@link #AdsAttrs_adSize uk.ac.swan.digitaltrails:adSize}</code></td><td>
-    The size of the ad.</td></tr>
-           <tr><td><code>{@link #AdsAttrs_adSizes uk.ac.swan.digitaltrails:adSizes}</code></td><td>
-    A comma-separated list of the supported ad sizes.</td></tr>
-           <tr><td><code>{@link #AdsAttrs_adUnitId uk.ac.swan.digitaltrails:adUnitId}</code></td><td> The ad unit ID.</td></tr>
-           </table>
-           @see #AdsAttrs_adSize
-           @see #AdsAttrs_adSizes
-           @see #AdsAttrs_adUnitId
-         */
-        public static final int[] AdsAttrs = {
-            0x7f010000, 0x7f010001, 0x7f010002
-=======
            <tr><td><code>{@link #ActionBar_background uk.ac.swan.digitaltrails:background}</code></td><td> Specifies a background drawable for the action bar.</td></tr>
            <tr><td><code>{@link #ActionBar_backgroundSplit uk.ac.swan.digitaltrails:backgroundSplit}</code></td><td> Specifies a background drawable for the bottom component of a split action bar.</td></tr>
            <tr><td><code>{@link #ActionBar_backgroundStacked uk.ac.swan.digitaltrails:backgroundStacked}</code></td><td> Specifies a background drawable for a second stacked row of the action bar.</td></tr>
@@ -1855,156 +1785,10 @@ containing a value of this type.
             0x7f010029, 0x7f01002a, 0x7f01002b, 0x7f01002c,
             0x7f01002d, 0x7f01002e, 0x7f01002f, 0x7f010030,
             0x7f010031, 0x7f010032, 0x7f010033
->>>>>>> database
         };
         /**
           <p>
           @attr description
-<<<<<<< HEAD
-          
-    The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
-    MEDIUM_RECTANGLE, SMART_BANNER, WIDE_SKYSCRAPER, or
-    &lt;width&gt;x&lt;height&gt;.
-    
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          <p>This is a private symbol.
-          @attr name uk.ac.swan.digitaltrails:adSize
-        */
-        public static final int AdsAttrs_adSize = 0;
-        /**
-          <p>
-          @attr description
-          
-    A comma-separated list of the supported ad sizes. The sizes must be one of
-    BANNER, FULL_BANNER, LEADERBOARD, MEDIUM_RECTANGLE, SMART_BANNER,
-    WIDE_SKYSCRAPER, or &lt;width&gt;x&lt;height&gt;.
-    
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          <p>This is a private symbol.
-          @attr name uk.ac.swan.digitaltrails:adSizes
-        */
-        public static final int AdsAttrs_adSizes = 1;
-        /**
-          <p>
-          @attr description
-           The ad unit ID. 
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          <p>This is a private symbol.
-          @attr name uk.ac.swan.digitaltrails:adUnitId
-        */
-        public static final int AdsAttrs_adUnitId = 2;
-        /** Attributes that can be used with a MapAttrs.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #MapAttrs_cameraBearing uk.ac.swan.digitaltrails:cameraBearing}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraTargetLat uk.ac.swan.digitaltrails:cameraTargetLat}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraTargetLng uk.ac.swan.digitaltrails:cameraTargetLng}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraTilt uk.ac.swan.digitaltrails:cameraTilt}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_cameraZoom uk.ac.swan.digitaltrails:cameraZoom}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_mapType uk.ac.swan.digitaltrails:mapType}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiCompass uk.ac.swan.digitaltrails:uiCompass}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiRotateGestures uk.ac.swan.digitaltrails:uiRotateGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiScrollGestures uk.ac.swan.digitaltrails:uiScrollGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiTiltGestures uk.ac.swan.digitaltrails:uiTiltGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiZoomControls uk.ac.swan.digitaltrails:uiZoomControls}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_uiZoomGestures uk.ac.swan.digitaltrails:uiZoomGestures}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_useViewLifecycle uk.ac.swan.digitaltrails:useViewLifecycle}</code></td><td></td></tr>
-           <tr><td><code>{@link #MapAttrs_zOrderOnTop uk.ac.swan.digitaltrails:zOrderOnTop}</code></td><td></td></tr>
-           </table>
-           @see #MapAttrs_cameraBearing
-           @see #MapAttrs_cameraTargetLat
-           @see #MapAttrs_cameraTargetLng
-           @see #MapAttrs_cameraTilt
-           @see #MapAttrs_cameraZoom
-           @see #MapAttrs_mapType
-           @see #MapAttrs_uiCompass
-           @see #MapAttrs_uiRotateGestures
-           @see #MapAttrs_uiScrollGestures
-           @see #MapAttrs_uiTiltGestures
-           @see #MapAttrs_uiZoomControls
-           @see #MapAttrs_uiZoomGestures
-           @see #MapAttrs_useViewLifecycle
-           @see #MapAttrs_zOrderOnTop
-         */
-        public static final int[] MapAttrs = {
-            0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006,
-            0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a,
-            0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e,
-            0x7f01000f, 0x7f010010
-        };
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#cameraBearing}
-          attribute's value can be found in the {@link #MapAttrs} array.
-
-
-          <p>Must be a floating point value, such as "<code>1.2</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name uk.ac.swan.digitaltrails:cameraBearing
-        */
-        public static final int MapAttrs_cameraBearing = 1;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#cameraTargetLat}
-          attribute's value can be found in the {@link #MapAttrs} array.
-
-
-          <p>Must be a floating point value, such as "<code>1.2</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name uk.ac.swan.digitaltrails:cameraTargetLat
-        */
-        public static final int MapAttrs_cameraTargetLat = 2;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#cameraTargetLng}
-          attribute's value can be found in the {@link #MapAttrs} array.
-
-
-          <p>Must be a floating point value, such as "<code>1.2</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name uk.ac.swan.digitaltrails:cameraTargetLng
-        */
-        public static final int MapAttrs_cameraTargetLng = 3;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#cameraTilt}
-          attribute's value can be found in the {@link #MapAttrs} array.
-
-
-          <p>Must be a floating point value, such as "<code>1.2</code>".
-=======
            Specifies a background drawable for the action bar. 
 
 
@@ -2098,23 +1882,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-<<<<<<< HEAD
-          @attr name uk.ac.swan.digitaltrails:cameraTilt
-        */
-        public static final int MapAttrs_cameraTilt = 4;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#cameraZoom}
-          attribute's value can be found in the {@link #MapAttrs} array.
-
-
-          <p>Must be a floating point value, such as "<code>1.2</code>".
-=======
           <p>This is a private symbol.
           @attr name uk.ac.swan.digitaltrails:height
         */
@@ -2165,20 +1937,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-<<<<<<< HEAD
-          @attr name uk.ac.swan.digitaltrails:cameraZoom
-        */
-        public static final int MapAttrs_cameraZoom = 5;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#mapType}
-          attribute's value can be found in the {@link #MapAttrs} array.
-=======
           <p>This is a private symbol.
           @attr name uk.ac.swan.digitaltrails:itemPadding
         */
@@ -2199,7 +1962,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>
           @attr description
            The type of navigation to use. 
->>>>>>> database
 
 
           <p>Must be one of the following constant values.</p>
@@ -2208,23 +1970,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <colgroup align="left" />
 <colgroup align="left" />
 <tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<<<<<<< HEAD
-<tr><td><code>none</code></td><td>0</td><td></td></tr>
-<tr><td><code>normal</code></td><td>1</td><td></td></tr>
-<tr><td><code>satellite</code></td><td>2</td><td></td></tr>
-<tr><td><code>terrain</code></td><td>3</td><td></td></tr>
-<tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
-</table>
-          @attr name uk.ac.swan.digitaltrails:mapType
-        */
-        public static final int MapAttrs_mapType = 0;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiCompass}
-          attribute's value can be found in the {@link #MapAttrs} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-=======
 <tr><td><code>normal</code></td><td>0</td><td> Normal static title text </td></tr>
 <tr><td><code>listMode</code></td><td>1</td><td> The action bar will use a selection list for navigation. </td></tr>
 <tr><td><code>tabMode</code></td><td>2</td><td> The action bar will use a series of horizontal tabs for navigation. </td></tr>
@@ -2242,23 +1987,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-<<<<<<< HEAD
-          @attr name uk.ac.swan.digitaltrails:uiCompass
-        */
-        public static final int MapAttrs_uiCompass = 6;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiRotateGestures}
-          attribute's value can be found in the {@link #MapAttrs} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-=======
           <p>This is a private symbol.
           @attr name uk.ac.swan.digitaltrails:progressBarPadding
         */
@@ -2282,23 +2015,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 
 
           <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-<<<<<<< HEAD
-          @attr name uk.ac.swan.digitaltrails:uiRotateGestures
-        */
-        public static final int MapAttrs_uiRotateGestures = 7;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiScrollGestures}
-          attribute's value can be found in the {@link #MapAttrs} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-=======
           <p>This is a private symbol.
           @attr name uk.ac.swan.digitaltrails:subtitle
         */
@@ -2322,20 +2043,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 
 
           <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-<<<<<<< HEAD
-          @attr name uk.ac.swan.digitaltrails:uiScrollGestures
-        */
-        public static final int MapAttrs_uiScrollGestures = 8;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiTiltGestures}
-          attribute's value can be found in the {@link #MapAttrs} array.
-=======
           <p>This is a private symbol.
           @attr name uk.ac.swan.digitaltrails:title
         */
@@ -2394,7 +2106,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /**
           <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#windowActionBar}
           attribute's value can be found in the {@link #ActionBarWindow} array.
->>>>>>> database
 
 
           <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
@@ -2403,21 +2114,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-<<<<<<< HEAD
-          @attr name uk.ac.swan.digitaltrails:uiTiltGestures
-        */
-        public static final int MapAttrs_uiTiltGestures = 9;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiZoomControls}
-          attribute's value can be found in the {@link #MapAttrs} array.
-=======
           @attr name uk.ac.swan.digitaltrails:windowActionBar
         */
         public static final int ActionBarWindow_windowActionBar = 0;
         /**
           <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#windowActionBarOverlay}
           attribute's value can be found in the {@link #ActionBarWindow} array.
->>>>>>> database
 
 
           <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
@@ -2426,21 +2128,12 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-<<<<<<< HEAD
-          @attr name uk.ac.swan.digitaltrails:uiZoomControls
-        */
-        public static final int MapAttrs_uiZoomControls = 10;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiZoomGestures}
-          attribute's value can be found in the {@link #MapAttrs} array.
-=======
           @attr name uk.ac.swan.digitaltrails:windowActionBarOverlay
         */
         public static final int ActionBarWindow_windowActionBarOverlay = 1;
         /**
           <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#windowSplitActionBar}
           attribute's value can be found in the {@link #ActionBarWindow} array.
->>>>>>> database
 
 
           <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
@@ -2449,17 +2142,6 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-<<<<<<< HEAD
-          @attr name uk.ac.swan.digitaltrails:uiZoomGestures
-        */
-        public static final int MapAttrs_uiZoomGestures = 11;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#useViewLifecycle}
-          attribute's value can be found in the {@link #MapAttrs} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-=======
           @attr name uk.ac.swan.digitaltrails:windowSplitActionBar
         */
         public static final int ActionBarWindow_windowSplitActionBar = 2;
@@ -2544,23 +2226,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-<<<<<<< HEAD
-          @attr name uk.ac.swan.digitaltrails:useViewLifecycle
-        */
-        public static final int MapAttrs_useViewLifecycle = 12;
-        /**
-          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#zOrderOnTop}
-          attribute's value can be found in the {@link #MapAttrs} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-=======
           <p>This is a private symbol.
           @attr name uk.ac.swan.digitaltrails:height
         */
@@ -2628,21 +2298,90 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 
 
           <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
->>>>>>> database
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-<<<<<<< HEAD
-          @attr name uk.ac.swan.digitaltrails:zOrderOnTop
-        */
-        public static final int MapAttrs_zOrderOnTop = 13;
-=======
           <p>This is a private symbol.
           @attr name uk.ac.swan.digitaltrails:initialActivityCount
         */
         public static final int ActivityChooserView_initialActivityCount = 0;
+        /** Attributes that can be used with a AdsAttrs.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #AdsAttrs_adSize uk.ac.swan.digitaltrails:adSize}</code></td><td>
+    The size of the ad.</td></tr>
+           <tr><td><code>{@link #AdsAttrs_adSizes uk.ac.swan.digitaltrails:adSizes}</code></td><td>
+    A comma-separated list of the supported ad sizes.</td></tr>
+           <tr><td><code>{@link #AdsAttrs_adUnitId uk.ac.swan.digitaltrails:adUnitId}</code></td><td> The ad unit ID.</td></tr>
+           </table>
+           @see #AdsAttrs_adSize
+           @see #AdsAttrs_adSizes
+           @see #AdsAttrs_adUnitId
+         */
+        public static final int[] AdsAttrs = {
+            0x7f01006a, 0x7f01006b, 0x7f01006c
+        };
+        /**
+          <p>
+          @attr description
+          
+    The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
+    MEDIUM_RECTANGLE, SMART_BANNER, WIDE_SKYSCRAPER, or
+    &lt;width&gt;x&lt;height&gt;.
+    
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name uk.ac.swan.digitaltrails:adSize
+        */
+        public static final int AdsAttrs_adSize = 0;
+        /**
+          <p>
+          @attr description
+          
+    A comma-separated list of the supported ad sizes. The sizes must be one of
+    BANNER, FULL_BANNER, LEADERBOARD, MEDIUM_RECTANGLE, SMART_BANNER,
+    WIDE_SKYSCRAPER, or &lt;width&gt;x&lt;height&gt;.
+    
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name uk.ac.swan.digitaltrails:adSizes
+        */
+        public static final int AdsAttrs_adSizes = 1;
+        /**
+          <p>
+          @attr description
+           The ad unit ID. 
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name uk.ac.swan.digitaltrails:adUnitId
+        */
+        public static final int AdsAttrs_adUnitId = 2;
         /** Attributes that can be used with a CompatTextView.
            <p>Includes the following attributes:</p>
            <table>
@@ -2737,6 +2476,250 @@ containing a value of this type.
           @attr name uk.ac.swan.digitaltrails:showDividers
         */
         public static final int LinearLayoutICS_showDividers = 1;
+        /** Attributes that can be used with a MapAttrs.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MapAttrs_cameraBearing uk.ac.swan.digitaltrails:cameraBearing}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLat uk.ac.swan.digitaltrails:cameraTargetLat}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLng uk.ac.swan.digitaltrails:cameraTargetLng}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTilt uk.ac.swan.digitaltrails:cameraTilt}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraZoom uk.ac.swan.digitaltrails:cameraZoom}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_mapType uk.ac.swan.digitaltrails:mapType}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiCompass uk.ac.swan.digitaltrails:uiCompass}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiRotateGestures uk.ac.swan.digitaltrails:uiRotateGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiScrollGestures uk.ac.swan.digitaltrails:uiScrollGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiTiltGestures uk.ac.swan.digitaltrails:uiTiltGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomControls uk.ac.swan.digitaltrails:uiZoomControls}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomGestures uk.ac.swan.digitaltrails:uiZoomGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_useViewLifecycle uk.ac.swan.digitaltrails:useViewLifecycle}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_zOrderOnTop uk.ac.swan.digitaltrails:zOrderOnTop}</code></td><td></td></tr>
+           </table>
+           @see #MapAttrs_cameraBearing
+           @see #MapAttrs_cameraTargetLat
+           @see #MapAttrs_cameraTargetLng
+           @see #MapAttrs_cameraTilt
+           @see #MapAttrs_cameraZoom
+           @see #MapAttrs_mapType
+           @see #MapAttrs_uiCompass
+           @see #MapAttrs_uiRotateGestures
+           @see #MapAttrs_uiScrollGestures
+           @see #MapAttrs_uiTiltGestures
+           @see #MapAttrs_uiZoomControls
+           @see #MapAttrs_uiZoomGestures
+           @see #MapAttrs_useViewLifecycle
+           @see #MapAttrs_zOrderOnTop
+         */
+        public static final int[] MapAttrs = {
+            0x7f01006d, 0x7f01006e, 0x7f01006f, 0x7f010070,
+            0x7f010071, 0x7f010072, 0x7f010073, 0x7f010074,
+            0x7f010075, 0x7f010076, 0x7f010077, 0x7f010078,
+            0x7f010079, 0x7f01007a
+        };
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#cameraBearing}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:cameraBearing
+        */
+        public static final int MapAttrs_cameraBearing = 1;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#cameraTargetLat}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:cameraTargetLat
+        */
+        public static final int MapAttrs_cameraTargetLat = 2;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#cameraTargetLng}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:cameraTargetLng
+        */
+        public static final int MapAttrs_cameraTargetLng = 3;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#cameraTilt}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:cameraTilt
+        */
+        public static final int MapAttrs_cameraTilt = 4;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#cameraZoom}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:cameraZoom
+        */
+        public static final int MapAttrs_cameraZoom = 5;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#mapType}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>none</code></td><td>0</td><td></td></tr>
+<tr><td><code>normal</code></td><td>1</td><td></td></tr>
+<tr><td><code>satellite</code></td><td>2</td><td></td></tr>
+<tr><td><code>terrain</code></td><td>3</td><td></td></tr>
+<tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
+</table>
+          @attr name uk.ac.swan.digitaltrails:mapType
+        */
+        public static final int MapAttrs_mapType = 0;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiCompass}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:uiCompass
+        */
+        public static final int MapAttrs_uiCompass = 6;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiRotateGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:uiRotateGestures
+        */
+        public static final int MapAttrs_uiRotateGestures = 7;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiScrollGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:uiScrollGestures
+        */
+        public static final int MapAttrs_uiScrollGestures = 8;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiTiltGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:uiTiltGestures
+        */
+        public static final int MapAttrs_uiTiltGestures = 9;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiZoomControls}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:uiZoomControls
+        */
+        public static final int MapAttrs_uiZoomControls = 10;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#uiZoomGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:uiZoomGestures
+        */
+        public static final int MapAttrs_uiZoomGestures = 11;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#useViewLifecycle}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:useViewLifecycle
+        */
+        public static final int MapAttrs_useViewLifecycle = 12;
+        /**
+          <p>This symbol is the offset where the {@link uk.ac.swan.digitaltrails.R.attr#zOrderOnTop}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name uk.ac.swan.digitaltrails:zOrderOnTop
+        */
+        public static final int MapAttrs_zOrderOnTop = 13;
         /**  Base attributes that are available to all groups. 
            <p>Includes the following attributes:</p>
            <table>
@@ -3588,6 +3571,5 @@ containing a value of this type.
           @attr name uk.ac.swan.digitaltrails:paddingStart
         */
         public static final int View_paddingStart = 1;
->>>>>>> database
     };
 }
