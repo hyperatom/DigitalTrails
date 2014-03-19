@@ -2,19 +2,22 @@ package uk.ac.swan.digitaltrails;
 
 import java.util.ArrayList;
 
+import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -25,19 +28,28 @@ import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class MapActivity extends FragmentActivity {
+public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cursor> {
+	
+	private static final String TAG = "MapActivity";
+	
 	private GoogleMap mMap;
+	private ArrayList<Marker> mMarkers;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
 		Intent intent = getIntent();
-		
+		int walkId = intent.getExtras().getInt("walkId");	
+		mMarkers = new ArrayList<Marker>();
 		initMap();
+		getSupportLoaderManager().initLoader(0, intent.getExtras(), this);
+
 	}
 
 	@Override
@@ -115,15 +127,7 @@ public class MapActivity extends FragmentActivity {
 		mMap.getUiSettings().setZoomControlsEnabled(true);
 		mMap.getUiSettings().setZoomGesturesEnabled(true);
 		mMap.getUiSettings().setRotateGesturesEnabled(true);
-	}
-	
-	private void createMarkers(ArrayList<Marker> markers) {
-		// add markers
-		Marker dockMarker = mMap.addMarker(WaypointTemp.dockMarker);
-		Marker canalTunnelMarker = mMap.addMarker(WaypointTemp.cananlTunnelMarker);
-		Marker canalMarker = mMap.addMarker(WaypointTemp.canalMarker);
-		Marker taweMarker = mMap.addMarker(WaypointTemp.taweMarker);
-
+		mMap.setBuildingsEnabled(true);
 		mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 
 			@Override
@@ -142,12 +146,17 @@ public class MapActivity extends FragmentActivity {
 				// Display correct information in the thing.
 			}
 		});
+
 	}
+	
 	
 	private void resumeMap() {
 		setDefaultMapConfig();
 	}
 
+	/**
+	 * For testing interactions only.
+	 */
 	private void initMapWhiteRock() {
 
 		if (mMap == null) {
@@ -209,7 +218,8 @@ public class MapActivity extends FragmentActivity {
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			builder.setMessage(R.string.dialog_info_view)
+			//builder.setMessage(R.string.dialog_info_view)
+			builder.setMessage("This is where we can see text, videos, audio etc. about this waypoint.")
 			.setNeutralButton(R.string.close, new DialogInterface.OnClickListener() {
 
 				@Override
@@ -221,6 +231,43 @@ public class MapActivity extends FragmentActivity {
 			return builder.create();
 		}
 
+	}
+
+	//TODO: Use a Join to get the data we need, currently we can only get lat and long and visit_order.
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		Uri baseUri;
+		baseUri = WhiteRockContract.Waypoint.CONTENT_URI;
+		String select = "((" + WhiteRockContract.Waypoint.WALK_ID + " == " + args.getInt("walkId") + "))";
+		// PROJECT_ALL for reference {ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER, WALK_ID, USER_ID};
+		return new CursorLoader(this, baseUri, WhiteRockContract.Waypoint.PROJECTION_ALL, select, null, WhiteRockContract.Waypoint.VISIT_ORDER + " COLLATE LOCALIZED ASC");
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		// nothing on resume if possible.
+		// create markers from all the waypoint info.
+	
+		if (data != null && data.moveToFirst()) {
+			data.moveToPosition(-1); // put us back to the -1 position so we can do the while() loop properly
+			while (data.moveToNext()) {
+				Log.d(TAG, "Visit Order: " + data.getInt(4));
+				Double lat = data.getDouble(1);
+				Double longitude = data.getDouble(2);
+				int isReq = data.getInt(3);
+				int visitOrder = data.getInt(4);
+				if (isReq != 1) {
+					mMarkers.add(mMap.addMarker(new MarkerOptions().position(new LatLng(lat, longitude)).title("Waypoint " + visitOrder).snippet("Placeholder text for Waypoint " + visitOrder)));
+				}
+			}
+		}
+		// In practice we may want to set the bounds to be that of the area we are walking in.
+		// for now I'm just going to zoom in this close cause I can.
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mMarkers.get(0).getPosition(), 15)); 
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> arg0) {
 	}
 
 

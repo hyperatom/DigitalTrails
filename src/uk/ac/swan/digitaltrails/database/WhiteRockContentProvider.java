@@ -366,6 +366,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 						  null,
 						  values);
 			db.close();
+			Log.d(TAG, "Attempting insert into waypoint table");
 			return getUriForId(id, uri);
 		case ENGLISH_WALK_DESCR_LIST:
 			id = 
@@ -862,7 +863,12 @@ public class WhiteRockContentProvider extends ContentProvider {
 	}
 	*/
 	
-	
+	/**
+	 * Get the ID where we are inserting into
+	 * @param id
+	 * @param uri
+	 * @return
+	 */
 	private Uri getUriForId(long id, Uri uri) {
 		Log.d(TAG, "getUriForId:: "+id);
 		if (id > 0) {
@@ -873,8 +879,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 			}
 			return itemUri;
 		}
-		throw new SQLException(
-				"Problem inserting into uri: " + uri + " " + id);
+		throw new SQLException("Problem inserting into uri: " + uri + " " + id);
 	}
 	
 	private boolean isInBatchMode() {

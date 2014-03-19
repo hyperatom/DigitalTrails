@@ -19,8 +19,9 @@ public class MainActivity extends ActionBarActivity
 
 
 	private boolean debug = false;
-	private int mCurrentPos = -1;
 	
+	//TODO: Use Loader here, not in fragments & pass data down? Currently using 2 loaders and being a lazy fucker.
+	// Does mean doing joins, however.
 	/**
 	 * 	Called when the activity is first created
 	 */
@@ -38,11 +39,53 @@ public class MainActivity extends ActionBarActivity
 			values.put("walk_id", "1");
 			getContentResolver().insert(WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI, values);
 		
+			values = new ContentValues();
 			values.put("title", "Test Walk 2");
 			values.put("short_description", "The Second Test Walk");
 			values.put("long_description", "The long description of this walk...");
 			values.put("walk_id", "2");
 			getContentResolver().insert(WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI, values);
+
+			values = new ContentValues();
+
+			values.put("latitude", 51.63581500);
+			values.put("longitude", -3.93372000);
+			values.put("is_request", 0);
+			values.put("visit_order", 1);
+			values.put("walk_id", 1);
+			values.put("user_id", 1);
+			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
+			
+			values = new ContentValues();
+
+			values.put("latitude", 51.63511300);
+			values.put("longitude", -3.93349000);
+			values.put("is_request", 0);
+			values.put("visit_order", 2);
+			values.put("walk_id", 1);
+			values.put("user_id", 1);
+			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
+			
+			values = new ContentValues();
+
+			values.put("latitude", 51.63451800);
+			values.put("longitude", -3.93291200);
+			values.put("is_request", 0);
+			values.put("visit_order", 1);
+			values.put("walk_id", 2);
+			values.put("user_id", 2);
+			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
+			
+			values = new ContentValues();
+
+			values.put("latitude", 51.64581500);
+			values.put("longitude", -3.94291200);
+			values.put("is_request", 0);
+			values.put("visit_order", 2);
+			values.put("walk_id", 2);
+			values.put("user_id", 2);
+			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
+
 		}
 		
 		// check if using small layout
@@ -90,8 +133,11 @@ public class MainActivity extends ActionBarActivity
 	public void loadWalkButtonClick(View view) {
 		Intent intent = new Intent(this, MapActivity.class);
 		Bundle bundle = new Bundle();
-		Walk parcel = parcelWalk();
-		bundle.putParcelable("waypoint", parcel);
+		WalkDetailsFragment detailsFrag = (WalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.walk_details_fragment);
+		intent.putExtra("walkId", detailsFrag.getCurrentPosition());
+		//Walk parcel = parcelWalk();
+		//bundle.putParcelable("waypoint", parcel);
+		
 		startActivity(intent);
 	}
 	

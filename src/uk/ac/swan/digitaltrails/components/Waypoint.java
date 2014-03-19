@@ -193,12 +193,21 @@ public class Waypoint implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeLong(mId);
 		dest.writeString(mTitle);
-		dest.writeParcelable(mLatLng, 0);
+		dest.writeParcelable(mLatLng, flags);
 		dest.writeInt(mVisitOrder);
 		int temp = mIsRequest ? 1 : 0;
 		dest.writeInt(temp);
-		dest.writeParcelableArray(mPhotos, 0);
-		
+		Photo[] photoTempArray = new Photo[mPhotos.size()];
+		mPhotos.toArray(photoTempArray);
+		dest.writeParcelableArray(photoTempArray, flags);
+		Audio[] audioTempArray = new Audio[mAudioFiles.size()];
+		mAudioFiles.toArray(audioTempArray);
+		dest.writeParcelableArray(audioTempArray, flags);
+		Video[] videoTempArray = new Video[mVideos.size()];
+		mVideos.toArray(videoTempArray);
+		dest.writeParcelableArray(videoTempArray, flags);
+		Description[] tempDescrArray = (Description[]) mDescriptions.toArray();
+		dest.writeParcelableArray(tempDescrArray, flags);
 		
 		
 		/*

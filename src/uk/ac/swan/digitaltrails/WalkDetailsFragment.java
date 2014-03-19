@@ -25,6 +25,10 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 	private TextView mShortDescrText;
 	private TextView mLongDescrText;
 	
+	public int getCurrentPosition() {
+		return mCurrentPos;
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
@@ -78,6 +82,10 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 	public void updateDetailsView(int position) {
 		mCurrentPos = position + 1;	// primary keys start at 1 so we gotta do this
 		getLoaderManager().restartLoader(1, null, this);
+	}
+	
+	public void updateDetailsView(int position, Cursor data) {
+		
 	}
 
 	private static String[] WALK_DESCRIPTION_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions.ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, WhiteRockContract.EnglishWalkDescriptions.SHORT_DESCR, WhiteRockContract.EnglishWalkDescriptions.LONG_DESCR};

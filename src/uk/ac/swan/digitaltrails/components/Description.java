@@ -1,12 +1,15 @@
 package uk.ac.swan.digitaltrails.components;
 
-public class Description {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Description implements Parcelable {
 
 	protected long mId;
 	protected String mTitle;
 	protected String mShortDescription;
 	protected String mLongDescription;
-	protected Languages mLanguage;
+	protected int mLanguage;
 	protected long mForeignId;
 
 	public enum Languages {
@@ -94,11 +97,11 @@ public class Description {
 		return mForeignId;
 	}
 
-	public void setLanguage(Languages language) {
+	public void setLanguage(int language) {
 		mLanguage = language;
 	}
 
-	public Languages getLanguage() {
+	public int getLanguage() {
 		return mLanguage;
 	}
 
@@ -112,12 +115,48 @@ public class Description {
 		setId(id);
 		setShortDescription(shortDesc);
 		setLongDescription(longDesc);
-		setLanguage(language);
+		setLanguage(language.ordinal());
 	}
 
 	public String toString() {
 		return "Short: " + getShortDescription() + " long: "
 				+ getLongDescription();
+	}
+
+	public static final Parcelable.Creator<Description> CREATOR = new Creator<Description>() {
+		public Description createFromParcel(Parcel in) {
+			Description newDescription = new Description();
+			newDescription.setId(in.readLong());
+			newDescription.setTitle(in.readString());
+			newDescription.setShortDescription(in.readString());
+			newDescription.setLongDescription(in.readString());
+			newDescription.setLanguage(in.readInt());
+			newDescription.setForeignId(in.readLong());
+			return newDescription;
+		}
+
+		@Override
+		public Description[] newArray(int size) {
+			return new Description[size];
+		}
+	};
+
+	
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeLong(mId);
+		dest.writeString(mTitle);
+		dest.writeString(mShortDescription);
+		dest.writeString(mLongDescription);
+		dest.writeInt(mLanguage);
+		dest.writeLong(mForeignId);
+		
 	}
 
 }

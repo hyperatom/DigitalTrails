@@ -9,6 +9,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 
+// TODO: Replace strings with constants from DbSchema etc.
 
 /**
  * API for content provider.
@@ -17,13 +18,11 @@ import android.content.Context;
  */
 public class WhiteRockContract {
 	
-	public static final String AUTHORITY =
-			"uk.ac.swan.digitaltrails";
+	public static final String AUTHORITY = "uk.ac.swan.digitaltrails";
 	
 	// content://<authority>/<path to type> is the syntax here.
 	
-	public static final Uri CONTENT_URI = Uri.parse(
-			"content://" + AUTHORITY);
+	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
 
 	public static final class BugReport implements ReportColumns {
@@ -245,9 +244,9 @@ public class WhiteRockContract {
 		public static final String[] PROJECTION_ALL = {ID, "title", "description", "rating", "walk_id", "user_id"};
 	}
 	
-	public static final class Waypoint implements CommonColumns {
+	public static final class Waypoint implements WaypointColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
-				WhiteRockContract.CONTENT_URI, "waypoint");
+				WhiteRockContract.CONTENT_URI, DbSchema.TABLE_WAYPOINT);
 	
 		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
 				"vnd.uk.ac.swan.digitaltrails.waypoint";
@@ -257,7 +256,7 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
-		public static final String[] PROJECTION_ALL = {ID, "latitude", "longitude", "is_request", "visit_order", "walk_id", "user_id"};
+		public static final String[] PROJECTION_ALL = {ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER, WALK_ID, USER_ID};
 	}
 	
 	/**
@@ -372,6 +371,15 @@ public class WhiteRockContract {
 	interface ReportColumns extends CommonColumns {
 		public static final String DESCRIPTION = "description";
 		public static final String USER_ID = "user_id";
+	}
+	
+	interface WaypointColumns extends CommonColumns {
+		public static final String LATITUDE = "latitude";
+		public static final String LONGITUDE = "longitude";
+		public static final String WALK_ID = "walk_id";
+		public static final String USER_ID = "user_id";
+		public static final String IS_REQUEST = "is_request";
+		public static final String VISIT_ORDER = "visit_order";
 	}
 
 }

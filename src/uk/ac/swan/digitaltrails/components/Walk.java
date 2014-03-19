@@ -1,6 +1,7 @@
 package uk.ac.swan.digitaltrails.components;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,8 +10,7 @@ import uk.ac.swan.digitaltrails.utils.Duration;
 public class Walk implements Parcelable {
 	private String mTitle;
 	private long mId;
-	private String mShortDescr;
-	private String mLongDescr;
+	private ArrayList<Description> mDescriptions;
 	private Duration mDuration;
 	/** Total distance to walk in miles */
 	private double mDistance;
@@ -62,22 +62,19 @@ public class Walk implements Parcelable {
 		return mTitle;
 	}
 
-	public String getShortDescription() {
-		return mShortDescr;
+	public ArrayList<Description> getDescriptions() {
+		return mDescriptions;
 	}
 
-	public boolean setShortDescription(String description) {
-		mShortDescr = description;
+	public boolean setDescriptions(ArrayList<Description> descriptions) {
+		mDescriptions = descriptions;
 		return true;
-	}
-	
-	public String getLongDescription() {
-		return mLongDescr;
 	}
 
-	public boolean setLongDescription(String description) {
-		mLongDescr = description;
-		return true;
+	protected void setDescriptions(Parcelable[] readParcelableArray) {
+		mDescriptions.clear();
+		mDescriptions = (ArrayList<Description>) Arrays.asList((Description[])readParcelableArray);
+		// No idea if that works...
 	}
 
 	/**
@@ -223,8 +220,7 @@ public class Walk implements Parcelable {
 			Walk newWalk = new Walk();
 			newWalk.setTitle(in.readString());
 			newWalk.setId(in.readLong());
-			newWalk.setShortDescription(in.readString());
-			newWalk.setLongDescription(in.readString());
+			newWalk.setDescriptions(in.readParcelableArray(Description.class.getClassLoader()));
 			newWalk.setDuration(new Duration(in.readInt(), in.readInt()));
 			newWalk.setDistance(in.readDouble());
 			//newWalk.setWaypoints(in.readTypedList(new ArrayList<Waypoint>(), Waypoint.CREATOR));
@@ -248,19 +244,16 @@ public class Walk implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(mTitle);
 		dest.writeLong(mId);
-		dest.writeString(mShortDescr);
-		dest.writeString(mLongDescr);
+		Description[] tempDescrArray = (Description[]) mDescriptions.toArray();
+		dest.writeParcelableArray(tempDescrArray, flags);
 		dest.writeInt(mDuration.getHours());
 		dest.writeInt(mDuration.getMinutes());
 		dest.writeDouble(mDistance);
 		Waypoint[] tempArray = new Waypoint[mWaypoints.size()];
 		mWaypoints.toArray(tempArray);
-		dest.writeParcelableArray(tempArray, 0);
+		dest.writeParcelableArray(tempArray, flags);
 		dest.writeLong(mOwnerId);
 		dest.writeLong(mDownloadCount);
 		dest.writeInt(mDifficultyRating);
-		
 	}
-
-
 }
