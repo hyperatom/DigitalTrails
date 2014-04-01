@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item
+	    android:paddingLeft="4px"
+	    android:paddingBottom="4px"
+	    android:textColor="#ffffffff"
+	    android:textSize="12sp"
+	    android:shadowColor="#000000"
+	    android:shadowDx="10"
+	    android:shadowDy="10"
+	    android:shadowRadius="10"/>
+
+</selector>
