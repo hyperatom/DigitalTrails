@@ -7,6 +7,7 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -88,7 +89,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		final String userName = ((TextView) findViewById(R.id.accountName)).getText().toString();
 		final String userPassword = ((TextView) findViewById(R.id.accountPassword)).getText().toString();
 		
-		final String accountType = getIntent().getStringExtra(ACCOUNT_TYPE);
+		final String accountType = "User";
+
 		
 		new AsyncTask<String, Void, Intent>() {
 
@@ -104,6 +106,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 					data.putString(USER_PASS, userPassword);
 				} catch (Exception e) {
 					data.putString(ERROR_MESSAGE, e.getMessage());
+					Log.e(TAG, "ERRROR!!!!");
 				}
 				
 				final Intent result = new Intent();
@@ -120,6 +123,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 				}
 			}	
 		}.execute();
+		
 	}
 	
 	private void finishLogin(Intent intent) {
@@ -134,9 +138,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 			// create local account, set auth token.
 			mAccountManager.addAccountExplicitly(account, accountPassword, null);
 			mAccountManager.setAuthToken(account, authTokenType, authToken);
+			
 		} else {
 			mAccountManager.setPassword(account, accountPassword);;
 		}
+		
+		TextView ta = (TextView) findViewById(R.id.signUp);
+		ta.setText(intent.getStringExtra(AccountManager.KEY_AUTHTOKEN));
 		
 		setAccountAuthenticatorResult(intent.getExtras());
 		setResult(RESULT_OK, intent);
