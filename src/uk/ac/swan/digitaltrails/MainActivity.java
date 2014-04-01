@@ -57,7 +57,6 @@ public class MainActivity extends ActionBarActivity
 			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
 			
 			values = new ContentValues();
-
 			values.put("latitude", 51.63511300);
 			values.put("longitude", -3.93349000);
 			values.put("is_request", 0);
@@ -67,7 +66,6 @@ public class MainActivity extends ActionBarActivity
 			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
 			
 			values = new ContentValues();
-
 			values.put("latitude", 51.63451800);
 			values.put("longitude", -3.93291200);
 			values.put("is_request", 0);
@@ -77,7 +75,6 @@ public class MainActivity extends ActionBarActivity
 			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
 			
 			values = new ContentValues();
-
 			values.put("latitude", 51.64581500);
 			values.put("longitude", -3.94291200);
 			values.put("is_request", 0);
@@ -87,16 +84,13 @@ public class MainActivity extends ActionBarActivity
 			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
 			
 			values = new ContentValues();
-			
 			values.put("title", "Waypoint 1 Walk 1");
 			values.put("short_description", "wp1short - FROM THE JOIN!");
 			values.put("long_description", "wp1long - FROM THE JOIN!");
 			values.put("waypoint_id", 1);
 			getContentResolver().insert(WhiteRockContract.EnglishWaypointDescriptions.CONTENT_URI, values);
-
 			
 			values = new ContentValues();
-			
 			values.put("title", "Waypoint 2 Walk 1");
 			values.put("short_description", "wp2short - FROM THE JOIN!");
 			values.put("long_description", "wp2long - FROM THE JOIN!");
@@ -105,7 +99,6 @@ public class MainActivity extends ActionBarActivity
 
 			
 			values = new ContentValues();
-			
 			values.put("title", "Waypoint 1 Walk 2");
 			values.put("short_description", "wp1short - FROM THE JOIN!");
 			values.put("long_description", "wp1long - FROM THE JOIN!");
@@ -114,7 +107,6 @@ public class MainActivity extends ActionBarActivity
 
 			
 			values = new ContentValues();
-			
 			values.put("title", "Waypoint 2 Walk 2");
 			values.put("short_description", "wp2short - FROM THE JOIN!");
 			values.put("long_description", "wp2long - FROM THE JOIN!");
@@ -171,16 +163,6 @@ public class MainActivity extends ActionBarActivity
 		Bundle bundle = new Bundle();
 		WalkDetailsFragment detailsFrag = (WalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.walk_details_fragment);
 		intent.putExtra("walkId", detailsFrag.getCurrentPosition());
-		//Walk parcel = parcelWalk();
-		//bundle.putParcelable("waypoint", parcel);
-		
 		startActivity(intent);
-	}
-	
-	private Walk parcelWalk() {
-		Walk parcel = new Walk();
-		
-		
-		return parcel;
 	}
 }

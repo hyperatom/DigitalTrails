@@ -1,19 +1,26 @@
 package uk.ac.swan.digitaltrails;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import uk.ac.swan.digitaltrails.components.Audio;
 import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.Media;
+import uk.ac.swan.digitaltrails.components.SimpleGeofence;
 import uk.ac.swan.digitaltrails.components.Video;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +34,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationClient.OnAddGeofencesResultListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
@@ -39,9 +54,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.plus.model.people.Person.Image;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cursor> {
+public class MapActivity extends FragmentActivity implements
+		LoaderCallbacks<Cursor>, GooglePlayServicesClient.ConnectionCallbacks,
+		GooglePlayServicesClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener,
+		OnAddGeofencesResultListener {
 	
 	private static final String TAG = "MapActivity";
+	private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+	private static final int MILLISECONDS_PER_SECOND = 1000;
+	private static final int UPDATE_INTERVAL_IN_SECONDS = 10;
+	private static final long UPDATE_INTERVAL = MILLISECONDS_PER_SECOND * UPDATE_INTERVAL_IN_SECONDS;
+	private static final int FASTEST_INTERVAL_IN_SECONDS = 5;
+	private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND * FASTEST_INTERVAL_IN_SECONDS;
 	
 	/** The current GoogleMap */
 	private GoogleMap mMap;
@@ -49,13 +73,23 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 	private ArrayList<Marker> mMarkers;
 	/** ArrayList of waypoints in the walk */
 	private ArrayList<Waypoint> mWaypoints;
+	/** ArrayList of Geofences in the walk */
+	private ArrayList<Geofence> mGeofences;
 	/** The filter to use when loading data */
 	private selectFilter mCurFilter;
 	/** Cursor returned from the loader */
 	private Cursor mLoaderCursor;
-	
+	/** LocationClient for keeping track of user location */
+	private LocationClient mLocationClient;
+	/** Holds current location */
+	private Location mCurrentLocation;
+	/** */
+	private LocationRequest mLocationRequest;
+	/** Type of request for LocationRequest */
+	private int mRequestType;
 	private enum selectFilter {FILTER_WAYPOINT_WITH_DESCR, FILTER_WAYPOINT_WITH_MEDIA };
-	
+
+	// Activity Methods
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,7 +100,13 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 		mMarkers = new ArrayList<Marker>();
 		mWaypoints = new ArrayList<Waypoint>();
 		initMap();
+		// intent.getExtras() contains walkId
 		getSupportLoaderManager().initLoader(0, intent.getExtras(), this);
+		mLocationClient = new LocationClient(this, this, this);
+		mLocationRequest = LocationRequest.create();
+		mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+		mLocationRequest.setInterval(UPDATE_INTERVAL);
+		mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
 	}
 
 	@Override
@@ -125,6 +165,12 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 	protected void onPause() {
 		super.onPause();
 	}
+	
+	@Override
+	protected void onStop() {
+		mLocationClient.disconnect();
+		super.onStop();
+	}
 
 	private void initMap() {
 		if (mMap == null) {
@@ -159,7 +205,6 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 
 			@Override
 			public void onInfoWindowClick(Marker marker) {
-				
 				Bundle bundle = new Bundle();
 				bundle.putInt("markerId", mMarkers.indexOf(marker));
 				mCurFilter = selectFilter.FILTER_WAYPOINT_WITH_MEDIA;
@@ -168,7 +213,6 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 				showInfoViewDialog();
 			}
 		});
-
 	}
 	
 	private void resumeMap() {
@@ -184,7 +228,22 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 						.snippet(wp.getDescriptions().get(0).getShortDescription()))); // BAD - assuming only 1 desc.
 			}
 		}
-
+	}
+	
+	private ArrayList<Geofence> createGeofences(ArrayList<Waypoint> waypoints) {
+		final int radius = 8;
+		final int responsiveness = 1500;
+		ArrayList<Geofence> geofences = new ArrayList<Geofence>();
+		for (Waypoint wp : waypoints) {	
+			geofences.add(
+					new Geofence.Builder()
+					.setRequestId(wp.getTitle())
+					.setCircularRegion(wp.getLatitude(), wp.getLongitude(), radius)
+					.setExpirationDuration(Geofence.NEVER_EXPIRE)
+					.setNotificationResponsiveness(responsiveness)
+					.build());
+		}
+		return geofences;
 	}
 	
 	//TODO: Use a Join to get the data we need, currently we can only get lat and long and visit_order.
@@ -266,8 +325,12 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 						wp.getMediaFiles().add(media);
 					}
 				}
+				
+				// add the last waypoint
 				mWaypoints.add(wp);
 				createMarkers(mWaypoints);
+				mGeofences = createGeofences(mWaypoints);
+				//mLocationClient.addGeofences(mGeofences, pendingIntent, this);
 			} else if (mCurFilter == selectFilter.FILTER_WAYPOINT_WITH_MEDIA) {
 				mLoaderCursor = data;
 			}
@@ -297,14 +360,15 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 			return dialog;
 		}
 
+		// TODO: Im pretty sure this is dumb...
 		public void init(Cursor data) {
 			mWaypoint = new Waypoint();
 			if (data != null && data.getCount() > 0) {
-				ArrayList<Audio> audioFiles = new ArrayList<Audio>();
-				ArrayList<Video> videoFiles = new ArrayList<Video>();
-				ArrayList<Image> imageFiles = new ArrayList<Image>();
+				List<Audio> audioFiles = new ArrayList<Audio>();
+				List<Video> videoFiles = new ArrayList<Video>();
+				List<Image> imageFiles = new ArrayList<Image>();
 				while (data.moveToNext()) {
-					
+					//TODO: add to lists.
 				}
 			}
 		}
@@ -324,4 +388,81 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 			return builder.create();
 		}
 	}
+	
+	// Google Play Services stuff
+	
+	@Override
+	protected void onActivityResult(int reqCode, int resCode, Intent data) {
+		switch (reqCode) {
+		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
+			switch (resCode) {
+			case Activity.RESULT_OK:
+				// try again
+				break;
+			}
+		}
+	}
+	
+	private boolean servicesConnected() {
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		ConnectionResult connectionResult = new ConnectionResult(resultCode, null);
+		if (ConnectionResult.SUCCESS == resultCode) {
+			return true;
+		} else {
+			int errorCode = connectionResult.getErrorCode();
+			
+			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+		
+			if (errorDialog != null) {
+				ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+				errorFragment.setDialog(errorDialog);
+				errorFragment.show(getSupportFragmentManager(), "Location Updates");
+			}
+		}		
+		return false;
+	}
+	
+	@Override
+	public void onConnectionFailed(ConnectionResult connectionResult) {
+		
+		// try to resolve any error
+		if (connectionResult.hasResolution()) {
+			try {
+				connectionResult.startResolutionForResult(this,  CONNECTION_FAILURE_RESOLUTION_REQUEST);
+				
+			} catch (IntentSender.SendIntentException e) {
+				e.printStackTrace();
+			}
+		} else {
+			// can't resolve error, show error dialog.
+			//showErrorDialog(connectionResult.getErrorCode());
+		}
+	}
+
+	@Override
+	public void onConnected(Bundle dataBundle) {
+		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+		mLocationClient.requestLocationUpdates(mLocationRequest, this);
+	}
+
+	@Override
+	public void onDisconnected() {
+		Toast.makeText(this, "Disconnected, please reconnect", Toast.LENGTH_SHORT).show();
+	}
+	
+	// LocationListener methods begin
+	@Override 
+	public void onLocationChanged(Location location) {
+		// compare location to waypoint locations.
+	}
+
+	@Override
+	public void onAddGeofencesResult(int statusCode, String[] geofenceRequestIds) {
+		if (LocationStatusCodes.SUCCESS == statusCode) {
+			
+		} else {
+			
+		}
+	}
+	
 } 
