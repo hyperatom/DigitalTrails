@@ -120,8 +120,6 @@ public class MainActivity extends ActionBarActivity
 			values.put("long_description", "wp2long - FROM THE JOIN!");
 			values.put("waypoint_id", 4);
 			getContentResolver().insert(WhiteRockContract.EnglishWaypointDescriptions.CONTENT_URI, values);
-
-
 		}
 		
 		// check if using small layout
@@ -170,17 +168,7 @@ public class MainActivity extends ActionBarActivity
 		Intent intent = new Intent(this, MapActivity.class);
 		Bundle bundle = new Bundle();
 		WalkDetailsFragment detailsFrag = (WalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.walk_details_fragment);
-		intent.putExtra("walkId", detailsFrag.getCurrentPosition());
-		//Walk parcel = parcelWalk();
-		//bundle.putParcelable("waypoint", parcel);
-		
+		intent.putExtra("walkId", detailsFrag.getCurrentPosition());	
 		startActivity(intent);
-	}
-	
-	private Walk parcelWalk() {
-		Walk parcel = new Walk();
-		
-		
-		return parcel;
 	}
 }
