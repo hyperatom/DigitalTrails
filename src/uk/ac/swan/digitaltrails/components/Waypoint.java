@@ -28,6 +28,7 @@ public class Waypoint implements Parcelable {
 	private ArrayList<Audio> mAudioFiles;
 	private ArrayList<Video> mVideos;
 	private ArrayList<Description> mDescriptions;
+	private ArrayList<Media> mMedia;
 	private long mUserId;
 	private long mWalkId;
 
@@ -134,6 +135,15 @@ public class Waypoint implements Parcelable {
 	public void setVideos(ArrayList<Video> videos) {
 		this.mVideos = videos;
 	}
+	
+	public void setMedia(ArrayList<Media> media) {
+		this.mMedia = media;
+	}
+
+	public ArrayList<Media> getMediaFiles() {
+		return mMedia;
+	}
+
 	
 	public ArrayList<Description> getDescriptions() {
 		return mDescriptions;

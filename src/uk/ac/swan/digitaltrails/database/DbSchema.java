@@ -23,6 +23,7 @@ interface DbSchema {
 	String TABLE_WAYPOINT_AUDIO = "waypoint_audio";
 	String TABLE_WAYPOINT_IMAGE = "waypoint_image";
 	String TABLE_WAYPOINT_VIDEO = "waypoint_video";
+	String VIEW_WAYPOINT_WITH_ENGLISH_DESCR = "waypoint_and_english";
 	
 	// TODO: Create Strings to create tables. 
 	// Probably need to update the database SQL to SQLite first. 

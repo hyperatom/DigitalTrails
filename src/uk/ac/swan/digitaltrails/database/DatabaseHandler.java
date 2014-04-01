@@ -27,6 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public DatabaseHandler(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
 		
+		// Find the correct path based on Android version.
 		if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
 			DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
 		} else {

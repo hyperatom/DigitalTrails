@@ -25,6 +25,11 @@ public class WhiteRockContract {
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
 
+	/**
+	 * Constants for Bug Report table.
+	 * @author Lewis Hancock
+	 *
+	 */
 	public static final class BugReport implements ReportColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "bug_report");
@@ -277,7 +282,7 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
-		public static final String[] PROJECTION_ALL = {ID, FILE_LOCATION, WAYPOINT_ID};
+		public static final String[] PROJECTION_ALL = {ID, FILE_NAME, WAYPOINT_ID};
 	}
 	
 	/**
@@ -299,7 +304,7 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
 	
-		public static final String[] PROJECTION_ALL = {ID, FILE_LOCATION, WAYPOINT_ID};
+		public static final String[] PROJECTION_ALL = {ID, FILE_NAME, WAYPOINT_ID};
 
 	}
 	
@@ -322,8 +327,63 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
 	
-		public static final String[] PROJECTION_ALL = {ID, FILE_LOCATION, WAYPOINT_ID};
+		public static final String[] PROJECTION_ALL = {ID, FILE_NAME, WAYPOINT_ID};
 
+	}
+	
+	public static final class WaypointWithEnglishDescription implements DescriptionColumns, WaypointColumns {
+		public static final Uri CONTENT_URI = Uri.withAppendedPath(
+				WhiteRockContract.CONTENT_URI, "waypoint_and_english");
+		
+		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
+				"vnd.uk.ac.swan.digitaltrails.waypoint_and_english";
+		
+		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
+				"vnd.uk.ac.swan.digitaltrails.waypoint_and_english";
+
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
+	
+		public static final String[] PROJECTION_ALL = {DbSchema.TABLE_WAYPOINT+"."+WaypointColumns.ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER,
+														WaypointColumns.WALK_ID, USER_ID,
+														TITLE, SHORT_DESCR, LONG_DESCR, DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR+"."+WAYPOINT_ID};
+
+	}
+	
+	public static final class WaypointWithMedia implements WaypointColumns, MediaColumns {
+		public static final Uri CONTENT_URI = Uri.withAppendedPath(
+				WhiteRockContract.CONTENT_URI, "waypoint_and_media");
+		
+		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
+				"vnd.uk.ac.swan.digitaltrails.waypoint_and_media";
+		
+		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
+				"vnd.uk.ac.swan.digitaltrails.waypoint_and_media";
+
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
+	
+		public static final String[] PROJECTION_ALL = {DbSchema.TABLE_WAYPOINT+"."+WaypointColumns.ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER,
+														WaypointColumns.WALK_ID, USER_ID,
+														FILE_NAME};
+	}
+	
+	public static final class WaypointWithEnglishDescriptionWithMedia implements WaypointColumns, MediaColumns, DescriptionColumns {
+		public static final Uri CONTENT_URI = Uri.withAppendedPath(
+				WhiteRockContract.CONTENT_URI, "waypoint_and_english_and_media");
+		
+		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
+				"vnd.uk.ac.swan.digitaltrails.waypoint_and_english_and_media";
+		
+		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
+				"vnd.uk.ac.swan.digitaltrails.waypoint_and_english_and_media";
+
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
+	
+		public static final String[] PROJECTION_ALL = {DbSchema.TABLE_WAYPOINT+"."+WaypointColumns.ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER,
+														WaypointColumns.WALK_ID, USER_ID,
+														TITLE, SHORT_DESCR, LONG_DESCR,
+														DbSchema.TABLE_WAYPOINT_AUDIO+"."+FILE_NAME,
+														DbSchema.TABLE_WAYPOINT_IMAGE+"."+FILE_NAME,
+														DbSchema.TABLE_WAYPOINT_VIDEO+"."+FILE_NAME};
 	}
 
 		
@@ -343,7 +403,7 @@ public class WhiteRockContract {
 	 */
 	interface MediaColumns extends CommonColumns {
 		
-		public static final String FILE_LOCATION = "file_location";
+		public static final String FILE_NAME = "file_name";
 		
 		public static final String WAYPOINT_ID = "waypoint_id";
 	}

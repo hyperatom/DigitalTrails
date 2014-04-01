@@ -27,7 +27,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 
 	private static final UriMatcher URI_MATCHER = buildUriMatcher();
 	private static final String TAG = "WhiteRockContentProvider";
-	
+
 	// Constants for URI matcher.
 	private static final int WALK_LIST = 1;
 	private static final int WALK_ID = 2;
@@ -57,14 +57,21 @@ public class WhiteRockContentProvider extends ContentProvider {
 	private static final int USER_SETTINGS_ID = 61;
 	private static final int SETTINGS_TYPE_LIST = 65;
 	private static final int SETTINGS_TYPE_ID = 66;
-	
+	private static final int WAYPOINT_WITH_ENGLISH_DESCR_LIST = 70;
+	private static final int WAYPOINT_WITH_ENGLISH_DESCR_ID = 71;
+	private static final int WAYPOINT_WITH_MEDIA_LIST = 75;
+	private static final int WAYPOINT_WITH_MEDIA_ID = 76;
+	private static final int WAYPOINT_WITH_MEDIA_WITH_ENGLISH_LIST = 80;
+	private static final int WAYPOINT_WITH_MEDIA_WITH_ENGLISH_ID = 81;
+
 	/** Handler for database. */
 	private DatabaseHandler mDbHandler;
 	/** ThreadLocal storage for batch processing. */
 	private final ThreadLocal<Boolean> mIsInBatchMode = new ThreadLocal<Boolean>();
+	//TODO: Use constants from contract, not magic strings.
 	/**
 	 * Create UriMatcher
-	 * @return 
+	 * @return the UriMatcher to use.
 	 */
 	private static UriMatcher buildUriMatcher() {
 		final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -97,25 +104,33 @@ public class WhiteRockContentProvider extends ContentProvider {
 		matcher.addURI(authority, "user_settings/#", USER_SETTINGS_ID);
 		matcher.addURI(authority, "settings_type", SETTINGS_TYPE_LIST);
 		matcher.addURI(authority, "settings_type/#", SETTINGS_TYPE_ID);
+
+		// These are VIEWS - provider does not allow insert, update, delete for now. Just read from them
+		matcher.addURI(authority, "waypoint_and_english", WAYPOINT_WITH_ENGLISH_DESCR_LIST);
+		matcher.addURI(authority, "waypoint_and_english/#", WAYPOINT_WITH_ENGLISH_DESCR_ID);
+		matcher.addURI(authority, WhiteRockContract.WaypointWithMedia.CONTENT_URI.toString(), WAYPOINT_WITH_MEDIA_LIST);
+		matcher.addURI(authority, WhiteRockContract.WaypointWithMedia.CONTENT_URI.toString()+"/#", WAYPOINT_WITH_MEDIA_ID);
+		matcher.addURI(authority, "waypoint_and_english_and_media",	WAYPOINT_WITH_MEDIA_WITH_ENGLISH_LIST);
+		matcher.addURI(authority, "waypoint_and_english_and_media/#", WAYPOINT_WITH_MEDIA_WITH_ENGLISH_ID);
 		return matcher;
 	}
-	
 
-	
+
+
 	@Override
 	public boolean onCreate() {
 		Context context = getContext();
 		mDbHandler = new DatabaseHandler(context);
 		return true;
 	}
-	
+
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		SQLiteDatabase db = mDbHandler.getWritableDatabase();
 		int deleteCount = 0;
 		String idStr;
 		String where;
-		
+
 		switch (URI_MATCHER.match(uri)) {
 		case WALK_LIST:
 			deleteCount = db.delete(DbSchema.TABLE_WALK, selection, selectionArgs);
@@ -279,7 +294,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 		if (deleteCount > 0 && !isInBatchMode()) {
 			getContext().getContentResolver().notifyChange(uri, null);
 		}
-		
+
 		return deleteCount;
 	}
 
@@ -343,6 +358,18 @@ public class WhiteRockContentProvider extends ContentProvider {
 			return WhiteRockContract.SettingType.CONTENT_TYPE;
 		case SETTINGS_TYPE_ID:
 			return WhiteRockContract.SettingType.CONTENT_TYPE_DIR;
+		case WAYPOINT_WITH_ENGLISH_DESCR_LIST:
+			return WhiteRockContract.WaypointWithEnglishDescription.CONTENT_TYPE;
+		case WAYPOINT_WITH_ENGLISH_DESCR_ID:
+			return WhiteRockContract.WaypointWithEnglishDescription.CONTENT_TYPE_DIR;
+		case WAYPOINT_WITH_MEDIA_LIST:
+			return WhiteRockContract.WaypointWithMedia.CONTENT_TYPE;
+		case WAYPOINT_WITH_MEDIA_ID:
+			return WhiteRockContract.WaypointWithMedia.CONTENT_TYPE_DIR;
+		case WAYPOINT_WITH_MEDIA_WITH_ENGLISH_LIST:
+			return WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_TYPE;
+		case WAYPOINT_WITH_MEDIA_WITH_ENGLISH_ID:
+			return WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_TYPE_DIR;
 		default:
 			throw new UnsupportedOperationException("URI " + uri + " is not supported.");	
 		}
@@ -355,101 +382,101 @@ public class WhiteRockContentProvider extends ContentProvider {
 		switch (URI_MATCHER.match(uri)) {
 		case WALK_LIST:
 			id = 
-				db.insert(DbSchema.TABLE_WALK,
-						  null,
-					      values);
+			db.insert(DbSchema.TABLE_WALK,
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case WAYPOINT_LIST:
 			id = 
-				db.insert(DbSchema.TABLE_WAYPOINT,
-						  null,
-						  values);
+			db.insert(DbSchema.TABLE_WAYPOINT,
+					null,
+					values);
 			db.close();
 			Log.d(TAG, "Attempting insert into waypoint table");
 			return getUriForId(id, uri);
 		case ENGLISH_WALK_DESCR_LIST:
 			id = 
-				db.insert(DbSchema.TABLE_ENGLISH_WALK_DESCR,
-						  null,
-						  values);
+			db.insert(DbSchema.TABLE_ENGLISH_WALK_DESCR,
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case WELSH_WALK_DESCR_LIST:
 			id = 
-				db.insert(DbSchema.TABLE_WELSH_WALK_DESCR,
-						  null,
-						  values);
+			db.insert(DbSchema.TABLE_WELSH_WALK_DESCR,
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case ENGLISH_WAYPOINT_DESCR_LIST:
 			id = 
-				db.insert(DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR,
-						  null,
-						  values);
+			db.insert(DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR,
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case WELSH_WAYPOINT_DESCR_LIST:
 			id = 
-				db.insert(DbSchema.TABLE_WELSH_WAYPOINT_DESCR,
-						  null,
-						  values);
+			db.insert(DbSchema.TABLE_WELSH_WAYPOINT_DESCR,
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case WAYPOINT_AUDIO_LIST:
 			id = 
-				db.insert(DbSchema.TABLE_WAYPOINT_AUDIO,
-						  null,
-						  values);
+			db.insert(DbSchema.TABLE_WAYPOINT_AUDIO,
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case WAYPOINT_VIDEO_LIST:
 			id = 
-				db.insert(DbSchema.TABLE_WAYPOINT_VIDEO,
-						  null,
-						  values);
+			db.insert(DbSchema.TABLE_WAYPOINT_VIDEO,
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case WAYPOINT_IMAGE_LIST:
 			id = 
-				db.insert(DbSchema.TABLE_WAYPOINT_IMAGE,
-						  null,
-						  values);
+			db.insert(DbSchema.TABLE_WAYPOINT_IMAGE,
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case BUG_REPORT_LIST:
 			id = 
-				db.insert(DbSchema.TABLE_BUG_REPORT,
-						  null,
-						  values);
+			db.insert(DbSchema.TABLE_BUG_REPORT,
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case CONTENT_REPORT_LIST:
 			id = 
-				db.insert(DbSchema.TABLE_CONTENT_REPORT,
-						  null,
-						  values);
+			db.insert(DbSchema.TABLE_CONTENT_REPORT,
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case USER_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_USER,
-					  null,
-					  values);
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case USER_SETTINGS_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_USER,
-					  null,
-					  values);
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		case SETTINGS_TYPE_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_SETTING_TYPE,
-					  null,
-					  values);
+					null,
+					values);
 			db.close();
 			return getUriForId(id, uri);
 		default:
@@ -463,6 +490,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 			String sortOrder) {
 		SQLiteDatabase db = mDbHandler.getReadableDatabase();
 		SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+		String queryString;
 		boolean useAuthorityUri = false;
 		switch (URI_MATCHER.match(uri)) {
 		case WALK_LIST:
@@ -605,10 +633,58 @@ public class WhiteRockContentProvider extends ContentProvider {
 			builder.setTables(DbSchema.TABLE_SETTING_TYPE);
 			builder.appendWhere(WhiteRockContract.SettingType._ID + " = " + uri.getLastPathSegment());
 			break;
+		case WAYPOINT_WITH_ENGLISH_DESCR_LIST:
+			queryString = DbSchema.TABLE_WAYPOINT + " LEFT OUTER JOIN " 
+					+ DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR + " ON "
+					+ "(" + DbSchema.TABLE_WAYPOINT + "." + WhiteRockContract.Waypoint.ID + " = " 
+					+ DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR + "." + WhiteRockContract.EnglishWaypointDescriptions.WAYPOINT_ID +")";
+			builder.setTables(queryString);
+			//builder.setTables("waypoint LEFT OUTER JOIN english_waypoint_description ON (waypoint.id = english_waypoint_description.waypoint_id)");
+			if (TextUtils.isEmpty(sortOrder)) {
+				sortOrder = WhiteRockContract.WaypointWithEnglishDescription.SORT_ORDER_DEFAULT;
+			}
+			break;
+		case WAYPOINT_WITH_MEDIA_LIST:
+			queryString = DbSchema.TABLE_WAYPOINT + " LEFT OUTER JOIN "
+					+ DbSchema.TABLE_WAYPOINT_AUDIO + " ON "
+					+ DbSchema.TABLE_WAYPOINT + "." + WhiteRockContract.Waypoint.ID
+					+ " = " + DbSchema.TABLE_WAYPOINT_AUDIO + "." + WhiteRockContract.WaypointAudio.WAYPOINT_ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_IMAGE + " ON "
+					+ DbSchema.TABLE_WAYPOINT + "." + WhiteRockContract.Waypoint.ID
+					+ " = " + DbSchema.TABLE_WAYPOINT_IMAGE + "." + WhiteRockContract.WaypointImage.ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_VIDEO + " ON "
+					+ DbSchema.TABLE_WAYPOINT + "." + WhiteRockContract.Waypoint.ID
+					+ " = " + DbSchema.TABLE_WAYPOINT_VIDEO + "." + WhiteRockContract.WaypointVideo.ID; 
+			builder.setTables(queryString);
+			if (TextUtils.isEmpty(sortOrder)) {
+				sortOrder = WhiteRockContract.WaypointWithMedia.SORT_ORDER_DEFAULT;
+			}
+			break;
+		case WAYPOINT_WITH_MEDIA_WITH_ENGLISH_LIST:
+			queryString = DbSchema.TABLE_WAYPOINT + " LEFT OUTER JOIN "
+					+ DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR + " ON "
+					+ DbSchema.TABLE_WAYPOINT + "." + WhiteRockContract.Waypoint.ID
+					+ " = " + DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR + "." + WhiteRockContract.EnglishWaypointDescriptions.WAYPOINT_ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_AUDIO + " ON "
+					+ DbSchema.TABLE_WAYPOINT + "." + WhiteRockContract.Waypoint.ID
+					+ " = " + DbSchema.TABLE_WAYPOINT_AUDIO + "." + WhiteRockContract.WaypointAudio.WAYPOINT_ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_IMAGE + " ON "
+					+ DbSchema.TABLE_WAYPOINT + "." + WhiteRockContract.Waypoint.ID
+					+ " = " + DbSchema.TABLE_WAYPOINT_IMAGE + "." + WhiteRockContract.WaypointImage.WAYPOINT_ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_VIDEO + " ON "
+					+ DbSchema.TABLE_WAYPOINT + "." + WhiteRockContract.Waypoint.ID
+					+ " = " + DbSchema.TABLE_WAYPOINT_VIDEO + "." + WhiteRockContract.WaypointVideo.WAYPOINT_ID; 
+
+			builder.setTables(queryString);
+			if (TextUtils.isEmpty(sortOrder)) {
+				sortOrder = WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.SORT_ORDER_DEFAULT;
+			}
+			break;
 		default:
 			throw new IllegalArgumentException("Unsupported URI: " + uri + " case argument is " + URI_MATCHER.match(uri));
 		}
-		
+
+		Log.d(TAG, builder.getTables());
 		Cursor cursor = builder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
 		if (useAuthorityUri) {
 			cursor.setNotificationUri(getContext().getContentResolver(), WhiteRockContract.CONTENT_URI);
@@ -798,8 +874,8 @@ public class WhiteRockContentProvider extends ContentProvider {
 
 	@Override
 	public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations)
-	         throws OperationApplicationException {
-				
+			throws OperationApplicationException {
+
 		SQLiteDatabase db = mDbHandler.getWritableDatabase();
 		mIsInBatchMode.set(true);
 		db.beginTransaction();
@@ -813,19 +889,19 @@ public class WhiteRockContentProvider extends ContentProvider {
 			db.endTransaction();
 		}
 	}
-	
+
 	// Depending on how we are actually storing our images etc. this could deal with opening them!
 	@Override
 	public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
 		if ((URI_MATCHER.match(uri) != WAYPOINT_AUDIO_ID) ||
 				(URI_MATCHER.match(uri) != WAYPOINT_VIDEO_ID) ||
 				(URI_MATCHER.match(uri) != WAYPOINT_IMAGE_ID)) {
-			
+
 			throw new IllegalArgumentException("URI Invalid. Use ID Based URI");
 		}
 		return openFileHelper(uri, mode);
 	}
-	
+
 	/**
 	 * Log queries in Honeycomb and higher
 	 * @param builder
@@ -837,14 +913,14 @@ public class WhiteRockContentProvider extends ContentProvider {
 	private void logQuery(SQLiteQueryBuilder builder, String[] projection, String selection, String sortOrder) {
 		if (BuildConfig.DEBUG) {
 			Log.v("WhiteRock", "query: " + builder.buildQuery(projection,
-															  selection,
-															  null,
-															  null,
-															  sortOrder,
-															  null));
+					selection,
+					null,
+					null,
+					sortOrder,
+					null));
 		}
 	}
-	
+
 
 	/**
 	 * Log queries in anything below honeycomb.
@@ -861,8 +937,8 @@ public class WhiteRockContentProvider extends ContentProvider {
 															  null));
 		}
 	}
-	*/
-	
+	 */
+
 	/**
 	 * Get the ID where we are inserting into
 	 * @param id
@@ -881,9 +957,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 		}
 		throw new SQLException("Problem inserting into uri: " + uri + " " + id);
 	}
-	
+
 	private boolean isInBatchMode() {
 		return mIsInBatchMode.get() != null && mIsInBatchMode.get();
 	}
-	
+
 }

@@ -85,6 +85,42 @@ public class MainActivity extends ActionBarActivity
 			values.put("walk_id", 2);
 			values.put("user_id", 2);
 			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
+			
+			values = new ContentValues();
+			
+			values.put("title", "Waypoint 1 Walk 1");
+			values.put("short_description", "wp1short - FROM THE JOIN!");
+			values.put("long_description", "wp1long - FROM THE JOIN!");
+			values.put("waypoint_id", 1);
+			getContentResolver().insert(WhiteRockContract.EnglishWaypointDescriptions.CONTENT_URI, values);
+
+			
+			values = new ContentValues();
+			
+			values.put("title", "Waypoint 2 Walk 1");
+			values.put("short_description", "wp2short - FROM THE JOIN!");
+			values.put("long_description", "wp2long - FROM THE JOIN!");
+			values.put("waypoint_id", 2);
+			getContentResolver().insert(WhiteRockContract.EnglishWaypointDescriptions.CONTENT_URI, values);
+
+			
+			values = new ContentValues();
+			
+			values.put("title", "Waypoint 1 Walk 2");
+			values.put("short_description", "wp1short - FROM THE JOIN!");
+			values.put("long_description", "wp1long - FROM THE JOIN!");
+			values.put("waypoint_id", 3);
+			getContentResolver().insert(WhiteRockContract.EnglishWaypointDescriptions.CONTENT_URI, values);
+
+			
+			values = new ContentValues();
+			
+			values.put("title", "Waypoint 2 Walk 2");
+			values.put("short_description", "wp2short - FROM THE JOIN!");
+			values.put("long_description", "wp2long - FROM THE JOIN!");
+			values.put("waypoint_id", 4);
+			getContentResolver().insert(WhiteRockContract.EnglishWaypointDescriptions.CONTENT_URI, values);
+
 
 		}
 		
