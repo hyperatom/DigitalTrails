@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.*;
+import android.support.v4.widget.SearchViewCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
@@ -27,8 +28,8 @@ public class WalkListFragment extends ListFragment
 	private ArrayList<Walk> mWalkList;
 	
 	private SimpleCursorAdapter mAdapter;
-	private SearchView mSearchView;
-	private String mCurFilter;
+	private SearchViewCompat mSearchView;
+	private String mCurFilter; 
 	private int mLayout;
 
 	

@@ -50,17 +50,9 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		mShortDescrText = (TextView) getView().findViewById(R.id.short_descr);
 		mLongDescrText = (TextView) getView().findViewById(R.id.long_descr);
 		//setHasOptionsMenu(true);
-		/*mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.fragment_walk_details, null,
-					new String[] {WhiteRockContract.EnglishWalkDescriptions.TITLE,
-								  WhiteRockContract.EnglishWalkDescriptions.SHORT_DESCR,
-								  WhiteRockContract.EnglishWalkDescriptions.LONG_DESCR },
-					new int[] {R.id.title, R.id.short_descr, R.id.long_descr}, 0);	
-		*/
-
 		getLoaderManager().initLoader(1, null, this);
 		
 		// check if arguments passed to the fragment
-		
 		Bundle args = getArguments();
 		if (args != null) {
 			updateDetailsView(args.getInt(ARG_POSITION));
