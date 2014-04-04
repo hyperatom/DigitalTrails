@@ -173,8 +173,8 @@ public class ChooseWalkActivity extends ActionBarActivity
 		WalkDetailsFragment detailsFrag = (WalkDetailsFragment)getSupportFragmentManager().findFragmentById(R.id.walk_details_fragment);
 	
 		if(detailsFrag.getCurrentPosition() > 0){
-		
 			Intent intent = new Intent(this, MapActivity.class);
+			intent.putExtra("explore", 1);
 			intent.putExtra("walkId", detailsFrag.getCurrentPosition());	
 			startActivity(intent);
 		}

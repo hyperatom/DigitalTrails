@@ -44,7 +44,8 @@ public class HomeActivity extends Activity{
 	}
 	
 	public void exploreButton(View view){
-        Intent intent = new Intent(this, ExploreActivity.class);
+        Intent intent = new Intent(this, MapActivity.class);
+        intent.putExtra("explore", 0);
         startActivity(intent);
 	}
 	

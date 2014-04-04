@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 @SuppressLint("NewApi")
-public class EditWalksActivity extends Activity{
+public class EditWalksActivity extends Activity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -56,18 +56,20 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 	private Cursor mLoaderCursor;
 	
 	private enum selectFilter {FILTER_WAYPOINT_WITH_DESCR, FILTER_WAYPOINT_WITH_MEDIA };
-	
+	boolean debug = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mCurFilter = selectFilter.FILTER_WAYPOINT_WITH_DESCR;
 		setContentView(R.layout.activity_map);
 		Intent intent = getIntent();
-		int walkId = intent.getExtras().getInt("walkId");	
-		mMarkers = new ArrayList<Marker>();
-		mWaypoints = new ArrayList<Waypoint>();
-		initMap();
-		getSupportLoaderManager().initLoader(0, intent.getExtras(), this);
+		if (intent.getExtras().getInt("explore") == 1) {
+			int walkId = intent.getExtras().getInt("walkId");	
+			mMarkers = new ArrayList<Marker>();
+			mWaypoints = new ArrayList<Waypoint>();
+			initMap();
+			getSupportLoaderManager().initLoader(0, intent.getExtras(), this);
+		}
 	}
 
 	@Override
