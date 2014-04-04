@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dbdbdb"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/waypoint1"
+        android:layout_gravity="center"
+        android:textSize="40sp" />
+
+    <ImageView
+        android:id="@+id/waypointMap"
+        android:layout_width="fill_parent"
+        android:layout_height="350dp"
+        android:layout_margin="20dp"
+        android:contentDescription="mapFillerImage"
+        android:onClick="saveRepositionButton"
+        android:src="@drawable/map_nott" />
+
+        <GridLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:columnCount="2" >
+
+            <Button
+                android:id="@+id/mediaDescription"
+                android:layout_width="250dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/light_light_blue"
+                android:text="@string/media_description"
+                android:textSize="40sp" />
+
+            <Button
+                android:id="@+id/mediaPictures"
+                android:layout_width="250dp"
+                android:layout_height="120dp"
+                android:layout_column="1"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_row="0"
+                android:background="@color/light_blue"
+                android:text="@string/media_pictures"
+                android:textSize="40sp" />
+
+            <Button
+                android:id="@+id/mediaVideo"
+                android:layout_width="250dp"
+                android:layout_height="120dp"
+                android:layout_column="0"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_row="1"
+                android:background="@color/blue"
+                android:text="@string/media_video"
+                android:textSize="40sp" />
+
+            <Button
+                android:id="@+id/mediaAudio"
+                android:layout_width="250dp"
+                android:layout_height="120dp"
+                android:layout_column="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_row="1"
+                android:background="@color/light_grey"
+                android:text="@string/media_audio"
+                android:textSize="40sp" />
+
+        </GridLayout>
+ 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.02" >
+
+        <Button
+            android:id="@+id/backToWalkView"
+            android:layout_width="250dp"
+            android:layout_height="65dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_background"
+            android:onClick="returnWalkViewButton"
+            android:text="@string/returnToWalkView"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

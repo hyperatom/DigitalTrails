@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/deatilLayout" 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="@string/chooseWalk"
+                android:textSize="50sp" 
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+        		android:id="@+id/map"
+        		android:layout_marginLeft="20dp"
+        		android:layout_width="250dp"
+        		android:layout_height="250dp"
+        		android:layout_above="@+id/textView1"
+        		android:layout_centerHorizontal="true"
+        		android:src="@drawable/map_nott" />
+
+            <TextView
+                android:id="@+id/long_descr"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:inputType="textMultiLine"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:text="@string/chooseWalk" >
+                
+                
+                <!-- ABOVE TEXT SHOULD BE HARDCODED -->
+                
+ 
+
+            </TextView>
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="                          Walk length :"
+                    android:textSize="20dp" >
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number of walk waypoints :"
+                    android:textSize="20dp" >
+                </TextView>
+                
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" 
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="20dp">
+                
+                 <Button
+	                	android:layout_width="300dp"
+	                	android:layout_height="wrap_content"
+	                	android:text="@string/edit" 
+	                	android:background="@drawable/button_background"
+	                	android:layout_weight="1"
+	                	android:onClick="buttonEditWalk">
+	                </Button>
+
+                 <Button
+                     android:layout_width="300dp"
+                     android:layout_height="wrap_content"
+                     android:layout_marginLeft="10dp"
+                     android:layout_weight="1"
+                     android:background="@drawable/button_background"
+                     android:onClick="buttonDeleteWalk"
+                     android:text="@string/delete" />
+                
+            </LinearLayout>
+            
+        </LinearLayout>
+    </LinearLayout>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="226dp"
+        android:layout_weight="0.59"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/welcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Edit Account"
+                    android:textSize="40sp" />
+
+                <View
+                    android:layout_width="400dp"
+                    android:layout_height="5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:background="#34c01b" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/welcome"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="User: Adam Barrell"
+                    android:textSize="15sp" />
+                
+            </RelativeLayout>
+        
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/relativeLayout1"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/fullnamee"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fullnamet"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Full name"
+                android:textSize="15sp" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/emailt"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emaile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Email"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/passworde"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/passwordt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="********"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/confirme"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/confirmt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="********"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/fullnamet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/fullnamee"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:text="Full name"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/emaile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/emailt"
+                android:layout_below="@+id/fullnamee"
+                android:layout_marginTop="20dp"
+                android:text="Email Address"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/passwordt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/passworde"
+                android:layout_below="@+id/emailt"
+                android:layout_marginTop="20dp"
+                android:text="Password"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/confirmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/confirme"
+                android:layout_below="@+id/passworde"
+                android:layout_marginTop="20dp"
+                android:text="Confirm Password"
+                android:textSize="15dp" />
+
+            
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="83dp" >
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/button_background"
+            android:text="Save" 
+            android:onClick="accountChanges"/>
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="25dp"
+            android:text="Cancel" 
+            android:background="@drawable/button_background"
+            android:onClick="cancelEditAccountButton"/>
+    </RelativeLayout>
+
+</LinearLayout>
