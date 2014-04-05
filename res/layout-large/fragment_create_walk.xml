@@ -23,7 +23,7 @@
             android:textSize="40sp" />
 
         <EditText
-            android:id="@+id/walkNameE"
+            android:id="@+id/walkNameEdit"
             android:layout_width="490dp"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/walkNameT"
@@ -60,12 +60,12 @@
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:background="@drawable/button_background"
-                android:onClick="addWaypointButton"
+                android:onClick="createAddWaypointButtonOnClick"
                 android:text="Add A Waypoint" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/TextView01"
+            android:id="@+id/walkDescriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignRight="@+id/walkNameT"
@@ -74,7 +74,7 @@
             android:textSize="15dp" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/walkDescriptionEdit"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_above="@+id/linearLayout1"
@@ -101,7 +101,7 @@
             android:layout_marginRight="25dp"
             android:text="Create"
             android:background="@drawable/button_background"
-            android:onClick="createButton" />
+            android:onClick="createCreateButtonOnClick" />
 
         <Button
             android:id="@+id/cancelCreate"

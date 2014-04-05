@@ -204,7 +204,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	public static final class Walk implements CommonColumns {
+	public static final class Walk implements WalkColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "walk");
 	
@@ -406,6 +406,13 @@ public class WhiteRockContract {
 		public static final String FILE_NAME = "file_name";
 		
 		public static final String WAYPOINT_ID = "waypoint_id";
+	}
+	
+	interface WalkColumns extends CommonColumns {
+		public static final String DURATION_MINUTES = "duration_minutes";
+		public static final String DISTNACE_MILES = "distance_miles";
+		public static final String DOWNLOAD_COUNT = "download_count";
+		public static final String DIFFICULTY_RATING = "difficulty_rating";
 	}
 	
 	/**

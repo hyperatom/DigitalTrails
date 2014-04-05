@@ -20,7 +20,7 @@ public class MyWalkDetailsFragment extends WalkDetailsFragment {
 		if (savedInstanceState != null) {
 			mCurrentPos = savedInstanceState.getInt(ARG_POSITION);
 		}
-		return inflater.inflate(R.layout.my_walk_details_fragment, container, false);
+		return inflater.inflate(R.layout.fragment_my_walk_details, container, false);
 	}
 	
 	/**
@@ -28,18 +28,16 @@ public class MyWalkDetailsFragment extends WalkDetailsFragment {
 	 * @param position
 	 */
 	public void updateDetailsView(int position) {
-		
-		//TODO: Change commented out bits to work for edit and delete buttons.
-		
-		//Button buttonStart = (Button)getView().findViewById(R.id.startButton);
-		
+		Button editButton = (Button)getView().findViewById(R.id.editWalkButton);
+		Button deleteButton = (Button)getView().findViewById(R.id.deleteWalkButton);
 		mCurrentPos = position + 1;	// primary keys start at 1 so we gotta do this
 		if (mCurrentPos > 0){
-			
-			//buttonStart.setEnabled(true);
+			editButton.setEnabled(true);
+			deleteButton.setEnabled(true);
 			getLoaderManager().restartLoader(1, null, this);
 		} else {
-			//buttonStart.setEnabled(false);
+			editButton.setEnabled(false);
+			deleteButton.setEnabled(false);
 		}
 	}
 }

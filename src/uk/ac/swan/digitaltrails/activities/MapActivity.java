@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +41,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.plus.model.people.Person.Image;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cursor> {
+public class MapActivity extends ActionBarActivity implements LoaderCallbacks<Cursor> {
 	
 	private static final String TAG = "MapActivity";
 	
@@ -63,6 +64,7 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 		mCurFilter = selectFilter.FILTER_WAYPOINT_WITH_DESCR;
 		setContentView(R.layout.activity_map);
 		Intent intent = getIntent();
+		
 		if (intent.getExtras().getInt("explore") == 1) {
 			int walkId = intent.getExtras().getInt("walkId");	
 			mMarkers = new ArrayList<Marker>();
@@ -136,7 +138,6 @@ public class MapActivity extends FragmentActivity implements LoaderCallbacks<Cur
 				Toast.makeText(getApplicationContext(), "Can't make the map", Toast.LENGTH_LONG).show();
 			} else {
 				setDefaultMapConfig();
-				
 			}
 		}
 	}

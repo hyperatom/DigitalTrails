@@ -6,12 +6,12 @@
     android:baselineAligned="false" >
     
     <fragment
-    	android:name="uk.ac.swan.digitaltrails.fragments.WalkListFragment"
+    	android:name="uk.ac.swan.digitaltrails.fragments.MyWalkListFragment"
     	android:id="@+id/walk_list_fragment"
     	android:layout_weight="1"
     	android:layout_width="0dp"
     	android:layout_height="match_parent"
-    	class="uk.ac.swan.digitaltrails.fragments.WalkListFragment" />
+    	class="uk.ac.swan.digitaltrails.fragments.MyWalkListFragment" />
 
     <fragment 
         android:name="uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment"

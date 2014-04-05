@@ -1,12 +1,16 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
-import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
+import uk.ac.swan.digitaltrails.fragments.MyWalkListFragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
@@ -15,17 +19,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
+import android.widget.EditText;
 
 @SuppressLint("NewApi")
 public class MyWalksActivity extends ActionBarActivity implements
-	WalkListFragment.OnWalkSelectedListener {
+	MyWalkListFragment.OnWalkSelectedListener {
 	
 	private static final String TAG = "MyWalksActivity";
+	private boolean showingDetails = true;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.my_walks_activity);
+		setContentView(R.layout.activity_my_walks);
 		// check if using small layout
 		if (findViewById(R.id.fragment_container) != null) {
 
@@ -35,7 +40,7 @@ public class MyWalksActivity extends ActionBarActivity implements
 			}
 
 			Log.d(TAG, "Container not ewas null");
-			WalkListFragment walkListFragment = new WalkListFragment();
+			MyWalkListFragment walkListFragment = new MyWalkListFragment();
 
 			walkListFragment.setArguments(getIntent().getExtras());
 
@@ -55,18 +60,13 @@ public class MyWalksActivity extends ActionBarActivity implements
 	@Override
 	public void onWalkSelected(int position) {
 		
-		if((MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.my_walk_details_fragment) != null){
-			Log.d(TAG, "Valid detail fragment");
-		}
-
 		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.my_walk_details_fragment);
 
 		if (detailsFrag != null) {
 			// if available and we are in 2-pane view.
 			detailsFrag.updateDetailsView(position);
-		} else {
+		} else if (findViewById(R.id.fragment_container) != null){
 			// if in 1 pane view
-			Log.d(TAG, "1 pane view onwalkSelected " + position);
 			MyWalkDetailsFragment newDetailsFragment = new MyWalkDetailsFragment();
 			Bundle args = new Bundle();
 			args.putInt(MyWalkDetailsFragment.ARG_POSITION, position);
@@ -78,6 +78,13 @@ public class MyWalksActivity extends ActionBarActivity implements
 			transaction.addToBackStack(null);
 
 			transaction.commit();
+		} else {
+			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+			detailsFrag = new MyWalkDetailsFragment();
+			transaction.replace(R.id.fragment_my_walks_list, detailsFrag);
+			transaction.addToBackStack(null);
+			transaction.commit();
+			detailsFrag.updateDetailsView(position);
 		}
 		
 	}
@@ -97,17 +104,101 @@ public class MyWalksActivity extends ActionBarActivity implements
         startActivity(intent);
     }
 	
-	public void createWalkButton(View view){
-		Intent intent = new Intent(this, CreateWalkActivity.class);
-		startActivity(intent);
+	/**
+	 * What we do when createWalkButton in the ListFragment is pressed. Swaps out current fragments and creates a CreateWalkFragment.
+	 * @param view
+	 */
+	public void listCreateWalkButtonOnClick(View view){
+		Log.d(TAG, "CreateWalkButtonOnClick Pressed");
+		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.my_walk_details_fragment);
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		CreateWalkFragment createFrag = new CreateWalkFragment();
+		MyWalkListFragment walkListFragment = (MyWalkListFragment) getSupportFragmentManager().findFragmentById(R.id.walk_list_fragment);
+
+		// if 2 panes
+		if (detailsFrag != null && walkListFragment != null) {
+			Log.d(TAG, "2 panes - replace and remove");
+			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+			transaction.hide(walkListFragment);
+			transaction.replace(R.id.my_walk_details_fragment, createFrag);
+			
+		} else {
+			Log.d(TAG, "1 pane, replace fragment_container");
+			transaction.replace(R.id.fragment_container, createFrag);
+		}
+		
+		transaction.addToBackStack(null);
+		transaction.commit();
+
 	}
 	
-	public void buttonEditWalk(View view){
+	/**
+	 * Called when CreateWalkFragment create button is pressed. Create the walk in the database.
+	 * @param view
+	 */
+	public void createCreateButtonOnClick(View view) {
+		// Add values, insert into DB, clear values for the next table. repeat.
+		ContentValues values = new ContentValues();
+		// Walk Table
+		values.put(WhiteRockContract.Walk.DURATION_MINUTES, 0);
+		values.put(WhiteRockContract.Walk.DISTNACE_MILES, 0);
+		values.put(WhiteRockContract.Walk.DIFFICULTY_RATING, 0);
+		values.put(WhiteRockContract.Walk.DOWNLOAD_COUNT, 0);
+		getContentResolver().insert(WhiteRockContract.Walk.CONTENT_URI, values);
+		values.clear();
+		
+		// get ID of the inserted walk (it'll be the final ID)
+		String[] projection = { WhiteRockContract.Walk.ID };
+		Cursor cursor = getContentResolver().query(WhiteRockContract.Walk.CONTENT_URI, projection, WhiteRockContract.Walk.ID + " >= 0", null, WhiteRockContract.Walk.ID + "COLLATE LOCALIZED ASC");
+		
+		// EnglishWalkDescriptions table
+		EditText titleView = (EditText) findViewById(R.id.walkNameEdit);
+		EditText descr = (EditText) findViewById(R.id.walkDescriptionEdit);
+		values.put(WhiteRockContract.EnglishWalkDescriptions.TITLE, titleView.getText().toString());
+		values.put(WhiteRockContract.EnglishWalkDescriptions.SHORT_DESCR, descr.getText().toString().substring(0, descr.getText().length()/2));
+		values.put(WhiteRockContract.EnglishWalkDescriptions.LONG_DESCR, descr.getText().toString());
+		cursor.moveToLast();
+		values.put(WhiteRockContract.Walk.ID, cursor.getInt(0));
+		getContentResolver().insert(WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI, values);
+		
+		// Waypoints - need to return from the other fragment
+	}
+	
+	/**
+	 * Called when CreateWalkFragment add waypoint button is pressed. Swap in AddWaypointFragment.
+	 * @param view
+	 */
+	public void createAddWaypointButtonOnClick(View view) {
+		Log.d(TAG, "createAddWaypointButton Pressed");
+		CreateWalkFragment createFrag = (CreateWalkFragment) getSupportFragmentManager().findFragmentById(R.id.createWalk);
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+		// TODO: FragmentTransactions to hide createFrag and attach an instance of AddWaypointFragment
+		
+		// if 2 panes
+		/*
+		if (detailsFrag != null && walkListFragment != null) {
+			Log.d(TAG, "2 panes - replace and remove");
+			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+			transaction.hide(createFrag);
+			transaction.attach(R.id.my_walk_details_fragment, createFrag);
+			
+		} else {
+			Log.d(TAG, "1 pane, replace fragment_container");
+			transaction.replace(R.id.fragment_container, createFrag);
+		}
+		
+		transaction.addToBackStack(null);
+		transaction.commit();
+		*/
+	}
+	
+	public void editWalkButtonOnClick(View view){
 		Intent intent = new Intent(this, EditWalksActivity.class);
 		startActivity(intent);
 	}
 	
-	public void buttonDeleteWalk(View view){
+	public void deleteWalkButtonOnClick(View view){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		
 		// Add the positive button

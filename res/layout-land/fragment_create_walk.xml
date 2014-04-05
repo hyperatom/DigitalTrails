@@ -101,7 +101,7 @@
             android:layout_marginRight="25dp"
             android:text="Create"
             android:background="@drawable/button_background"
-            android:onClick="createButton" />
+            android:onClick="createButtonOnClick" />
 
         <Button
             android:id="@+id/cancelCreate"
@@ -113,7 +113,7 @@
             android:layout_marginLeft="25dp"
             android:text="Cancel"
             android:background="@drawable/button_background"
-            android:onClick="cancelCreateButton" />
+            android:onClick="cancelButtonOnClick" />
 
     </RelativeLayout>
 
