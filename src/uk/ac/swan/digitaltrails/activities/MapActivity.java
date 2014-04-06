@@ -185,13 +185,12 @@ public class MapActivity extends ActionBarActivity implements LoaderCallbacks<Cu
 				mMarkers.add(mMap.addMarker(new MarkerOptions()
 						.position(new LatLng(wp.getLatitude(), wp.getLongitude()))
 						.title(wp.getTitle())
-						.snippet(wp.getDescriptions().get(0).getShortDescription()))); // BAD - assuming only 1 desc.
+						.snippet(wp.getDescriptions().get(0).getShortDescription()))); // TODO: Fix this. BAD - assuming only 1 desc.
 			}
 		}
 
 	}
 	
-	//TODO: Use a Join to get the data we need, currently we can only get lat and long and visit_order.
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri baseUri = WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_URI;

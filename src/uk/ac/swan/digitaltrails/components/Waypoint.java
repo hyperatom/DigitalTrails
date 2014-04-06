@@ -174,7 +174,7 @@ public class Waypoint implements Parcelable {
 	}
 
 	public Waypoint() {
-		setId(0);
+		setId(-1);
 		setTitle("New Place");
 		setLatitude(0);
 		setLongitude(0);
@@ -183,10 +183,10 @@ public class Waypoint implements Parcelable {
 	public Waypoint(int id, String title, ArrayList<Description> descriptions, double longitude, double latitude,
 			ArrayList<Photo> photos, ArrayList<Audio> audioFiles,
 			ArrayList<Video> videos) {
-		setId(0);
+		setId(id);
 		setTitle("New Place");
-		setLatitude(0);
-		setLongitude(0);
+		setLatitude(latitude);
+		setLongitude(longitude);
 		setPhotos(photos);
 		setAudioFiles(audioFiles);
 		setVideos(videos);

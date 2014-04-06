@@ -2,6 +2,7 @@ package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import uk.ac.swan.digitaltrails.fragments.AddWaypointFragment;
 import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkListFragment;
@@ -12,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -45,6 +47,16 @@ public class MyWalksActivity extends ActionBarActivity implements
 			walkListFragment.setArguments(getIntent().getExtras());
 
 			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, walkListFragment).commit();
+		} else {
+			// if 2 pane
+			MyWalkDetailsFragment detailsFrag = new MyWalkDetailsFragment();
+			MyWalkListFragment walkListFragment = new MyWalkListFragment();
+			walkListFragment.setArguments(getIntent().getExtras());
+			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+			transaction.add(R.id.fragment_container_thin, walkListFragment);
+			transaction.add(R.id.fragment_container_large, detailsFrag);
+			transaction.addToBackStack(null);
+			transaction.commit();
 		}
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
@@ -60,7 +72,7 @@ public class MyWalksActivity extends ActionBarActivity implements
 	@Override
 	public void onWalkSelected(int position) {
 		
-		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.my_walk_details_fragment);
+		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
 
 		if (detailsFrag != null) {
 			// if available and we are in 2-pane view.
@@ -81,7 +93,7 @@ public class MyWalksActivity extends ActionBarActivity implements
 		} else {
 			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 			detailsFrag = new MyWalkDetailsFragment();
-			transaction.replace(R.id.fragment_my_walks_list, detailsFrag);
+			transaction.replace(R.id.fragment_container_large, detailsFrag);
 			transaction.addToBackStack(null);
 			transaction.commit();
 			detailsFrag.updateDetailsView(position);
@@ -110,17 +122,17 @@ public class MyWalksActivity extends ActionBarActivity implements
 	 */
 	public void listCreateWalkButtonOnClick(View view){
 		Log.d(TAG, "CreateWalkButtonOnClick Pressed");
-		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.my_walk_details_fragment);
+		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 		CreateWalkFragment createFrag = new CreateWalkFragment();
-		MyWalkListFragment walkListFragment = (MyWalkListFragment) getSupportFragmentManager().findFragmentById(R.id.walk_list_fragment);
+		Fragment thinFrag = (Fragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
 
 		// if 2 panes
-		if (detailsFrag != null && walkListFragment != null) {
+		if (detailsFrag != null && thinFrag != null) {
 			Log.d(TAG, "2 panes - replace and remove");
 			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-			transaction.hide(walkListFragment);
-			transaction.replace(R.id.my_walk_details_fragment, createFrag);
+			transaction.hide(thinFrag);
+			transaction.replace(R.id.fragment_container_large, createFrag);
 			
 		} else {
 			Log.d(TAG, "1 pane, replace fragment_container");
@@ -170,27 +182,19 @@ public class MyWalksActivity extends ActionBarActivity implements
 	 */
 	public void createAddWaypointButtonOnClick(View view) {
 		Log.d(TAG, "createAddWaypointButton Pressed");
-		CreateWalkFragment createFrag = (CreateWalkFragment) getSupportFragmentManager().findFragmentById(R.id.createWalk);
-		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-		// TODO: FragmentTransactions to hide createFrag and attach an instance of AddWaypointFragment
-		
-		// if 2 panes
-		/*
-		if (detailsFrag != null && walkListFragment != null) {
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		AddWaypointFragment waypointFrag = new AddWaypointFragment();
+	
+		if (findViewById(R.id.fragment_container_large) != null) {
 			Log.d(TAG, "2 panes - replace and remove");
-			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-			transaction.hide(createFrag);
-			transaction.attach(R.id.my_walk_details_fragment, createFrag);
-			
+			transaction.replace(R.id.fragment_container_large, waypointFrag);
 		} else {
 			Log.d(TAG, "1 pane, replace fragment_container");
-			transaction.replace(R.id.fragment_container, createFrag);
+			transaction.replace(R.id.fragment_container, waypointFrag);
 		}
-		
 		transaction.addToBackStack(null);
 		transaction.commit();
-		*/
 	}
 	
 	public void editWalkButtonOnClick(View view){

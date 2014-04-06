@@ -2,23 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:baselineAligned="false" >
-    
-    <fragment
-    	android:name="uk.ac.swan.digitaltrails.fragments.MyWalkListFragment"
-    	android:id="@+id/walk_list_fragment"
-    	android:layout_weight="1"
-    	android:layout_width="0dp"
-    	android:layout_height="match_parent"
-    	class="uk.ac.swan.digitaltrails.fragments.MyWalkListFragment" />
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
 
-    <fragment 
-        android:name="uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment"
-        android:id="@+id/my_walk_details_fragment"
-        android:layout_weight="2"
-        android:layout_width="0dp"
+    <FrameLayout
+        android:id="@+id/fragment_container_thin"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        class="uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment" />
-    
+        android:orientation="vertical" >
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container_large"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+    </FrameLayout>
+
 </LinearLayout>
