@@ -101,6 +101,13 @@ public class MyWalksActivity extends ActionBarActivity implements
 		
 	}
 	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		Intent intent = new Intent(this, HomeActivity.class);
+		startActivity(intent);
+	}
+	
 	public void accountButton(MenuItem menu){
         Intent intent = new Intent(this, EditAccountActivity.class);
         startActivity(intent);
