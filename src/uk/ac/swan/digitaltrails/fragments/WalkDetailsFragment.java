@@ -1,6 +1,7 @@
 package uk.ac.swan.digitaltrails.fragments;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.activities.MapActivity;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import android.content.Intent;
 import android.database.Cursor;

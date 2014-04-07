@@ -5,13 +5,14 @@ import android.annotation.SuppressLint;
 import android.app.*;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 @SuppressLint("NewApi")
-public class HomeActivity extends Activity{
+public class HomeActivity extends ActionBarActivity{
 
 	
 	protected void onCreate(Bundle savedInstanceState) {

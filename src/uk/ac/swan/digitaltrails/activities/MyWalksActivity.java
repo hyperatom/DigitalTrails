@@ -127,6 +127,7 @@ public class MyWalksActivity extends ActionBarActivity implements
 	 * What we do when createWalkButton in the ListFragment is pressed. Swaps out current fragments and creates a CreateWalkFragment.
 	 * @param view
 	 */
+	
 	public void listCreateWalkButtonOnClick(View view){
 		Log.d(TAG, "CreateWalkButtonOnClick Pressed");
 		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);

@@ -14,12 +14,5 @@
         class="uk.ac.swan.digitaltrails.fragments.ChooseWalkListFragment" >
 	</fragment>
 
-    <fragment
-        android:id="@+id/chooseWalkDetailFragment"
-        android:layout_width="0dp"
-        android:layout_weight="4"
-        android:layout_height="match_parent"
-        class="uk.ac.swan.digitaltrails.fragments.ChooseWalkDetailFragment" >
-    </fragment>
 
 </LinearLayout>

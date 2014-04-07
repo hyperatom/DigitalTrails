@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,7 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 @SuppressLint("NewApi")
-public class ViewWaypointActivity extends Activity{
+public class ViewWaypointActivity extends ActionBarActivity{
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

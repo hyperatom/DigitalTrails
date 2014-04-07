@@ -48,7 +48,6 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 
 	/** Debugging tag */
 	private static final String TAG = "AddWaypointFragment";
-
 	
 	/** The current map */
 	private GoogleMap mMap;

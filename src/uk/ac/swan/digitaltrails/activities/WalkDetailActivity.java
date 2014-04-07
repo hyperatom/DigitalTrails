@@ -4,9 +4,10 @@ import uk.ac.swan.digitaltrails.R;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.TextView;
 
-public class WalkDetailActivity extends Activity {
+public class WalkDetailActivity extends ActionBarActivity {
 	  
 	  public static final String EXTRA_URL = "url";
 	  
