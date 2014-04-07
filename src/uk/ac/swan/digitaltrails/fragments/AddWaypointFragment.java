@@ -25,6 +25,7 @@ import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.Photo;
 import uk.ac.swan.digitaltrails.components.Video;
 import uk.ac.swan.digitaltrails.components.Waypoint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -58,7 +59,12 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	/** Waypoints for walk */
 	private List<Waypoint> mWaypointList;
 	
+	private OnMapClosedListener mCallback;
 
+	public interface OnMapClosedListener {
+		public void onMapClosed(List<Waypoint> waypointList);
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
@@ -67,6 +73,18 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		return inflater.inflate(R.layout.fragment_add_waypoint, container, false);
 	}
 
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		
+		// ensure interface is implemented
+		try {
+			mCallback = (OnMapClosedListener) activity;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(activity.toString() + " Must implement OnMapClosedListener");
+		}
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -100,6 +118,12 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	@Override
 	public void onResume() {
 		super.onResume();
+	}
+	
+	@Override
+	public void onDetach() {
+		mCallback.onMapClosed(mWaypointList);
+		super.onDetach();
 	}
 	
 	/** 
@@ -173,6 +197,8 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		}
 	}
 
+	// Location Listener Implementation 
+	
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
 		// TODO Auto-generated method stub
@@ -192,4 +218,6 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 
 	}
 
+
+	
 }

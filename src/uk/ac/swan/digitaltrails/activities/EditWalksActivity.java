@@ -57,8 +57,8 @@ public class EditWalksActivity extends ActionBarActivity {
 	}
 	
 	public void addWaypointButton(View view){
-		Intent intent = new Intent(this, AddWaypointActivity.class);
-		startActivity(intent);
+		//Intent intent = new Intent(this, AddWaypointActivity.class);
+		//startActivity(intent);
 	}
 	
 	public void editWaypointsButton(View view){

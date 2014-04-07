@@ -47,8 +47,8 @@ public class WaypointListActivity extends ActionBarActivity{
 		}
 		
 		public void editWaypointButton1(View view){
-			Intent intent = new Intent(this, EditWaypointActivity.class);
-			startActivity(intent);
+			//Intent intent = new Intent(this, EditWaypointActivity.class);
+			//startActivity(intent);
 		}
 		
 		public void deleteWaypointButton(View view){

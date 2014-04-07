@@ -57,8 +57,8 @@ public class WalkActivity extends ActionBarActivity {
 	
 
 	public void waypointButton1(View view){
-		Intent intent = new Intent(this, ViewWaypointActivity.class);
-		startActivity(intent);
+	//	Intent intent = new Intent(this, ViewWaypointActivity.class);
+		//startActivity(intent);
 	}
 	
 	public void walkOptionsButton(View view){

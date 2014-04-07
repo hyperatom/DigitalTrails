@@ -67,7 +67,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	public static final class EnglishWalkDescriptions implements DescriptionColumns {
+	public static final class EnglishWalkDescriptions implements WalkDescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "english_walk_description");
 	
@@ -88,7 +88,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	public static final class WelshWalkDescriptions implements DescriptionColumns {
+	public static final class WelshWalkDescriptions implements WalkDescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "welsh_walk_description");
 	
@@ -109,7 +109,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	public static final class EnglishWaypointDescriptions implements DescriptionColumns {
+	public static final class EnglishWaypointDescriptions implements WaypointDescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "english_waypoint_description");
 	
@@ -130,7 +130,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	public static final class WelshWaypointDescriptions implements DescriptionColumns {
+	public static final class WelshWaypointDescriptions implements WaypointDescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "welsh_waypoint_description");
 	
@@ -331,7 +331,7 @@ public class WhiteRockContract {
 
 	}
 	
-	public static final class WaypointWithEnglishDescription implements DescriptionColumns, WaypointColumns {
+	public static final class WaypointWithEnglishDescription implements WaypointDescriptionColumns, WaypointColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "waypoint_and_english");
 		
@@ -366,7 +366,7 @@ public class WhiteRockContract {
 														FILE_NAME};
 	}
 	
-	public static final class WaypointWithEnglishDescriptionWithMedia implements WaypointColumns, MediaColumns, DescriptionColumns {
+	public static final class WaypointWithEnglishDescriptionWithMedia implements WaypointColumns, MediaColumns, WaypointDescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "waypoint_and_english_and_media");
 		
@@ -431,6 +431,15 @@ public class WhiteRockContract {
 		
 		public static final String WALK_ID = "walk_id";
 	}
+	
+	interface WaypointDescriptionColumns extends DescriptionColumns {
+		public static final String WAYPOINT_ID = "waypoint_id";
+	}
+	
+	interface WalkDescriptionColumns extends DescriptionColumns {
+		public static final String WALK_ID = "walk_id";
+	}
+
 	
 	/**
 	 * Interface to define common columns in report tables.

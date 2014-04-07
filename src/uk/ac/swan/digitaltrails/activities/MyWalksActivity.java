@@ -1,6 +1,9 @@
 package uk.ac.swan.digitaltrails.activities;
 
+import java.util.List;
+
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.AddWaypointFragment;
 import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
@@ -25,10 +28,10 @@ import android.widget.EditText;
 
 @SuppressLint("NewApi")
 public class MyWalksActivity extends ActionBarActivity implements
-	MyWalkListFragment.OnWalkSelectedListener {
+	MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListener {
 	
 	private static final String TAG = "MyWalksActivity";
-	private boolean showingDetails = true;
+	private List<Waypoint> mWaypointList;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -102,10 +105,20 @@ public class MyWalksActivity extends ActionBarActivity implements
 	}
 	
 	@Override
+	public void onMapClosed(List<Waypoint> waypointList) {
+		Log.d(TAG, "onMapClosed call");
+		mWaypointList = waypointList;
+	}
+	
+	@Override
 	public void onBackPressed() {
+		// Do different things depending on our chosen fragment.
+		MyWalkListFragment walkFrag = (MyWalkListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
+		if (walkFrag.isVisible()) {
+			Intent intent = new Intent(this, HomeActivity.class);
+			startActivity(intent);
+		}
 		super.onBackPressed();
-		Intent intent = new Intent(this, HomeActivity.class);
-		startActivity(intent);
 	}
 	
 	public void accountButton(MenuItem menu){
@@ -169,19 +182,50 @@ public class MyWalksActivity extends ActionBarActivity implements
 		
 		// get ID of the inserted walk (it'll be the final ID)
 		String[] projection = { WhiteRockContract.Walk.ID };
-		Cursor cursor = getContentResolver().query(WhiteRockContract.Walk.CONTENT_URI, projection, WhiteRockContract.Walk.ID + " >= 0", null, WhiteRockContract.Walk.ID + "COLLATE LOCALIZED ASC");
-		
+		Cursor cursor = getContentResolver().query(WhiteRockContract.Walk.CONTENT_URI, projection, WhiteRockContract.Walk.ID + " >= 0", null, WhiteRockContract.Walk.ID + " COLLATE LOCALIZED ASC");
+		cursor.moveToLast();
+		int walkId = cursor.getInt(0);
+		Log.d(TAG, "walkId value = " + walkId);
 		// EnglishWalkDescriptions table
 		EditText titleView = (EditText) findViewById(R.id.walkNameEdit);
 		EditText descr = (EditText) findViewById(R.id.walkDescriptionEdit);
 		values.put(WhiteRockContract.EnglishWalkDescriptions.TITLE, titleView.getText().toString());
 		values.put(WhiteRockContract.EnglishWalkDescriptions.SHORT_DESCR, descr.getText().toString().substring(0, descr.getText().length()/2));
 		values.put(WhiteRockContract.EnglishWalkDescriptions.LONG_DESCR, descr.getText().toString());
-		cursor.moveToLast();
-		values.put(WhiteRockContract.Walk.ID, cursor.getInt(0));
+		values.put(WhiteRockContract.EnglishWalkDescriptions.WALK_ID, walkId);
 		getContentResolver().insert(WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI, values);
 		
-		// Waypoints - need to return from the other fragment
+		values.clear();
+		// Waypoints
+		for (Waypoint wp : mWaypointList) {
+			values.put(WhiteRockContract.Waypoint.IS_REQUEST, 0);
+			values.put(WhiteRockContract.Waypoint.LATITUDE, wp.getLatitude());
+			values.put(WhiteRockContract.Waypoint.LONGITUDE, wp.getLongitude());
+			values.put(WhiteRockContract.Waypoint.VISIT_ORDER, wp.getId());
+			values.put(WhiteRockContract.Waypoint.WALK_ID, walkId);
+			values.put(WhiteRockContract.Waypoint.USER_ID, 0); // TODO: Use real user_Id value
+			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
+			values.clear();		
+
+			// get ID of the inserted waypoint (it'll be the final ID)
+			projection[0] = WhiteRockContract.Waypoint.ID;
+			cursor = getContentResolver().query(WhiteRockContract.Waypoint.CONTENT_URI, projection, WhiteRockContract.Waypoint.ID + " >= 0", null, WhiteRockContract.Waypoint.ID + " COLLATE LOCALIZED ASC");
+			cursor.moveToLast();
+			int waypointId = cursor.getInt(0);
+			
+			values.put(WhiteRockContract.EnglishWaypointDescriptions.TITLE, wp.getTitle());
+			// TODO: replace dummy values with real ones
+			values.put(WhiteRockContract.EnglishWaypointDescriptions.LONG_DESCR, "Dummy Long Descr");
+			values.put(WhiteRockContract.EnglishWaypointDescriptions.SHORT_DESCR, "Dummy Short Descr");
+			values.put(WhiteRockContract.EnglishWaypointDescriptions.WAYPOINT_ID, waypointId);
+			getContentResolver().insert(WhiteRockContract.EnglishWaypointDescriptions.CONTENT_URI, values);
+			values.clear();
+		}
+		
+		mWaypointList.clear();
+		cursor.close();
+		onBackPressed();
+		
 	}
 	
 	/**
@@ -210,6 +254,7 @@ public class MyWalksActivity extends ActionBarActivity implements
 		startActivity(intent);
 	}
 	
+	// TODO: Implement deleting etc.
 	public void deleteWalkButtonOnClick(View view){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		
@@ -232,7 +277,6 @@ public class MyWalksActivity extends ActionBarActivity implements
 		builder.create();
 		builder.show();
 	}
-
 
 
 }

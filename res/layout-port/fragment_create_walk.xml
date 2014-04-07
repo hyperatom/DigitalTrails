@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="#dbdbdb">
+    android:background="#dbdbdb"
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
         </EditText>
 
         <TextView
-            android:id="@+id/TextView01"
+            android:id="@+id/walkDescriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/walkNameE"
@@ -46,7 +46,7 @@
             android:textSize="25dp" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/walkNameEdit"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_alignLeft="@+id/TextView01"
@@ -55,8 +55,8 @@
             android:layout_marginTop="30dp"
             android:ems="10"
             android:hint="Provide a description of the walk"
-            android:inputType="textMultiLine" 
-            android:textSize="25sp"/>
+            android:inputType="textMultiLine"
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/walkNameT"
@@ -76,10 +76,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="30dp"
             android:background="@drawable/button_background"
-            android:onClick="addWaypointButton"
+            android:onClick="createAddWaypointButtonOnClick"
             android:text="Add A Waypoint"
             android:textSize="25sp" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -94,10 +93,10 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="35dp"
             android:layout_marginRight="25dp"
-            android:text="Create"
             android:background="@drawable/button_background"
             android:onClick="createButton"
-            android:textSize="25sp"  />
+            android:text="Create"
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/cancelCreate"
@@ -107,11 +106,10 @@
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="35dp"
             android:layout_marginLeft="25dp"
-            android:text="Cancel"
             android:background="@drawable/button_background"
             android:onClick="cancelCreateButton"
+            android:text="Cancel"
             android:textSize="25sp" />
-
     </RelativeLayout>
 
 </LinearLayout>
