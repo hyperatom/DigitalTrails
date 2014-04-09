@@ -51,7 +51,7 @@
         </activity>
         
         <activity 
-            android:name="uk.ac.swan.digitaltrails.activities.LogInActivity"
+            android:name="uk.ac.swan.digitaltrails.fragments.LogInFragment"
             android:parentActivityName="uk.ac.swan.digitaltrails.activities.LaunchActivity" >
         	<!-- Parent activity meta-data to support 4.0 and lower -->
         	<meta-data
@@ -60,7 +60,7 @@
         </activity>
         
         <activity 
-            android:name="uk.ac.swan.digitaltrails.activities.RegisterActivity"
+            android:name="uk.ac.swan.digitaltrails.fragments.RegisterFragment"
             android:parentActivityName="uk.ac.swan.digitaltrails.activities.LaunchActivity" >
         	<!-- Parent activity meta-data to support 4.0 and lower -->
         	<meta-data

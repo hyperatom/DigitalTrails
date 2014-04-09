@@ -36,17 +36,6 @@
             <requestFocus />
         </EditText>
 
-        <TextView
-            android:id="@+id/walkNameT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/welcome"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_toLeftOf="@+id/walkNameE"
-            android:text="Walk name:"
-            android:textSize="15dp" />
-
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="wrap_content"
@@ -64,26 +53,37 @@
                 android:text="Add A Waypoint" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/walkDescriptionText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/walkNameT"
-            android:layout_centerVertical="true"
-            android:text="Walk description:"
-            android:textSize="15dp" />
-
         <EditText
             android:id="@+id/walkDescriptionEdit"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
-            android:layout_above="@+id/linearLayout1"
-            android:layout_alignLeft="@+id/walkNameE"
-            android:layout_alignRight="@+id/walkNameE"
-            android:layout_marginBottom="20dp"
+            android:layout_alignLeft="@+id/walkNameEdit"
+            android:layout_alignRight="@+id/walkNameEdit"
+            android:layout_below="@+id/walkNameEdit"
             android:ems="10"
             android:hint="Provide a description of the walk"
             android:inputType="textMultiLine" />
+
+        <TextView
+            android:id="@+id/walkDescriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/walkNameEdit"
+            android:layout_marginRight="19dp"
+            android:layout_marginTop="68dp"
+            android:layout_toLeftOf="@+id/walkDescriptionEdit"
+            android:text="Walk description:"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/walkNameT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/walkDescriptionText"
+            android:layout_below="@+id/welcome"
+            android:layout_marginRight="10dp"
+            android:text="Walk name:"
+            android:textSize="15dp" />
 
     </RelativeLayout>
 

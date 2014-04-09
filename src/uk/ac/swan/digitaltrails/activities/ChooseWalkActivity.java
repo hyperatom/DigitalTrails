@@ -1,7 +1,6 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
-import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -20,7 +18,6 @@ import android.view.View;
  */
 public class ChooseWalkActivity extends ActionBarActivity
 			implements WalkListFragment.OnWalkSelectedListener {
-
 
 	private boolean debug = false;
 	
@@ -45,7 +42,7 @@ public class ChooseWalkActivity extends ActionBarActivity
 		
 			values = new ContentValues();
 			values.put("title", "Test Walk 2");
-			values.put("short_description", "The Second Test Walk");
+			values.put("short_descr8iption", "The Second Test Walk");
 			values.put("long_description", "The long description of this walk...");
 			values.put("walk_id", "2");
 			getContentResolver().insert(WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI, values);

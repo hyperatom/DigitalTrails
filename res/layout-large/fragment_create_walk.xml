@@ -77,10 +77,9 @@
             android:id="@+id/walkDescriptionEdit"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
-            android:layout_above="@+id/linearLayout1"
-            android:layout_alignLeft="@+id/walkNameE"
-            android:layout_alignRight="@+id/walkNameE"
-            android:layout_marginBottom="20dp"
+            android:layout_alignRight="@+id/linearLayout1"
+            android:layout_alignTop="@+id/walkDescriptionText"
+            android:layout_marginTop="26dp"
             android:ems="10"
             android:hint="Provide a description of the walk"
             android:inputType="textMultiLine" />

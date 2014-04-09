@@ -7,6 +7,7 @@ import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.AddWaypointFragment;
 import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
+import uk.ac.swan.digitaltrails.fragments.EditWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkListFragment;
 import android.annotation.SuppressLint;
@@ -135,6 +136,46 @@ public class MyWalksActivity extends ActionBarActivity implements
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
+
+	public void editWalkButtonOnClick(View view){
+		Log.d(TAG, "editWalkButton Pressed");
+
+		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		EditWalkFragment editWalkFrag = new EditWalkFragment();
+		Fragment thinFrag = (Fragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
+
+		// if 2 panes
+		if (detailsFrag != null && thinFrag != null) {
+			Log.d(TAG, "2 panes - replace and remove");
+			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+			transaction.hide(thinFrag);
+			transaction.replace(R.id.fragment_container_large, editWalkFrag);
+			
+		} else {
+			Log.d(TAG, "1 pane, replace fragment_container");
+			transaction.replace(R.id.fragment_container, editWalkFrag);
+		}
+		
+		transaction.addToBackStack(null);
+		transaction.commit();
+
+	}
+	
+	// EditWalkFragment functions
+	
+	public void addWaypointButton(View view){
+		//Intent intent = new Intent(this, AddWaypointActivity.class);
+		//startActivity(intent);
+	}
+
+	public void cancelEditButton(View view){
+		onBackPressed();
+	}
+	
+	public void saveWalkButton(View view){
+		// Waiting on implementation
+	}
 	
 	/**
 	 * What we do when createWalkButton in the ListFragment is pressed. Swaps out current fragments and creates a CreateWalkFragment.
@@ -247,11 +288,6 @@ public class MyWalksActivity extends ActionBarActivity implements
 		}
 		transaction.addToBackStack(null);
 		transaction.commit();
-	}
-	
-	public void editWalkButtonOnClick(View view){
-		Intent intent = new Intent(this, EditWalksActivity.class);
-		startActivity(intent);
 	}
 	
 	// TODO: Implement deleting etc.

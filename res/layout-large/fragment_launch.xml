@@ -39,7 +39,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/button_background"
-        android:onClick="registerButton"
+        android:onClick="registerButtonOnClick"
         android:text="Register"
         android:textSize="30sp" />
 

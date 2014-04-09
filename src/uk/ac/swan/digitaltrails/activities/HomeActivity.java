@@ -1,11 +1,15 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
+import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import android.annotation.SuppressLint;
 import android.app.*;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,6 +18,7 @@ import android.view.View;
 @SuppressLint("NewApi")
 public class HomeActivity extends ActionBarActivity{
 
+	private static final String TAG = "MyWalksActivity";
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,6 +34,9 @@ public class HomeActivity extends ActionBarActivity{
 	    return super.onCreateOptionsMenu(menu);
 	}
 
+	public void createWalkButtonOnClick(View view){
+		// Needs to connect to the Fragment somehow
+	}
 	public void searchButton(View view){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);

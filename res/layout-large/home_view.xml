@@ -22,6 +22,7 @@
             android:textSize="40sp" />
 
         <GridLayout
+            android:id="@+id/gridLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -53,7 +54,7 @@
                 android:gravity="bottom|center"
                 android:onClick="searchButton"
                 android:padding="20dp"
-                android:text="Search Walks"
+                android:text="Download Walks"
                 android:textSize="30sp" />
 
             <Button
@@ -80,9 +81,18 @@
                 android:padding="20dp"
                 android:text="Explore"
                 android:textSize="30sp" />
-
         </GridLayout>
 
+        <Button
+            android:id="@+id/createWalkButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/currentLocation"
+            android:layout_alignRight="@+id/gridLayout1"
+            android:background="@drawable/button_background"
+            android:onClick="createWalkButtonOnClick"
+            android:text="+"
+            android:textSize="40sp" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -98,7 +98,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_background"
-                android:onClick="buttonEditWalk"
+                android:onClick="editWalkButtonOnClick"
                 android:text="@string/edit" />
 
             <Button
@@ -108,7 +108,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_background"
-                android:onClick="buttonDeleteWalk"
+                android:onClick="deleteWalkButtonOnClick"
                 android:text="@string/delete" />
         </LinearLayout>
     </RelativeLayout>

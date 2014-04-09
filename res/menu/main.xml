@@ -1,15 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"
-        android:onClick="settingsButton"/>
     
-    <item android:id="@+id/text"
-	          android:title="Welcome ABarrell92- THIS NEEDS EDITING"
-	          android:showAsAction="ifRoom" />
+    
+    <item android:id="@+id/sync"
+	          android:title="Synchronise"
+	          android:showAsAction="always" />
     
     <item android:id="@+id/account"
 	          android:icon="@drawable/ic_action_person"
@@ -17,11 +12,18 @@
 	          android:onClick="accountButton"
 	          android:showAsAction="ifRoom" />
     
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_settings"
+        android:onClick="settingsButton"/>
+    
     <!-- Search, should appear as action button -->
 	    <item android:id="@+id/log_out"
 	          android:icon="@drawable/ic_action_accounts"
 	          android:title="Log Out"
 	          android:onClick="logOutButton"
-	          android:showAsAction="ifRoom" />
+	          android:showAsAction="always" />
 	  
 </menu>
