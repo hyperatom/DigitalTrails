@@ -43,7 +43,8 @@ public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 			String authToken = ACCOUNT_MANAGER.blockingGetAuthToken(account, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS, true);
 			String userObjectId = ACCOUNT_MANAGER.getUserData(account,  AccountGeneral.ACCOUNT_NAME);
 			
-			WhiteRockServerAccessor serverAccessor = new WhiteRockServerAccessor();
+			uk.ac.swan.digitaltrails.components.Account acc = new uk.ac.swan.digitaltrails.components.Account(account.name, authToken);
+			WhiteRockServerAccessor serverAccessor = new WhiteRockServerAccessor(acc);
 			
 			
 		} catch (OperationCanceledException e) {

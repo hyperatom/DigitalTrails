@@ -8,9 +8,9 @@ import android.os.Parcelable;
 import uk.ac.swan.digitaltrails.utils.Duration;
 
 public class Walk implements Parcelable {
-	private String mTitle;
 	private long mId;
-	private ArrayList<Description> mDescriptions;
+	private EnglishDescription mEnglishDescription;
+	private WelshDescription mWelshDescription;
 	private Duration mDuration;
 	/** Total distance to walk in miles */
 	private double mDistance;
@@ -43,38 +43,22 @@ public class Walk implements Parcelable {
 		return mId;
 	}
 
-	/**
-	 * Setter for title
-	 * 
-	 * @param title to be set
-	 */
-	public boolean setTitle(String title) {
-		this.mTitle = title;
+	public EnglishDescription getEnglishDescriptions() {
+		return mEnglishDescription;
+	}
+
+	public boolean setEnglishDescriptions(EnglishDescription description) {
+		mEnglishDescription = description;
 		return true;
 	}
-
-	/**
-	 * Getter for title
-	 * 
-	 * @return The title
-	 */
-	public String getTitle() {
-		return mTitle;
+	
+	public WelshDescription getWelshDescriptions() {
+		return mWelshDescription;
 	}
 
-	public ArrayList<Description> getDescriptions() {
-		return mDescriptions;
-	}
-
-	public boolean setDescriptions(ArrayList<Description> descriptions) {
-		mDescriptions = descriptions;
+	public boolean setWelshDescriptions(WelshDescription description) {
+		mWelshDescription = description;
 		return true;
-	}
-
-	protected void setDescriptions(Parcelable[] readParcelableArray) {
-		mDescriptions.clear();
-		mDescriptions = (ArrayList<Description>) Arrays.asList((Description[])readParcelableArray);
-		// No idea if that works...
 	}
 
 	/**
@@ -182,7 +166,6 @@ public class Walk implements Parcelable {
 	 */
 	public Walk() {
 		// Does not set id or ownerId cause that would break things.
-		setTitle("New Walk");
 		setDuration(new Duration(0, 0));
 		setDistance(0);
 		setDifficultyRating(0);
@@ -203,7 +186,6 @@ public class Walk implements Parcelable {
 			String longDescription, Duration duration, double distance,
 			long ownerId, long downloadCount, int difficulty) {
 		setId(id);
-		setTitle(title);
 		setDuration(duration);
 		setDistance(distance);
 		setOwnerId(ownerId);
@@ -212,15 +194,15 @@ public class Walk implements Parcelable {
 	}
 	
 	public String toString() {
-		return this.mTitle;
+		return this.mEnglishDescription.mTitle;
 	}
 
 	public static final Parcelable.Creator<Walk> CREATOR = new Creator<Walk>() {
 		public Walk createFromParcel(Parcel in) {
 			Walk newWalk = new Walk();
-			newWalk.setTitle(in.readString());
 			newWalk.setId(in.readLong());
-			newWalk.setDescriptions(in.readParcelableArray(Description.class.getClassLoader()));
+			newWalk.setEnglishDescription(in.readParcelable(EnglishDescription.class.getClassLoader()));
+			newWalk.setWelshDescription(in.readParcelable(WelshDescription.class.getClassLoader()));
 			newWalk.setDuration(new Duration(in.readInt(), in.readInt()));
 			newWalk.setDistance(in.readDouble());
 			//newWalk.setWaypoints(in.readTypedList(new ArrayList<Waypoint>(), Waypoint.CREATOR));
@@ -240,12 +222,21 @@ public class Walk implements Parcelable {
 		return 0;
 	}
 
+	protected void setWelshDescription(Parcelable readParcelable) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void setEnglishDescription(Parcelable readParcelable) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(mTitle);
 		dest.writeLong(mId);
-		Description[] tempDescrArray = (Description[]) mDescriptions.toArray();
-		dest.writeParcelableArray(tempDescrArray, flags);
+		dest.writeParcelable(mEnglishDescription, flags);
+		dest.writeParcelable(mWelshDescription, flags);
 		dest.writeInt(mDuration.getHours());
 		dest.writeInt(mDuration.getMinutes());
 		dest.writeDouble(mDistance);
