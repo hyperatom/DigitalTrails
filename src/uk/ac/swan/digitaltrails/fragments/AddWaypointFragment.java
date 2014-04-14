@@ -69,7 +69,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
 		}
-
+		// TODO: Use args to check current waypoints we must display.
 		return inflater.inflate(R.layout.fragment_add_waypoint, container, false);
 	}
 

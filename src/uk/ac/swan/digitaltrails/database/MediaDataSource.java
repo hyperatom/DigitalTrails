@@ -2,7 +2,7 @@ package uk.ac.swan.digitaltrails.database;
 
 import android.content.Context;
 
-public class MediaDataSource extends SingletonDataSource {
+public class MediaDataSource extends DataSource {
 
 	protected final String[] ALL_COLUMNS = { "id", "file_location" };
 

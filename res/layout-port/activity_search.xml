@@ -20,7 +20,6 @@
             android:layout_marginRight="20dp"
             android:layout_toLeftOf="@+id/login"
             android:background="#FFFFFF" >
-
         </SearchView>
 
         <Button
@@ -31,25 +30,21 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/button_background"
-            android:textSize="25sp"
-            android:text="GO" />
-
+            android:text="GO"
+            android:textSize="25sp" />
     </RelativeLayout>
-	<LinearLayout
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="horizontal" >
- 
-	    <fragment
-	        android:id="@+id/searchListFragment"
-	        android:layout_width="0dp"
-	        android:layout_height="fill_parent"
-	        android:layout_weight="1"
-	        class="uk.ac.swan.digitaltrails.fragments.SearchListFragment" >
-	</fragment>
-	 
 
-	</LinearLayout>
-    
+        <fragment
+            android:id="@+id/fragment_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2" >
+        </fragment>
+    </LinearLayout>
 
 </LinearLayout>

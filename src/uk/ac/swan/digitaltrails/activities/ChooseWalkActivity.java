@@ -12,17 +12,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
 /**
- * Testing activity for content provider.
+ * Activity to allow a user to choose a walk, see its details and then load it.
  * @author Lewis Hancock
  *
  */
 public class ChooseWalkActivity extends ActionBarActivity
 			implements WalkListFragment.OnWalkSelectedListener {
-
-	private boolean debug = false;
 	
-	//TODO: Use Loader here, not in fragments & pass data down? Currently using 2 loaders and being a lazy fucker.
-	// Does mean doing joins, however.
 	/**
 	 * 	Called when the activity is first created
 	 */
@@ -31,98 +27,6 @@ public class ChooseWalkActivity extends ActionBarActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.choose_walk_activity);
 
-		if (debug) {
-			ContentValues values = new ContentValues();
-			
-			values.put("title", "Test Walk 1");
-			values.put("short_description", "The First Test Walk");
-			values.put("long_description", "The long description of this walk...");
-			values.put("walk_id", "1");
-			getContentResolver().insert(WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI, values);
-		
-			values = new ContentValues();
-			values.put("title", "Test Walk 2");
-			values.put("short_descr8iption", "The Second Test Walk");
-			values.put("long_description", "The long description of this walk...");
-			values.put("walk_id", "2");
-			getContentResolver().insert(WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI, values);
-
-			values = new ContentValues();
-
-			values.put("latitude", 51.63581500);
-			values.put("longitude", -3.93372000);
-			values.put("is_request", 0);
-			values.put("visit_order", 1);
-			values.put("walk_id", 1);
-			values.put("user_id", 1);
-			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
-			
-			values = new ContentValues();
-
-			values.put("latitude", 51.63511300);
-			values.put("longitude", -3.93349000);
-			values.put("is_request", 0);
-			values.put("visit_order", 2);
-			values.put("walk_id", 1);
-			values.put("user_id", 1);
-			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
-			
-			values = new ContentValues();
-
-			values.put("latitude", 51.63451800);
-			values.put("longitude", -3.93291200);
-			values.put("is_request", 0);
-			values.put("visit_order", 1);
-			values.put("walk_id", 2);
-			values.put("user_id", 2);
-			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
-			
-			values = new ContentValues();
-
-			values.put("latitude", 51.64581500);
-			values.put("longitude", -3.94291200);
-			values.put("is_request", 0);
-			values.put("visit_order", 2);
-			values.put("walk_id", 2);
-			values.put("user_id", 2);
-			getContentResolver().insert(WhiteRockContract.Waypoint.CONTENT_URI, values);
-			
-			values = new ContentValues();
-			
-			values.put("title", "Waypoint 1 Walk 1");
-			values.put("short_description", "wp1short - FROM THE JOIN!");
-			values.put("long_description", "wp1long - FROM THE JOIN!");
-			values.put("waypoint_id", 1);
-			getContentResolver().insert(WhiteRockContract.EnglishWaypointDescriptions.CONTENT_URI, values);
-
-			
-			values = new ContentValues();
-			
-			values.put("title", "Waypoint 2 Walk 1");
-			values.put("short_description", "wp2short - FROM THE JOIN!");
-			values.put("long_description", "wp2long - FROM THE JOIN!");
-			values.put("waypoint_id", 2);
-			getContentResolver().insert(WhiteRockContract.EnglishWaypointDescriptions.CONTENT_URI, values);
-
-			
-			values = new ContentValues();
-			
-			values.put("title", "Waypoint 1 Walk 2");
-			values.put("short_description", "wp1short - FROM THE JOIN!");
-			values.put("long_description", "wp1long - FROM THE JOIN!");
-			values.put("waypoint_id", 3);
-			getContentResolver().insert(WhiteRockContract.EnglishWaypointDescriptions.CONTENT_URI, values);
-
-			
-			values = new ContentValues();
-			
-			values.put("title", "Waypoint 2 Walk 2");
-			values.put("short_description", "wp2short - FROM THE JOIN!");
-			values.put("long_description", "wp2long - FROM THE JOIN!");
-			values.put("waypoint_id", 4);
-			getContentResolver().insert(WhiteRockContract.EnglishWaypointDescriptions.CONTENT_URI, values);
-		}
-		
 		// check if using small layout
 		if (findViewById(R.id.fragment_container) != null) {
 			
