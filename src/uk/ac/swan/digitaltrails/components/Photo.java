@@ -1,8 +1,7 @@
 package uk.ac.swan.digitaltrails.components;
 
-import android.os.Parcelable;
 
-public class Photo extends Media implements Parcelable {
+public class Photo extends Media  {
 	
 	public Photo() {
 		super();
