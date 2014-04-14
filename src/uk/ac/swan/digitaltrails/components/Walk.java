@@ -7,7 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import uk.ac.swan.digitaltrails.utils.Duration;
 
-public class Walk implements Parcelable {
+public class Walk {
 	private long mId;
 	private ArrayList<Description> mDescriptions;
 	private Duration mDuration;
@@ -187,45 +187,5 @@ public class Walk implements Parcelable {
 		setOwnerId(ownerId);
 		setDownloadCount(downloadCount);
 		setDifficultyRating(difficulty);
-	}
-	
-	public static final Parcelable.Creator<Walk> CREATOR = new Creator<Walk>() {
-		public Walk createFromParcel(Parcel in) {
-			Walk newWalk = new Walk();
-			newWalk.setId(in.readLong());
-			newWalk.setDescriptions(in.readParcelableArray(Description.class.getClassLoader()));
-			newWalk.setDuration(new Duration(in.readInt(), in.readInt()));
-			newWalk.setDistance(in.readDouble());
-			//newWalk.setWaypoints(in.readTypedList(new ArrayList<Waypoint>(), Waypoint.CREATOR));
-			return newWalk;
-		}
-
-		@Override
-		public Walk[] newArray(int size) {
-			// TODO Auto-generated method stub
-			return new Walk[size];
-		}
-	};
-	
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeLong(mId);
-		Description[] tempDescrArray = (Description[]) mDescriptions.toArray();
-		dest.writeParcelableArray(tempDescrArray, flags);
-		dest.writeInt(mDuration.getHours());
-		dest.writeInt(mDuration.getMinutes());
-		dest.writeDouble(mDistance);
-		Waypoint[] tempArray = new Waypoint[mWaypoints.size()];
-		mWaypoints.toArray(tempArray);
-		dest.writeParcelableArray(tempArray, flags);
-		dest.writeLong(mOwnerId);
-		dest.writeLong(mDownloadCount);
-		dest.writeInt(mDifficultyRating);
 	}
 }

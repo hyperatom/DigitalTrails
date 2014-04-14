@@ -18,16 +18,4 @@ public class EnglishDescription extends Description {
 		setLongDescription(longDesc);
 		setLanguage(Description.Languages.ENGLISH.ordinal());
 	}
-
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		// TODO Auto-generated method stub
-		
-	}
 }

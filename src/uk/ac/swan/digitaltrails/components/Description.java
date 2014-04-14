@@ -2,7 +2,7 @@ package uk.ac.swan.digitaltrails.components;
 
 import android.os.Parcelable;
 
-public abstract class Description implements Parcelable {
+public class Description {
 
 	protected long mId;
 	protected String mTitle;
