@@ -8,28 +8,32 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import uk.ac.swan.digitaltrails.components.Description;
+import uk.ac.swan.digitaltrails.components.EnglishDescription;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.components.Description.Languages;
+import uk.ac.swan.digitaltrails.components.WelshDescription;
 
 public class WalkDescriptionDataSource extends DescriptionDataSource {
 
 	private static final String TAG = "WalkDescriptionDataSource";
 	private final String[] ALL_COLUMNS = { "id", "title", "short_description",
-	 "long_description", "walk_id" };
+			"long_description", "walk_id" };
+	private Languages mLanguage;
 
-	
+
 	protected WalkDescriptionDataSource(Context context, Languages language) {
 		super(context);
-		
+		mLanguage = language;
+
 		switch (language) {
 		case ENGLISH:	mTable = DbSchema.TABLE_ENGLISH_WALK_DESCR;
-					 	break;
+		break;
 		case WELSH: 	mTable = DbSchema.TABLE_WELSH_WALK_DESCR;
-						break;
+		break;
 		}
 	}
 
-	
+
 	/**
 	 * 
 	 * @param Title
@@ -49,7 +53,7 @@ public class WalkDescriptionDataSource extends DescriptionDataSource {
 		Description newDescription = cursorToDescription(cursor);
 		return newDescription;
 	}
-	
+
 	/**
 	 * 
 	 * @param description
@@ -59,7 +63,7 @@ public class WalkDescriptionDataSource extends DescriptionDataSource {
 		Log.i(TAG, "Description deleted with id: " + id);
 		mWhiteRockDB.delete(mTable, "id" + " = " + id, null);
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -76,7 +80,7 @@ public class WalkDescriptionDataSource extends DescriptionDataSource {
 		cursor.close();
 		return descriptionList;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -93,14 +97,18 @@ public class WalkDescriptionDataSource extends DescriptionDataSource {
 		cursor.close();
 		return descriptionList;
 	}
-	
+
 	/**
 	 * 
 	 * @param cursor
 	 * @return
 	 */
 	private Description cursorToDescription(Cursor cursor) {
-		Description description = new Description();
+		// Assume English.
+		Description description = new EnglishDescription();
+		if (mLanguage == Description.Languages.WELSH){
+			description = new WelshDescription();
+		}
 		description.setId(cursor.getLong(0));
 		description.setTitle(cursor.getString(1));
 		description.setShortDescription(cursor.getString(2));
@@ -109,5 +117,5 @@ public class WalkDescriptionDataSource extends DescriptionDataSource {
 		return description;
 	}
 
-	
+
 }

@@ -2,7 +2,7 @@ package uk.ac.swan.digitaltrails.database;
 
 import android.content.Context;
 
-public class DescriptionDataSource extends SingletonDataSource {
+public abstract class DescriptionDataSource extends SingletonDataSource {
 
 	private static final String TAG = "DescriptionDataSource";
 
@@ -10,5 +10,7 @@ public class DescriptionDataSource extends SingletonDataSource {
 		super(context);
 
 	}
+	
+	
 	
 }

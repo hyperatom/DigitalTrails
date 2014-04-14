@@ -8,27 +8,30 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import uk.ac.swan.digitaltrails.components.Description;
+import uk.ac.swan.digitaltrails.components.EnglishDescription;
+import uk.ac.swan.digitaltrails.components.WelshDescription;
 import uk.ac.swan.digitaltrails.components.Description.Languages;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 
 public class WaypointDescriptionDataSource extends DescriptionDataSource {
 
-	
+
 	private static final String TAG = "WaypointDescriptionDataSource";
 	private final String[] ALL_COLUMNS = { "id", "title", "short_description",
-	 "long_description", "waypoint_id" };
+			"long_description", "waypoint_id" };
+	private Languages mLanguage;
 
 	protected WaypointDescriptionDataSource(Context context, Languages language) {
 		super(context);
-		
+		mLanguage = language;
 		switch (language) {
 		case ENGLISH:	mTable = DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR;
-					 	break;
+		break;
 		case WELSH: 	mTable = DbSchema.TABLE_WELSH_WAYPOINT_DESCR;
-						break;
+		break;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param Title
@@ -48,7 +51,7 @@ public class WaypointDescriptionDataSource extends DescriptionDataSource {
 		Description newDescription = cursorToDescription(cursor);
 		return newDescription;
 	}
-	
+
 	/**
 	 * 
 	 * @param description
@@ -58,7 +61,7 @@ public class WaypointDescriptionDataSource extends DescriptionDataSource {
 		Log.i(TAG, "Description deleted with id: " + id);
 		mWhiteRockDB.delete(mTable, "id" + " = " + id, null);
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -75,7 +78,7 @@ public class WaypointDescriptionDataSource extends DescriptionDataSource {
 		cursor.close();
 		return descriptionList;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -92,14 +95,24 @@ public class WaypointDescriptionDataSource extends DescriptionDataSource {
 		cursor.close();
 		return descriptionList;
 	}
-	
+
+	/**
+	 * 
+	 * @param cursor
+	 * @return
+	 */
+
 	/**
 	 * 
 	 * @param cursor
 	 * @return
 	 */
 	private Description cursorToDescription(Cursor cursor) {
-		Description description = new Description();
+		// Assume English.
+		Description description = new EnglishDescription();
+		if (mLanguage == Description.Languages.WELSH){
+			description = new WelshDescription();
+		}
 		description.setId(cursor.getLong(0));
 		description.setTitle(cursor.getString(1));
 		description.setShortDescription(cursor.getString(2));

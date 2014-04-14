@@ -1,9 +1,8 @@
 package uk.ac.swan.digitaltrails.components;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Description implements Parcelable {
+public abstract class Description implements Parcelable {
 
 	protected long mId;
 	protected String mTitle;
@@ -42,7 +41,7 @@ public class Description implements Parcelable {
 	public void setTitle(String title) {
 		mTitle = title;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -50,7 +49,7 @@ public class Description implements Parcelable {
 	public String getTitle() {
 		return mTitle;
 	}
-	
+
 	/**
 	 * Setter for short description
 	 * 
@@ -88,11 +87,11 @@ public class Description implements Parcelable {
 	public String getLongDescription() {
 		return mLongDescription;
 	}
-	
+
 	public void setForeignId(long id) {
 		mForeignId = id;
 	}
-	
+
 	public long getForeignId() {
 		return mForeignId;
 	}
@@ -110,53 +109,9 @@ public class Description implements Parcelable {
 		setLongDescription("");
 	}
 
-	public Description(int id, String shortDesc, String longDesc,
-			Languages language) {
-		setId(id);
-		setShortDescription(shortDesc);
-		setLongDescription(longDesc);
-		setLanguage(language.ordinal());
-	}
 
 	public String toString() {
-		return "Short: " + getShortDescription() + " long: "
-				+ getLongDescription();
+		return "Title:" + getTitle() + " Short: " + getShortDescription() + " Long: "
+				+ getLongDescription() + " Language: " + getLanguage();
 	}
-
-	public static final Parcelable.Creator<Description> CREATOR = new Creator<Description>() {
-		public Description createFromParcel(Parcel in) {
-			Description newDescription = new Description();
-			newDescription.setId(in.readLong());
-			newDescription.setTitle(in.readString());
-			newDescription.setShortDescription(in.readString());
-			newDescription.setLongDescription(in.readString());
-			newDescription.setLanguage(in.readInt());
-			newDescription.setForeignId(in.readLong());
-			return newDescription;
-		}
-
-		@Override
-		public Description[] newArray(int size) {
-			return new Description[size];
-		}
-	};
-
-	
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeLong(mId);
-		dest.writeString(mTitle);
-		dest.writeString(mShortDescription);
-		dest.writeString(mLongDescription);
-		dest.writeInt(mLanguage);
-		dest.writeLong(mForeignId);
-		
-	}
-
 }
