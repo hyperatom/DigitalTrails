@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-
 /**
  * Authenticator activity. In charge of identifying a user.
  */
