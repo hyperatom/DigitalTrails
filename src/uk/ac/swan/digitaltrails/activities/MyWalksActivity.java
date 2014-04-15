@@ -40,7 +40,6 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_walks);
-		
 		// check if using small layout
 		if (findViewById(R.id.fragment_container) != null) {
 
@@ -49,7 +48,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 				return;
 			}
 
-			Log.d(TAG, "Container was not null");
+			Log.d(TAG, "Container not ewas null");
 			MyWalkListFragment walkListFragment = new MyWalkListFragment();
 
 			walkListFragment.setArguments(getIntent().getExtras());
@@ -79,6 +78,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 
 	@Override
 	public void onWalkSelected(int position) {
+
 		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
 
 		if (detailsFrag != null) {
@@ -105,6 +105,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 			transaction.commit();
 			detailsFrag.updateDetailsView(position);
 		}
+
 	}
 
 	@Override
@@ -145,11 +146,14 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 		EditWalkFragment editWalkFrag = new EditWalkFragment();
 		Fragment thinFrag = (Fragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		Bundle args = new Bundle();
+
 		// if 2 panes
 		if (thinFrag != null) {
 			Log.d(TAG, "2 panes - replace and remove");
-			transaction.hide(thinFrag);
+			transaction.remove(thinFrag);
 			transaction.replace(R.id.fragment_container_large, editWalkFrag);
+
 
 		} else {
 			Log.d(TAG, "1 pane, replace fragment_container");
@@ -171,14 +175,14 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 		EditWaypointMapFragment waypointFrag = new EditWaypointMapFragment();
 		if (findViewById(R.id.fragment_container_large) != null) {
 			Log.d(TAG, "2 panes");
-			EditWalkFragment detailsFrag = (EditWalkFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
-			args.putInt(EditWaypointMapFragment.ARG_POSITION, detailsFrag.getCurrentPosition());
+			EditWalkFragment editFrag = (EditWalkFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
+			args.putInt(EditWaypointMapFragment.ARG_POSITION, editFrag.getCurrentPosition());
 			waypointFrag.setArguments(args);
 			transaction.replace(R.id.fragment_container_large, waypointFrag);
 		} else {
 			Log.d(TAG, "1 pane");
-			MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-			args.putInt(EditWaypointMapFragment.ARG_POSITION, detailsFrag.getCurrentPosition());
+			MyWalkDetailsFragment editFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+			args.putInt(EditWaypointMapFragment.ARG_POSITION, editFrag.getCurrentPosition());
 			waypointFrag.setArguments(args);
 			transaction.replace(R.id.fragment_container, waypointFrag);
 		}
@@ -214,7 +218,8 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 		// if 2 panes
 		if (detailsFrag != null && thinFrag != null) {
 			Log.d(TAG, "2 panes - replace and remove");
-			transaction.hide(thinFrag);
+			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+			transaction.remove(thinFrag);
 			transaction.replace(R.id.fragment_container_large, createFrag);
 		} else {
 			Log.d(TAG, "1 pane, replace fragment_container");
