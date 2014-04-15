@@ -61,6 +61,9 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 			walkListFragment.setArguments(getIntent().getExtras());
 			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 			transaction.add(R.id.fragment_container_thin, walkListFragment);
+			Bundle args = new Bundle();
+			args.putInt(MyWalkDetailsFragment.ARG_POSITION, -1);
+			detailsFrag.setArguments(args);
 			transaction.add(R.id.fragment_container_large, detailsFrag);
 			transaction.addToBackStack(null);
 			transaction.commit();
@@ -140,23 +143,31 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 		startActivity(intent);
 	}
 
+	/**
+	 * Load the EditWalkFragment after clicking on "Edit"
+	 * @param view
+	 */
 	public void editWalkButtonOnClick(View view){
 		Log.d(TAG, "editWalkButton Pressed");
 
 		EditWalkFragment editWalkFrag = new EditWalkFragment();
 		Fragment thinFrag = (Fragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
 		Bundle args = new Bundle();
 
 		// if 2 panes
 		if (thinFrag != null) {
 			Log.d(TAG, "2 panes - replace and remove");
 			transaction.remove(thinFrag);
+			args.putInt(EditWalkFragment.ARG_POSITION, detailsFrag.getCurrentPosition());
+			editWalkFrag.setArguments(args);
 			transaction.replace(R.id.fragment_container_large, editWalkFrag);
-
-
 		} else {
 			Log.d(TAG, "1 pane, replace fragment_container");
+			detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+			args.putInt(EditWalkFragment.ARG_POSITION, detailsFrag.getCurrentPosition());
+			editWalkFrag.setArguments(args);
 			transaction.replace(R.id.fragment_container, editWalkFrag);
 		}
 
@@ -181,7 +192,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 			transaction.replace(R.id.fragment_container_large, waypointFrag);
 		} else {
 			Log.d(TAG, "1 pane");
-			MyWalkDetailsFragment editFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+			EditWalkFragment editFrag = (EditWalkFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 			args.putInt(EditWaypointMapFragment.ARG_POSITION, editFrag.getCurrentPosition());
 			waypointFrag.setArguments(args);
 			transaction.replace(R.id.fragment_container, waypointFrag);
@@ -201,6 +212,33 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 	public void editSaveButtonOnClick(View view){
 		// update stuff here
 		WalkDataSource walkSource = new WalkDataSource(this);
+		EditWalkFragment editFrag = (EditWalkFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
+		if (editFrag == null) {
+			editFrag = (EditWalkFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+		}
+		Log.d(TAG+":editSaveButtOn", "walk: " + editFrag.getCurrentPosition() + " descr " + editFrag.getDescriptionId());
+		walkSource.updateWalk(editFrag.getCurrentPosition(), 0, 0.0, 0, 0);
+		EditText title = (EditText) findViewById(R.id.title);
+		EditText descr = (EditText) findViewById(R.id.long_descr);
+		DescriptionDataSource descrDataSource = new EnglishWalkDescriptionDataSource(this);
+		String shortDescr = descr.getText().subSequence(0, descr.getText().length()/2).toString();
+		descrDataSource.updateDescription(editFrag.getDescriptionId(), title.getText().toString(), shortDescr, descr.getText().toString());
+		descrDataSource = new EnglishWaypointDescriptionDataSource(this);
+		if (mWaypointList.size() > 0) {
+			descrDataSource = new EnglishWaypointDescriptionDataSource(this);
+			WaypointDataSource wpDataSource = new WaypointDataSource(this);
+			for (Waypoint wp : mWaypointList) {
+				//TODO: Figure out the best strategy for waypoints (update first, then delete, then add new ones I think...).
+				//long waypointId = wpDataSource.addWaypoint(wp.getLatitude(), wp.getLongitude(), 0, wp.getId(), walkId, 0);
+
+				//TODO: Use real values
+				//descrDataSource.addDescription(wp.getTitle(), wp.getDescriptions().get(0).getShortDescription(), wp.getDescriptions().get(0).getLongDescription(), waypointId);
+				//descrDataSource.addDescription(wp.getTitle(), "ShortDescr", "LongDescr", waypointId);
+			}
+			mWaypointList.clear();
+
+		}
+		onBackPressed();
 	}
 
 	/**
@@ -247,16 +285,18 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 		descrDataSource.addDescription(titleView.getText().toString(), descr.getText().toString().substring(0, descr.getText().length()/2), descr.getText().toString(), walkId);
 
 		WaypointDataSource wpDataSource = new WaypointDataSource(this);
-		descrDataSource = new EnglishWaypointDescriptionDataSource(this);
 		// Waypoints
-		for (Waypoint wp : mWaypointList) {
-			long waypointId = wpDataSource.addWaypoint(wp.getLatitude(), wp.getLongitude(), 0, wp.getId(), walkId, 0);
+		if (mWaypointList.size() > 0) {
+			descrDataSource = new EnglishWaypointDescriptionDataSource(this);
+			for (Waypoint wp : mWaypointList) {
+				long waypointId = wpDataSource.addWaypoint(wp.getLatitude(), wp.getLongitude(), 0, wp.getId(), walkId, 0);
 
-			//TODO: Use real values
-			//descrDataSource.addDescription(wp.getTitle(), wp.getDescriptions().get(0).getShortDescription(), wp.getDescriptions().get(0).getLongDescription(), waypointId);
-			descrDataSource.addDescription(wp.getTitle(), "ShortDescr", "LongDescr", waypointId);
+				//TODO: Use real values
+				//descrDataSource.addDescription(wp.getTitle(), wp.getDescriptions().get(0).getShortDescription(), wp.getDescriptions().get(0).getLongDescription(), waypointId);
+				descrDataSource.addDescription(wp.getTitle(), "ShortDescr", "LongDescr", waypointId);
+			}
+			mWaypointList.clear();
 		}
-		mWaypointList.clear();
 		onBackPressed();
 	}
 

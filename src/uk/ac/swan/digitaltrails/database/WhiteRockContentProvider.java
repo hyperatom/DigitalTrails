@@ -166,7 +166,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 			deleteCount = db.delete(DbSchema.TABLE_ENGLISH_WALK_DESCR, where, selectionArgs);
 			break;
 		case WELSH_WALK_DESCR_LIST:
-			deleteCount = db.delete(DbSchema.TABLE_ENGLISH_WALK_DESCR, selection, selectionArgs);
+			deleteCount = db.delete(DbSchema.TABLE_WELSH_WALK_DESCR, selection, selectionArgs);
 			break;
 		case WELSH_WALK_DESCR_ID:
 			idStr = uri.getLastPathSegment();
@@ -174,7 +174,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 			if (!TextUtils.isEmpty(selection)) {
 				where += " AND " + selection;
 			}
-			deleteCount = db.delete(DbSchema.TABLE_ENGLISH_WALK_DESCR, where, selectionArgs);
+			deleteCount = db.delete(DbSchema.TABLE_WELSH_WALK_DESCR, where, selectionArgs);
 			break;
 		case ENGLISH_WAYPOINT_DESCR_LIST:
 			deleteCount = db.delete(DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR, selection, selectionArgs);
@@ -696,12 +696,11 @@ public class WhiteRockContentProvider extends ContentProvider {
 
 	@Override
 	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-
+		Log.d(TAG, "in update" + uri);
 		SQLiteDatabase db = mDbHandler.getWritableDatabase();
 		int updateCount = 0;
 		String idStr;
 		String where;
-
 		switch(URI_MATCHER.match(uri)) {
 		case WALK_LIST:
 			updateCount = db.update(DbSchema.TABLE_WALK, values, selection, selectionArgs);
@@ -727,17 +726,19 @@ public class WhiteRockContentProvider extends ContentProvider {
 			break;
 		case ENGLISH_WALK_DESCR_LIST:
 			updateCount = db.update(DbSchema.TABLE_ENGLISH_WALK_DESCR, values, selection, selectionArgs);
+			Log.d(TAG, values.toString() + " " + selection);
 			break;
 		case ENGLISH_WALK_DESCR_ID:
 			idStr = uri.getLastPathSegment();
-			where = WhiteRockContract.Walk._ID + " = " + idStr;
+			where = WhiteRockContract.EnglishWalkDescriptions._ID + " = " + idStr;
 			if (!TextUtils.isEmpty(selection)) {
 				where += " AND " + selection;
 			}
 			updateCount = db.update(DbSchema.TABLE_ENGLISH_WALK_DESCR, values, where, selectionArgs);
+			Log.d(TAG, values.toString() + " " + where);
 			break;
 		case WELSH_WALK_DESCR_LIST:
-			updateCount = db.update(DbSchema.TABLE_ENGLISH_WALK_DESCR, values, selection, selectionArgs);
+			updateCount = db.update(DbSchema.TABLE_WELSH_WALK_DESCR, values, selection, selectionArgs);
 			break;
 		case WELSH_WALK_DESCR_ID:
 			idStr = uri.getLastPathSegment();
@@ -745,7 +746,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 			if (!TextUtils.isEmpty(selection)) {
 				where += " AND " + selection;
 			}
-			updateCount = db.update(DbSchema.TABLE_ENGLISH_WALK_DESCR, values, where, selectionArgs);
+			updateCount = db.update(DbSchema.TABLE_WELSH_WALK_DESCR, values, where, selectionArgs);
 			break;
 		case ENGLISH_WAYPOINT_DESCR_LIST:
 			updateCount = db.update(DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR, values, selection, selectionArgs);

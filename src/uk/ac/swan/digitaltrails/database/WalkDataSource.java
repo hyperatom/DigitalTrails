@@ -49,7 +49,7 @@ public class WalkDataSource extends DataSource {
 	 */
 	public void deleteWalk(long id) {
 		Log.i(TAG, "Walk deleted with id: " + id);
-		mContext.getContentResolver().delete(URI, "id" + " = " + id, null);
+		mContext.getContentResolver().delete(URI, ALL_COLUMNS[0] + " = " + id, null);
 	}
 
 	public void updateWalk(long id, Integer duration, Double distance, Integer downloadCount, Integer difficultyRating) {
@@ -66,7 +66,7 @@ public class WalkDataSource extends DataSource {
 		if (difficultyRating != null) {
 			values.put(ALL_COLUMNS[4], difficultyRating.intValue());
 		}
-		mContext.getContentResolver().update(URI, values, "id" + " == " + id, null);
+		mContext.getContentResolver().update(URI, values, ALL_COLUMNS[0] + " == " + id, null);
 	}
 	
 	/**

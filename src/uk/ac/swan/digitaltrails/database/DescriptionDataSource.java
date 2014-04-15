@@ -33,7 +33,7 @@ public abstract class DescriptionDataSource extends DataSource {
 
 	public void deleteDescription(long id) {
 		Log.d(TAG, "Attempting to delete Description " + id);
-		mContext.getContentResolver().delete(uri, "id" + " == " + id, null);
+		mContext.getContentResolver().delete(uri, allColumns[0] + " == " + id, null);
 		Log.d(TAG, "Deleted Description with ID: " + id);
 	}
 	
@@ -49,8 +49,9 @@ public abstract class DescriptionDataSource extends DataSource {
 		if (longDescr != null) {
 			values.put(allColumns[3], longDescr);
 		}
-		mContext.getContentResolver().update(uri, values, "id" + " == " + id, null);
-		Log.d(TAG, "Updated Description " + id);
+		int numUpdates = mContext.getContentResolver().update(uri, values, allColumns[0] + " == " + id, null);
+		Log.d(TAG, uri + " " + values.toString() + " " + allColumns[0] + " == " + id);
+		Log.d(TAG, "Updated Description " + id + "updated: " + numUpdates);
 	}
 	
 	/**

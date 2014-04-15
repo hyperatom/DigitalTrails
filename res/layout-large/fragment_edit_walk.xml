@@ -24,7 +24,7 @@
             android:id="@+id/linearLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editText1"
+            android:layout_below="@+id/long_descr"
             android:layout_centerHorizontal="true"
             android:orientation="horizontal" >
         </LinearLayout>
@@ -58,7 +58,7 @@
             android:textSize="25sp" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/long_descr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/addWaypoint"
@@ -87,7 +87,7 @@
             android:id="@+id/walkNameT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/editText1"
+            android:layout_alignLeft="@+id/long_descr"
             android:layout_below="@+id/title"
             android:layout_marginTop="30dp"
             android:text="Walk Description:"
@@ -117,7 +117,7 @@
             android:layout_marginBottom="35dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/button_background"
-            android:onClick="saveWalkButton"
+            android:onClick="editSaveButtonOnClick"
             android:text="Save"
             android:textSize="25sp" />
 
