@@ -24,8 +24,8 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 	public static final String ARG_POSITION = "position";
 	private static final String TAG = "WalkDetailsFragment";
 	protected int mCurrentPos = -1;
-	private TextView mTitleText;
-	private TextView mLongDescrText;
+	protected TextView mTitleText;
+	protected TextView mLongDescrText;
 	
 	public int getCurrentPosition() {
 		return mCurrentPos;
@@ -47,7 +47,7 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 	@Override
 	public void onStart() {
 		super.onStart();
-		
+		Log.d(TAG, "onStart");
 		mTitleText = (TextView) getView().findViewById(R.id.title);
 		mLongDescrText = (TextView) getView().findViewById(R.id.long_descr);
 		//setHasOptionsMenu(true);

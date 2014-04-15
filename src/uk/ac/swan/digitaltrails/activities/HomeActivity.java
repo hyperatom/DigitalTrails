@@ -1,15 +1,10 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
-import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
-import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import android.annotation.SuppressLint;
-import android.app.*;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +13,7 @@ import android.view.View;
 @SuppressLint("NewApi")
 public class HomeActivity extends ActionBarActivity{
 
+	@SuppressWarnings("unused")
 	private static final String TAG = "MyWalksActivity";
 	
 	protected void onCreate(Bundle savedInstanceState) {

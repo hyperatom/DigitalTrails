@@ -38,7 +38,7 @@
         </EditText>
 
         <EditText
-            android:id="@+id/walkNameE"
+            android:id="@+id/title"
             android:layout_width="490dp"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/TextView01"
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/editText1"
-            android:layout_below="@+id/walkNameE"
+            android:layout_below="@+id/title"
             android:layout_marginTop="30dp"
             android:text="Waypoint description:"
             android:textSize="25sp" />

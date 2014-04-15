@@ -23,7 +23,7 @@
             android:textSize="40sp" />
 
         <EditText
-            android:id="@+id/walkNameEdit"
+            android:id="@+id/titledit"
             android:layout_width="490dp"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/walkNameT"
@@ -43,7 +43,7 @@
             android:layout_below="@+id/welcome"
             android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
-            android:layout_toLeftOf="@+id/walkNameE"
+            android:layout_toLeftOf="@+id/title"
             android:text="Walk name:"
             android:textSize="15dp" />
 

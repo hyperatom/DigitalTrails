@@ -1,10 +1,8 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
-import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -75,7 +73,7 @@ public class ChooseWalkActivity extends ActionBarActivity
 	
 		if(detailsFrag.getCurrentPosition() > 0){
 			Intent intent = new Intent(this, MapActivity.class);
-			intent.putExtra("explore", 1);
+			intent.putExtra(MapActivity.ARG_EXPLORE, 1);
 			intent.putExtra("walkId", detailsFrag.getCurrentPosition());	
 			startActivity(intent);
 		}

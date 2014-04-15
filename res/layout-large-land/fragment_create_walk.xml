@@ -23,7 +23,7 @@
             android:textSize="40sp" />
 
         <EditText
-            android:id="@+id/walkNameEdit"
+            android:id="@+id/titledit"
             android:layout_width="490dp"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/walkNameT"
@@ -57,9 +57,9 @@
             android:id="@+id/walkDescriptionEdit"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
-            android:layout_alignLeft="@+id/walkNameEdit"
-            android:layout_alignRight="@+id/walkNameEdit"
-            android:layout_below="@+id/walkNameEdit"
+            android:layout_alignLeft="@+id/titledit"
+            android:layout_alignRight="@+id/titledit"
+            android:layout_below="@+id/titledit"
             android:ems="10"
             android:hint="Provide a description of the walk"
             android:inputType="textMultiLine" />
@@ -68,7 +68,7 @@
             android:id="@+id/walkDescriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/walkNameEdit"
+            android:layout_below="@+id/titledit"
             android:layout_marginRight="19dp"
             android:layout_marginTop="68dp"
             android:layout_toLeftOf="@+id/walkDescriptionEdit"

@@ -19,12 +19,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -41,9 +39,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.plus.model.people.Person.Image;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+/**
+ * Activity allowing the user to "go on a walk". Fully functional google map with geospaces etc.
+ * @author Lewis H
+ *
+ */
 public class MapActivity extends ActionBarActivity implements LoaderCallbacks<Cursor> {
 	
+	@SuppressWarnings("unused")
 	private static final String TAG = "MapActivity";
+	
+	public static String ARG_EXPLORE = "explore";
 	
 	/** The current GoogleMap */
 	private GoogleMap mMap;
@@ -57,7 +63,7 @@ public class MapActivity extends ActionBarActivity implements LoaderCallbacks<Cu
 	private Cursor mLoaderCursor;
 	
 	private enum selectFilter {FILTER_WAYPOINT_WITH_DESCR, FILTER_WAYPOINT_WITH_MEDIA };
-	boolean debug = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,7 +71,8 @@ public class MapActivity extends ActionBarActivity implements LoaderCallbacks<Cu
 		setContentView(R.layout.activity_map);
 		Intent intent = getIntent();
 		
-		if (intent.getExtras().getInt("explore") == 1) {
+		// let us load the map.
+		if (intent.getExtras().getInt(ARG_EXPLORE) == 1) {
 			int walkId = intent.getExtras().getInt("walkId");	
 			mMarkers = new ArrayList<Marker>();
 			mWaypoints = new ArrayList<Waypoint>();
@@ -168,7 +175,7 @@ public class MapActivity extends ActionBarActivity implements LoaderCallbacks<Cu
 				bundle.putInt("markerId", mMarkers.indexOf(marker));
 				mCurFilter = selectFilter.FILTER_WAYPOINT_WITH_MEDIA;
 				// load data for the dialog
-				MapActivity.this.getSupportLoaderManager().initLoader(0, bundle, MapActivity.this);
+				getSupportLoaderManager().initLoader(0, bundle, MapActivity.this);
 				showInfoViewDialog();
 			}
 		});

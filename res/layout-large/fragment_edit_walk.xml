@@ -53,7 +53,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/button_background"
-            android:onClick="addWaypointButton"
+            android:onClick="editAddWaypointButtonOnClick"
             android:text="Add A Waypoint"
             android:textSize="25sp" />
 
@@ -78,7 +78,7 @@
             android:id="@+id/walkNameT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/walkNameE"
+            android:layout_alignLeft="@+id/title"
             android:layout_below="@+id/welcome"
             android:text="Walk Name: "
             android:textSize="25sp" />
@@ -88,13 +88,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/editText1"
-            android:layout_below="@+id/walkNameE"
+            android:layout_below="@+id/title"
             android:layout_marginTop="30dp"
             android:text="Walk Description:"
             android:textSize="25sp" />
 
         <EditText
-            android:id="@+id/walkNameE"
+            android:id="@+id/title"
             android:layout_width="490dp"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/TextView01"
