@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#dbdbdb">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="0.55"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/edit_waypoint_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="30dp"
+            android:text="Edit Waypoint"
+            android:textSize="50sp" />
+
+        <EditText
+            android:id="@+id/name_edit"
+            android:layout_width="490dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edit_waypoint_info"
+            android:layout_marginTop="41dp"
+            android:ems="10"
+            android:text=""
+            android:textSize="25sp" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/name_edit"
+            android:layout_alignBottom="@+id/name_edit"
+            android:layout_alignParentLeft="true"
+            android:text="Name:"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/description_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/name_edit"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/name_edit"
+            android:layout_marginTop="35dp"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/description_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/description_edit"
+            android:layout_alignBottom="@+id/description_edit"
+            android:layout_alignParentLeft="true"
+            android:text="Description:"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/latitude_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/description_edit"
+            android:layout_marginTop="44dp"
+            android:text="Latitude:"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/longitude_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/latitude_label"
+            android:layout_marginTop="43dp"
+            android:text="Longitude:"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/longitude_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/name_edit"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/longitude_label"
+            android:ems="10"
+            android:text=""
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/latitude_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/longitude_edit"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/latitude_label"
+            android:ems="10"
+            android:text=""
+            android:textSize="25sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" >
+
+        <Button
+            android:id="@+id/upload_media_button"
+            android:layout_width="250dp"
+            android:layout_height="65dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="35dp"
+            android:background="@drawable/button_background"
+            android:text="Upload Media"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/browse_media_button"
+            android:layout_width="250dp"
+            android:layout_height="65dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="35dp"
+            android:background="@drawable/button_background"
+            android:text="Browse"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

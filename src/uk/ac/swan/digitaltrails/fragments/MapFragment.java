@@ -9,18 +9,22 @@ import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.Photo;
 import uk.ac.swan.digitaltrails.components.Video;
 import uk.ac.swan.digitaltrails.components.Waypoint;
+import uk.ac.swan.digitaltrails.fragments.EditWaypointDialogFragment.EditWaypointDialogListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -29,8 +33,10 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
@@ -40,7 +46,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 public class MapFragment extends Fragment implements
 GooglePlayServicesClient.ConnectionCallbacks,
-GooglePlayServicesClient.OnConnectionFailedListener {
+GooglePlayServicesClient.OnConnectionFailedListener,
+EditWaypointDialogListener {
 
 	/** Debugging tag */
 	private static final String TAG = "MapFragment";
@@ -140,45 +147,41 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 					@Override
 					public void onMapLongClick(LatLng latlng) {
 						Log.d(TAG, "MapLongClick");
-						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-						final LatLng position = latlng;
-						// Add the positive button
-						builder.setPositiveButton(R.string.confirm_waypoint, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								Waypoint wp = new Waypoint();
-								wp.setId(mWaypointList.size());
-								wp.setTitle("Waypoint " + wp.getId());
-								wp.setLatitude(position.latitude);
-								wp.setLongitude(position.longitude);
-								wp.setAudioFiles(new ArrayList<Audio>());
-								wp.setVideos(new ArrayList<Video>());
-								wp.setPhotos(new ArrayList<Photo>());
-								wp.setDescriptions(new ArrayList<Description>());
-								mWaypointList.add(wp);
-								mMap.addMarker(new MarkerOptions()
-								.position(position)
-								.title(wp.getTitle()));
-							}
-						});
-						// Add the negative button
-						builder.setNegativeButton(R.string.cancel_waypoint, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								// do nothing
-							}
-						});  
-						//Set the title
-						builder.setTitle(R.string.add_waypoint_dialog_title)
-						.setMessage(R.string.add_waypoint_dialog_message);
-						//Build and create dialog
-						builder.create();
-						builder.show();					
+						showEditDialog(latlng);
+					}		
+				});
+		map.setOnInfoWindowClickListener(
+				new OnInfoWindowClickListener() {
+
+					@Override
+					public void onInfoWindowClick(Marker marker) {
+						showEditDialog(marker);
 					}
-
-				}
-				);	
-
+				});
 	}
 
+	protected void showEditDialog(LatLng latlng) {
+		Bundle args = new Bundle();
+		args.putParcelable(EditWaypointDialogFragment.ARG_POSITION, latlng);
+		final Fragment frag = this;
+		DialogFragment editWpDialog = new EditWaypointDialogFragment();
+		editWpDialog.setArguments(args);
+		editWpDialog.setTargetFragment(frag, 0);
+		editWpDialog.show(getFragmentManager().beginTransaction(),	"EditWaypointDialogFragment");
+	}
+	
+	protected void showEditDialog(Marker marker) {
+		Bundle args = new Bundle();
+		args.putParcelable(EditWaypointDialogFragment.ARG_POSITION, marker.getPosition());
+		args.putString(EditWaypointDialogFragment.ARG_TITLE, marker.getTitle());
+		args.putString(EditWaypointDialogFragment.ARG_SNIPPET, marker.getSnippet());
+		final Fragment frag = this;
+		DialogFragment editWpDialog = new EditWaypointDialogFragment();
+		editWpDialog.setArguments(args);
+		editWpDialog.setTargetFragment(frag, 0);
+		editWpDialog.show(getFragmentManager().beginTransaction(),	"EditWaypointDialogFragment");
+	}
+	
 	/** 
 	 * Initialise the map
 	 */
@@ -222,7 +225,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		}
 		return false;
 	}
-	
+
 	// Location Listener Implementation 
 
 	@Override
@@ -240,6 +243,46 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 
 	@Override
 	public void onDisconnected() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onDialogPositiveClick(DialogFragment dialog, View view) {
+		Log.d(TAG, "Pressed Positive");
+		// Get views from dialog
+		EditText wpTitle = (EditText) view.findViewById(R.id.name_edit);
+		EditText wpLat = (EditText) view.findViewById(R.id.latitude_edit);
+		EditText wpLong = (EditText) view.findViewById(R.id.longitude_edit);
+		EditText wpDescr = (EditText) view.findViewById(R.id.description_edit);
+
+		Waypoint wp = new Waypoint();
+		wp.setId(mWaypointList.size());
+
+		wp.setTitle(wpTitle.getText().toString());
+
+		try {
+			wp.setLatitude(Double.parseDouble(wpLat.getText().toString()));
+			wp.setLongitude(Double.parseDouble(wpLong.getText().toString()));
+		} catch (Exception e) {
+			Log.d(TAG, e.getMessage());
+		}
+		wp.setAudioFiles(new ArrayList<Audio>());
+		wp.setVideos(new ArrayList<Video>());
+		wp.setPhotos(new ArrayList<Photo>());
+
+		ArrayList<Description> descriptions = new ArrayList<Description>();
+		descriptions.add(new Description(wpDescr.getText().toString()));
+		wp.setDescriptions(descriptions);
+		mWaypointList.add(wp);
+		mMap.addMarker(new MarkerOptions()
+		.position(((EditWaypointDialogFragment) dialog).getPosition())
+		.title(wp.getTitle()));
+	}
+
+	@Override
+	public void onDialogNegativeClick(DialogFragment dialog) {
+		Log.d(TAG, "Pressed Negative");
 		// TODO Auto-generated method stub
 
 	}	

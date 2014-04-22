@@ -52,7 +52,7 @@ public class WalkDataSource extends DataSource {
 		mContext.getContentResolver().delete(URI, ALL_COLUMNS[0] + " = " + id, null);
 	}
 
-	public void updateWalk(long id, Integer duration, Double distance, Integer downloadCount, Integer difficultyRating) {
+	public int updateWalk(long id, Integer duration, Double distance, Integer downloadCount, Integer difficultyRating) {
 		ContentValues values = new ContentValues();
 		if (duration != null) {
 		values.put(ALL_COLUMNS[1], duration.intValue());
@@ -66,7 +66,7 @@ public class WalkDataSource extends DataSource {
 		if (difficultyRating != null) {
 			values.put(ALL_COLUMNS[4], difficultyRating.intValue());
 		}
-		mContext.getContentResolver().update(URI, values, ALL_COLUMNS[0] + " == " + id, null);
+		return mContext.getContentResolver().update(URI, values, ALL_COLUMNS[0] + " == " + id, null);
 	}
 	
 	/**

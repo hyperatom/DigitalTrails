@@ -108,6 +108,11 @@ public class Description {
 		setShortDescription("");
 		setLongDescription("");
 	}
+	
+	public Description(String longDescription) {
+		setLongDescription(longDescription);
+		setShortDescription(longDescription.substring(0, longDescription.length()/2));
+	}
 
 
 	public String toString() {

@@ -1,10 +1,9 @@
 package uk.ac.swan.digitaltrails.fragments;
 
 import uk.ac.swan.digitaltrails.R;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,8 +39,6 @@ public class EditWalkFragment extends WalkDetailsFragment {
 		mTitleText = (TextView) getView().findViewById(R.id.title);
 		mLongDescrText = (TextView) getView().findViewById(R.id.long_descr);
 		Log.d(TAG, "current pos: " + mCurrentPos);
-
-
 	}
 	
 	@Override

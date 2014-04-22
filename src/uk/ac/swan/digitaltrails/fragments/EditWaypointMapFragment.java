@@ -2,7 +2,6 @@ package uk.ac.swan.digitaltrails.fragments;
 
 import java.util.ArrayList;
 
-import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.Media;
 import uk.ac.swan.digitaltrails.components.Waypoint;
@@ -14,10 +13,11 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -47,14 +47,18 @@ public class EditWaypointMapFragment extends MapFragment implements LoaderCallba
 		getLoaderManager().initLoader(0, args, this);
 	}
 
-
 	private void createMarkers(ArrayList<Waypoint> waypoints) {
 		for (Waypoint wp : waypoints) {
 			if (wp.isRequest() == false) {
-				mMarkers.add(mMap.addMarker(new MarkerOptions()
-				.position(new LatLng(wp.getLatitude(), wp.getLongitude()))
-				.title(wp.getTitle())
-				.snippet(wp.getDescriptions().get(0).getShortDescription()))); // TODO: Fix this. BAD - assuming only 1 desc.
+				MarkerOptions options = new MarkerOptions();
+				options.position(new LatLng(wp.getLatitude(), wp.getLongitude()));
+				options.title(wp.getTitle());
+				for (Description d : wp.getDescriptions()) {
+					if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
+						options.snippet(d.getShortDescription());
+					}
+				}
+				mMarkers.add(mMap.addMarker(options));
 			}
 		}
 	}
@@ -131,12 +135,9 @@ public class EditWaypointMapFragment extends MapFragment implements LoaderCallba
 		}
 	}
 
-
-
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

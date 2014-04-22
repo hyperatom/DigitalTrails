@@ -1,8 +1,10 @@
 package uk.ac.swan.digitaltrails.activities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.DescriptionDataSource;
 import uk.ac.swan.digitaltrails.database.EnglishWalkDescriptionDataSource;
@@ -19,6 +21,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -48,7 +51,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 				return;
 			}
 
-			Log.d(TAG, "Container not ewas null");
+			Log.d(TAG, "Container was not null");
 			MyWalkListFragment walkListFragment = new MyWalkListFragment();
 
 			walkListFragment.setArguments(getIntent().getExtras());
@@ -179,7 +182,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 	// EditWalkFragment functions
 
 	public void editAddWaypointButtonOnClick(View view){
-		Log.d(TAG, "createAddWaypointButton Pressed");
+		Log.d(TAG, "editAddWaypointButton Pressed");
 
 		Bundle args = new Bundle();
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -217,26 +220,62 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 			editFrag = (EditWalkFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 		}
 		Log.d(TAG+":editSaveButtOn", "walk: " + editFrag.getCurrentPosition() + " descr " + editFrag.getDescriptionId());
-		walkSource.updateWalk(editFrag.getCurrentPosition(), 0, 0.0, 0, 0);
+		long walkId = editFrag.getCurrentPosition();
+		walkSource.updateWalk(walkId, 0, 0.0, 0, 0);
 		EditText title = (EditText) findViewById(R.id.title);
 		EditText descr = (EditText) findViewById(R.id.long_descr);
 		DescriptionDataSource descrDataSource = new EnglishWalkDescriptionDataSource(this);
+		String longDescr = descr.getText().toString();
 		String shortDescr = descr.getText().subSequence(0, descr.getText().length()/2).toString();
 		descrDataSource.updateDescription(editFrag.getDescriptionId(), title.getText().toString(), shortDescr, descr.getText().toString());
-		descrDataSource = new EnglishWaypointDescriptionDataSource(this);
-		if (mWaypointList.size() > 0) {
-			descrDataSource = new EnglishWaypointDescriptionDataSource(this);
-			WaypointDataSource wpDataSource = new WaypointDataSource(this);
-			for (Waypoint wp : mWaypointList) {
-				//TODO: Figure out the best strategy for waypoints (update first, then delete, then add new ones I think...).
-				//long waypointId = wpDataSource.addWaypoint(wp.getLatitude(), wp.getLongitude(), 0, wp.getId(), walkId, 0);
+		
+		WaypointDataSource wpDataSource = new WaypointDataSource(this);
 
-				//TODO: Use real values
-				//descrDataSource.addDescription(wp.getTitle(), wp.getDescriptions().get(0).getShortDescription(), wp.getDescriptions().get(0).getLongDescription(), waypointId);
-				//descrDataSource.addDescription(wp.getTitle(), "ShortDescr", "LongDescr", waypointId);
+		List<Waypoint> oldWaypoints = new ArrayList<Waypoint>();
+		// get old waypoints in the walk
+		Cursor cursor = wpDataSource.getAllWaypointsInWalk(walkId);
+		if (cursor != null && cursor.moveToFirst()) {
+			while (cursor.moveToNext()) {
+				Waypoint wp = new Waypoint();
+				wp.setId(cursor.getInt(0));
+				wp.setLatitude(cursor.getDouble(1));
+				wp.setLongitude(cursor.getDouble(2));
+				wp.setIsRequest(cursor.getInt(3));
+				wp.setVisitOrder(cursor.getInt(4));
+				wp.setWalkId(cursor.getInt(5));
+				oldWaypoints.add(wp);
+			}
+		}
+		
+		descrDataSource = new EnglishWaypointDescriptionDataSource(this);
+		// update if we find old in new
+		for (Waypoint wp : oldWaypoints) {
+			for (int i = 0; i < mWaypointList.size(); i++) {
+				if (wp.getId() == mWaypointList.get(i).getId())
+				{
+					Waypoint newWp = mWaypointList.get(i);
+					for (Description d : newWp.getDescriptions()) {
+						descrDataSource.updateDescription(d.getId(), title.getText().toString(), shortDescr, longDescr);
+					}
+					mWaypointList.remove(i);
+				} else {
+					// delete if we can't find it
+					descrDataSource.deleteAllDescriptions(wp.getId());
+					wpDataSource.deleteWaypoint(wp.getId());
+				}
+			}
+		}
+		if (mWaypointList.size() > 0) {
+			for (Waypoint wp : mWaypointList) {
+				// add what is left over
+				long waypointId = wpDataSource.addWaypoint(wp.getLatitude(), wp.getLongitude(), 0, wp.getId(), walkId, 0);
+				for (Description d : wp.getDescriptions()) {
+					if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
+						descrDataSource.addDescription(wp.getTitle(), d.getShortDescription(), d.getLongDescription(), waypointId);
+					}
+				}
 			}
 			mWaypointList.clear();
-
 		}
 		onBackPressed();
 	}
@@ -246,7 +285,6 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 	 * @param view
 	 */
 	public void listCreateWalkButtonOnClick(View view){
-		//TODO: Figure out why thin pane is now not disappearing (chris?).
 		Log.d(TAG, "CreateWalkButtonOnClick Pressed");
 		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -266,7 +304,6 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 
 		transaction.addToBackStack(null);
 		transaction.commit();
-
 	}
 
 	/**
@@ -290,10 +327,11 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 			descrDataSource = new EnglishWaypointDescriptionDataSource(this);
 			for (Waypoint wp : mWaypointList) {
 				long waypointId = wpDataSource.addWaypoint(wp.getLatitude(), wp.getLongitude(), 0, wp.getId(), walkId, 0);
-
-				//TODO: Use real values
-				//descrDataSource.addDescription(wp.getTitle(), wp.getDescriptions().get(0).getShortDescription(), wp.getDescriptions().get(0).getLongDescription(), waypointId);
-				descrDataSource.addDescription(wp.getTitle(), "ShortDescr", "LongDescr", waypointId);
+				for (Description d : wp.getDescriptions()) {
+					if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
+						descrDataSource.addDescription(wp.getTitle(), d.getShortDescription(), d.getLongDescription(), waypointId);
+					}
+				}
 			}
 			mWaypointList.clear();
 		}
@@ -328,6 +366,39 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 		// Add the positive button
 		builder.setPositiveButton(R.string.confirm_delete_walk, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
+				// TODO: Get list of waypoints and store in mWaypointList 
+				MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
+				if (detailsFrag == null) {
+					detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+				}
+				int walkId = detailsFrag.getCurrentPosition();
+				WalkDataSource wdSource = new WalkDataSource(getBaseContext());
+				WaypointDataSource wpdSource = new WaypointDataSource(getBaseContext());
+				
+				DescriptionDataSource descdSource = new EnglishWalkDescriptionDataSource(getBaseContext());
+				descdSource.deleteAllDescriptions(walkId);
+				
+				// get all waypoints in the walk
+				Cursor cursor = wpdSource.getAllWaypointsInWalk(walkId, false, false, false, false, false);
+				if (cursor != null && cursor.moveToFirst()) {
+					mWaypointList = new ArrayList<Waypoint>();
+					while (cursor.moveToNext()) {
+						Waypoint wp = new Waypoint();
+						wp.setId(cursor.getInt(0));
+						wp.setWalkId(cursor.getInt(1));
+						mWaypointList.add(wp);
+					}
+				}
+				descdSource = new EnglishWaypointDescriptionDataSource(getBaseContext());
+				for (Waypoint wp : mWaypointList) {
+					descdSource.deleteAllDescriptions(wp.getId());
+				}
+				
+				wpdSource.deleteAllWaypointsInWalk(walkId);
+				
+				wdSource.deleteWalk(walkId);
+				mWaypointList.clear();
+				onBackPressed();
 			}
 		});
 		// Add the negative button

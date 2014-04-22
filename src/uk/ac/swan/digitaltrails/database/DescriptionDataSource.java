@@ -37,6 +37,11 @@ public abstract class DescriptionDataSource extends DataSource {
 		Log.d(TAG, "Deleted Description with ID: " + id);
 	}
 	
+	public void deleteAllDescriptions(long parentId) {
+		// allColumns[4] = walk_id / waypoint_id
+		mContext.getContentResolver().delete(uri, allColumns[4] + " == " + parentId, null);
+	}
+	
 	public void updateDescription(long id, String title, String shortDescr, String longDescr) {
 		ContentValues values = new ContentValues();
 		Log.d(TAG, "Attempting to update Description " + id);
