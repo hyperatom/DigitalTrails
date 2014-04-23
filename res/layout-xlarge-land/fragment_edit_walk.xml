@@ -26,13 +26,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignRight="@+id/walkNameT"
-            android:layout_below="@+id/walkNameE"
+            android:layout_below="@+id/title"
             android:layout_marginTop="19dp"
             android:text="Walk description:"
             android:textSize="15dp" />
 
         <EditText
-            android:id="@+id/walkNameE"
+            android:id="@+id/title"
             android:layout_width="490dp"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/walkNameT"
@@ -52,7 +52,7 @@
             android:layout_below="@+id/welcome"
             android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
-            android:layout_toLeftOf="@+id/walkNameE"
+            android:layout_toLeftOf="@+id/title"
             android:text="Walk name:"
             android:textSize="15dp" />
 
@@ -60,8 +60,8 @@
             android:id="@+id/editText1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/walkNameE"
-            android:layout_alignRight="@+id/walkNameE"
+            android:layout_alignLeft="@+id/title"
+            android:layout_alignRight="@+id/title"
             android:layout_alignTop="@+id/TextView01"
             android:ems="10"
             android:inputType="textMultiLine"
@@ -83,7 +83,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/button_background"
-                android:onClick="addWaypointButton"
+                android:onClick="editAddWaypointButtonOnClick"
                 android:text="Add A Waypoint" />
             
             <Button

@@ -1,8 +1,5 @@
 package uk.ac.swan.digitaltrails.components;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 
 public class Media {
 

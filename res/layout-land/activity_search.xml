@@ -44,7 +44,7 @@
     android:orientation="horizontal" >
  
     <fragment
-        android:id="@+id/searchListFragment"
+        android:id="@+id/search_list_fragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
@@ -52,11 +52,11 @@
 	</fragment>
 
     <fragment
-        android:id="@+id/searchDetailFragment"
+        android:id="@+id/search_details_fragment"
         android:layout_width="0dp"
         android:layout_weight="4"
         android:layout_height="match_parent"
-        class="uk.ac.swan.digitaltrails.fragments.SearchDetailFragment" >
+        class="uk.ac.swan.digitaltrails.fragments.SearchDetailsFragment" >
     </fragment>
     
  

@@ -1,20 +1,14 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
-import uk.ac.swan.digitaltrails.fragments.AddWaypointFragment;
-import uk.ac.swan.digitaltrails.fragments.EditWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.LaunchFragment;
 import uk.ac.swan.digitaltrails.fragments.LogInFragment;
-import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
-import uk.ac.swan.digitaltrails.fragments.MyWalkListFragment;
 import uk.ac.swan.digitaltrails.fragments.RegisterFragment;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;

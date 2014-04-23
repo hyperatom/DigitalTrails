@@ -5,82 +5,77 @@ import java.util.List;
 
 import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.utils.Duration;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.util.Log;
 
 
-public class WalkDataSource extends SingletonDataSource {
+public class WalkDataSource extends DataSource {
 
 	private static final String TAG = "WalkDataSource";
-	
-	private final String[] ALL_COLUMNS = { "id", "duration_minutes",
-			"distance_miles", "download_count", "difficulty_rating" };
 
-	
-	
-	protected WalkDataSource(Context context) {
+	private static final String[] ALL_COLUMNS = WhiteRockContract.Walk.PROJECTION_ALL;
+
+	private static final Uri URI = WhiteRockContract.Walk.CONTENT_URI;
+
+	public WalkDataSource(Context context) {
 		super(context);
-		mTable = DbSchema.TABLE_WALK;
 	}
 
-
-	//TODO: Validation etc
 	/**
-	 * Create a walk and add to db.
+	 * Add walk to Db
 	 * @param duration
 	 * @param distance
 	 * @param downloadCount
 	 * @param difficultyRating
 	 * @return
 	 */
-	public Walk createWalk(int duration,
-			double distance, int downloadCount, int difficultyRating) {
-		// Somewhat awkward validation.
-		if (duration < 0) {
-			duration = 0;
-		}
-		if (distance < 0) {
-			distance = 0;
-		}
-		if (downloadCount < 0) {
-			downloadCount = 0;
-		}
-		if (difficultyRating < 0) {
-			difficultyRating = 0;
-		}
+	public long addWalk(int duration, double distance, int downloadCount, int difficultyRating) {
 		ContentValues values = new ContentValues();
 		values.put(ALL_COLUMNS[1], duration);
 		values.put(ALL_COLUMNS[2], distance);
 		values.put(ALL_COLUMNS[3], downloadCount);
 		values.put(ALL_COLUMNS[4], difficultyRating);
-		long insertId = mWhiteRockDB.insert(mTable, null, values);
-		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, "id" + " = "
-				+ insertId, null, null, null, null);
-		Walk newWalk = cursorToWalk(cursor);
-		cursor.close();
-		return newWalk;
+		Uri addedWalk = mContext.getContentResolver().insert(URI, values);
+		return ContentUris.parseId(addedWalk);
 	}
 
 	/**
-	 * 
-	 * @param walk
+	 * Delete walk from database
+	 * @param id the id of the walk to delete
 	 */
-	public void deleteWalk(Walk walk) {
-		long id = walk.getId();
+	public void deleteWalk(long id) {
 		Log.i(TAG, "Walk deleted with id: " + id);
-		mWhiteRockDB.delete(mTable, "id" + " = " + id, null);
+		mContext.getContentResolver().delete(URI, "id" + " = " + id, null);
 	}
 
+	public void updateWalk(long id, Integer duration, Double distance, Integer downloadCount, Integer difficultyRating) {
+		ContentValues values = new ContentValues();
+		if (duration != null) {
+		values.put(ALL_COLUMNS[1], duration.intValue());
+		}
+		if (distance != null) {	
+			values.put(ALL_COLUMNS[2], distance.doubleValue());
+		}
+		if (downloadCount != null) {
+			values.put(ALL_COLUMNS[3], downloadCount.doubleValue());
+		}
+		if (difficultyRating != null) {
+			values.put(ALL_COLUMNS[4], difficultyRating.intValue());
+		}
+		mContext.getContentResolver().update(URI, values, "id" + " == " + id, null);
+	}
+	
 	/**
-	 * 
+	 * Look up all walks in the database and add them to a list.
 	 * @return
 	 */
 	public List<Walk> getAllWalk() {
 		ArrayList<Walk> walkList = new ArrayList<Walk>();
-		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, null, null,
-				null, null, null);
+		Cursor cursor = mContext.getContentResolver().query(URI, ALL_COLUMNS, null, null, null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			Walk walk = cursorToWalk(cursor);
@@ -107,6 +102,7 @@ public class WalkDataSource extends SingletonDataSource {
 		return walk;
 	}
 
-	
+
+
 
 }

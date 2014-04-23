@@ -10,6 +10,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+/**
+ * Custom WalkListFragment for the MyWalkActivity
+ * Customised to have a button.
+ * @author Lewis H
+ *
+ */
 public class MyWalkListFragment extends WalkListFragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

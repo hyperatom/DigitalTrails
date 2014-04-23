@@ -3,23 +3,7 @@ package uk.ac.swan.digitaltrails.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import uk.ac.swan.digitaltrails.R;
-import uk.ac.swan.digitaltrails.activities.MapActivity;
 import uk.ac.swan.digitaltrails.components.Audio;
 import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.Photo;
@@ -34,32 +18,42 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 /**
- * Fragment to allow user to add waypoints to a walk.
- * @author Lewis Hancock
+ * Base class which all instances of Google Maps should be using, apart from when the User "goes on a walk".
+ * @author Lewis H
  *
  */
-public class AddWaypointFragment extends Fragment implements
+public class MapFragment extends Fragment implements
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener {
 
 	/** Debugging tag */
-	private static final String TAG = "AddWaypointFragment";
-
+	private static final String TAG = "MapFragment";
 	/** The current map */
-	private GoogleMap mMap;
+	protected GoogleMap mMap;
 	/** SupportMapFragemnt to contain GoogleMap */
-	private SupportMapFragment mFragment;
+	protected SupportMapFragment mFragment;
 	/** current LocationClient */
-	private LocationClient mLocationClient;
+	protected LocationClient mLocationClient;
 	/** Waypoints for walk */
-	private List<Waypoint> mWaypointList;
-
-	private OnMapClosedListener mCallback;
+	protected List<Waypoint> mWaypointList;
+	/** Listen for when we close the map */
+	protected OnMapClosedListener mCallback;
 
 	public interface OnMapClosedListener {
 		public void onMapClosed(List<Waypoint> waypointList);
@@ -69,9 +63,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
 		}
-		// TODO: Use args to check current waypoints we must display.
-		/* Changed from R.layout.fragment_add_waypoint to create_walk for now*/
-		return inflater.inflate(R.layout.fragment_create_walk, container, false);
+		return inflater.inflate(R.layout.fragment_map, container, false);
 	}
 
 	@Override
@@ -89,6 +81,8 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Bundle args = getArguments();
+
 		// add fragment for the map as a child of the current fragment... little awkward but the best way I found
 		FragmentManager fm = getChildFragmentManager();
 		mFragment = (SupportMapFragment) fm.findFragmentById(R.id.map_container);
@@ -106,6 +100,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	@Override
 	public void onStart() {
 		super.onStart();
+		Log.d(TAG, "onStart");
 		initMap();
 		mLocationClient.connect();
 	}
@@ -131,7 +126,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	 * Configure default settings for the GoogleMap map
 	 * @param map the GoogleMap to configure
 	 */
-	private void defaultMapConfig(GoogleMap map) {
+	protected void defaultMapConfig(GoogleMap map) {
 		map.getUiSettings().setCompassEnabled(true);
 		map.getUiSettings().setMyLocationButtonEnabled(true);
 		map.setMyLocationEnabled(true);
@@ -161,8 +156,8 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 								wp.setDescriptions(new ArrayList<Description>());
 								mWaypointList.add(wp);
 								mMap.addMarker(new MarkerOptions()
-										.position(position)
-										.title(wp.getTitle()));
+								.position(position)
+								.title(wp.getTitle()));
 							}
 						});
 						// Add the negative button
@@ -180,7 +175,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 					}
 
 				}
-		);	
+				);	
 
 	}
 
@@ -198,6 +193,36 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		}
 	}
 
+	protected boolean changeMap(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.normal_map:
+			if (mMap != null) {
+				mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+			} else {
+				Toast.makeText(getActivity().getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+			return true;
+		case R.id.hybrid_map:
+			if (mMap != null) {
+				mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+			} else {
+				Toast.makeText(getActivity().getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+			return true;
+		case R.id.satellite_map:
+			if (mMap != null) {
+				mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+			} else {
+				Toast.makeText(getActivity().getBaseContext(), "Can't change map type", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	
 	// Location Listener Implementation 
 
 	@Override
@@ -217,8 +242,5 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	public void onDisconnected() {
 		// TODO Auto-generated method stub
 
-	}
-
-
-
+	}	
 }

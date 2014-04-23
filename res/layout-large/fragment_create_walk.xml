@@ -20,7 +20,22 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:text="Create A New Walk"
-            android:textSize="50sp" />
+            android:textSize="40sp" />
+
+        <EditText
+            android:id="@+id/titledit"
+            android:layout_width="490dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/walkNameT"
+            android:layout_alignBottom="@+id/walkNameT"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="Give your new walk a name"
+            android:textSize="15sp" >
+
+            <requestFocus />
+        </EditText>
+>>>>>>> 7e172cd47ca359f9f67bed1b0af7ec90f9069e99
 
         <TextView
             android:id="@+id/walkNameT"
@@ -29,7 +44,7 @@
             android:layout_below="@+id/welcome"
             android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
-            android:layout_toLeftOf="@+id/walkNameE"
+            android:layout_toLeftOf="@+id/title"
             android:text="Walk name:"
             android:textSize="25dp" />
 
