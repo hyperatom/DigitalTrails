@@ -4,6 +4,7 @@ import uk.ac.swan.digitaltrails.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -21,6 +22,10 @@ public class SettingsActivity extends ActionBarActivity{
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		this.getWindow().setSoftInputMode
 		(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
 	}
 	
 	@Override

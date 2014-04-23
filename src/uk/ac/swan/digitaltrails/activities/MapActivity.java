@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -64,6 +65,10 @@ public class MapActivity extends ActionBarActivity implements LoaderCallbacks<Cu
 		mCurFilter = selectFilter.FILTER_WAYPOINT_WITH_DESCR;
 		setContentView(R.layout.activity_map);
 		Intent intent = getIntent();
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
 		
 		if (intent.getExtras().getInt("explore") == 1) {
 			int walkId = intent.getExtras().getInt("walkId");	

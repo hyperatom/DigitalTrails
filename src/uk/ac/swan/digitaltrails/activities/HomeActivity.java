@@ -6,6 +6,7 @@ import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import android.annotation.SuppressLint;
 import android.app.*;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
@@ -24,6 +25,10 @@ public class HomeActivity extends ActionBarActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_view);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
 	}
 	
 	@Override

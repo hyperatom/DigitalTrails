@@ -15,6 +15,7 @@ import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -62,6 +63,10 @@ public class MyWalksActivity extends ActionBarActivity implements
 			transaction.addToBackStack(null);
 			transaction.commit();
 		}
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	

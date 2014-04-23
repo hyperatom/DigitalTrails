@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -30,6 +31,10 @@ public class LaunchActivity extends ActionBarActivity{
 		LaunchFragment launchFragment = new LaunchFragment();
 
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_launcher, launchFragment).commit();
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
 	}
 	
 	public void skipButton(View view){

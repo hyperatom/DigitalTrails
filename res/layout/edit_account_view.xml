@@ -34,7 +34,7 @@
 
                 <View
                     android:layout_width="400dp"
-                    android:layout_height="5dp"
+                    android:layout_height="3dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentRight="true"
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/fullnamee"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:text="Full name"
                 android:textSize="15dp" />
 
