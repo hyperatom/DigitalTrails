@@ -102,7 +102,7 @@
     <string name="media_pictures">Pictures</string>
     <string name="media_audio">Audio</string>
     <string name="media_video">Video</string>
-    <string name="waypoint1">Waypoint 1 - Swansea Bay</string>
+    <string name="waypoint1">Swansea Bay</string>
     <string name="returnToWalkView">Return To Walk View</string>
     
     <!-- Walk Options View Strings -->

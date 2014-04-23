@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dbdbdb"
@@ -9,84 +9,97 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/waypoint1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/waypoint1"
         android:textSize="30sp" />
-
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="320dp"
-            android:layout_margin="15dp"
-            android:columnCount="4">
-            
-            <ImageView
-        		android:id="@+id/waypointMap"
-        		android:contentDescription="mapFillerImage"
-        		android:layout_width="match_parent"
-        		android:layout_height="match_parent"
-        		android:layout_rowSpan="2"
-        		android:layout_columnSpan="2"
-        		android:onClick="saveRepositionButton"
-        		android:src="@drawable/map_nott" />
-
-            <Button
-                android:id="@+id/mediaDescription"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="5dp"
-                android:background="@color/light_light_blue"
-                android:text="@string/media_description"
-                android:textSize="40sp" />
-
-            <Button
-                android:id="@+id/mediaPictures"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:background="@color/light_blue"
-                android:text="@string/media_pictures"
-                android:textSize="40sp" />
-
-            <Button
-                android:id="@+id/mediaAudio"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/light_grey"
-                android:text="@string/media_audio"
-                android:textSize="40sp" />
-
-            <Button
-                android:id="@+id/mediaVideo"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/blue"
-                android:text="@string/media_video"
-                android:textSize="40sp" />
-        </GridLayout>
- 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.02" >
 
         <Button
             android:id="@+id/backToWalkView"
             android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/button_background"
             android:onClick="returnWalkViewButton"
             android:text="@string/returnToWalkView" />
 
-    </RelativeLayout>
+        <ImageView
+            android:id="@+id/waypointMap"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@+id/mediaDescription"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView1"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_background"
+            android:contentDescription="mapFillerImage"
+            android:onClick="saveRepositionButton"
+            android:src="@drawable/map_nott" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="" />
+
+        <Button
+            android:id="@+id/mediaPictures"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/mediaAudio"
+            android:layout_alignRight="@+id/waypointMap"
+            android:layout_toRightOf="@+id/mediaDescription"
+            android:background="@color/light_blue"
+            android:text="@string/media_pictures"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/mediaDescription"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_alignBaseline="@+id/mediaPictures"
+            android:layout_alignBottom="@+id/mediaPictures"
+            android:layout_alignLeft="@+id/waypointMap"
+            android:layout_toLeftOf="@+id/textView2"
+            android:background="@color/light_light_blue"
+            android:text="@string/media_description"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/mediaVideo"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_alignBaseline="@+id/mediaAudio"
+            android:layout_alignBottom="@+id/mediaAudio"
+            android:layout_alignLeft="@+id/mediaPictures"
+            android:layout_alignRight="@+id/mediaPictures"
+            android:background="@color/blue"
+            android:text="@string/media_video"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/mediaAudio"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/backToWalkView"
+            android:layout_alignLeft="@+id/backToWalkView"
+            android:layout_marginBottom="15dp"
+            android:layout_toLeftOf="@+id/mediaVideo"
+            android:background="@color/light_grey"
+            android:text="@string/media_audio"
+            android:textSize="20sp" />
+
+</RelativeLayout>

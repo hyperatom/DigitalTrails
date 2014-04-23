@@ -8,8 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_weight="0.55"
         android:orientation="vertical" >
 
@@ -115,8 +115,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" >
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" >
 
         <Button
             android:id="@+id/uploadMedia"

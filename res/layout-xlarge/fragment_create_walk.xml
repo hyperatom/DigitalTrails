@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#dbdbdb">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_margin="20dp"
+        android:layout_weight="0.55"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Create A New Walk"
+            android:textSize="60sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="145dp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/walkDescriptionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="70dp"
+            android:text="Walk description:"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/walkNameEdit"
+            android:layout_width="490dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="69dp"
+            android:ems="10"
+            android:hint="Give your new walk a name"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/walkDescriptionEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/walkDescriptionText"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:hint="Provide a description of the walk"
+            android:inputType="textMultiLine"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/walkNameT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/walkNameEdit"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="40dp"
+            android:text="Walk name:"
+            android:textSize="30sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        android:layout_margin="20dp"
+        android:layout_weight="0.11" >
+
+        <Button
+            android:id="@+id/createWalk"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_background"
+            android:onClick="createCreateButtonOnClick"
+            android:text="Create"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/cancelCreate"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/textView1"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_background"
+            android:onClick="cancelCreateButton"
+            android:text="Cancel"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/addWaypoint"
+            android:layout_width="400dp"
+            android:layout_height="80dp"
+            android:layout_above="@+id/cancelCreate"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/button_background"
+            android:onClick="createAddWaypointButtonOnClick"
+            android:text="Add A Waypoint"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/cancelCreate"
+            android:layout_alignBottom="@+id/cancelCreate"
+            android:layout_centerHorizontal="true"
+            android:text="" />
+
+    </RelativeLayout>
+
+</LinearLayout>

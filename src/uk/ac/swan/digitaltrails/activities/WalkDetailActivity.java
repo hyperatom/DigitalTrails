@@ -21,7 +21,7 @@ public class WalkDetailActivity extends ActionBarActivity {
 	      finish();
 	      return;
 	    }
-	    setContentView(R.layout.walk_activity);
+	    //setContentView(R.layout.walk_activity);
 	    Bundle extras = getIntent().getExtras();
 	    if (extras != null) {
 	      String s = extras.getString(EXTRA_URL);

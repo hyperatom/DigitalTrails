@@ -8,41 +8,53 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
         android:orientation="horizontal" >
+        
+        <Button
+	    	android:layout_width="100dp"
+	        android:layout_height="match_parent"
+	        android:text="Create A Walk" 
+	        android:background="@drawable/button_background"
+	        android:layout_weight="1"
+	        android:onClick="createWalkButton"
+	        android:textSize="25sp"/>
 
 	    <TextView
 	        android:id="@+id/text1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="match_parent"
+	        android:layout_marginLeft="20dp"
 	        android:layout_weight="3"
 	        android:gravity="center"
-	        android:text="Singleton Park Walk - Waypoints"
-	        android:textSize="40sp" >
+	        android:text="My Walks"
+	        android:textSize="60sp" >
 	                    
 	    </TextView>
         
     </LinearLayout>
     
    <LinearLayout
-       android:layout_width="fill_parent"
+       android:layout_width="match_parent"
        android:layout_height="fill_parent"
-       android:layout_margin="20dp"
+       android:layout_marginLeft="40dp"
+       android:layout_marginRight="40dp"
        android:orientation="vertical" >
 
         <ScrollView
             android:id="@+id/scrollView1"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="25dp"
             android:fadeScrollbars="false"
-            android:scrollbarStyle="outsideInset" >
+            android:paddingRight="10dip"
+            android:scrollbarStyle="outsideInset">
 
             <LinearLayout
                 android:id="@+id/innerLayout"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:orientation="vertical" >
                 
                 <LinearLayout
@@ -55,9 +67,9 @@
 	                    android:id="@+id/text1"
 		                android:layout_width="200dp"
 		                android:layout_height="wrap_content"
-		                android:text="Waypoint 1 - Singleton Park"
+		                android:text="Walk 1 - Singleton Park"
 		                android:textSize="20sp"
-		                android:layout_weight="3"
+		                android:layout_weight="8"
 		                >
 	                    
 	                </TextView>
@@ -67,7 +79,7 @@
 	                	android:text="Edit" 
 	                	android:background="@drawable/button_background"
 	                	android:layout_weight="1"
-	                	android:onClick="editWaypointButton1">
+	                	android:onClick="editWalkButton1">
 	                </Button>
 	                
 	                <Button
@@ -77,7 +89,7 @@
 	                	android:background="@drawable/button_background"
 	                	android:layout_marginLeft="10dp"
 	                	android:layout_weight="1"
-	                	android:onClick="deleteWaypointButton">
+	                	android:onClick="deleteWalkButton1">
 	                </Button>
                 
                 </LinearLayout>
@@ -93,9 +105,9 @@
 	                    android:id="@+id/text1"
 		                android:layout_width="200dp"
 		                android:layout_height="wrap_content"
-		                android:text="Waypoint 2 - 500 Mile walk"
+		                android:text="Walk 2 - 500 Mile walk"
 		                android:textSize="20sp"
-		                android:layout_weight="3">
+		                android:layout_weight="8">
 	                    
 	                </TextView>
 	                <Button
@@ -128,9 +140,9 @@
 	                    android:id="@+id/text1"
 		                android:layout_width="200dp"
 		                android:layout_height="wrap_content"
-		                android:text="Waypoint 3 - Abertawe Walk"
+		                android:text="Walk 3 - Abertawe Walk"
 		                android:textSize="20sp"
-		                android:layout_weight="3">
+		                android:layout_weight="8">
 	                    
 	                </TextView>
 	                <Button
@@ -163,9 +175,9 @@
 	                    android:id="@+id/text1"
 		                android:layout_width="200dp"
 		                android:layout_height="wrap_content"
-		                android:text="Waypoint 4 - Swansea University Walk"
+		                android:text="Walk 4 - Swansea University Walk"
 		                android:textSize="20sp"
-		                android:layout_weight="3">
+		                android:layout_weight="8">
 	                    
 	                </TextView>
 	                <Button
@@ -198,9 +210,9 @@
 	                    android:id="@+id/text1"
 		                android:layout_width="200dp"
 		                android:layout_height="wrap_content"
-		                android:text="Waypoint 5 - Spar and back walk"
+		                android:text="Walk 5 - Spar and back walk"
 		                android:textSize="20sp"
-		                android:layout_weight="3">
+		                android:layout_weight="8">
 	                    
 	                </TextView>
 	                <Button
@@ -233,9 +245,9 @@
 	                    android:id="@+id/text1"
 		                android:layout_width="200dp"
 		                android:layout_height="wrap_content"
-		                android:text="Waypoint 6 - 51 King Edward Road Walk"
+		                android:text="Walk 6 - 51 King Edward Road Walk"
 		                android:textSize="20sp"
-		                android:layout_weight="3">
+		                android:layout_weight="8">
 	                    
 	                </TextView>
 	                <Button
@@ -268,9 +280,9 @@
 	                    android:id="@+id/text1"
 		                android:layout_width="200dp"
 		                android:layout_height="wrap_content"
-		                android:text="Waypoint 7 - Caswell Bay Walk"
+		                android:text="Walk 7 - Caswell Bay Walk"
 		                android:textSize="20sp"
-		                android:layout_weight="3">
+		                android:layout_weight="8">
 	                    
 	                </TextView>
 	                <Button
@@ -303,9 +315,9 @@
 	                    android:id="@+id/text1"
 		                android:layout_width="200dp"
 		                android:layout_height="wrap_content"
-		                android:text="Waypoint 8 - Tenby Caravan Park"
+		                android:text="Walk 8 - Tenby Caravan Park"
 		                android:textSize="20sp"
-		                android:layout_weight="3">
+		                android:layout_weight="8">
 	                    
 	                </TextView>
 	                <Button
@@ -338,9 +350,9 @@
 	                    android:id="@+id/text1"
 		                android:layout_width="200dp"
 		                android:layout_height="wrap_content"
-		                android:text="Waypoint 9 - Swansea Bay"
+		                android:text="Walk 9 - Swansea Bay"
 		                android:textSize="20sp"
-		                android:layout_weight="3">
+		                android:layout_weight="8">
 	                    
 	                </TextView>
 	                <Button
@@ -373,9 +385,9 @@
 	                    android:id="@+id/text1"
 		                android:layout_width="200dp"
 		                android:layout_height="wrap_content"
-		                android:text="Waypoint 10 - Cardiff Bay"
+		                android:text="Walk 10 - Cardiff Bay"
 		                android:textSize="20sp"
-		                android:layout_weight="3">
+		                android:layout_weight="8">
 	                    
 	                </TextView>
 	                <Button

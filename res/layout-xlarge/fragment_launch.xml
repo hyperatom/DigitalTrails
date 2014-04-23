@@ -15,31 +15,34 @@
         android:text="Welcome To\nWhite Rock Trails"
         android:gravity="center"
         android:textColor="#FFFFFF"
-        android:textSize="65sp" />
+        android:textSize="80sp" />
 
     <Button
         android:id="@+id/login"
         android:layout_width="fill_parent"
         android:layout_height="65dp"
-        android:layout_alignLeft="@+id/register"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/button_background"
         android:onClick="logInButton"
-        android:text="Port file"
+        android:text="Log In"
         android:textSize="30sp" />
 
     <Button
         android:id="@+id/register"
         android:layout_width="fill_parent"
         android:layout_height="65dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/login"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/button_background"
-        android:onClick="registerButton"
+        android:onClick="registerButtonOnClick"
         android:text="Register"
         android:textSize="30sp" />
 

@@ -8,6 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_weight="0.23"
         android:orientation="vertical" >
 
@@ -15,8 +17,10 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="40dp"
+            android:gravity="center"
             android:text="@string/welcome_text"
             android:textSize="60sp" />
 
@@ -39,8 +43,9 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/textView1"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
             android:text="@string/log_in_prompt"
             android:textSize="23sp" />
@@ -49,8 +54,8 @@
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView1"
-            android:layout_alignRight="@+id/textView1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/textView2"
             android:layout_marginTop="110dp"
             android:ems="10"
@@ -63,19 +68,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="123dp"
-        android:layout_marginBottom="20dp" >
+        android:layout_margin="20dp" >
 
         <Button
             android:id="@+id/login"
             android:layout_width="250dp"
             android:layout_height="65dp"
+            android:layout_alignLeft="@+id/textView3"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="30dp"
-            android:layout_marginRight="30dp"
-            android:text="@string/log_in" 
+            android:layout_marginLeft="10dp"
             android:background="@drawable/button_background"
             android:onClick="signInButton"
+            android:text="@string/log_in"
             android:textSize="30sp" />
 
         <Button
@@ -85,12 +91,20 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/textView3"
             android:background="@drawable/button_background"
-            android:text="@string/cancel" 
             android:onClick="cancelButton"
+            android:text="@string/cancel"
             android:textSize="30sp" />
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="" />
         
     </RelativeLayout>
 

@@ -4,10 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <fragment
-        android:id="@+id/chooseWalkDetailFragment"
+    <FrameLayout
+        android:id="@+id/fragment_launcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="uk.ac.swan.digitalTrails.ChooseWalkDetailFragment" />
+        android:orientation="vertical" >
+    </FrameLayout>
+    
 
 </LinearLayout>

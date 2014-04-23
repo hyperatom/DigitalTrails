@@ -21,7 +21,7 @@ public class SearchDetailActivity extends ActionBarActivity {
       finish();
       return;
     }
-    setContentView(R.layout.search_activity);
+    //setContentView(R.layout.search_activity);
     Bundle extras = getIntent().getExtras();
     if (extras != null) {
       String s = extras.getString(EXTRA_URL);

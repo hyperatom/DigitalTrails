@@ -15,10 +15,12 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="20dp"
             android:text="@string/welcome_text"
-            android:textSize="50sp" />
+            android:textSize="30sp" 
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/textView2"
@@ -26,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView1"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="43dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
             android:text="@string/log_in_prompt"
             android:textSize="20sp" />
 
@@ -37,14 +40,13 @@
             android:layout_alignLeft="@+id/email"
             android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/email"
-            android:layout_marginBottom="27dp"
+            android:layout_marginBottom="35dp"
             android:ems="10"
             android:hint="@string/password"
             android:textSize="20sp" >
 
         </EditText>
 
-        
         <EditText
             android:id="@+id/email"
             android:layout_width="wrap_content"
@@ -52,11 +54,13 @@
             android:layout_above="@+id/pass"
             android:layout_alignLeft="@+id/textView2"
             android:layout_alignRight="@+id/textView2"
-            android:layout_marginBottom="45dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:ems="10"
-            android:inputType="textEmailAddress"
             android:hint="@string/email"
-            android:textSize="20sp">
+            android:inputType="textEmailAddress"
+            android:textSize="20sp" >
             
              <requestFocus />
              </EditText>
@@ -66,32 +70,30 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="123dp" >
-
-        <Button
-            android:id="@+id/login"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="30dp"
-            android:layout_marginRight="30dp"
-            android:text="@string/log_in" 
-            android:background="@drawable/button_background"
-            android:onClick="signInButton"/>
+        android:layout_height="100dp"
+        android:layout_margin="10dp" >
 
         <Button
             android:id="@+id/cancel"
             android:layout_width="200dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_alignParentRight="true"
             android:background="@drawable/button_background"
-            android:text="@string/cancel" 
-            android:onClick="cancelButton" />
+            android:onClick="cancelButton"
+            android:text="@string/cancel" />
 
+        <Button
+            android:id="@+id/login"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/button_background"
+            android:onClick="signInButton"
+            android:text="@string/log_in" />
         
     </RelativeLayout>
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#dbdbdb">
+
+    <fragment
+        android:id="@+id/walkViewListFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        class="uk.co.tmilner.whiterock.WalkListFragment" >
+	</fragment>
+
+    <fragment
+        android:id="@+id/walkViewDetailFragment"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="match_parent"
+        class="uk.co.tmilner.whiterock.WalkDetailFragment" >
+    </fragment>
+    
+</LinearLayout>

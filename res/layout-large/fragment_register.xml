@@ -3,31 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
     <TextView
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="40dp"
         android:layout_marginTop="40dp"
-        android:text="Welcome to White\nRock Nature Trails"
         android:gravity="center"
+        android:text="Welcome to White\nRock Nature Trails"
         android:textSize="50sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" >
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/infoRegister"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp" >
 
         <Button
             android:id="@+id/login"
             android:layout_width="250dp"
             android:layout_height="65dp"
+            android:layout_alignLeft="@+id/textView1"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="40dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/button_background"
             android:onClick="registerButton"
             android:text="Register"
@@ -39,20 +46,31 @@
             android:layout_height="65dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="40dp"
-            android:layout_marginLeft="25dp"
+            android:layout_alignRight="@+id/textView1"
+            android:layout_marginRight="10dp"
             android:background="@drawable/button_background"
             android:onClick="cancelRButton"
             android:text="Cancel"
             android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/login"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/infoRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_marginTop="200dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical" >
 
         <EditText
@@ -61,13 +79,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/fullnamet"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:ems="10"
             android:hint="Full name"
-            android:textSize="20sp" >
-
-            <requestFocus />
-        </EditText>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/emaile"
@@ -86,7 +101,7 @@
             android:layout_alignLeft="@+id/emaile"
             android:layout_alignRight="@+id/fullnamee"
             android:layout_below="@+id/emaile"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:ems="10"
             android:hint="Email"
             android:textSize="20sp" />
@@ -108,7 +123,7 @@
             android:layout_alignLeft="@+id/passwordt"
             android:layout_alignRight="@+id/emailt"
             android:layout_below="@+id/passwordt"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:ems="10"
             android:hint="Password"
             android:textSize="20sp" />
@@ -130,7 +145,7 @@
             android:layout_alignLeft="@+id/confirmt"
             android:layout_alignRight="@+id/passworde"
             android:layout_below="@+id/confirmt"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:ems="10"
             android:hint="Password"
             android:textSize="20sp" />
@@ -141,6 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
             android:text="Please enter your full name"
             android:textSize="20dp" />
 
