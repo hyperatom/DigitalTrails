@@ -1,11 +1,15 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
+import uk.ac.swan.digitaltrails.fragments.LogInFragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,8 +40,9 @@ public class HomeActivity extends ActionBarActivity{
 	}
 
 	public void createWalkButtonOnClick(View view){
-		// Needs to connect to the Fragment somehow
+		//TODO	
 	}
+	
 	public void searchButton(View view){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
@@ -52,6 +57,7 @@ public class HomeActivity extends ActionBarActivity{
         Intent intent = new Intent(this, ChooseWalkActivity.class);
         startActivity(intent);
 	}
+	
 	
 	public void exploreButton(View view){
         Intent intent = new Intent(this, MapActivity.class);

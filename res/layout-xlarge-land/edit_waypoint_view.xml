@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:orientation="horizontal" >
 
     <RelativeLayout
-        android:layout_width="480dp"
+        android:id="@+id/edit_waypoint_left"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/textView2"
         android:layout_margin="10dp"
         android:orientation="horizontal" >
 
@@ -25,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/waypointNameT"
             android:layout_alignBottom="@+id/waypointNameT"
-            android:layout_alignLeft="@+id/welcome"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/waypointNameT"
             android:ems="10"
             android:hint="Give the waypoint a name"
             android:textSize="15sp" >
@@ -36,7 +42,7 @@
         <EditText
             android:id="@+id/editText1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             android:layout_alignLeft="@+id/waypointNameE"
             android:layout_alignRight="@+id/waypointNameE"
             android:layout_alignTop="@+id/TextView01"
@@ -58,67 +64,81 @@
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TextView01"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/editText1"
             android:layout_marginTop="15dp"
-            android:text="Gallery goes here" 
-            android:onClick="viewMediaButton"/>
+            android:onClick="viewMediaButton"
+            android:text="Gallery goes here" />
 
         <TextView
             android:id="@+id/TextView01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/waypointNameE"
             android:layout_marginTop="20dp"
-            android:layout_toLeftOf="@+id/editText1"
             android:text="Walk description:"
             android:textSize="15sp" />
 
     </RelativeLayout>
-    
-    <LinearLayout
+
+    <RelativeLayout
+        android:id="@+id/edit_waypoint_right"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+        android:layout_toRightOf="@+id/textView2"
         android:orientation="vertical" >
 
         <ImageView
             android:id="@+id/map"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/map_nott2"
-            android:background="@drawable/button_background" />
-        
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:orientation="horizontal" >
+            android:layout_height="0dip"
+            android:layout_above="@+id/uploadMedia"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button_background"
+            android:src="@drawable/map_nott2" />
 
-        	<Button
-        	    android:id="@+id/uploadMedia"
-        	    android:layout_width="200dp"
-        	    android:layout_height="50dp"
-        	    android:layout_alignParentLeft="true"
-        	    android:layout_centerVertical="true"
-        	    android:background="@drawable/button_background"
-        	    android:text="Upload media" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="" />
 
-        	<Button
-        	    android:id="@+id/saveWaypoint"
-        	    android:layout_width="200dp"
-        	    android:layout_height="50dp"
-        	    android:layout_alignParentRight="true"
-        	    android:layout_centerVertical="true"
-        	    android:background="@drawable/button_background"
-        	    android:onClick="saveWaypointButton"
-        	    android:text="Save" />
+        <Button
+            android:id="@+id/uploadMedia"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/textView1"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_background"
+            android:text="Upload media" />
 
-            </RelativeLayout>
+        <Button
+            android:id="@+id/saveWaypoint"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_background"
+            android:onClick="saveWaypointButton"
+            android:text="Save" />
+    </RelativeLayout>
 
-        </LinearLayout>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="" />
 
-</LinearLayout>
+</RelativeLayout>

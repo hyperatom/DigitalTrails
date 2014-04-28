@@ -33,11 +33,11 @@
             android:id="@+id/map"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_above="@+id/long_descr"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_margin="20dp"
+            android:layout_toLeftOf="@+id/textView1"
             android:background="@drawable/button_background"
             android:src="@drawable/map_nott" />
 
@@ -45,90 +45,30 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="40dp"
+            android:layout_alignBaseline="@+id/long_descr"
+            android:layout_alignBottom="@+id/long_descr"
+            android:layout_centerHorizontal="true"
             android:text="" />
 
         <TextView
             android:id="@+id/long_descr"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignLeft="@+id/map"
-            android:layout_alignParentBottom="true"
+            android:layout_alignBottom="@+id/map"
+            android:layout_alignLeft="@+id/textView1"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/textView1"
-            android:layout_margin="20dp"
+            android:layout_marginBottom="50dp"
             android:inputType="textMultiLine"
             android:text="@string/chooseWalk"
             android:textSize="18dp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="330dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView3"
-            android:layout_marginTop="22dp"
-            android:text="Number of walk waypoints :"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textView3"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/textView2"
-            android:gravity="center_vertical"
-            android:text="Difficulty Rating:"
-            android:textSize="25sp" />
-
-        <RatingBar
-            android:id="@+id/ratingBar1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="45dp"
-            android:layout_toRightOf="@+id/textView1" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/textView1"
-            android:layout_below="@+id/ratingBar1"
-            android:layout_marginTop="10dp"
-            android:text="Walk length :"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="" />
 
         <Button
             android:id="@+id/deleteWalkButton"
             android:layout_width="200dp"
             android:layout_height="65dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/map"
+            android:layout_alignLeft="@+id/long_descr"
+            android:layout_alignRight="@+id/editWalkButton"
             android:background="@drawable/button_background"
             android:onClick="deleteWalkButtonOnClick"
             android:text="@string/delete"
@@ -139,12 +79,89 @@
             android:layout_width="200dp"
             android:layout_height="65dp"
             android:layout_above="@+id/deleteWalkButton"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/map"
             android:background="@drawable/button_background"
             android:onClick="editWalkButtonOnClick"
             android:text="@string/edit"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal" >
+
+        <RatingBar
+            android:id="@+id/ratingBar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/RatingBar01"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ratingBar1"
+            android:layout_alignLeft="@+id/textView4"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:text="Enjoyment Rating:"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/TextView01"
+            android:layout_alignTop="@+id/RatingBar01"
+            android:gravity="center_vertical"
+            android:text="Difficulty Rating:"
+            android:textSize="25sp" />
+
+        <RatingBar
+            android:id="@+id/RatingBar01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/textView1" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView1"
+            android:layout_alignBottom="@+id/textView1"
+            android:layout_alignParentLeft="true"
+            android:text="Number of walk waypoints :"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/TextView01"
+            android:layout_alignBottom="@+id/TextView01"
+            android:layout_alignRight="@+id/textView2"
+            android:text="Walk length :"
             android:textSize="25sp" />
 
     </RelativeLayout>
