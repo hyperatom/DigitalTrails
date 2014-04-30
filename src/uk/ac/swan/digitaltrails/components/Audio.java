@@ -10,4 +10,5 @@ public class Audio extends Media {
 		super(id, location, waypoint);
 	}
 	
+	
 }
