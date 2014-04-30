@@ -17,6 +17,7 @@ import android.support.v4.content.*;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -24,9 +25,11 @@ public class WalkListFragment extends ListFragment
 	implements LoaderCallbacks<Cursor>, OnQueryTextListener {
 
 	private OnWalkSelectedListener mCallback;
+
+	private static final String TAG = "WalkListFragment";
 	
 	private ArrayList<Walk> mWalkList;
-	
+	private ArrayList<Integer> mWalkIds;
 	private SimpleCursorAdapter mAdapter;
 	private SearchView mSearchView;
 	private String mCurFilter;
@@ -44,6 +47,10 @@ public class WalkListFragment extends ListFragment
 	
 	public ArrayList<Walk> getWalkList() {
 		return mWalkList;
+	}
+	
+	public ArrayList<Integer> getWalkIds() {
+		return mWalkIds;
 	}
 	
 	@SuppressLint("InlinedApi")
@@ -75,7 +82,7 @@ public class WalkListFragment extends ListFragment
 	@Override
 	public void onStart() {
 		super.onStart();
-		
+		mWalkIds = new ArrayList<Integer>();
 		if (getFragmentManager().findFragmentById(R.id.title) != null) {
 			getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		}
@@ -114,7 +121,14 @@ public class WalkListFragment extends ListFragment
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		mAdapter.swapCursor(data);
-		
+		if (data != null && data.moveToFirst()) {
+			mWalkIds.add(data.getInt(2));
+			Log.d(TAG, "Num Walks Returned: " + data.getCount());
+			while (data.moveToNext())
+			{
+				mWalkIds.add(data.getInt(2));
+			}
+		}		
 		if (isResumed()) {
 			setListShown(true);
 		} else {

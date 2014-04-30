@@ -17,6 +17,7 @@ import uk.ac.swan.digitaltrails.fragments.EditWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.EditWaypointMapFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkListFragment;
+import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -84,7 +85,14 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 
 	@Override
 	public void onWalkSelected(int position) {
+		WalkListFragment listFrag = (WalkListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
+		if (listFrag != null) {
 
+		} else if (findViewById(R.id.fragment_container) != null) {
+			listFrag = (WalkListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+		}
+
+		position = listFrag.getWalkIds().get(position);	
 		MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
 
 		if (detailsFrag != null) {
@@ -359,14 +367,12 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 		transaction.commit();
 	}
 
-	// TODO: Implement deleting etc.
 	public void deleteWalkButtonOnClick(View view){
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 		// Add the positive button
 		builder.setPositiveButton(R.string.confirm_delete_walk, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				// TODO: Get list of waypoints and store in mWaypointList 
 				MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
 				if (detailsFrag == null) {
 					detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);

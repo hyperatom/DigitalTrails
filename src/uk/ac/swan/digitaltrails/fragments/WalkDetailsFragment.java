@@ -47,7 +47,7 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 	@Override
 	public void onStart() {
 		super.onStart();
-		Log.d(TAG, "onStart");
+		Log.d(TAG, "onStart, mCurrentPos = " + mCurrentPos);
 		mTitleText = (TextView) getView().findViewById(R.id.title);
 		mLongDescrText = (TextView) getView().findViewById(R.id.long_descr);
 		//setHasOptionsMenu(true);
@@ -76,8 +76,8 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		
 		Button buttonStart = (Button)getView().findViewById(R.id.startButton);
 		
-		mCurrentPos = position + 1;	// primary keys start at 1 so we gotta do this
-		if (mCurrentPos > 0){
+		mCurrentPos = position;
+		if (mCurrentPos >= 0){
 			
 			buttonStart.setEnabled(true);
 			getLoaderManager().restartLoader(1, null, this);

@@ -285,7 +285,10 @@ public class MapActivity extends ActionBarActivity implements LoaderCallbacks<Cu
 		
 		// In practice we may want to set the bounds to be that of the area we are walking in.
 		// for now I'm just going to zoom in this close cause I can.
-		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mMarkers.get(0).getPosition(), 15)); 
+		if (mMarkers.size() > 0) 
+		{
+			mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mMarkers.get(0).getPosition(), 15));
+		}
 	}
 
 	@Override

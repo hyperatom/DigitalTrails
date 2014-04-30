@@ -25,7 +25,7 @@ public class MyWalkDetailsFragment extends WalkDetailsFragment {
 	public void updateDetailsView(int position) {
 		Button editButton = (Button)getView().findViewById(R.id.editWalkButton);
 		Button deleteButton = (Button)getView().findViewById(R.id.deleteWalkButton);
-		mCurrentPos = position + 1;	// primary keys start at 1 so we gotta do this
+		mCurrentPos = position;	// primary keys start at 1 so we gotta do this
 		if (mCurrentPos > 0){
 			editButton.setEnabled(true);
 			deleteButton.setEnabled(true);
