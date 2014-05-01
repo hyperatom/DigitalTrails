@@ -11,7 +11,7 @@ import uk.ac.swan.digitaltrails.database.EnglishWalkDescriptionDataSource;
 import uk.ac.swan.digitaltrails.database.EnglishWaypointDescriptionDataSource;
 import uk.ac.swan.digitaltrails.database.WalkDataSource;
 import uk.ac.swan.digitaltrails.database.WaypointDataSource;
-import uk.ac.swan.digitaltrails.fragments.AddWaypointFragment;
+import uk.ac.swan.digitaltrails.fragments.AddWaypointMapFragment;
 import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.EditWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.EditWaypointMapFragment;
@@ -36,7 +36,7 @@ import android.widget.EditText;
 
 @SuppressLint("NewApi")
 public class MyWalksActivity extends ActionBarActivity implements
-MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListener {
+MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedListener {
 
 	private static final String TAG = "MyWalksActivity";
 	private List<Waypoint> mWaypointList;
@@ -262,6 +262,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 				if (wp.getId() == mWaypointList.get(i).getId())
 				{
 					Waypoint newWp = mWaypointList.get(i);
+					wpDataSource.updateWaypoint(wp.getId(), newWp.getLatitude(), newWp.getLongitude(), null, (long) newWp.getVisitOrder(), null, null);
 					for (Description d : newWp.getDescriptions()) {
 						descrDataSource.updateDescription(d.getId(), title.getText().toString(), shortDescr, longDescr);
 					}
@@ -354,7 +355,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointFragment.OnMapClosedListen
 		Log.d(TAG, "createAddWaypointButton Pressed");
 
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-		AddWaypointFragment waypointFrag = new AddWaypointFragment();
+		AddWaypointMapFragment waypointFrag = new AddWaypointMapFragment();
 
 		if (findViewById(R.id.fragment_container_large) != null) {
 			Log.d(TAG, "2 panes - replace and remove");

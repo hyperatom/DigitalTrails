@@ -1886,16 +1886,17 @@ containing a value of this type.
         public static final int fragment_walk_list=0x7f030034;
         public static final int home_view=0x7f030035;
         public static final int info=0x7f030036;
-        public static final int my_walks_view=0x7f030037;
-        public static final int settings_view=0x7f030038;
-        public static final int splash=0x7f030039;
-        public static final int support_simple_spinner_dropdown_item=0x7f03003a;
-        public static final int test_fragment_walk_details=0x7f03003b;
-        public static final int test_fragment_walk_list=0x7f03003c;
-        public static final int view_waypoint_view=0x7f03003d;
-        public static final int walk_activity=0x7f03003e;
-        public static final int walk_view=0x7f03003f;
-        public static final int waypoint_list=0x7f030040;
+        public static final int info_view_dialog=0x7f030037;
+        public static final int my_walks_view=0x7f030038;
+        public static final int settings_view=0x7f030039;
+        public static final int splash=0x7f03003a;
+        public static final int support_simple_spinner_dropdown_item=0x7f03003b;
+        public static final int test_fragment_walk_details=0x7f03003c;
+        public static final int test_fragment_walk_list=0x7f03003d;
+        public static final int view_waypoint_view=0x7f03003e;
+        public static final int walk_activity=0x7f03003f;
+        public static final int walk_view=0x7f030040;
+        public static final int waypoint_list=0x7f030041;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;

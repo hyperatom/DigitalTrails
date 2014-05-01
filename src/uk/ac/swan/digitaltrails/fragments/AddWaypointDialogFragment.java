@@ -1,6 +1,9 @@
 package uk.ac.swan.digitaltrails.fragments;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.fragments.EditWaypointDialogFragment.EditWaypointDialogListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,18 +11,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.google.android.gms.maps.model.LatLng;
+public class AddWaypointDialogFragment extends DialogFragment {
 
-public class EditWaypointDialogFragment extends DialogFragment {
-
-	public interface EditWaypointDialogListener {
-		public void onEditDialogPositiveClick(DialogFragment dialog, View view);
-		public void onEditDialogNegativeClick(DialogFragment dialog, View view);
+	public interface AddWaypointDialogListener {
+		public void onDialogPositiveClick(DialogFragment dialog, View view);
+		public void onDialogNegativeClick(DialogFragment dialog, View view);
 	}
 
 	public static final String ARG_POSITION = "position";
@@ -28,25 +27,26 @@ public class EditWaypointDialogFragment extends DialogFragment {
 	public static final String ARG_DESCRIPTION = "descripiton";
 	public static final String ARG_INDEX = "index";
 	
-	private static final String TAG = "EditWaypointDialogFragment";
-	private EditWaypointDialogListener mListener;
+	public static final String TAG = "AddWaypointDialogListener";
+	
+	private AddWaypointDialogListener mListener;
 	private LatLng mPosition;
-
-
-	public LatLng getPosition() {
-		return mPosition;
+	
+	public AddWaypointDialogFragment() {
+		super();
 	}
-
+	
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		// Check we have implemented listener.
 		try {
-			mListener = (EditWaypointDialogListener) getTargetFragment();
+			mListener = (AddWaypointDialogListener) getTargetFragment();
 			Log.d(TAG, "Attached Listener to: " + getTargetFragment().toString());
 		} catch (ClassCastException e) {
 			throw new ClassCastException(getTargetFragment().toString() + " must implemented EditWaypointDialogListener");
 		}
 	}
+
 
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		super.onCreateDialog(savedInstanceState);
@@ -59,19 +59,19 @@ public class EditWaypointDialogFragment extends DialogFragment {
 		builder.setPositiveButton(R.string.confirm_waypoint, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				mListener.onEditDialogPositiveClick(EditWaypointDialogFragment.this, view);
+				mListener.onDialogPositiveClick(AddWaypointDialogFragment.this, view);
 			}
 		})
 		.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				mListener.onEditDialogNegativeClick(EditWaypointDialogFragment.this, view);
+				mListener.onDialogNegativeClick(AddWaypointDialogFragment.this, view);
 			}
 		});
 		return builder.create();
 	}
-
+	
 	/**
 	 * Initialise EditText fields with the correct values
 	 * @param view The view to update
@@ -104,6 +104,4 @@ public class EditWaypointDialogFragment extends DialogFragment {
 		((EditText) view.findViewById(R.id.latitude_edit)).setText(lat);
 		((EditText) view.findViewById(R.id.longitude_edit)).setText(longitude);
 	}
-
-
 }

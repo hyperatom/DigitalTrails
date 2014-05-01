@@ -7,22 +7,25 @@ import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Audio;
 import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.Media;
-import uk.ac.swan.digitaltrails.components.SimpleGeofence;
 import uk.ac.swan.digitaltrails.components.Video;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.ErrorDialogFragment;
-
+import uk.ac.swan.digitaltrails.fragments.InfoViewDialogFragment;
+import uk.ac.swan.digitaltrails.utils.ReceiveTransitionsIntentService;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.database.Cursor;
 import android.location.Location;
-import android.location.LocationListener;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +33,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -73,9 +78,12 @@ public class MapActivity extends ActionBarActivity implements
 	private static final long UPDATE_INTERVAL = MILLISECONDS_PER_SECOND * UPDATE_INTERVAL_IN_SECONDS;
 	private static final int FASTEST_INTERVAL_IN_SECONDS = 5;
 	private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND * FASTEST_INTERVAL_IN_SECONDS;
-	
-	public static String ARG_EXPLORE = "explore";
-	
+
+	public static final String ARG_EXPLORE = "explore";
+	public static final String ARG_GEOFENCES = "geofences";
+	public static final String RECEIVE_GEOFENCES_ENTERED = "uk.ac.swan.digitaltrails.RECEIVE_GEOFENCES_ENTERED";
+	public static final String RECEIVE_GEOFENCES_EXITED = "uk.ac.swan.digitaltrails.RECEIVE_GEOFENCES_EXITED";
+	public enum REQUEST_TYPE {ADD};
 	/** The current GoogleMap */
 	private GoogleMap mMap;
 	/** ArrayList of markers currently on the map */
@@ -95,38 +103,119 @@ public class MapActivity extends ActionBarActivity implements
 	/** */
 	private LocationRequest mLocationRequest;
 	/** Type of request for LocationRequest */
-	private int mRequestType;
+	private REQUEST_TYPE mRequestType;
+	private boolean mInProgress;
+	private PendingIntent mTransitionPendingIntent;
+	
 	private enum selectFilter {FILTER_WAYPOINT_WITH_DESCR, FILTER_WAYPOINT_WITH_MEDIA };
+	
+	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+		public void onReceive(Context context, Intent intent) {
+			if(intent.getAction().equals(RECEIVE_GEOFENCES_ENTERED)) {
+				Log.d(TAG, "Receiving Geofences event");
+				geofenceEntered(intent.getExtras().getStringArray(ARG_GEOFENCES));
+			}
+			if (intent.getAction().equals(RECEIVE_GEOFENCES_EXITED)) {
+				geofencesExited(intent.getExtras().getStringArray(ARG_GEOFENCES));
 
+			}
+		}
+	};
+	
 	// Activity Methods
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mInProgress = false;
 		mCurFilter = selectFilter.FILTER_WAYPOINT_WITH_DESCR;
 		setContentView(R.layout.activity_map);
 		Intent intent = getIntent();
-		
+		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(RECEIVE_GEOFENCES_ENTERED);
+		intentFilter.addAction(RECEIVE_GEOFENCES_EXITED);
+		broadcastManager.registerReceiver(mBroadcastReceiver, intentFilter);
 		// let us load the map.
 		if (intent.getExtras().getInt(ARG_EXPLORE) == 1) {
+
 			int walkId = intent.getExtras().getInt("walkId");	
 			mMarkers = new ArrayList<Marker>();
 			mWaypoints = new ArrayList<Waypoint>();
 			initMap();
 			getSupportLoaderManager().initLoader(0, intent.getExtras(), this);
+
+			mLocationRequest = LocationRequest.create();
+			mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+			mLocationRequest.setInterval(UPDATE_INTERVAL);
+			mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
 		}
-		int walkId = intent.getExtras().getInt("walkId");	
-		mMarkers = new ArrayList<Marker>();
-		mWaypoints = new ArrayList<Waypoint>();
-		initMap();
-		// intent.getExtras() contains walkId
-		getSupportLoaderManager().initLoader(0, intent.getExtras(), this);
-		mLocationClient = new LocationClient(this, this, this);
-		mLocationRequest = LocationRequest.create();
-		mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-		mLocationRequest.setInterval(UPDATE_INTERVAL);
-		mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
 	}
 
+	
+	private void geofenceEntered(String[] triggeredIds) {
+		Log.d(TAG, "In geofenceEntered, num geofences triggered: " + triggeredIds.length);
+		for (int i = 0; i < triggeredIds.length; i++) {
+			Log.d(TAG, "Looking for id: " + triggeredIds[i]);
+			String id = triggeredIds[i].trim();
+			for (Geofence g : mGeofences) {
+				Log.d(TAG, "Geofence id: " + g.getRequestId());
+				if (g.getRequestId().equals(id)) {
+					Log.d(TAG, "geofence found, finding marker");
+					for (Marker m : mMarkers) {
+						if (m.getId().equals(id)) {
+							Log.d(TAG, "In Marker found, showing window");
+							m.showInfoWindow();
+							m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	private void geofencesExited(String[] triggeredIds) {
+		Log.d(TAG, "In geofenceEntered, num geofences triggered: " + triggeredIds.length);
+		for (int i = 0; i < triggeredIds.length; i++) {
+			Log.d(TAG, "Looking for id: " + triggeredIds[i]);
+			String id = triggeredIds[i].trim();
+			for (Geofence g : mGeofences) {
+				Log.d(TAG, "Geofence id: " + g.getRequestId());
+				if (g.getRequestId().equals(id)) {
+					Log.d(TAG, "geofence found, finding marker");
+					for (Marker m : mMarkers) {
+						if (m.getId().equals(id)) {
+							Log.d(TAG, "In Marker found, showing window");
+							if (m.isInfoWindowShown()) {
+								m.hideInfoWindow();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	/**
+	 * Start a request to monitor geofences by connecting locationclient.
+	 */
+	private void addGeofences() {
+		mRequestType = REQUEST_TYPE.ADD;
+		
+		if (!servicesConnected()) {
+			return;
+		}
+		
+		mLocationClient = new LocationClient(this, this, this);
+		
+		if (!mInProgress) {
+			mInProgress = true;
+			mLocationClient.connect();
+		} else {
+			mLocationClient.disconnect();
+			mInProgress = false;
+			addGeofences();
+		}
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.maps_menu, menu);
@@ -138,12 +227,24 @@ public class MapActivity extends ActionBarActivity implements
 		return changeMap(item);
 	}
 
-	private void showInfoViewDialog() {
-		InfoViewDialogFragment dialog = InfoViewDialogFragment.newInstance();
-		dialog.init(mLoaderCursor);
-		dialog.show(getSupportFragmentManager(), "dialog");
+	private void showInfoViewDialog(Waypoint wp) {
+		Bundle args = new Bundle();
+		args.putString(InfoViewDialogFragment.ARG_TITLE, wp.getTitle());
+		if (wp.getDescriptions().size() > 0) {
+			args.putString(InfoViewDialogFragment.ARG_DESCRIPTION, wp.getDescriptions().get(0).getLongDescription());
+		}
+		DialogFragment dialog = new InfoViewDialogFragment();
+		dialog.setArguments(args);
+		dialog.show(getSupportFragmentManager(), "infoDialog");
 	}
+	
 
+	private PendingIntent getTransitionPendingIntent() {
+		Intent intent = new Intent(this, ReceiveTransitionsIntentService.class);
+		
+		return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+	}
+	
 	private boolean changeMap(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.normal_map:
@@ -222,12 +323,8 @@ public class MapActivity extends ActionBarActivity implements
 
 			@Override
 			public void onInfoWindowClick(Marker marker) {
-				Bundle bundle = new Bundle();
-				bundle.putInt("markerId", mMarkers.indexOf(marker));
-				mCurFilter = selectFilter.FILTER_WAYPOINT_WITH_MEDIA;
-				// load data for the dialog
-				getSupportLoaderManager().initLoader(0, bundle, MapActivity.this);
-				showInfoViewDialog();
+				// find waypoint and show dialog for it.
+				showInfoViewDialog(mWaypoints.get(mMarkers.indexOf(marker)));
 			}
 		});
 	}
@@ -236,6 +333,10 @@ public class MapActivity extends ActionBarActivity implements
 		setDefaultMapConfig();
 	}
 
+	/**
+	 * Create a list of markers, stored in mMarkers
+	 * @param waypoints
+	 */
 	private void createMarkers(ArrayList<Waypoint> waypoints) {
 		for (Waypoint wp : waypoints) {
 			if (wp.isRequest() == false) {
@@ -247,18 +348,27 @@ public class MapActivity extends ActionBarActivity implements
 		}
 	}
 	
-	private ArrayList<Geofence> createGeofences(ArrayList<Waypoint> waypoints) {
-		final int radius = 8;
+	/**
+	 * Create a list of geofences from a list of markers.
+	 * @param markers markers to create geofences from
+	 * @return the list of geofences
+	 */
+	private ArrayList<Geofence> createGeofences(ArrayList<Marker> markers) {
+		final int radius = 10;
 		final int responsiveness = 1500;
 		ArrayList<Geofence> geofences = new ArrayList<Geofence>();
-		for (Waypoint wp : waypoints) {	
+		for (Marker m : markers) {	
 			geofences.add(
 					new Geofence.Builder()
-					.setRequestId(wp.getTitle())
-					.setCircularRegion(wp.getLatitude(), wp.getLongitude(), radius)
+					.setRequestId(m.getId())
+					.setCircularRegion(m.getPosition().latitude, m.getPosition().longitude, radius)
 					.setExpirationDuration(Geofence.NEVER_EXPIRE)
 					.setNotificationResponsiveness(responsiveness)
+					.setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)
 					.build());
+		}
+		for (Geofence g : geofences) {
+			g.toString();
 		}
 		return geofences;
 	}
@@ -345,8 +455,9 @@ public class MapActivity extends ActionBarActivity implements
 				// add the last waypoint
 				mWaypoints.add(wp);
 				createMarkers(mWaypoints);
-				mGeofences = createGeofences(mWaypoints);
-				//mLocationClient.addGeofences(mGeofences, pendingIntent, this);
+				mGeofences = createGeofences(mMarkers);
+				mLocationClient = new LocationClient(this, this, this);
+				addGeofences();
 			} else if (mCurFilter == selectFilter.FILTER_WAYPOINT_WITH_MEDIA) {
 				mLoaderCursor = data;
 			}
@@ -369,49 +480,7 @@ public class MapActivity extends ActionBarActivity implements
 		startActivity(intent);
 	}
 	
-	// Has to be a class or Android won't let it happen...
-	/**
-	 * 
-	 * @author Lewis Hancock
-	 *
-	 */
-	public static class InfoViewDialogFragment extends DialogFragment {
-
-		private Waypoint mWaypoint;
-		
-		static InfoViewDialogFragment newInstance() {
-			InfoViewDialogFragment dialog = new InfoViewDialogFragment();
-			return dialog;
-		}
-
-		// TODO: Im pretty sure this is dumb...
-		public void init(Cursor data) {
-			mWaypoint = new Waypoint();
-			if (data != null && data.getCount() > 0) {
-				List<Audio> audioFiles = new ArrayList<Audio>();
-				List<Video> videoFiles = new ArrayList<Video>();
-				List<Image> imageFiles = new ArrayList<Image>();
-				while (data.moveToNext()) {
-					//TODO: add to lists.
-				}
-			}
-		}
-		
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			//builder.setMessage(R.string.dialog_info_view)
-			builder.setMessage("This is where we can see text, videos, audio etc. about this waypoint.")
-			.setNeutralButton(R.string.close, new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// user cancelled
-				}
-			});
-			return builder.create();
-		}
-	}
+	
 	
 	// Google Play Services stuff
 	
@@ -448,7 +517,7 @@ public class MapActivity extends ActionBarActivity implements
 	
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
-		
+		mInProgress = false;
 		// try to resolve any error
 		if (connectionResult.hasResolution()) {
 			try {
@@ -458,20 +527,36 @@ public class MapActivity extends ActionBarActivity implements
 				e.printStackTrace();
 			}
 		} else {
+			int errorCode = connectionResult.getErrorCode();
 			// can't resolve error, show error dialog.
-			//showErrorDialog(connectionResult.getErrorCode());
+			Dialog dialog = GooglePlayServicesUtil.getErrorDialog(errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+			if (dialog != null) {
+				ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+				errorFragment.setDialog(dialog);
+				errorFragment.show(getSupportFragmentManager(), "Geofence Detection");
+			}
 		}
 	}
 
 	@Override
 	public void onConnected(Bundle dataBundle) {
 		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+		Log.d(TAG, "Connected locationclient");
 		mLocationClient.requestLocationUpdates(mLocationRequest, this);
+		switch (mRequestType) {
+		case ADD:
+			Log.d(TAG, "Adding");
+			mTransitionPendingIntent = getTransitionPendingIntent();
+			mLocationClient.addGeofences(mGeofences, mTransitionPendingIntent, this);
+			break;
+		}
 	}
 
 	@Override
 	public void onDisconnected() {
 		Toast.makeText(this, "Disconnected, please reconnect", Toast.LENGTH_SHORT).show();
+		mInProgress = false;
+		mLocationClient = null;
 	}
 	
 	// LocationListener methods begin
@@ -483,10 +568,13 @@ public class MapActivity extends ActionBarActivity implements
 	@Override
 	public void onAddGeofencesResult(int statusCode, String[] geofenceRequestIds) {
 		if (LocationStatusCodes.SUCCESS == statusCode) {
-			
+			// Whatever, it's added so I don't care.
+			Log.d(TAG, "Geofences added successfully");
 		} else {
-			
+			Log.e(TAG, "Geofences not added");
 		}
+		mInProgress = false;
+		mLocationClient.disconnect();
 	}
 	
 } 

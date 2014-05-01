@@ -174,6 +174,7 @@ public class Waypoint {
 		setTitle("New Place");
 		setLatitude(0);
 		setLongitude(0);
+		setLatLng(new LatLng(mLatitude, mLongitude));
 	}
 
 	public Waypoint(int id, String title, ArrayList<Description> descriptions, double longitude, double latitude,
@@ -187,5 +188,10 @@ public class Waypoint {
 		setAudioFiles(audioFiles);
 		setVideos(videos);
 		setDescriptions(descriptions);
+		setLatLng(new LatLng(mLatitude, mLongitude));
+	}
+	
+	public String toString() {
+		return mTitle + " " + mLatitude + " " + mLongitude;		
 	}
 }

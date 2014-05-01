@@ -8,6 +8,7 @@ import uk.ac.swan.digitaltrails.components.EnglishDescription;
 import uk.ac.swan.digitaltrails.components.Media;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import uk.ac.swan.digitaltrails.fragments.AddWaypointDialogFragment.AddWaypointDialogListener;
 import uk.ac.swan.digitaltrails.fragments.EditWaypointDialogFragment.EditWaypointDialogListener;
 import android.database.Cursor;
 import android.net.Uri;
@@ -28,12 +29,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class EditWaypointMapFragment extends MapFragment implements 
-LoaderCallbacks<Cursor>, EditWaypointDialogFragment.EditWaypointDialogListener {
+public class AddWaypointMapFragment extends MapFragment implements 
+LoaderCallbacks<Cursor>, EditWaypointDialogListener {
 
 	public static String ARG_POSITION = "position";
 
-	private static String TAG = "EditWaypointFragment";
+	private static String TAG = "AddWaypointMapFragment";
+
+	/** ArrayList of Markers currently on the map */
+	private ArrayList<Marker> mMarkers;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,15 +65,11 @@ LoaderCallbacks<Cursor>, EditWaypointDialogFragment.EditWaypointDialogListener {
 				});
 	}
 	
-
 	@Override
 	public void onEditDialogPositiveClick(DialogFragment dialog, View view) {
-		Log.d(TAG, "Positive Click");
 		long index = dialog.getArguments().getLong(EditWaypointDialogFragment.ARG_INDEX); 
-		Log.d(TAG, "Index: " + index);
 		if (index < mWaypointList.size()) {
 			Waypoint wp = mWaypointList.get((int) index);
-			Log.d(TAG, wp.toString());
 			String title = ((EditText) view.findViewById(R.id.name_edit)).getText().toString().trim();
 			String description = ((EditText) view.findViewById(R.id.description_edit)).getText().toString().trim();
 			String snippet = description.substring(0, description.length()/2);
@@ -87,19 +87,16 @@ LoaderCallbacks<Cursor>, EditWaypointDialogFragment.EditWaypointDialogListener {
 					}
 				}
 				if (count == 0) {
-					EnglishDescription d = new EnglishDescription(0, title+" description", snippet, description);
-					wp.getDescriptions().add(d);
+					wp.getDescriptions().add(new Description(description));
 				}
 			} else {
 				EnglishDescription d = new EnglishDescription(0, title+" description", snippet, description);
 				wp.getDescriptions().add(d);
 			}
 			wp.setLatLng(new LatLng(latitude, longitude));
-			wp.setLatitude(latitude);
-			wp.setLongitude(longitude);
-			
+
 			MarkerOptions options = new MarkerOptions();
-			options.position(wp.getLatLng());
+			options.position(new LatLng(wp.getLatitude(), wp.getLongitude()));
 			options.title(wp.getTitle());
 			for (Description d : wp.getDescriptions()) {
 				if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
@@ -115,7 +112,6 @@ LoaderCallbacks<Cursor>, EditWaypointDialogFragment.EditWaypointDialogListener {
 	
 	@Override
 	public void onEditDialogNegativeClick(DialogFragment dialog, View view) {
-		Log.d(TAG, "NegativeClick");
 	}
 	
 	private void createMarkers(ArrayList<Waypoint> waypoints) {
@@ -149,7 +145,8 @@ LoaderCallbacks<Cursor>, EditWaypointDialogFragment.EditWaypointDialogListener {
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-		// create Waypoints from all the db info.
+		// TODO: Yeah, this could be put into a Waypoint(Cursor data) constructor really. Time is of the essence
+		// so we're programming a little badly.
 		if (data != null && data.moveToFirst()) {
 			ArrayList<Description> dList = new ArrayList<Description>();
 			ArrayList<Media> mediaList = new ArrayList<Media>();
@@ -187,6 +184,7 @@ LoaderCallbacks<Cursor>, EditWaypointDialogFragment.EditWaypointDialogListener {
 					wp.setVisitOrder(data.getInt(4));
 					wp.setTitle(data.getString(7));
 					desc = new EnglishDescription();
+					desc.setLanguage(Description.Languages.ENGLISH.ordinal());
 					desc.setShortDescription(data.getString(8));
 					desc.setLongDescription(data.getString(9));
 					dList.add(desc);
@@ -218,5 +216,6 @@ LoaderCallbacks<Cursor>, EditWaypointDialogFragment.EditWaypointDialogListener {
 	public void onConnected(Bundle arg0) {
 
 	}
+
 
 }
