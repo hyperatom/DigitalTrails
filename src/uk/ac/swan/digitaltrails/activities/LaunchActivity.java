@@ -1,10 +1,15 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
 import uk.ac.swan.digitaltrails.accounts.SignUpActivity;
 import uk.ac.swan.digitaltrails.fragments.LaunchFragment;
 import uk.ac.swan.digitaltrails.fragments.LogInFragment;
 import uk.ac.swan.digitaltrails.fragments.RegisterFragment;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,17 +18,21 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 public class LaunchActivity extends ActionBarActivity{
 	
-	private static final String TAG = "MyWalksActivity";
+	private static final String TAG = "LaunchActivity";
+	private AccountManager mAccountManager;
+	private String mAuthToken = null;
+	private Account mConnectedAccount;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launch);
 		getSupportActionBar().hide();
+		mAccountManager = AccountManager.get(this);
 		LaunchFragment launchFragment = new LaunchFragment();
-
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_launcher, launchFragment).commit();
 	}
 	
@@ -86,8 +95,36 @@ public class LaunchActivity extends ActionBarActivity{
 	// Register functions
 	
 	public void registerButtonOnClick(View view){
-		Intent intent = new Intent(this, SignUpActivity.class);
-		startActivity(intent);
+        getTokenForAccountCreateIfNeeded(AccountGeneral.ACCOUNT_TYPE, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
+	}
+	
+	private void getTokenForAccountCreateIfNeeded(String accountType, String authTokenType) {
+		final AccountManagerFuture<Bundle> future = mAccountManager.getAuthTokenByFeatures(accountType, authTokenType, null, this, null, null,
+                new AccountManagerCallback<Bundle>() {
+
+					@Override
+					public void run(AccountManagerFuture<Bundle> future) {
+						Bundle bundle = null;
+						try {
+							bundle = future.getResult();
+							mAuthToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
+							if (mAuthToken != null) {
+								String accountName = bundle.getString(AccountManager.KEY_ACCOUNT_NAME);
+								Log.d(TAG, "Account Type: " + AccountGeneral.ACCOUNT_TYPE);
+								Log.d(TAG, "Connecting Account...");
+								mConnectedAccount = new Account(accountName, AccountGeneral.ACCOUNT_TYPE);
+								Log.d(TAG, "Connected Account!");
+								Toast.makeText(getBaseContext(), "Succes!\ntoken: " + mAuthToken, Toast.LENGTH_SHORT).show();
+							} else {
+								Toast.makeText(getBaseContext(), "Fail!", Toast.LENGTH_SHORT).show();	
+							}
+						} catch (Exception e) {
+							Log.e(TAG, e.getMessage());
+						}
+					}
+		
+		}, null);
+	
 	}
 	
 	public void cancelRButton(View view){

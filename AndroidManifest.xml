@@ -34,14 +34,14 @@
             android:exported="false"
             android:label="@string/app_name" >
         </service>
-        <service android:name=".accounts.WhiteRockAuthenticatorService" >
+        <service android:name="uk.ac.swan.digitaltrails.accounts.WhiteRockAuthenticatorService" >
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
 
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/authenticator" />
+                android:resource="@xml/whiterock_authenticator" />
         </service>
         <service
             android:name=".sync.WhiteRockSyncService"

@@ -89,7 +89,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		
 		final String accountType = "User";
 
-		
 		new AsyncTask<String, Void, Intent>() {
 
 			@Override
@@ -97,14 +96,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 				String authToken = null;
 				Bundle data = new Bundle();
 				try {
+					Log.d(TAG, "I die at line 101");
 					authToken = AccountGeneral.sServerAuthenticate.userSignIn(userName, userPassword, mAuthTokenType);
+					Log.d(TAG, "authToken: " + authToken);
 					data.putString(AccountManager.KEY_ACCOUNT_NAME, userName);
 					data.putString(AccountManager.KEY_ACCOUNT_TYPE, accountType);
 					data.putString(AccountManager.KEY_AUTHTOKEN, authToken);
 					data.putString(USER_PASS, userPassword);
 				} catch (Exception e) {
 					data.putString(ERROR_MESSAGE, e.getMessage());
-					Log.e(TAG, "ERRROR!!!!");
+					Log.e(TAG, "Error: " + e.getMessage());
 				}
 				
 				final Intent result = new Intent();
@@ -128,15 +129,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		String accountName = intent.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
 		String accountPassword = intent.getStringExtra(USER_PASS);
 		final Account account = new Account(accountName, intent.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE));
-		
+		Log.d(TAG, "Alive before if: line 132");
 		if (getIntent().getBooleanExtra(IS_ADDING_NEW_ACCOUNT, false)) {
 			String authToken = intent.getStringExtra(AccountManager.KEY_AUTHTOKEN);
 			String authTokenType = mAuthTokenType;
 			
 			// create local account, set auth token.
-			mAccountManager.addAccountExplicitly(account, accountPassword, null);
+			mAccountManager.addAccountExplicitly(account, accountPassword, intent.getBundleExtra(AccountManager.KEY_USERDATA));
 			mAccountManager.setAuthToken(account, authTokenType, authToken);
-			
+			Log.d(TAG, "Alive at end of if: line 140");
 		} else {
 			mAccountManager.setPassword(account, accountPassword);;
 		}

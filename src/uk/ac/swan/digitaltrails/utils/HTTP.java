@@ -206,7 +206,8 @@ public class HTTP {
 		
 		try {
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-	        return mClient.execute(request, responseHandler);
+	        Log.d(TAG, "Successfully got responseHandler");
+			return mClient.execute(request, responseHandler);
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

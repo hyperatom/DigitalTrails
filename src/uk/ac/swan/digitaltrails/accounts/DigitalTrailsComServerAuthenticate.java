@@ -16,7 +16,7 @@ public class DigitalTrailsComServerAuthenticate implements ServerAuthenticate {
 	private static final String TAG = "Comunicator";
 
 	@Override
-	public String userSignUp(String firstName, String lastName, String email,
+	public Account userSignUp(String firstName, String lastName, String email,
 			String pass, String authType) throws Exception {
 
 		Gson gson = new GsonBuilder().create();
@@ -24,14 +24,14 @@ public class DigitalTrailsComServerAuthenticate implements ServerAuthenticate {
 		Account account = new Account(email,pass,firstName,lastName);
 		
 		String message = gson.toJson(account);
-		
-		String response = HTTP.post(message, HTTP.BASEURL+"/users");
 
-		Log.d(TAG, response);
-       
-	    Account loggedIn = gson.fromJson(response, Account.class);
+		String response = HTTP.post(message, HTTP.BASEURL+"/users");
 		
-	    return loggedIn.password;
+		Log.d(TAG, response);
+	    
+		Account loggedIn = gson.fromJson(response, Account.class);
+	    
+		return loggedIn;
 	}
 
 	@Override

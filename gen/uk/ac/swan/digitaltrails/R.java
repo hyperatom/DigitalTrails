@@ -2300,8 +2300,8 @@ containing a value of this type.
         public static final int Widget_AppCompat_Spinner_DropDown_ActionBar=0x7f0c0022;
     }
     public static final class xml {
-        public static final int authenticator=0x7f050000;
-        public static final int sync_adapter=0x7f050001;
+        public static final int sync_adapter=0x7f050000;
+        public static final int whiterock_authenticator=0x7f050001;
     }
     public static final class styleable {
         /**  ============================================ 

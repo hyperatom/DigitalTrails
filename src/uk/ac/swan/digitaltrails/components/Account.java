@@ -2,6 +2,7 @@ package uk.ac.swan.digitaltrails.components;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class Account implements Parcelable {
 	public String email;
@@ -22,9 +23,11 @@ public class Account implements Parcelable {
 	
 	public Account(String email, String pass, String firstName, String lastName) {
 		this.email = email;
-		this.password = pass;
+		this.password = this.authToken = pass;
 		this.first_name = firstName;
 		this.last_name = lastName;
+		
+		Log.d("Account", "New account created. email: " + email + " pass " + pass + " first " + firstName + " last " + lastName + " authToken " + this.authToken);
 	}
 
 	public static final Parcelable.Creator<Account> CREATOR = new Creator<Account>() {  

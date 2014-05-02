@@ -1,6 +1,7 @@
 package uk.ac.swan.digitaltrails.accounts;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.components.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,24 +24,23 @@ public class SignUpActivity extends Activity {
 		super.onCreate(savedInstnaceState);
 		
 		mAccountType = getIntent().getStringExtra(AccountGeneral.ACCOUNT_TYPE);
-	
-		setContentView(R.layout.fragment_register);
+		Log.d(TAG, "mAccountType: " + mAccountType);
+		setContentView(R.layout.act_register);
 		
-//		findViewById(R.id.alreadyMember).setOnClickListener(new View.OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				setResult(RESULT_CANCELED);
-//				finish();
-//			}
-//		});
+		findViewById(R.id.alreadyMember).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setResult(RESULT_CANCELED);
+				finish();
+			}
+		});
 		
-		findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				Log.d(TAG, "clicked submit");
 				createAccount();
-				
 			}
 		});
 	}
@@ -48,11 +48,10 @@ public class SignUpActivity extends Activity {
 	private void createAccount() {
 		new AsyncTask<String, Void, Intent>() {
 			
-			String name = ((TextView) findViewById(R.id.fullnamee)).getText().toString().trim();
-			String firstName = name.substring(0, name.indexOf(' '));
-			String lastName = name.substring(name.indexOf(' ')+1, name.length());
-			String accountName = ((TextView) findViewById(R.id.emaile)).getText().toString().trim();
-			String accountPassword = ((TextView) findViewById(R.id.passworde)).getText().toString().trim();
+			String firstName = ((TextView) findViewById(R.id.firstName)).getText().toString().trim();
+			String lastName = ((TextView) findViewById(R.id.lastName)).getText().toString().trim();
+			String accountName = ((TextView) findViewById(R.id.accountName)).getText().toString().trim();
+			String accountPassword = ((TextView) findViewById(R.id.accountPassword)).getText().toString().trim();
 			
 			@Override
 			protected Intent doInBackground(String... arg0) {
@@ -61,7 +60,14 @@ public class SignUpActivity extends Activity {
 				String authtoken = null;
 				Bundle data = new Bundle();
 				try {
-					authtoken = AccountGeneral.sServerAuthenticate.userSignUp(firstName, lastName, accountName, accountPassword, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
+					Account acc = AccountGeneral.sServerAuthenticate.userSignUp(firstName, lastName, accountName, accountPassword, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
+					if (acc != null) {
+						Log.d(TAG, "acc is not null");
+						authtoken = acc.authToken;
+					} else {
+						Log.e(TAG, "acc is null wtf!");
+					}
+					Log.d(TAG, "authtoken is: " + authtoken);
 					data.putString(AccountManager.KEY_ACCOUNT_NAME, accountName);
 					data.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccountType);;
 					data.putString(AccountManager.KEY_AUTHTOKEN, authtoken);
