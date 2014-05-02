@@ -1,5 +1,7 @@
 package uk.ac.swan.digitaltrails.accounts;
 
+import org.json.JSONObject;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -20,6 +22,17 @@ public class DigitalTrailsComServerAuthenticate implements ServerAuthenticate {
 			String pass, String authType) throws Exception {
 
 		Gson gson = new GsonBuilder().create();
+		
+		String check = HTTP.get(HTTP.BASEURL+"/users/emailcheck/"+email);
+		
+		JSONObject checkObj = new JSONObject(check);
+		
+		//If the email is already registered.
+		if(checkObj.getBoolean("exists") == true){
+			Account acc =  new Account();
+			acc.email = "Email Already Exists";
+			return acc;
+		}
 		
 		Account account = new Account(email,pass,firstName,lastName);
 		

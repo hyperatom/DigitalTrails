@@ -62,6 +62,9 @@ public class SignUpActivity extends Activity {
 				try {
 					Account acc = AccountGeneral.sServerAuthenticate.userSignUp(firstName, lastName, accountName, accountPassword, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
 					if (acc != null) {
+						if(acc.email == "Email Already Exists"){
+							throw new Exception("Email Already Exists");
+						}
 						Log.d(TAG, "acc is not null");
 						authtoken = acc.authToken;
 					} else {
