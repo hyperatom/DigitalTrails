@@ -148,7 +148,7 @@ public class HTTP {
 		
 		try {
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-	        return mClient.execute(request, responseHandler);
+			return mClient.execute(request, responseHandler);
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -172,6 +172,7 @@ public class HTTP {
 				break;
 			
 			case POST:			
+				Log.d(TAG, "POSTING");
 				request = new HttpPost(url);
 				StringEntity postJSON = null;
 				try {
@@ -202,12 +203,12 @@ public class HTTP {
 		}
 		
 		Log.d(TAG, "Data: " + message);
-
 		
 		try {
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 	        Log.d(TAG, "Successfully got responseHandler");
-			return mClient.execute(request, responseHandler);
+	        mClient.getParams().setBooleanParameter("http.protocol.expect-continue", false);    
+	        return mClient.execute(request, responseHandler);
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
