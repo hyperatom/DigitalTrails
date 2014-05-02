@@ -10,7 +10,7 @@ public class EnglishDescription extends Description {
 		setShortDescription("");
 		setLongDescription("");
 	}
-	
+		
 	public EnglishDescription(int id, String title, String shortDesc, String longDesc) {
 		setId(id);
 		setTitle(title);
@@ -18,4 +18,5 @@ public class EnglishDescription extends Description {
 		setLongDescription(longDesc);
 		setLanguage(Description.Languages.ENGLISH.ordinal());
 	}
+
 }

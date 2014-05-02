@@ -65,35 +65,21 @@ public class AddWaypointMapFragment extends MapFragment implements EditWaypointD
 			double latitude = Double.parseDouble(((EditText) view.findViewById(R.id.latitude_edit)).getText().toString().trim());
 			double longitude = Double.parseDouble(((EditText) view.findViewById(R.id.longitude_edit)).getText().toString().trim());
 			wp.setTitle(title);
-			if (wp.getDescriptions().size() > 0) {
-				int count = 0;
-				for (Description d : wp.getDescriptions()) {
-					if (d.getLanguage() == Description.Languages.ENGLISH.ordinal())
-					{
-						d.setTitle(title);
-						d.setLongDescription(description);
-						d.setShortDescription(snippet);	
-						count++;
-					}
-				}
-				if (count == 0) {
-					wp.getDescriptions().add(new EnglishDescription(-1, title, snippet, description));
-				}
+			if (wp.getEnglishDescription() != null) {
+				EnglishDescription d = wp.getEnglishDescription();
+				d.setTitle(title);
+				d.setLongDescription(description);
+				d.setShortDescription(snippet);	
 			} else {
 				EnglishDescription d = new EnglishDescription(-1, title, snippet, description);
-				wp.getDescriptions().add(d);
+				wp.setEnglishDescription(d);
 			}
 			wp.setLatLng(new LatLng(latitude, longitude));
 
 			MarkerOptions options = new MarkerOptions();
 			options.position(new LatLng(wp.getLatitude(), wp.getLongitude()));
 			options.title(wp.getTitle());
-			for (Description d : wp.getDescriptions()) {
-				if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
-					options.snippet(d.getShortDescription());
-					break;
-				}
-			}
+			options.snippet(wp.getEnglishDescription().getShortDescription());
 			Marker marker = mMap.addMarker(options);
 			marker.setDraggable(true);
 			mMarkers.get((int) index).remove();

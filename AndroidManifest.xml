@@ -30,6 +30,18 @@
 	        android:exported="false">
 	    </service>
 	    
+	    <service
+			android:name=".sync.WhiteRockSyncService"
+			android:exported="true">
+			<intent-filter>
+			    <action android:name="android.content.SyncAdapter" />
+			</intent-filter>
+			<meta-data
+			    android:name="android.content.SyncAdapter"
+			    android:resource="@xml/sync_adapter" />
+		</service>
+		
+	    
 		<provider
 	    	android:name=".database.WhiteRockContentProvider"
 	    	android:authorities="uk.ac.swan.digitaltrails"
@@ -41,6 +53,7 @@
 	    	android:syncable="true" >
 		</provider> 
 		
+
 		<activity
             android:name="uk.ac.swan.digitaltrails.activities.SplashActivity"
             android:label="@string/app_name">
@@ -51,7 +64,7 @@
 		    </intent-filter>
             
         </activity>
-        
+
 		<activity 
             android:name="uk.ac.swan.digitaltrails.activities.LaunchActivity" >
         </activity>

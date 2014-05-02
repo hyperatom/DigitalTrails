@@ -266,15 +266,12 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 				{
 					Waypoint newWp = mWaypointList.get(i);
 					wpDataSource.updateWaypoint(wp.getId(), newWp.getLatitude(), newWp.getLongitude(), null, (long) newWp.getVisitOrder(), null, null);
-					for (Description d : newWp.getDescriptions()) {
-						// Add these -1's to the database as a new value. I just don'tw ant to find new id spots, just gonna let the db deal with it.
-						if (d.getId() == -1) {
-							Log.d(TAG, "Adding new descr");
-							descrDataSource.addDescription(d.getTitle().toString(), d.getShortDescription(), d.getLongDescription(), wp.getId());
-						} else {
-							Log.d(TAG, "Updating descr");
-							descrDataSource.updateDescription(d.getId(), d.getTitle().toString(), d.getShortDescription(), d.getLongDescription());
-						}
+					if (newWp.getEnglishDescription().getId() == -1) {
+						Log.d(TAG, "Adding new descr");
+						descrDataSource.addDescription(newWp.getEnglishDescription().getTitle().toString(), newWp.getEnglishDescription().getShortDescription(), newWp.getEnglishDescription().getLongDescription(), wp.getId());
+					} else {
+						Log.d(TAG, "Updating descr");
+						descrDataSource.updateDescription(newWp.getEnglishDescription().getId(), newWp.getEnglishDescription().getTitle().toString(), newWp.getEnglishDescription().getShortDescription(), newWp.getEnglishDescription().getLongDescription());
 					}
 					mWaypointList.remove(i);
 					continue;
@@ -289,11 +286,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 			for (Waypoint wp : mWaypointList) {
 				// add what is left over
 				long waypointId = wpDataSource.addWaypoint(wp.getLatitude(), wp.getLongitude(), 0, wp.getId(), walkId, 0);
-				for (Description d : wp.getDescriptions()) {
-					if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
-						descrDataSource.addDescription(wp.getTitle(), d.getShortDescription(), d.getLongDescription(), waypointId);
-					}
-				}
+				descrDataSource.addDescription(wp.getEnglishDescription().getTitle(), wp.getEnglishDescription().getShortDescription(), wp.getEnglishDescription().getLongDescription(), waypointId);
 			}
 			mWaypointList.clear();
 		}
@@ -347,14 +340,10 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 			descrDataSource = new EnglishWaypointDescriptionDataSource(this);
 			for (Waypoint wp : mWaypointList) {
 				long waypointId = wpDataSource.addWaypoint(wp.getLatitude(), wp.getLongitude(), 0, wp.getId(), walkId, 0);
-				for (Description d : wp.getDescriptions()) {
-					if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
-						descrDataSource.addDescription(wp.getTitle(), d.getShortDescription(), d.getLongDescription(), waypointId);
-					}
-				}
+				descrDataSource.addDescription(wp.getEnglishDescription().getTitle(), wp.getEnglishDescription().getShortDescription(), wp.getEnglishDescription().getLongDescription(), waypointId);
 			}
-			mWaypointList.clear();
 		}
+			mWaypointList.clear();
 		onBackPressed();
 	}
 

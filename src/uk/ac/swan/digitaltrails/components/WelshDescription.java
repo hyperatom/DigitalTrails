@@ -12,11 +12,11 @@ public class WelshDescription extends Description {
 		setLanguage(Description.Languages.WELSH.ordinal());
 	}
 
+
 	public WelshDescription() {
 		setId(-1);
 		setTitle("");
 		setShortDescription("");
 		setLongDescription("");
 	}
-
 }

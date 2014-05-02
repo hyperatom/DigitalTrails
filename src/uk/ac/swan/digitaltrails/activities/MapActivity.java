@@ -231,9 +231,7 @@ public class MapActivity extends ActionBarActivity implements
 	private void showInfoViewDialog(Waypoint wp) {
 		Bundle args = new Bundle();
 		args.putString(InfoViewDialogFragment.ARG_TITLE, wp.getTitle());
-		if (wp.getDescriptions().size() > 0) {
-			args.putString(InfoViewDialogFragment.ARG_DESCRIPTION, wp.getDescriptions().get(0).getLongDescription());
-		}
+		args.putString(InfoViewDialogFragment.ARG_DESCRIPTION, wp.getEnglishDescription().getLongDescription());
 		DialogFragment dialog = new InfoViewDialogFragment();
 		dialog.setArguments(args);
 		dialog.show(getSupportFragmentManager(), "infoDialog");
@@ -344,7 +342,7 @@ public class MapActivity extends ActionBarActivity implements
 				mMarkers.add(mMap.addMarker(new MarkerOptions()
 						.position(new LatLng(wp.getLatitude(), wp.getLongitude()))
 						.title(wp.getTitle())
-						.snippet(wp.getDescriptions().get(0).getShortDescription()))); // TODO: Fix this. BAD - assuming only 1 desc.
+						.snippet(wp.getEnglishDescription().getShortDescription())));
 			}
 		}
 	}
@@ -407,7 +405,6 @@ public class MapActivity extends ActionBarActivity implements
 			if (mCurFilter == selectFilter.FILTER_WAYPOINT_WITH_DESCR) {
 				data.moveToPrevious();
 				Waypoint wp = new Waypoint();
-				ArrayList<Description> dList = new ArrayList<Description>();
 				ArrayList<Media> mediaList = new ArrayList<Media>();
 				while (data.moveToNext()) {
 					if (data.getLong(0) == wp.getId()) {
@@ -418,7 +415,6 @@ public class MapActivity extends ActionBarActivity implements
 						if (!data.isFirst()) {
 							mWaypoints.add(wp);
 						}
-						dList = new ArrayList<Description>();
 						mediaList = new ArrayList<Media>();
 						wp = new Waypoint();
 						wp.setId(data.getLong(0));
@@ -428,17 +424,16 @@ public class MapActivity extends ActionBarActivity implements
 						wp.setIsRequest(data.getInt(3));
 						wp.setVisitOrder(data.getInt(4));
 						wp.setTitle(data.getString(8));
-						Description desc = new EnglishDescription();
+						EnglishDescription desc = new EnglishDescription();
 						desc.setTitle(data.getString(8));
 						desc.setId(data.getLong(7));
 						desc.setShortDescription(data.getString(9));
 						desc.setLongDescription(data.getString(10));
-						dList.add(desc);
+						wp.setEnglishDescription(desc);
 						Media media = new Media();
 						media.setFileLocation(data.getString(11));
 						media.setWaypoint(wp);
 						wp.setMedia(mediaList);
-						wp.setDescriptions(dList);
 						wp.getMediaFiles().add(media);
 					}
 				}

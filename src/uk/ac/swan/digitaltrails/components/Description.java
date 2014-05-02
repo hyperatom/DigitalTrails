@@ -1,8 +1,9 @@
 package uk.ac.swan.digitaltrails.components;
 
+import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Description {
+public class Description implements Parcelable {
 
 	protected long mId;
 	protected String mTitle;
@@ -118,5 +119,18 @@ public class Description {
 	public String toString() {
 		return "Title:" + getTitle() + " Short: " + getShortDescription() + " Long: "
 				+ getLongDescription() + " Language: " + getLanguage();
+	}
+
+	// todo: impl parcelable.
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		
 	}
 }

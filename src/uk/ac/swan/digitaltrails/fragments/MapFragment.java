@@ -179,8 +179,7 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		double latitude = Double.parseDouble(((EditText) view.findViewById(R.id.latitude_edit)).getText().toString().trim());
 		double longitude = Double.parseDouble(((EditText) view.findViewById(R.id.longitude_edit)).getText().toString().trim());
 		wp.setTitle(title);
-		wp.setDescriptions(new ArrayList<Description>());
-		wp.getDescriptions().add(new EnglishDescription(0, title+ "description", snippet, description));
+		wp.setEnglishDescription(new EnglishDescription(0, title+ "description", snippet, description));
 		wp.setLatLng(new LatLng(latitude, longitude));
 		wp.setLatitude(latitude);
 		wp.setLongitude(longitude);
@@ -188,12 +187,7 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		MarkerOptions options = new MarkerOptions();
 		options.position(new LatLng(wp.getLatitude(), wp.getLongitude()));
 		options.title(wp.getTitle());
-		for (Description d : wp.getDescriptions()) {
-			Log.d(TAG, d.getShortDescription());
-			if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
-				options.snippet(d.getShortDescription());
-			}
-		}
+		options.snippet(wp.getEnglishDescription().getShortDescription());
 		mWaypointList.add(wp);
 		wp.setVisitOrder(mWaypointList.indexOf(wp));;
 		Marker marker = mMap.addMarker(options);
@@ -217,14 +211,7 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		args.putLong(EditWaypointDialogFragment.ARG_INDEX, mWaypointList.indexOf(waypoint));
 		args.putParcelable(EditWaypointDialogFragment.ARG_POSITION, waypoint.getLatLng());
 		args.putString(EditWaypointDialogFragment.ARG_TITLE, waypoint.getTitle());
-		if (waypoint.getDescriptions().size() > 0) {
-			for (Description d : waypoint.getDescriptions()) {
-				if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
-					args.putString(EditWaypointDialogFragment.ARG_DESCRIPTION, d.getLongDescription());
-					break;
-				}
-			}
-		}
+		args.putString(EditWaypointDialogFragment.ARG_DESCRIPTION, waypoint.getEnglishDescription().getLongDescription());
 		DialogFragment editWpDialog = new EditWaypointDialogFragment();
 		editWpDialog.setArguments(args);
 		editWpDialog.setTargetFragment(this, 0);
@@ -302,11 +289,7 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 				MarkerOptions options = new MarkerOptions();
 				options.position(new LatLng(wp.getLatitude(), wp.getLongitude()));
 				options.title(wp.getTitle());
-				for (Description d : wp.getDescriptions()) {
-					if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
-						options.snippet(d.getShortDescription());
-					}
-				}
+				options.snippet(wp.getEnglishDescription().getShortDescription());
 				mMarkers.add(mMap.addMarker(options));
 			}
 		}
@@ -353,7 +336,7 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 					wp.setIsRequest(data.getInt(3));
 					wp.setVisitOrder(data.getInt(4));
 					wp.setTitle(data.getString(8));
-					Description desc = new EnglishDescription();
+					EnglishDescription desc = new EnglishDescription();
 					desc.setTitle(data.getString(8));
 					desc.setId(data.getLong(7));
 					desc.setShortDescription(data.getString(9));
@@ -363,7 +346,8 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 					media.setFileLocation(data.getString(11));
 					media.setWaypoint(wp);
 					wp.setMedia(mediaList);
-					wp.setDescriptions(dList);
+					wp.setEnglishDescription(desc);
+					wp.setWelshDescription(null);
 					wp.getMediaFiles().add(media);
 				}
 			}

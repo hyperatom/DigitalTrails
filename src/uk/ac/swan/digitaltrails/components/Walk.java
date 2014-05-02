@@ -7,9 +7,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import uk.ac.swan.digitaltrails.utils.Duration;
 
-public class Walk {
+public class Walk implements Parcelable {
 	private long mId;
-	private ArrayList<Description> mDescriptions;
+	private EnglishDescription mEnglishDescription;
+	private WelshDescription mWelshDescription;
 	private Duration mDuration;
 	/** Total distance to walk in miles */
 	private double mDistance;
@@ -42,19 +43,22 @@ public class Walk {
 		return mId;
 	}
 
-	public ArrayList<Description> getDescriptions() {
-		return mDescriptions;
+	public EnglishDescription getEnglishDescriptions() {
+		return mEnglishDescription;
 	}
 
-	public boolean setDescriptions(ArrayList<Description> descriptions) {
-		mDescriptions = descriptions;
+	public boolean setEnglishDescriptions(EnglishDescription description) {
+		mEnglishDescription = description;
 		return true;
 	}
+	
+	public WelshDescription getWelshDescriptions() {
+		return mWelshDescription;
+	}
 
-	protected void setDescriptions(Parcelable[] readParcelableArray) {
-		mDescriptions.clear();
-		mDescriptions = (ArrayList<Description>) Arrays.asList((Description[])readParcelableArray);
-		// No idea if that works...
+	public boolean setWelshDescriptions(WelshDescription description) {
+		mWelshDescription = description;
+		return true;
 	}
 
 	/**
@@ -187,5 +191,60 @@ public class Walk {
 		setOwnerId(ownerId);
 		setDownloadCount(downloadCount);
 		setDifficultyRating(difficulty);
+	}
+
+	public String toString() {
+		return this.mEnglishDescription.mTitle;
+	}
+
+	public static final Parcelable.Creator<Walk> CREATOR = new Creator<Walk>() {
+		public Walk createFromParcel(Parcel in) {
+			Walk newWalk = new Walk();
+			newWalk.setId(in.readLong());
+			newWalk.setEnglishDescription(in.readParcelable(EnglishDescription.class.getClassLoader()));
+			newWalk.setWelshDescription(in.readParcelable(WelshDescription.class.getClassLoader()));
+			newWalk.setDuration(new Duration(in.readInt(), in.readInt()));
+			newWalk.setDistance(in.readDouble());
+			//newWalk.setWaypoints(in.readTypedList(new ArrayList<Waypoint>(), Waypoint.CREATOR));
+			return newWalk;
+		}
+
+		@Override
+		public Walk[] newArray(int size) {
+			// TODO Auto-generated method stub
+			return new Walk[size];
+		}
+	};
+	
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	protected void setWelshDescription(Parcelable readParcelable) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void setEnglishDescription(Parcelable readParcelable) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeLong(mId);
+		dest.writeParcelable(mEnglishDescription, flags);
+		dest.writeParcelable(mWelshDescription, flags);
+		dest.writeInt(mDuration.getHours());
+		dest.writeInt(mDuration.getMinutes());
+		dest.writeDouble(mDistance);
+		Waypoint[] tempArray = new Waypoint[mWaypoints.size()];
+		mWaypoints.toArray(tempArray);
+		dest.writeParcelableArray(tempArray, flags);
+		dest.writeLong(mOwnerId);
+		dest.writeLong(mDownloadCount);
+		dest.writeInt(mDifficultyRating);
 	}
 }

@@ -7,10 +7,13 @@ package uk.ac.swan.digitaltrails.components;
 
 import java.util.ArrayList;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
-public class Waypoint {
+public class Waypoint implements Parcelable {
 
 	private long mId;
 	private String mTitle;
@@ -20,10 +23,11 @@ public class Waypoint {
 	private Marker mMarker;
 	private int mVisitOrder;
 	private boolean mIsRequest; 
+	private EnglishDescription mEnglishDescr;
+	private WelshDescription mWelshDescr;
 	private ArrayList<Photo> mPhotos;
 	private ArrayList<Audio> mAudioFiles;
 	private ArrayList<Video> mVideos;
-	private ArrayList<Description> mDescriptions;
 	private ArrayList<Media> mMedia;
 	private long mUserId;
 	private long mWalkId;
@@ -141,12 +145,20 @@ public class Waypoint {
 	}
 
 	
-	public ArrayList<Description> getDescriptions() {
-		return mDescriptions;
+	public WelshDescription getWelshDescription() {
+		return mWelshDescr;
 	}
 	
-	public void setDescriptions(ArrayList<Description> descriptions) {
-		mDescriptions = descriptions;
+	public void setWelshDescription(WelshDescription welshDescr) {
+		mWelshDescr = welshDescr;
+	}
+	
+	public EnglishDescription getEnglishDescription() {
+		return mEnglishDescr;
+	}
+	
+	public void setEnglishDescription(EnglishDescription englishDescr) {
+		mEnglishDescr = englishDescr;
 	}
 	
 	public long getWalkId() {
@@ -177,7 +189,7 @@ public class Waypoint {
 		setLatLng(new LatLng(mLatitude, mLongitude));
 	}
 
-	public Waypoint(int id, String title, ArrayList<Description> descriptions, double longitude, double latitude,
+	public Waypoint(int id, String title, EnglishDescription engDescr, WelshDescription welshDescr, double longitude, double latitude,
 			ArrayList<Photo> photos, ArrayList<Audio> audioFiles,
 			ArrayList<Video> videos) {
 		setId(id);
@@ -187,11 +199,24 @@ public class Waypoint {
 		setPhotos(photos);
 		setAudioFiles(audioFiles);
 		setVideos(videos);
-		setDescriptions(descriptions);
+		setEnglishDescription(engDescr);
+		setWelshDescription(welshDescr);
 		setLatLng(new LatLng(mLatitude, mLongitude));
 	}
 	
 	public String toString() {
 		return mTitle + " " + mLatitude + " " + mLongitude;		
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		
 	}
 }
