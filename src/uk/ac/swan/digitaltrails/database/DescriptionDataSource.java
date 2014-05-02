@@ -28,6 +28,7 @@ public abstract class DescriptionDataSource extends DataSource {
 		values.put(allColumns[3], longDescr);
 		values.put(allColumns[4], foreignId);
 		Uri newDescr = mContext.getContentResolver().insert(uri, values);
+		Log.d(TAG, "New description id = " + newDescr);
 		return ContentUris.parseId(newDescr);
 	}
 
@@ -54,9 +55,14 @@ public abstract class DescriptionDataSource extends DataSource {
 		if (longDescr != null) {
 			values.put(allColumns[3], longDescr);
 		}
+		Log.d(TAG, "Where: " + allColumns[0] + " == " + id);
 		int numUpdates = mContext.getContentResolver().update(uri, values, allColumns[0] + " == " + id, null);
 		Log.d(TAG, uri + " " + values.toString() + " " + allColumns[0] + " == " + id);
-		Log.d(TAG, "Updated Description " + id + "updated: " + numUpdates);
+		if (numUpdates == 0) {
+			Log.e(TAG, "Failed to update Description " + id);
+		} else {
+			Log.d(TAG, "Updated Description " + id + "updated: " + numUpdates);
+		}
 	}
 	
 	/**

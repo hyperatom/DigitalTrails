@@ -213,7 +213,6 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	}
 
 	public void editEditWaypointButtonOnClick(View view) {
-
 	}
 
 	public void editCancelButtonOnClick(View view){
@@ -243,15 +242,19 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		// get old waypoints in the walk
 		Cursor cursor = wpDataSource.getAllWaypointsInWalk(walkId);
 		if (cursor != null && cursor.moveToFirst()) {
+			cursor.moveToPrevious();
+			Log.d(TAG, "Old Waypoints");
 			while (cursor.moveToNext()) {
 				Waypoint wp = new Waypoint();
-				wp.setId(cursor.getInt(0));
+				wp.setId(cursor.getLong(0));
 				wp.setLatitude(cursor.getDouble(1));
 				wp.setLongitude(cursor.getDouble(2));
 				wp.setIsRequest(cursor.getInt(3));
 				wp.setVisitOrder(cursor.getInt(4));
 				wp.setWalkId(cursor.getInt(5));
 				oldWaypoints.add(wp);
+				Log.d(TAG, String.valueOf(wp.getId()));
+				
 			}
 		}
 		
@@ -264,9 +267,17 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 					Waypoint newWp = mWaypointList.get(i);
 					wpDataSource.updateWaypoint(wp.getId(), newWp.getLatitude(), newWp.getLongitude(), null, (long) newWp.getVisitOrder(), null, null);
 					for (Description d : newWp.getDescriptions()) {
-						descrDataSource.updateDescription(d.getId(), title.getText().toString(), shortDescr, longDescr);
+						// Add these -1's to the database as a new value. I just don'tw ant to find new id spots, just gonna let the db deal with it.
+						if (d.getId() == -1) {
+							Log.d(TAG, "Adding new descr");
+							descrDataSource.addDescription(d.getTitle().toString(), d.getShortDescription(), d.getLongDescription(), wp.getId());
+						} else {
+							Log.d(TAG, "Updating descr");
+							descrDataSource.updateDescription(d.getId(), d.getTitle().toString(), d.getShortDescription(), d.getLongDescription());
+						}
 					}
 					mWaypointList.remove(i);
+					continue;
 				} else {
 					// delete if we can't find it
 					descrDataSource.deleteAllDescriptions(wp.getId());

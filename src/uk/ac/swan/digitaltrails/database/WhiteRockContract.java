@@ -383,7 +383,7 @@ public class WhiteRockContract {
 	
 		public static final String[] PROJECTION_ALL = {DbSchema.TABLE_WAYPOINT+"."+WaypointColumns.ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER,
 														WaypointColumns.WALK_ID, USER_ID,
-														TITLE, SHORT_DESCR, LONG_DESCR,
+														DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR+"."+DescriptionColumns.ID, TITLE, SHORT_DESCR, LONG_DESCR,
 														DbSchema.TABLE_WAYPOINT_AUDIO+"."+FILE_NAME,
 														DbSchema.TABLE_WAYPOINT_IMAGE+"."+FILE_NAME,
 														DbSchema.TABLE_WAYPOINT_VIDEO+"."+FILE_NAME};

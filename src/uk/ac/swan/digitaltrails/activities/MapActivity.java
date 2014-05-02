@@ -1,13 +1,11 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import uk.ac.swan.digitaltrails.R;
-import uk.ac.swan.digitaltrails.components.Audio;
 import uk.ac.swan.digitaltrails.components.Description;
+import uk.ac.swan.digitaltrails.components.EnglishDescription;
 import uk.ac.swan.digitaltrails.components.Media;
-import uk.ac.swan.digitaltrails.components.Video;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.ErrorDialogFragment;
@@ -15,12 +13,10 @@ import uk.ac.swan.digitaltrails.fragments.InfoViewDialogFragment;
 import uk.ac.swan.digitaltrails.utils.ReceiveTransitionsIntentService;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
@@ -57,7 +53,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.plus.model.people.Person.Image;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 /**
@@ -106,7 +101,7 @@ public class MapActivity extends ActionBarActivity implements
 	private REQUEST_TYPE mRequestType;
 	private boolean mInProgress;
 	private PendingIntent mTransitionPendingIntent;
-	
+	private int numVisited = 0;
 	private enum selectFilter {FILTER_WAYPOINT_WITH_DESCR, FILTER_WAYPOINT_WITH_MEDIA };
 	
 	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
@@ -166,9 +161,15 @@ public class MapActivity extends ActionBarActivity implements
 							Log.d(TAG, "In Marker found, showing window");
 							m.showInfoWindow();
 							m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+							numVisited++;
 						}
 					}
 				}
+			}
+		}
+		for (Waypoint wp : mWaypoints) {
+			if (wp.getVisitOrder() == numVisited + 1) {
+				mMarkers.get(mWaypoints.indexOf(wp)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
 			}
 		}
 	}
@@ -404,54 +405,43 @@ public class MapActivity extends ActionBarActivity implements
 		// create Waypoints from all the db info.
 		if (data != null && data.moveToFirst()) {
 			if (mCurFilter == selectFilter.FILTER_WAYPOINT_WITH_DESCR) {
+				data.moveToPrevious();
+				Waypoint wp = new Waypoint();
 				ArrayList<Description> dList = new ArrayList<Description>();
 				ArrayList<Media> mediaList = new ArrayList<Media>();
-				Waypoint wp = new Waypoint();
-				wp.setId(data.getLong(0));
-				wp.setLatitude(data.getDouble(1));
-				wp.setLongitude(data.getDouble(2));
-				wp.setIsRequest(data.getInt(3));
-				wp.setVisitOrder(data.getInt(4));
-				wp.setTitle(data.getString(7));
-				Description desc = new Description();
-				desc.setLanguage(Description.Languages.ENGLISH.ordinal());
-				desc.setShortDescription(data.getString(8));
-				desc.setLongDescription(data.getString(9));
-				dList.add(desc);
-				Media media = new Media();
-				media.setFileLocation(data.getString(10));
-				media.setWaypoint(wp);
-				wp.setMedia(mediaList);
-				wp.setDescriptions(dList);
-				wp.getMediaFiles().add(media);
-
 				while (data.moveToNext()) {
 					if (data.getLong(0) == wp.getId()) {
-						media = new Media();
-						media.setFileLocation(data.getString(10));
+						Media media = new Media();
+						media.setFileLocation(data.getString(11));
+						wp.getMediaFiles().add(media);
 					} else { 
-						mWaypoints.add(wp);
+						if (!data.isFirst()) {
+							mWaypoints.add(wp);
+						}
+						dList = new ArrayList<Description>();
+						mediaList = new ArrayList<Media>();
 						wp = new Waypoint();
 						wp.setId(data.getLong(0));
 						wp.setLatitude(data.getDouble(1));
 						wp.setLongitude(data.getDouble(2));
+						wp.setLatLng(new LatLng(wp.getLatitude(), wp.getLongitude()));
 						wp.setIsRequest(data.getInt(3));
 						wp.setVisitOrder(data.getInt(4));
-						wp.setTitle(data.getString(7));
-						desc = new Description();
-						desc.setLanguage(Description.Languages.ENGLISH.ordinal());
-						desc.setShortDescription(data.getString(8));
-						desc.setLongDescription(data.getString(9));
+						wp.setTitle(data.getString(8));
+						Description desc = new EnglishDescription();
+						desc.setTitle(data.getString(8));
+						desc.setId(data.getLong(7));
+						desc.setShortDescription(data.getString(9));
+						desc.setLongDescription(data.getString(10));
 						dList.add(desc);
-						media = new Media();
-						media.setFileLocation(data.getString(10));
+						Media media = new Media();
+						media.setFileLocation(data.getString(11));
 						media.setWaypoint(wp);
 						wp.setMedia(mediaList);
 						wp.setDescriptions(dList);
 						wp.getMediaFiles().add(media);
 					}
 				}
-				
 				// add the last waypoint
 				mWaypoints.add(wp);
 				createMarkers(mWaypoints);

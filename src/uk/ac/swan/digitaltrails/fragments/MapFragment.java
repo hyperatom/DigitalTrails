@@ -6,15 +6,21 @@ import java.util.List;
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.EnglishDescription;
+import uk.ac.swan.digitaltrails.components.Media;
 import uk.ac.swan.digitaltrails.components.Waypoint;
+import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.AddWaypointDialogFragment.AddWaypointDialogListener;
-import uk.ac.swan.digitaltrails.fragments.EditWaypointDialogFragment.EditWaypointDialogListener;
 import android.app.Activity;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,7 +34,6 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -43,7 +48,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapFragment extends Fragment implements
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener,
-AddWaypointDialogListener {
+LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 
 	/** Debugging tag */
 	private static final String TAG = "MapFragment";
@@ -54,11 +59,13 @@ AddWaypointDialogListener {
 	/** current LocationClient */
 	protected LocationClient mLocationClient;
 	/** Waypoints for walk */
-	protected List<Waypoint> mWaypointList;
+	protected ArrayList<Waypoint> mWaypointList;
 	/** Listen for when we close the map */
 	protected OnMapClosedListener mCallback;
 	/** ArrayList of Markers currently on the map */
 	protected ArrayList<Marker> mMarkers;
+
+	public static String ARG_POSITION = "position";
 
 	public interface OnMapClosedListener {
 		public void onMapClosed(List<Waypoint> waypointList);
@@ -107,6 +114,7 @@ AddWaypointDialogListener {
 		super.onStart();
 		Log.d(TAG, "onStart");
 		initMap();
+		mMarkers = new ArrayList<Marker>();
 		mLocationClient.connect();
 	}
 
@@ -181,14 +189,16 @@ AddWaypointDialogListener {
 		options.position(new LatLng(wp.getLatitude(), wp.getLongitude()));
 		options.title(wp.getTitle());
 		for (Description d : wp.getDescriptions()) {
+			Log.d(TAG, d.getShortDescription());
 			if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
 				options.snippet(d.getShortDescription());
 			}
 		}
+		mWaypointList.add(wp);
+		wp.setVisitOrder(mWaypointList.indexOf(wp));;
 		Marker marker = mMap.addMarker(options);
 		marker.setDraggable(true);
 		mMarkers.add(marker);
-		mWaypointList.add(wp);
 	}
 
 	
@@ -207,7 +217,6 @@ AddWaypointDialogListener {
 		args.putLong(EditWaypointDialogFragment.ARG_INDEX, mWaypointList.indexOf(waypoint));
 		args.putParcelable(EditWaypointDialogFragment.ARG_POSITION, waypoint.getLatLng());
 		args.putString(EditWaypointDialogFragment.ARG_TITLE, waypoint.getTitle());
-		Log.d(TAG, "showEditDialog - descrSize: " + waypoint.getDescriptions().size());
 		if (waypoint.getDescriptions().size() > 0) {
 			for (Description d : waypoint.getDescriptions()) {
 				if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
@@ -287,6 +296,93 @@ AddWaypointDialogListener {
 
 	}
 
-	
+	protected void createMarkers(ArrayList<Waypoint> waypoints) {
+		for (Waypoint wp : waypoints) {
+			if (wp.isRequest() == false) {
+				MarkerOptions options = new MarkerOptions();
+				options.position(new LatLng(wp.getLatitude(), wp.getLongitude()));
+				options.title(wp.getTitle());
+				for (Description d : wp.getDescriptions()) {
+					if (d.getLanguage() == Description.Languages.ENGLISH.ordinal()) {
+						options.snippet(d.getShortDescription());
+					}
+				}
+				mMarkers.add(mMap.addMarker(options));
+			}
+		}
+		for (Marker m : mMarkers) {
+			m.setDraggable(true);
+		}
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		Uri baseUri = WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_URI;
+		String 	select  = "((" + WhiteRockContract.Waypoint.WALK_ID + " == " + args.getInt(ARG_POSITION) + "))";
+		// PROJECT_ALL for reference {WaypointColumns.ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER,
+		//WaypointColumns.WALK_ID, USER_ID,
+		//DescriptionColumns.ID TITLE, SHORT_DESCR, LONG_DESCR,
+		//FILE_NAME};
+		return new CursorLoader(getActivity().getBaseContext(), baseUri, WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.PROJECTION_ALL, select, null, WhiteRockContract.WaypointWithEnglishDescription.VISIT_ORDER + " COLLATE LOCALIZED ASC");
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		// create Waypoints from all the db info.
+		if (data != null && data.moveToFirst()) {
+			data.moveToPrevious();
+			Waypoint wp = new Waypoint();
+			ArrayList<Description> dList = new ArrayList<Description>();
+			ArrayList<Media> mediaList = new ArrayList<Media>();
+			while (data.moveToNext()) {
+				if (data.getLong(0) == wp.getId()) {
+					Media media = new Media();
+					media.setFileLocation(data.getString(11));
+					wp.getMediaFiles().add(media);
+				} else { 
+					if (!data.isFirst()) {
+						mWaypointList.add(wp);
+					}
+					dList = new ArrayList<Description>();
+					mediaList = new ArrayList<Media>();
+					wp = new Waypoint();
+					wp.setId(data.getLong(0));
+					wp.setLatitude(data.getDouble(1));
+					wp.setLongitude(data.getDouble(2));
+					wp.setLatLng(new LatLng(wp.getLatitude(), wp.getLongitude()));
+					wp.setIsRequest(data.getInt(3));
+					wp.setVisitOrder(data.getInt(4));
+					wp.setTitle(data.getString(8));
+					Description desc = new EnglishDescription();
+					desc.setTitle(data.getString(8));
+					desc.setId(data.getLong(7));
+					desc.setShortDescription(data.getString(9));
+					desc.setLongDescription(data.getString(10));
+					dList.add(desc);
+					Media media = new Media();
+					media.setFileLocation(data.getString(11));
+					media.setWaypoint(wp);
+					wp.setMedia(mediaList);
+					wp.setDescriptions(dList);
+					wp.getMediaFiles().add(media);
+				}
+			}
+			// add last wp.
+			mWaypointList.add(wp);
+			createMarkers(mWaypointList);
+		} 
+
+		// In practice we may want to set the bounds to be that of the area we are walking in.
+		// for now I'm just going to zoom in this close cause I can.
+		if (mMarkers.size() > 0) {
+			mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mMarkers.get(0).getPosition(), 15)); 
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> arg0) {
+		// TODO Auto-generated method stub
+	}
+
 
 }

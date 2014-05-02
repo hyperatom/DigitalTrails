@@ -93,12 +93,12 @@ public class AddWaypointDialogFragment extends DialogFragment {
 		if (args.getString(ARG_TITLE) != null) {
 			((EditText) view.findViewById(R.id.name_edit)).setText(args.getString(ARG_TITLE));
 		} else {
-			((EditText) view.findViewById(R.id.name_edit)).setText("Waypoint");
+			((EditText) view.findViewById(R.id.name_edit)).setText("None Found");
 		}
 		if (args.getString(ARG_DESCRIPTION) != null) {
 			((EditText) view.findViewById(R.id.description_edit)).setText(args.getString(ARG_DESCRIPTION));		
 		} else {
-			((EditText) view.findViewById(R.id.description_edit)).setText("Waypoint");			
+			((EditText) view.findViewById(R.id.description_edit)).setText("None Found");			
 		}
 
 		((EditText) view.findViewById(R.id.latitude_edit)).setText(lat);
