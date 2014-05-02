@@ -34,6 +34,10 @@ public class WhiteRockServerAccessor {
 		mAccount = account;
 	}
 	
+	public WhiteRockServerAccessor() {
+		
+	}
+	
 	/**
 	 * Method which gets all walks.
 	 * @throws Exception
@@ -42,7 +46,6 @@ public class WhiteRockServerAccessor {
 		
 		String response = HTTP.get(HTTP.BASEURL+"/walks");
        
-
 		Gson gson = new GsonBuilder().create();
 
         return gson.fromJson(response, new TypeToken<List<Walk>>(){}.getType());

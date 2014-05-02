@@ -1,16 +1,25 @@
 package uk.ac.swan.digitaltrails.fragments;
 
+import java.util.List;
+
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
+import uk.ac.swan.digitaltrails.activities.SearchActivity;
+import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import uk.ac.swan.digitaltrails.sync.WalkLoader;
+import uk.ac.swan.digitaltrails.sync.WalkLoaderAdapter;
+import uk.ac.swan.digitaltrails.sync.WhiteRockServerAccessor;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -24,12 +33,12 @@ import android.view.View;
 import android.widget.ListView;
 
 public class SearchListFragment extends ListFragment 
-	implements LoaderCallbacks<Cursor>, OnQueryTextListener {
+	implements LoaderCallbacks<List<Walk>>, OnQueryTextListener {
 
 	private static final String TAG = "SearchListFragment";
 	
 	private OnWalkSelectedListener mCallback;
-	private SimpleCursorAdapter mAdapter;
+	private WalkLoaderAdapter mAdapter;
 	private SearchView mSearchView;
 	private int mLayout;
 	private String mCurFilter;
@@ -58,20 +67,11 @@ public class SearchListFragment extends ListFragment
 		// change layout depending on version of android;
 		mLayout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
 				android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
-		if (mConnectedAccount == null) {
-			Log.d(TAG, "Account empty");
-			//setEmptyText("Not Logged In");
-		} else {
-			Log.d(TAG, "Account connected - lets do this");
-			Bundle bundle = new Bundle();
-			// sync no matter what
-			bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-			bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-			ContentResolver.requestSync(mConnectedAccount, WhiteRockContract.AUTHORITY, bundle);
-		}
-//		
+
+		
+		//		
 //		//TODO: Call from API.
-//		//mAdapter = new SimpelCursorAdapter(getActivity(), mLayout, null)
+//		//
 //		setListAdapter(mAdapter);
 //		setListShown(false);
 //		getLoaderManager().initLoader(0, null, this);
@@ -104,31 +104,21 @@ public class SearchListFragment extends ListFragment
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-	}
-	
-	@Override
-	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		Uri baseUri;
-		// TODO Get API Uri etc.
-		return null;
-	}
-
-
-	@Override
-	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-		mAdapter.swapCursor(data);
 		
-		if (isResumed()) {
-			setListShown(true);
+		if (mConnectedAccount == null) {
+			Log.d(TAG, "Account empty");
+			//setEmptyText("Not Logged In");
 		} else {
-			setListShownNoAnimation(true);
+			Log.d(TAG, "Account connected - lets do this");
+			Bundle bundle = new Bundle();
+			// sync no matter what
+//			bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+//			bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+//			ContentResolver.requestSync(mConnectedAccount, WhiteRockContract.AUTHORITY, bundle);
+			mAdapter = new WalkLoaderAdapter(this.getActivity().getBaseContext(), null);
+			getLoaderManager().initLoader(0,  null,  this);
 		}
-	}
 
-
-	@Override
-	public void onLoaderReset(Loader<Cursor> arg0) {
-		mAdapter.swapCursor(null);
 	}
 
 
@@ -143,6 +133,24 @@ public class SearchListFragment extends ListFragment
 	public boolean onQueryTextSubmit(String arg0) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+
+	@Override
+	public Loader<List<Walk>> onCreateLoader(int arg0, Bundle arg1) {
+		return new WalkLoader(getActivity().getApplicationContext());
+	}
+
+
+	@Override
+	public void onLoadFinished(Loader<List<Walk>> arg0, List<Walk> walks) {
+		mAdapter.setValues(walks);
+	}
+
+
+	@Override
+	public void onLoaderReset(Loader<List<Walk>> arg0) {
+		mAdapter.clear();
 	}
 
 } 
