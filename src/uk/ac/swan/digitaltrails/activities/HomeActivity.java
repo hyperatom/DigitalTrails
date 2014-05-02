@@ -1,6 +1,7 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
+import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,11 +16,13 @@ public class HomeActivity extends ActionBarActivity{
 
 	@SuppressWarnings("unused")
 	private static final String TAG = "MyWalksActivity";
-	
+	private Account mConnectedAccount;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_view);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		Intent intent = getIntent();
+		mConnectedAccount = (Account) intent.getParcelableExtra("account");
 	}
 	
 	@Override
@@ -35,11 +38,13 @@ public class HomeActivity extends ActionBarActivity{
 	}
 	public void searchButton(View view){
         Intent intent = new Intent(this, SearchActivity.class);
+        
         startActivity(intent);
     }
 	
 	public void walkOptionButton(View view){
         Intent intent = new Intent(this, MyWalksActivity.class);
+        intent.putExtra("account", getIntent().getParcelableExtra("account"));
         startActivity(intent);
     }
 	

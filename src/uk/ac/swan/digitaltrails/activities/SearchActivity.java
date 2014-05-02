@@ -1,7 +1,10 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
 import uk.ac.swan.digitaltrails.fragments.*;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,12 +27,16 @@ public class SearchActivity extends ActionBarActivity implements
 SearchListFragment.OnWalkSelectedListener  {
 
 	public static final String TAG = "SearchActivity";
-
+	private Account mConnectedAccount;
+	
+	public Account getConnectedAccount() {
+		return mConnectedAccount;
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
-
 		if (findViewById(R.id.fragment_container) != null) {
 
 			if (savedInstanceState != null) {
@@ -38,7 +46,7 @@ SearchListFragment.OnWalkSelectedListener  {
 			SearchListFragment searchListFragment = new SearchListFragment();
 			searchListFragment.setArguments(getIntent().getExtras());
 			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchListFragment).commit();
-		}
+		} 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 

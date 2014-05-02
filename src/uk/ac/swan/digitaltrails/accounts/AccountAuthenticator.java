@@ -18,7 +18,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 	
 	public AccountAuthenticator(Context context) {
 		super(context);
-		this.mContext = context;
+		this.mContext = context.getApplicationContext();
+		Log.d(TAG, "context: " + mContext);
 	}
 
 	@Override

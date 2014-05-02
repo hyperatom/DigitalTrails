@@ -1,8 +1,14 @@
 package uk.ac.swan.digitaltrails.fragments;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
+import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -13,18 +19,27 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
 public class SearchListFragment extends ListFragment 
 	implements LoaderCallbacks<Cursor>, OnQueryTextListener {
 
+	private static final String TAG = "SearchListFragment";
+	
 	private OnWalkSelectedListener mCallback;
 	private SimpleCursorAdapter mAdapter;
 	private SearchView mSearchView;
 	private int mLayout;
 	private String mCurFilter;
-
+	private Account mConnectedAccount;
+	private Context mContext;
+	
+	public void setConnectedAccount(Account account) {
+		mConnectedAccount = account;
+	}
+	
 	public interface OnWalkSelectedListener {
 		public void onWalkSelected(int position);
 	}
@@ -43,17 +58,39 @@ public class SearchListFragment extends ListFragment
 		// change layout depending on version of android;
 		mLayout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
 				android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
+		if (mConnectedAccount == null) {
+			Log.d(TAG, "Account empty");
+			//setEmptyText("Not Logged In");
+		} else {
+			Log.d(TAG, "Account connected - lets do this");
+			Bundle bundle = new Bundle();
+			// sync no matter what
+			bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+			bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+			ContentResolver.requestSync(mConnectedAccount, WhiteRockContract.AUTHORITY, bundle);
+		}
+//		
+//		//TODO: Call from API.
+//		//mAdapter = new SimpelCursorAdapter(getActivity(), mLayout, null)
+//		setListAdapter(mAdapter);
+//		setListShown(false);
+//		getLoaderManager().initLoader(0, null, this);
+
 	}
 	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-
 		try {
 			mCallback = (OnWalkSelectedListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString() + " must implemented onWalkSelectedListener");
 		}
+		mContext = activity.getBaseContext();
+		AccountManager am = AccountManager.get(mContext);
+		Account[] accounts = am.getAccountsByType(AccountGeneral.ACCOUNT_TYPE);
+		mConnectedAccount = accounts[0];
+
 	}
 	
 	@Override
@@ -67,13 +104,6 @@ public class SearchListFragment extends ListFragment
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
-		setEmptyText("No Walks Found"); // TODO: Load from resources
-		//TODO: Call from API.
-		//mAdapter = new SimpelCursorAdapter(getActivity(), mLayout, null)
-		setListAdapter(mAdapter);
-		setListShown(false);
-		getLoaderManager().initLoader(0, null, this);
 	}
 	
 	@Override

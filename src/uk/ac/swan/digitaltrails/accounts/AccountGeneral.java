@@ -2,7 +2,7 @@ package uk.ac.swan.digitaltrails.accounts;
 
 public class AccountGeneral {
 	
-	public static final String ACCOUNT_TYPE = "whiterock.digitaltrails";
+	public static final String ACCOUNT_TYPE = "uk.ac.swan.digitaltrails";
 	
 	public static final String ACCOUNT_NAME = "DigiTrails";
 	

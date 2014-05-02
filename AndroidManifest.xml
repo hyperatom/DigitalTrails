@@ -43,6 +43,7 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/whiterock_authenticator" />
         </service>
+        
         <service
             android:name=".sync.WhiteRockSyncService"
             android:exported="true" >

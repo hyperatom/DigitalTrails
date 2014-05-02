@@ -23,8 +23,7 @@ public class SignUpActivity extends Activity {
 	protected void onCreate(Bundle savedInstnaceState) {
 		super.onCreate(savedInstnaceState);
 		
-		mAccountType = getIntent().getStringExtra(AccountGeneral.ACCOUNT_TYPE);
-		Log.d(TAG, "mAccountType: " + mAccountType);
+		mAccountType = AccountGeneral.ACCOUNT_TYPE;
 		setContentView(R.layout.act_register);
 		
 		findViewById(R.id.alreadyMember).setOnClickListener(new View.OnClickListener() {

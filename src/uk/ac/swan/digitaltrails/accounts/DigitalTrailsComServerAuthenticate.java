@@ -49,7 +49,7 @@ public class DigitalTrailsComServerAuthenticate implements ServerAuthenticate {
 		Log.d(TAG, response);
 					        
 	    Account loggedIn = gson.fromJson(response, Account.class);
-		
+		Log.d(TAG, "pass = " + loggedIn.password);
 	    return loggedIn.password;
 
 	}

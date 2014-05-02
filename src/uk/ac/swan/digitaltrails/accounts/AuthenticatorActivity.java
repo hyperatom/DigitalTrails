@@ -40,8 +40,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_login);
-		mAccountManager = AccountManager.get(getBaseContext());
-	
+		mAccountManager = AccountManager.get(getBaseContext().getApplicationContext());
+		Log.d(TAG, "context: " + getBaseContext().getApplicationContext());
 		String accountName = getIntent().getStringExtra(ACCOUNT_NAME);
 		mAuthTokenType = getIntent().getStringExtra(AUTH_TYPE);
 		
@@ -65,7 +65,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent signup = new Intent(getBaseContext(), SignUpActivity.class);
+				Intent signup = new Intent(getBaseContext().getApplicationContext(), SignUpActivity.class);
 				signup.putExtras(getIntent().getExtras());
 				startActivityForResult(signup, REQ_SIGNUP);
 			}
@@ -87,7 +87,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		final String userName = ((TextView) findViewById(R.id.accountName)).getText().toString();
 		final String userPassword = ((TextView) findViewById(R.id.accountPassword)).getText().toString();
 		
-		final String accountType = "User";
+		final String accountType = AccountGeneral.ACCOUNT_TYPE;
 
 		new AsyncTask<String, Void, Intent>() {
 
@@ -131,13 +131,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		final Account account = new Account(accountName, intent.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE));
 		Log.d(TAG, "Alive before if: line 132");
 		if (getIntent().getBooleanExtra(IS_ADDING_NEW_ACCOUNT, false)) {
+			Log.d(TAG, "NOT Adding new account");
 			String authToken = intent.getStringExtra(AccountManager.KEY_AUTHTOKEN);
 			String authTokenType = mAuthTokenType;
-			
+			Log.d(TAG, "authTokenType: " + authTokenType);
+			Log.d(TAG, "Account: " + account.toString());
 			// create local account, set auth token.
 			mAccountManager.addAccountExplicitly(account, accountPassword, intent.getBundleExtra(AccountManager.KEY_USERDATA));
 			mAccountManager.setAuthToken(account, authTokenType, authToken);
-			Log.d(TAG, "Alive at end of if: line 140");
+			Log.d(TAG, "Alive at end of if: line 142");
 		} else {
 			mAccountManager.setPassword(account, accountPassword);;
 		}

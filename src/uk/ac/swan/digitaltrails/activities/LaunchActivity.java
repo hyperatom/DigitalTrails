@@ -10,6 +10,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,7 +32,8 @@ public class LaunchActivity extends ActionBarActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launch);
 		getSupportActionBar().hide();
-		mAccountManager = AccountManager.get(this);
+		mAccountManager = AccountManager.get(getBaseContext().getApplicationContext());
+		Log.d(TAG, "context: " + getBaseContext().getApplicationContext());
 		LaunchFragment launchFragment = new LaunchFragment();
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_launcher, launchFragment).commit();
 	}
@@ -99,6 +101,7 @@ public class LaunchActivity extends ActionBarActivity{
 	}
 	
 	private void getTokenForAccountCreateIfNeeded(String accountType, String authTokenType) {
+		final Activity current = this;
 		final AccountManagerFuture<Bundle> future = mAccountManager.getAuthTokenByFeatures(accountType, authTokenType, null, this, null, null,
                 new AccountManagerCallback<Bundle>() {
 
@@ -114,9 +117,12 @@ public class LaunchActivity extends ActionBarActivity{
 								Log.d(TAG, "Connecting Account...");
 								mConnectedAccount = new Account(accountName, AccountGeneral.ACCOUNT_TYPE);
 								Log.d(TAG, "Connected Account!");
-								Toast.makeText(getBaseContext(), "Succes!\ntoken: " + mAuthToken, Toast.LENGTH_SHORT).show();
+								Toast.makeText(getBaseContext(), "Succesfully logged in!", Toast.LENGTH_SHORT).show();
+								Intent intent = new Intent(current, HomeActivity.class);
+								intent.putExtra("account", mConnectedAccount);
+								startActivity(intent);
 							} else {
-								Toast.makeText(getBaseContext(), "Fail!", Toast.LENGTH_SHORT).show();	
+								Toast.makeText(getBaseContext(), "Failed to log in!", Toast.LENGTH_SHORT).show();	
 							}
 						} catch (Exception e) {
 							Log.e(TAG, e.getMessage());
@@ -124,7 +130,6 @@ public class LaunchActivity extends ActionBarActivity{
 					}
 		
 		}, null);
-	
 	}
 	
 	public void cancelRButton(View view){
