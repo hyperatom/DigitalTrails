@@ -1500,71 +1500,7 @@ containing a value of this type.
         public static final int logo_new=0x7f02008a;
         public static final int map_nott=0x7f02008b;
         public static final int map_nott2=0x7f02008c;
-        public static final int p10a=0x7f02008d;
-        public static final int p10b=0x7f02008e;
-        public static final int p10c=0x7f02008f;
-        public static final int p11a=0x7f020090;
-        public static final int p11b=0x7f020091;
-        public static final int p11c=0x7f020092;
-        public static final int p12a=0x7f020093;
-        public static final int p12b=0x7f020094;
-        public static final int p12c=0x7f020095;
-        public static final int p13a=0x7f020096;
-        public static final int p13b=0x7f020097;
-        public static final int p14a=0x7f020098;
-        public static final int p15a=0x7f020099;
-        public static final int p15b=0x7f02009a;
-        public static final int p15c=0x7f02009b;
-        public static final int p16a=0x7f02009c;
-        public static final int p16b=0x7f02009d;
-        public static final int p16c=0x7f02009e;
-        public static final int p16d=0x7f02009f;
-        public static final int p17a=0x7f0200a0;
-        public static final int p17b=0x7f0200a1;
-        public static final int p17c=0x7f0200a2;
-        public static final int p17d=0x7f0200a3;
-        public static final int p1a=0x7f0200a4;
-        public static final int p1b=0x7f0200a5;
-        public static final int p1c=0x7f0200a6;
-        public static final int p2a=0x7f0200a7;
-        public static final int p2b=0x7f0200a8;
-        public static final int p2c=0x7f0200a9;
-        public static final int p3a=0x7f0200aa;
-        public static final int p3b=0x7f0200ab;
-        public static final int p3c=0x7f0200ac;
-        public static final int p4a=0x7f0200ad;
-        public static final int p4b=0x7f0200ae;
-        public static final int p4c=0x7f0200af;
-        public static final int p5a=0x7f0200b0;
-        public static final int p5b=0x7f0200b1;
-        public static final int p5c=0x7f0200b2;
-        public static final int p5d=0x7f0200b3;
-        public static final int p6a=0x7f0200b4;
-        public static final int p6b=0x7f0200b5;
-        public static final int p7a=0x7f0200b6;
-        public static final int p7b=0x7f0200b7;
-        public static final int p7c=0x7f0200b8;
-        public static final int p7d=0x7f0200b9;
-        public static final int p7e=0x7f0200ba;
-        public static final int p7f=0x7f0200bb;
-        public static final int p8a=0x7f0200bc;
-        public static final int p8b=0x7f0200bd;
-        public static final int p8c=0x7f0200be;
-        public static final int p8d=0x7f0200bf;
-        public static final int p9a=0x7f0200c0;
-        public static final int p9b=0x7f0200c1;
-        public static final int smithtunnel=0x7f0200c2;
-        public static final int swanbeach=0x7f0200c3;
-        public static final int swanseafromkilveyhill=0x7f0200c4;
-        public static final int todopoint=0x7f0200c5;
-        public static final int wr001a=0x7f0200c6;
-        public static final int wr002a=0x7f0200c7;
-        public static final int wr003a=0x7f0200c8;
-        public static final int wr004a=0x7f0200c9;
-        public static final int wr005a=0x7f0200ca;
-        public static final int wr006a=0x7f0200cb;
-        public static final int wr007a=0x7f0200cc;
-        public static final int wr008a=0x7f0200cd;
+        public static final int swanbeach=0x7f02008d;
     }
     public static final class id {
         public static final int TextView01=0x7f07007f;
@@ -2364,7 +2300,8 @@ containing a value of this type.
         public static final int Widget_AppCompat_Spinner_DropDown_ActionBar=0x7f0c0022;
     }
     public static final class xml {
-        public static final int sync_adapter=0x7f050000;
+        public static final int authenticator=0x7f050000;
+        public static final int sync_adapter=0x7f050001;
     }
     public static final class styleable {
         /**  ============================================ 

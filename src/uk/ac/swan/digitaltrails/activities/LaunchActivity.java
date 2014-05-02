@@ -1,6 +1,7 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.accounts.SignUpActivity;
 import uk.ac.swan.digitaltrails.fragments.LaunchFragment;
 import uk.ac.swan.digitaltrails.fragments.LogInFragment;
 import uk.ac.swan.digitaltrails.fragments.RegisterFragment;
@@ -85,17 +86,8 @@ public class LaunchActivity extends ActionBarActivity{
 	// Register functions
 	
 	public void registerButtonOnClick(View view){
-		Log.d(TAG, "registerButton Pressed");
-		
-		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-		RegisterFragment registerFrag = new RegisterFragment();
-	
-		
-			Log.d(TAG, "1 pane, replace fragment_launcher");
-			transaction.replace(R.id.fragment_launcher, registerFrag);
-		
-		transaction.addToBackStack(null);
-		transaction.commit();
+		Intent intent = new Intent(this, SignUpActivity.class);
+		startActivity(intent);
 	}
 	
 	public void cancelRButton(View view){

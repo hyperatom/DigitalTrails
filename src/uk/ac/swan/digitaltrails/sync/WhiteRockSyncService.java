@@ -23,10 +23,8 @@ public class WhiteRockSyncService extends Service {
 		}
 	}
 	
-	
 	@Override
 	public IBinder onBind(Intent intent) {
-
 		return sSyncAdapter.getSyncAdapterBinder();
 	}
 

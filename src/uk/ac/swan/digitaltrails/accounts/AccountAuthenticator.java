@@ -122,9 +122,6 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 		return null;
 	}
 
-
-
-
 	@Override
 	public Bundle updateCredentials(AccountAuthenticatorResponse response,
 			Account account, String authTokenType, Bundle options)

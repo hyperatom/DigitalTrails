@@ -27,7 +27,7 @@ import uk.ac.swan.digitaltrails.utils.HTTP;
  *
  */
 public class WhiteRockServerAccessor {
-	
+	// TODO: Add error codes.
 	private Account mAccount;
 	
 	public WhiteRockServerAccessor(Account account){

@@ -24,18 +24,18 @@ public class SignUpActivity extends Activity {
 		
 		mAccountType = getIntent().getStringExtra(AccountGeneral.ACCOUNT_TYPE);
 	
-		setContentView(R.layout.act_register);
+		setContentView(R.layout.fragment_register);
 		
-		findViewById(R.id.alreadyMember).setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				setResult(RESULT_CANCELED);
-				finish();
-			}
-		});
+//		findViewById(R.id.alreadyMember).setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				setResult(RESULT_CANCELED);
+//				finish();
+//			}
+//		});
 		
-		findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -48,10 +48,11 @@ public class SignUpActivity extends Activity {
 	private void createAccount() {
 		new AsyncTask<String, Void, Intent>() {
 			
-			String firstName = ((TextView) findViewById(R.id.firstName)).getText().toString().trim();
-			String lastName = ((TextView) findViewById(R.id.lastName)).getText().toString().trim();
-			String accountName = ((TextView) findViewById(R.id.accountName)).getText().toString().trim();
-			String accountPassword = ((TextView) findViewById(R.id.accountPassword)).getText().toString().trim();
+			String name = ((TextView) findViewById(R.id.fullnamee)).getText().toString().trim();
+			String firstName = name.substring(0, name.indexOf(' '));
+			String lastName = name.substring(name.indexOf(' ')+1, name.length());
+			String accountName = ((TextView) findViewById(R.id.emaile)).getText().toString().trim();
+			String accountPassword = ((TextView) findViewById(R.id.passworde)).getText().toString().trim();
 			
 			@Override
 			protected Intent doInBackground(String... arg0) {
@@ -61,7 +62,6 @@ public class SignUpActivity extends Activity {
 				Bundle data = new Bundle();
 				try {
 					authtoken = AccountGeneral.sServerAuthenticate.userSignUp(firstName, lastName, accountName, accountPassword, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
-				
 					data.putString(AccountManager.KEY_ACCOUNT_NAME, accountName);
 					data.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccountType);;
 					data.putString(AccountManager.KEY_AUTHTOKEN, authtoken);
@@ -79,8 +79,10 @@ public class SignUpActivity extends Activity {
 			@Override
 			protected void onPostExecute(Intent intent) {
 				if (intent.hasExtra(AuthenticatorActivity.ERROR_MESSAGE)) {
+					Log.d(TAG, "Error in register");
 					Toast.makeText(getBaseContext(), intent.getStringExtra(AuthenticatorActivity.ERROR_MESSAGE), Toast.LENGTH_SHORT).show();
 				} else {
+					Log.d(TAG, "Result ok");
                     setResult(RESULT_OK, intent);
                     finish();
             
