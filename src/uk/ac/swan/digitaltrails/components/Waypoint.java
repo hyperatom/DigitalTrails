@@ -12,25 +12,25 @@ import android.os.Parcelable;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.gson.annotations.SerializedName;
 
 public class Waypoint implements Parcelable {
 
-	private long mId;
-	private String mTitle;
-	private double mLongitude;
-	private double mLatitude;
+	@SerializedName("id") private long mId;
+	@SerializedName("longitude") private double mLongitude;
+	@SerializedName("latitude") private double mLatitude;
 	private LatLng mLatLng;
 	private Marker mMarker;
-	private int mVisitOrder;
-	private boolean mIsRequest; 
-	private EnglishDescription mEnglishDescr;
-	private WelshDescription mWelshDescr;
-	private ArrayList<Photo> mPhotos;
-	private ArrayList<Audio> mAudioFiles;
-	private ArrayList<Video> mVideos;
+	@SerializedName("visit_order") private int mVisitOrder;
+	@SerializedName("is_request") private boolean mIsRequest; 
+	@SerializedName("english_description") private EnglishWaypointDescription mEnglishDescr;
+	@SerializedName("welsh_description") private WelshWaypointDescription mWelshDescr;
+	@SerializedName("images") private ArrayList<Photo> mPhotos;
+	@SerializedName("audio") private ArrayList<Audio> mAudioFiles;
+	@SerializedName("videos") private ArrayList<Video> mVideos;
 	private ArrayList<Media> mMedia;
-	private long mUserId;
-	private long mWalkId;
+	@SerializedName("user_id") private long mUserId;
+	@SerializedName("walk_id") private long mWalkId;
 
 	/**
 	 * 
@@ -46,14 +46,6 @@ public class Waypoint implements Parcelable {
 	 */
 	public void setId(long id) {
 		this.mId = id;
-	}
-
-	public String getTitle() {
-		return mTitle;
-	}
-
-	public void setTitle(String title) {
-		this.mTitle = title;
 	}
 
 	public double getLatitude() {
@@ -145,19 +137,19 @@ public class Waypoint implements Parcelable {
 	}
 
 	
-	public WelshDescription getWelshDescription() {
+	public WelshDescription getWelshWaypointDescription() {
 		return mWelshDescr;
 	}
 	
-	public void setWelshDescription(WelshDescription welshDescr) {
+	public void setWelshDescription(WelshWaypointDescription welshDescr) {
 		mWelshDescr = welshDescr;
 	}
 	
-	public EnglishDescription getEnglishDescription() {
+	public EnglishDescription getEnglishWaypointDescription() {
 		return mEnglishDescr;
 	}
 	
-	public void setEnglishDescription(EnglishDescription englishDescr) {
+	public void setEnglishDescription(EnglishWaypointDescription englishDescr) {
 		mEnglishDescr = englishDescr;
 	}
 	

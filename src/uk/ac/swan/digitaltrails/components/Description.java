@@ -1,16 +1,18 @@
 package uk.ac.swan.digitaltrails.components;
 
+import com.google.gson.annotations.SerializedName;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Description implements Parcelable {
 
-	protected long mId;
-	protected String mTitle;
-	protected String mShortDescription;
-	protected String mLongDescription;
+	@SerializedName("id") protected long mId;
+	@SerializedName("title") protected String mTitle;
+	@SerializedName("short_description") protected String mShortDescription;
+	@SerializedName("long_description") protected String mLongDescription;
 	protected int mLanguage;
-	protected long mForeignId;
+	@SerializedName("waypoint_id") protected long mForeignId;
 
 	public enum Languages {
 		ENGLISH, WELSH

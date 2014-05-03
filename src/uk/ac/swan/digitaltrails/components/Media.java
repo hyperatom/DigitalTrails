@@ -1,11 +1,15 @@
 package uk.ac.swan.digitaltrails.components;
 
+import com.google.gson.annotations.SerializedName;
+
 
 public class Media {
 
-	protected long mId;
-	protected String mFileLocation;
-	protected Waypoint mWaypoint;
+	@SerializedName("id") protected long mId;
+	@SerializedName("url") protected String mFileLocation;
+	@SerializedName("thumbnail_url") protected String mThumbnailLocation;
+	@SerializedName("caption") protected String mCaption;
+	@SerializedName("waypoint_id") protected Waypoint mWaypoint;
 	
 	public long getId() {
 		return mId;

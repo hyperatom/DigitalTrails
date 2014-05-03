@@ -3,21 +3,23 @@ package uk.ac.swan.digitaltrails.components;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.google.gson.annotations.SerializedName;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import uk.ac.swan.digitaltrails.utils.Duration;
 
 public class Walk implements Parcelable {
-	private long mId;
-	private EnglishDescription mEnglishDescription;
-	private WelshDescription mWelshDescription;
-	private Duration mDuration;
+	@SerializedName("id") private long mId;
+	@SerializedName("english_description") private EnglishWalkDescription mEnglishDescription;
+	@SerializedName("welsh_description") private WelshWalkDescription mWelshDescription;
+	@SerializedName("duration_minutes") private Duration mDuration;
 	/** Total distance to walk in miles */
-	private double mDistance;
-	private ArrayList<Waypoint> mWaypoints;
-	private long mOwnerId;
-	private long mDownloadCount;
-	private int mDifficultyRating;
+	@SerializedName("distance_miles") private double mDistance;
+	@SerializedName("waypoints") private ArrayList<Waypoint> mWaypoints;
+	@SerializedName("user_id") private long mOwnerId;
+	@SerializedName("download_count") private long mDownloadCount;
+	@SerializedName("difficulty_rating") private int mDifficultyRating;
 
 	/**
 	 * Setter for id
@@ -47,7 +49,7 @@ public class Walk implements Parcelable {
 		return mEnglishDescription;
 	}
 
-	public boolean setEnglishDescriptions(EnglishDescription description) {
+	public boolean setEnglishDescriptions(EnglishWalkDescription description) {
 		mEnglishDescription = description;
 		return true;
 	}
@@ -56,7 +58,7 @@ public class Walk implements Parcelable {
 		return mWelshDescription;
 	}
 
-	public boolean setWelshDescriptions(WelshDescription description) {
+	public boolean setWelshDescriptions(WelshWalkDescription description) {
 		mWelshDescription = description;
 		return true;
 	}

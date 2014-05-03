@@ -1,5 +1,6 @@
 package uk.ac.swan.digitaltrails.sync;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import uk.ac.swan.digitaltrails.components.Media;
 import uk.ac.swan.digitaltrails.components.Photo;
 import uk.ac.swan.digitaltrails.components.Video;
 import uk.ac.swan.digitaltrails.components.Walk;
+import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.utils.HTTP;
 
 /**
@@ -28,6 +30,7 @@ import uk.ac.swan.digitaltrails.utils.HTTP;
  */
 public class WhiteRockServerAccessor {
 	// TODO: Add error codes.
+	private static final String TAG = "Server Accessor";
 	private Account mAccount;
 	
 	public WhiteRockServerAccessor(Account account){
@@ -45,6 +48,8 @@ public class WhiteRockServerAccessor {
 	public ArrayList<Walk> getWalks() throws Exception {
 		
 		String response = HTTP.get(HTTP.BASEURL+"/walks");
+		
+		Log.d(TAG, response);
        
 		Gson gson = new GsonBuilder().create();
 
@@ -60,6 +65,7 @@ public class WhiteRockServerAccessor {
 		
 		String response = HTTP.get(HTTP.BASEURL+"/walks/"+id);
        
+		Log.d(TAG, response);
 
 		Gson gson = new GsonBuilder().create();
 
@@ -75,6 +81,8 @@ public class WhiteRockServerAccessor {
 		
 		String response = HTTP.get(HTTP.BASEURL+"/walks/search/"+query);
 
+		Log.d(TAG, response);
+		
 		Gson gson = new GsonBuilder().create();
 
 		return gson.fromJson(response, new TypeToken<List<Walk>>(){}.getType());
@@ -93,6 +101,8 @@ public class WhiteRockServerAccessor {
 		
 		String response = HTTP.securePost(message, HTTP.BASEURL+"/walks", mAccount);
 
+		Log.d(TAG, response);
+		
 		return gson.fromJson(response, Walk.class);
 	}
 	
@@ -109,6 +119,8 @@ public class WhiteRockServerAccessor {
 		
 		String response = HTTP.securePut(message, HTTP.BASEURL+"/walks/"+walk.getId(), mAccount);
 
+		Log.d(TAG, response);
+		
 		return gson.fromJson(response, Walk.class);
 	}
 	
@@ -119,8 +131,14 @@ public class WhiteRockServerAccessor {
 		
 		String message = gson.toJson(media);
 		
-		String response = HTTP.securePut(message, HTTP.BASEURL+"/walks/", mAccount);
+		Waypoint waypoint = media.getWaypoint();
+		
+		File file = new File(media.getFileLocation());
+		
+		String response = HTTP.postFile(HTTP.BASEURL+"/walks/"+waypoint.getWalkId()+"/waypoints/"+waypoint.getId()+"/image", mAccount, file, message);
 
+		Log.d(TAG, response);
+		
 		return gson.fromJson(response, Photo.class);
 	}
 	

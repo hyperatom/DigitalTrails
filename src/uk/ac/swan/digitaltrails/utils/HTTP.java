@@ -3,8 +3,13 @@
  */
 package uk.ac.swan.digitaltrails.utils;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.security.spec.KeySpec;
 
@@ -14,19 +19,23 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+import ch.boye.httpclientandroidlib.HttpResponse;
+import ch.boye.httpclientandroidlib.client.ClientProtocolException;
+import ch.boye.httpclientandroidlib.client.HttpClient;
+import ch.boye.httpclientandroidlib.client.ResponseHandler;
+import ch.boye.httpclientandroidlib.client.methods.HttpDelete;
+import ch.boye.httpclientandroidlib.client.methods.HttpGet;
+import ch.boye.httpclientandroidlib.client.methods.HttpPost;
+import ch.boye.httpclientandroidlib.client.methods.HttpPut;
+import ch.boye.httpclientandroidlib.client.methods.HttpRequestBase;
+import ch.boye.httpclientandroidlib.entity.StringEntity;
+import ch.boye.httpclientandroidlib.entity.mime.MultipartEntityBuilder;
+import ch.boye.httpclientandroidlib.entity.mime.content.FileBody;
+import ch.boye.httpclientandroidlib.entity.mime.content.StringBody;
+import ch.boye.httpclientandroidlib.impl.client.BasicResponseHandler;
+import ch.boye.httpclientandroidlib.impl.client.DefaultHttpClient;
+import ch.boye.httpclientandroidlib.util.EntityUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,6 +50,7 @@ import android.util.Log;
  * @author Thomas Milner
  *
  */
+@SuppressWarnings("deprecation")
 public class HTTP {
 
 	public static final String TAG = "SecureHTTP";
@@ -221,6 +231,58 @@ public class HTTP {
 		
 	}
 	
+	/**
+	 * A method ot post a file 
+	 * @param uri The URL to post too.
+	 * @param account The account to authenticate with
+	 * @param file The file
+	 * @return The response.
+	 */
+	public static String postFile(String url, Account account, File file, String message){
+		
+		//Get AuthToken and Hash
+		String hash = "";
+		String timestamp = System.currentTimeMillis()+"";
+		// Get Username and Password from Account Manager. Get authToken from ser
+	
+		try{
+			hash = computeSignature(account.email + timestamp, account.authToken);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		HttpPost request = new HttpPost(url);
+		MultipartEntityBuilder entity = MultipartEntityBuilder.create();
+		
+		entity.addPart("file", new FileBody(file));
+	    try {
+	        entity.addPart("post", new StringBody(message));
+	    } catch (UnsupportedEncodingException e) {
+	        throw new RuntimeException(e);
+	    }
+	    
+		request.setEntity(entity.build());
+			
+		request.setHeader("X-EMAIL", account.email);
+		request.setHeader("X-TIMESTAMP", timestamp);
+		request.setHeader("X-HASH", hash);
+		
+		Log.d(TAG, "HMAC: " + hash + ", Data: " + message);
+
+		
+		try {
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			return mClient.execute(request, responseHandler);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} 
+	}
 	
 	private static String computeSignature(String message, String key) throws GeneralSecurityException, UnsupportedEncodingException {
         // Get an hmac_sha1 key from the raw key bytes
