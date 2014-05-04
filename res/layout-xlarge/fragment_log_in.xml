@@ -77,35 +77,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="123dp"
-        android:layout_margin="40dp" >
-
-        <Button
-            android:id="@+id/login"
-            android:layout_width="250dp"
-            android:layout_height="65dp"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/button_background"
-            android:onClick="signInButton"
-            android:text="@string/log_in"
-            android:textSize="30sp" />
-
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="250dp"
-            android:layout_height="65dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="30dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/textView3"
-            android:background="@drawable/button_background"
-            android:onClick="cancelButton"
-            android:text="@string/cancel"
-            android:textSize="30sp" />
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" >
 
         <TextView
             android:id="@+id/textView3"
@@ -114,6 +88,32 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="250dp"
+            android:layout_height="65dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/textView3"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_background"
+            android:onClick="cancelButton"
+            android:text="@string/cancel"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="250dp"
+            android:layout_height="65dp"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button_background"
+            android:onClick="signInButton"
+            android:text="@string/log_in"
+            android:textSize="30sp" />
         
     </RelativeLayout>
 

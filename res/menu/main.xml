@@ -1,10 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    
-    
-    <item android:id="@+id/sync"
-	          android:title="Synchronise"
-	          android:showAsAction="always" />
     
     <item android:id="@+id/account"
 	          android:icon="@drawable/ic_action_person"

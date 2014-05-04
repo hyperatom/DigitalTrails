@@ -19,7 +19,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="Welcome to White Rock Nature Trails"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:gravity="center" />
 
         <EditText
@@ -48,7 +48,7 @@
             android:layout_width="490dp"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/emaile"
-            android:layout_below="@+id/emaile"
+            android:layout_centerVertical="true"
             android:layout_marginTop="5dp"
             android:ems="10"
             android:hint="Email"

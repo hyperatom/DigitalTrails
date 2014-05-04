@@ -63,20 +63,22 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp" >
+        android:layout_height="110dp" >
 
         <Button
             android:id="@+id/login"
             android:layout_width="400dp"
             android:layout_height="60dp"
+            android:layout_alignLeft="@+id/textView1"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="200dp"
             android:layout_marginRight="30dp"
-            android:text="@string/log_in" 
             android:background="@drawable/button_background"
-            android:onClick="signInButton"
-            android:textSize="30sp"/>
+            android:onClick="logInButton"
+            android:text="@string/log_in"
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/cancel"
@@ -84,13 +86,23 @@
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="30dp"
+            android:layout_alignRight="@+id/textView1"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="30dp"
+            android:layout_marginRight="200dp"
             android:background="@drawable/button_background"
-            android:text="@string/cancel" 
-            android:onClick="cancelButton" 
-            android:textSize="30sp"/>
+            android:onClick="cancelButton"
+            android:text="@string/cancel"
+            android:textSize="30sp" />
 
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/cancel"
+            android:layout_alignBottom="@+id/cancel"
+            android:layout_centerHorizontal="true"
+            android:text="" />
         
     </RelativeLayout>
 

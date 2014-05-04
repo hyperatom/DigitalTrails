@@ -1,6 +1,7 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.accounts.QuickPrefsActivity;
 import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.LogInFragment;
 import android.annotation.SuppressLint;
@@ -76,7 +77,7 @@ public class HomeActivity extends ActionBarActivity{
     }
 	
 	public void settingsButton(MenuItem menu){
-        Intent intent = new Intent(this, SettingsActivity.class);
+        Intent intent = new Intent(this, QuickPrefsActivity.class);
         startActivity(intent);
     }
 	
