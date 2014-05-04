@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.EnglishDescription;
+import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.fragments.EditWaypointDialogFragment.EditWaypointDialogListener;
 import android.os.Bundle;
@@ -64,21 +65,20 @@ public class AddWaypointMapFragment extends MapFragment implements EditWaypointD
 			String snippet = description.substring(0, description.length()/2);
 			double latitude = Double.parseDouble(((EditText) view.findViewById(R.id.latitude_edit)).getText().toString().trim());
 			double longitude = Double.parseDouble(((EditText) view.findViewById(R.id.longitude_edit)).getText().toString().trim());
-			wp.setTitle(title);
 			if (wp.getEnglishDescription() != null) {
 				EnglishDescription d = wp.getEnglishDescription();
 				d.setTitle(title);
 				d.setLongDescription(description);
 				d.setShortDescription(snippet);	
 			} else {
-				EnglishDescription d = new EnglishDescription(-1, title, snippet, description);
+				EnglishWaypointDescription d = new EnglishWaypointDescription(-1, title, snippet, description);
 				wp.setEnglishDescription(d);
 			}
 			wp.setLatLng(new LatLng(latitude, longitude));
 
 			MarkerOptions options = new MarkerOptions();
 			options.position(new LatLng(wp.getLatitude(), wp.getLongitude()));
-			options.title(wp.getTitle());
+			options.title(wp.getEnglishDescription().getTitle());
 			options.snippet(wp.getEnglishDescription().getShortDescription());
 			Marker marker = mMap.addMarker(options);
 			marker.setDraggable(true);

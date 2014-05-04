@@ -6,6 +6,7 @@ import java.util.List;
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.EnglishDescription;
+import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
 import uk.ac.swan.digitaltrails.components.Media;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
@@ -178,15 +179,14 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		String snippet = description.substring(0, description.length()/2);
 		double latitude = Double.parseDouble(((EditText) view.findViewById(R.id.latitude_edit)).getText().toString().trim());
 		double longitude = Double.parseDouble(((EditText) view.findViewById(R.id.longitude_edit)).getText().toString().trim());
-		wp.setTitle(title);
-		wp.setEnglishDescription(new EnglishDescription(0, title+ "description", snippet, description));
+		wp.setEnglishDescription(new EnglishWaypointDescription(0, title+ "description", snippet, description));
 		wp.setLatLng(new LatLng(latitude, longitude));
 		wp.setLatitude(latitude);
 		wp.setLongitude(longitude);
 		
 		MarkerOptions options = new MarkerOptions();
 		options.position(new LatLng(wp.getLatitude(), wp.getLongitude()));
-		options.title(wp.getTitle());
+		options.title(wp.getEnglishDescription().getTitle());
 		options.snippet(wp.getEnglishDescription().getShortDescription());
 		mWaypointList.add(wp);
 		wp.setVisitOrder(mWaypointList.indexOf(wp));;
@@ -210,7 +210,7 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		Bundle args = new Bundle();
 		args.putLong(EditWaypointDialogFragment.ARG_INDEX, mWaypointList.indexOf(waypoint));
 		args.putParcelable(EditWaypointDialogFragment.ARG_POSITION, waypoint.getLatLng());
-		args.putString(EditWaypointDialogFragment.ARG_TITLE, waypoint.getTitle());
+		args.putString(EditWaypointDialogFragment.ARG_TITLE, waypoint.getEnglishDescription().getTitle());
 		args.putString(EditWaypointDialogFragment.ARG_DESCRIPTION, waypoint.getEnglishDescription().getLongDescription());
 		DialogFragment editWpDialog = new EditWaypointDialogFragment();
 		editWpDialog.setArguments(args);
@@ -288,7 +288,7 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 			if (wp.isRequest() == false) {
 				MarkerOptions options = new MarkerOptions();
 				options.position(new LatLng(wp.getLatitude(), wp.getLongitude()));
-				options.title(wp.getTitle());
+				options.title(wp.getEnglishDescription().getTitle());
 				options.snippet(wp.getEnglishDescription().getShortDescription());
 				mMarkers.add(mMap.addMarker(options));
 			}
@@ -335,8 +335,7 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 					wp.setLatLng(new LatLng(wp.getLatitude(), wp.getLongitude()));
 					wp.setIsRequest(data.getInt(3));
 					wp.setVisitOrder(data.getInt(4));
-					wp.setTitle(data.getString(8));
-					EnglishDescription desc = new EnglishDescription();
+					EnglishWaypointDescription desc = new EnglishWaypointDescription();
 					desc.setTitle(data.getString(8));
 					desc.setId(data.getLong(7));
 					desc.setShortDescription(data.getString(9));

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.EnglishDescription;
+import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
 import uk.ac.swan.digitaltrails.components.Media;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
@@ -230,7 +231,7 @@ public class MapActivity extends ActionBarActivity implements
 
 	private void showInfoViewDialog(Waypoint wp) {
 		Bundle args = new Bundle();
-		args.putString(InfoViewDialogFragment.ARG_TITLE, wp.getTitle());
+		args.putString(InfoViewDialogFragment.ARG_TITLE, wp.getEnglishDescription().getTitle());
 		args.putString(InfoViewDialogFragment.ARG_DESCRIPTION, wp.getEnglishDescription().getLongDescription());
 		DialogFragment dialog = new InfoViewDialogFragment();
 		dialog.setArguments(args);
@@ -341,7 +342,7 @@ public class MapActivity extends ActionBarActivity implements
 			if (wp.isRequest() == false) {
 				mMarkers.add(mMap.addMarker(new MarkerOptions()
 						.position(new LatLng(wp.getLatitude(), wp.getLongitude()))
-						.title(wp.getTitle())
+						.title(wp.getEnglishDescription().getTitle())
 						.snippet(wp.getEnglishDescription().getShortDescription())));
 			}
 		}
@@ -423,8 +424,7 @@ public class MapActivity extends ActionBarActivity implements
 						wp.setLatLng(new LatLng(wp.getLatitude(), wp.getLongitude()));
 						wp.setIsRequest(data.getInt(3));
 						wp.setVisitOrder(data.getInt(4));
-						wp.setTitle(data.getString(8));
-						EnglishDescription desc = new EnglishDescription();
+						EnglishWaypointDescription desc = new EnglishWaypointDescription();
 						desc.setTitle(data.getString(8));
 						desc.setId(data.getLong(7));
 						desc.setShortDescription(data.getString(9));

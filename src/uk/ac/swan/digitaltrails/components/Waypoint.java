@@ -137,7 +137,7 @@ public class Waypoint implements Parcelable {
 	}
 
 	
-	public WelshDescription getWelshWaypointDescription() {
+	public WelshDescription getWelshDescription() {
 		return mWelshDescr;
 	}
 	
@@ -145,7 +145,7 @@ public class Waypoint implements Parcelable {
 		mWelshDescr = welshDescr;
 	}
 	
-	public EnglishDescription getEnglishWaypointDescription() {
+	public EnglishDescription getEnglishDescription() {
 		return mEnglishDescr;
 	}
 	
@@ -175,17 +175,17 @@ public class Waypoint implements Parcelable {
 
 	public Waypoint() {
 		setId(-1);
-		setTitle("New Place");
+		setEnglishDescription(new EnglishWaypointDescription());
+		getEnglishDescription().setTitle("New Place");
 		setLatitude(0);
 		setLongitude(0);
 		setLatLng(new LatLng(mLatitude, mLongitude));
 	}
 
-	public Waypoint(int id, String title, EnglishDescription engDescr, WelshDescription welshDescr, double longitude, double latitude,
+	public Waypoint(int id, String title, EnglishWaypointDescription engDescr, WelshWaypointDescription welshDescr, double longitude, double latitude,
 			ArrayList<Photo> photos, ArrayList<Audio> audioFiles,
 			ArrayList<Video> videos) {
 		setId(id);
-		setTitle("New Place");
 		setLatitude(latitude);
 		setLongitude(longitude);
 		setPhotos(photos);
@@ -197,7 +197,7 @@ public class Waypoint implements Parcelable {
 	}
 	
 	public String toString() {
-		return mTitle + " " + mLatitude + " " + mLongitude;		
+		return getEnglishDescription().getTitle() + " " + mLatitude + " " + mLongitude;		
 	}
 
 	@Override
