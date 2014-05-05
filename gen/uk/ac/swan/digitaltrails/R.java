@@ -16,10 +16,6 @@ public final class R {
         public static final int abc_slide_out_bottom=0x7f040004;
         public static final int abc_slide_out_top=0x7f040005;
     }
-    public static final class array {
-        public static final int syncInterval=0x7f0d0000;
-        public static final int syncIntervalValues=0x7f0d0001;
-    }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -1508,7 +1504,7 @@ containing a value of this type.
     }
     public static final class id {
         public static final int TextView01=0x7f07007f;
-        public static final int account=0x7f0700e7;
+        public static final int account=0x7f0700e6;
         public static final int accountName=0x7f070050;
         public static final int accountPassword=0x7f070051;
         public static final int action_bar=0x7f070030;
@@ -1522,14 +1518,14 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f07002a;
         public static final int action_menu_presenter=0x7f07002b;
         public static final int action_mode_close_button=0x7f070038;
-        public static final int action_settings=0x7f0700e8;
+        public static final int action_settings=0x7f0700e7;
         public static final int activity_chooser_view_content=0x7f070039;
         public static final int addWaypoint=0x7f070082;
         public static final int alignBounds=0x7f070007;
         public static final int alignMargins=0x7f070008;
         public static final int alreadyMember=0x7f070056;
         public static final int always=0x7f070021;
-        public static final int backToWalkView=0x7f0700e3;
+        public static final int backToWalkView=0x7f0700e2;
         public static final int beginning=0x7f070026;
         public static final int bottom=0x7f07000a;
         public static final int browse_media_button=0x7f07006c;
@@ -1596,7 +1592,7 @@ containing a value of this type.
         public static final int homeAsUp=0x7f07001b;
         public static final int horizontal=0x7f070005;
         public static final int hybrid=0x7f070004;
-        public static final int hybrid_map=0x7f0700ec;
+        public static final int hybrid_map=0x7f0700eb;
         public static final int icon=0x7f07003e;
         public static final int ifRoom=0x7f070020;
         public static final int image=0x7f07003b;
@@ -1622,18 +1618,18 @@ containing a value of this type.
         public static final int linearLayout2=0x7f070092;
         public static final int listMode=0x7f070017;
         public static final int list_item=0x7f07003d;
-        public static final int log_out=0x7f0700e9;
+        public static final int log_out=0x7f0700e8;
         public static final int login=0x7f07005d;
         public static final int long_descr=0x7f070090;
         public static final int longitude_edit=0x7f070069;
         public static final int longitude_label=0x7f070068;
         public static final int map=0x7f070058;
         public static final int map_container=0x7f0700ac;
-        public static final int maps=0x7f0700ea;
-        public static final int mediaAudio=0x7f0700e1;
-        public static final int mediaDescription=0x7f0700df;
-        public static final int mediaPictures=0x7f0700e0;
-        public static final int mediaVideo=0x7f0700e2;
+        public static final int maps=0x7f0700e9;
+        public static final int mediaAudio=0x7f0700e0;
+        public static final int mediaDescription=0x7f0700de;
+        public static final int mediaPictures=0x7f0700df;
+        public static final int mediaVideo=0x7f0700e1;
         public static final int menuB=0x7f0700c8;
         public static final int middle=0x7f070027;
         public static final int myWalks=0x7f0700cc;
@@ -1642,11 +1638,11 @@ containing a value of this type.
         public static final int never=0x7f07001f;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070001;
-        public static final int normal_map=0x7f0700eb;
+        public static final int normal_map=0x7f0700ea;
         public static final int pass=0x7f0700aa;
         public static final int passworde=0x7f07007a;
         public static final int passwordt=0x7f07007b;
-        public static final int progressBar1=0x7f0700dc;
+        public static final int progressBar1=0x7f0700db;
         public static final int progress_circular=0x7f07002c;
         public static final int progress_horizontal=0x7f07002d;
         public static final int radio=0x7f070043;
@@ -1655,7 +1651,7 @@ containing a value of this type.
         public static final int relativeLayout1=0x7f070073;
         public static final int right=0x7f07000c;
         public static final int satellite=0x7f070002;
-        public static final int satellite_map=0x7f0700ed;
+        public static final int satellite_map=0x7f0700ec;
         public static final int saveWalk=0x7f070084;
         public static final int saveWaypoint=0x7f07008b;
         public static final int scrollView1=0x7f070095;
@@ -1673,8 +1669,7 @@ containing a value of this type.
         public static final int search_plate=0x7f07004a;
         public static final int search_src_text=0x7f07004b;
         public static final int search_voice_btn=0x7f07004f;
-        public static final int settings_text_view=0x7f0700db;
-        public static final int short_descr=0x7f0700dd;
+        public static final int short_descr=0x7f0700dc;
         public static final int shortcut=0x7f070042;
         public static final int showCustom=0x7f07001d;
         public static final int showHome=0x7f07001a;
@@ -1685,7 +1680,7 @@ containing a value of this type.
         public static final int startButton=0x7f070091;
         public static final int submit=0x7f070052;
         public static final int submit_area=0x7f07004d;
-        public static final int sync=0x7f0700e6;
+        public static final int sync=0x7f0700e5;
         public static final int tabMode=0x7f070018;
         public static final int terrain=0x7f070003;
         public static final int text1=0x7f0700d0;
@@ -1735,12 +1730,12 @@ containing a value of this type.
         public static final int walkDescriptionEdit=0x7f0700a5;
         public static final int walkDescriptionText=0x7f0700a4;
         public static final int walkNameT=0x7f070080;
-        public static final int walkViewDetailFragment=0x7f0700e4;
-        public static final int walkViewListFragment=0x7f0700e5;
+        public static final int walkViewDetailFragment=0x7f0700e3;
+        public static final int walkViewListFragment=0x7f0700e4;
         public static final int walk_details_fragment=0x7f070071;
         public static final int walk_list_fragment=0x7f070070;
         public static final int waypoint1=0x7f0700c9;
-        public static final int waypointMap=0x7f0700de;
+        public static final int waypointMap=0x7f0700dd;
         public static final int waypointNameE=0x7f070087;
         public static final int waypointNameT=0x7f070088;
         public static final int welcome=0x7f070074;
@@ -1831,19 +1826,18 @@ containing a value of this type.
         public static final int info_view_dialog=0x7f030037;
         public static final int my_walks_view=0x7f030038;
         public static final int settings_view=0x7f030039;
-        public static final int show_settings_layout=0x7f03003a;
-        public static final int splash=0x7f03003b;
-        public static final int support_simple_spinner_dropdown_item=0x7f03003c;
-        public static final int test_fragment_walk_details=0x7f03003d;
-        public static final int test_fragment_walk_list=0x7f03003e;
-        public static final int view_waypoint_view=0x7f03003f;
-        public static final int walk_activity=0x7f030040;
-        public static final int walk_view=0x7f030041;
-        public static final int waypoint_list=0x7f030042;
+        public static final int splash=0x7f03003a;
+        public static final int support_simple_spinner_dropdown_item=0x7f03003b;
+        public static final int test_fragment_walk_details=0x7f03003c;
+        public static final int test_fragment_walk_list=0x7f03003d;
+        public static final int view_waypoint_view=0x7f03003e;
+        public static final int walk_activity=0x7f03003f;
+        public static final int walk_view=0x7f030040;
+        public static final int waypoint_list=0x7f030041;
     }
     public static final class menu {
-        public static final int main=0x7f0e0000;
-        public static final int maps_menu=0x7f0e0001;
+        public static final int main=0x7f0d0000;
+        public static final int maps_menu=0x7f0d0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -2307,9 +2301,8 @@ containing a value of this type.
         public static final int Widget_AppCompat_Spinner_DropDown_ActionBar=0x7f0c0022;
     }
     public static final class xml {
-        public static final int preferences=0x7f050000;
-        public static final int sync_adapter=0x7f050001;
-        public static final int whiterock_authenticator=0x7f050002;
+        public static final int sync_adapter=0x7f050000;
+        public static final int whiterock_authenticator=0x7f050001;
     }
     public static final class styleable {
         /**  ============================================ 
