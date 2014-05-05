@@ -18,7 +18,7 @@
         android:textSize="80sp" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/register"
         android:layout_width="fill_parent"
         android:layout_height="65dp"
         android:layout_alignParentLeft="true"
@@ -26,24 +26,10 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:background="@drawable/button_background"
-        android:onClick="logInButton"
-        android:text="Log In"
-        android:textSize="30sp" />
-
-    <Button
-        android:id="@+id/register"
-        android:layout_width="fill_parent"
-        android:layout_height="65dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/login"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/button_background"
         android:onClick="registerButtonOnClick"
-        android:text="Register"
+        android:text="Log In"
         android:textSize="30sp" />
 
     <Button
