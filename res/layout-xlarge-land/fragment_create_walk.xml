@@ -65,11 +65,11 @@
             android:layout_toLeftOf="@+id/createWalk"
             android:layout_toRightOf="@+id/cancelCreate"
             android:background="@drawable/button_background"
-            android:onClick="editAddWaypointButtonOnClick"
+            android:onClick="createAddWaypointButtonOnClick"
             android:text="Add A Waypoint" />
 
         <EditText
-            android:id="@+id/title"
+            android:id="@+id/titledit"
             android:layout_width="490dp"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/walkNameT"

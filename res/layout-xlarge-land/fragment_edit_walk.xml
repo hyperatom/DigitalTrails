@@ -57,18 +57,14 @@
             android:textSize="15dp" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/long_descr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/title"
             android:layout_alignRight="@+id/title"
             android:layout_alignTop="@+id/TextView01"
             android:ems="10"
-            android:inputType="textMultiLine"
-            android:text="Filler text to take up space. This is just a test. Not actual text that will be used. Filler text to take up space. This is just a test.Not actual text that will be used. 
-			Filler text to take up space. This is just a test.
-            Not actual text that will be used. Filler text to take up space. This is just a test.
-            Not actual text that will be used. Filler text to take up space. " />
+            android:inputType="textMultiLine" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -112,7 +108,7 @@
             android:layout_marginRight="25dp"
             android:text="Save"
             android:background="@drawable/button_background"
-            android:onClick="saveWalkButton" />
+            android:onClick="editSaveButtonOnClick" />
 
         <Button
             android:id="@+id/cancelCreate"

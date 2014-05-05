@@ -100,7 +100,6 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-		//mAdapter.swapCursor(data);
 		if (data != null && data.moveToFirst()) {
 			Log.d("DATA LOG", "Cursor has info, pos: " + mCurrentPos);
 			for (int i = 0; i < data.getColumnCount(); i++) {
