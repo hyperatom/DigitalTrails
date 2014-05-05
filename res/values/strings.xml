@@ -94,6 +94,8 @@
     <string name="reposition_made_message">Changes to waypoint position were successful</string>
     
     <!-- Search View Strings -->
+    <string name="download_title">Select a walk</string>
+    <string name="download">Download</string>
     
     <!-- Settings View Strings -->
     
