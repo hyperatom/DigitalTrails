@@ -8,8 +8,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_weight="0.00"
         android:orientation="vertical" >
 
@@ -58,7 +58,7 @@
             android:id="@+id/search_list_fragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="1"
             class="uk.ac.swan.digitaltrails.fragments.SearchListFragment" >
         </fragment>
 
@@ -66,7 +66,7 @@
             android:id="@+id/search_details_fragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="3"
             class="uk.ac.swan.digitaltrails.fragments.SearchDetailsFragment" >
         </fragment>
     </LinearLayout>
