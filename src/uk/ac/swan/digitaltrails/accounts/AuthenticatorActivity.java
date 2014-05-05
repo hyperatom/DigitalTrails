@@ -105,6 +105,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 					data.putString(AccountManager.KEY_AUTHTOKEN, authToken);
 					data.putString(USER_PASS, userPassword);
 				} catch (Exception e) {
+					//TODO: sort this catch block out wtf.
 					data.putString(ERROR_MESSAGE, e.getMessage());
 					Log.e(TAG, "ERRROR!!!!");
 				}
