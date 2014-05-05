@@ -1,12 +1,7 @@
 package uk.ac.swan.digitaltrails.fragments;
 
 import uk.ac.swan.digitaltrails.R;
-import uk.ac.swan.digitaltrails.activities.EditWalksActivity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

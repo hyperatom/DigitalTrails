@@ -1,11 +1,16 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.accounts.QuickPrefsActivity;
+import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
+import uk.ac.swan.digitaltrails.fragments.LogInFragment;
 import android.annotation.SuppressLint;
-import android.app.*;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,11 +19,17 @@ import android.view.View;
 @SuppressLint("NewApi")
 public class HomeActivity extends ActionBarActivity{
 
+	@SuppressWarnings("unused")
+	private static final String TAG = "MyWalksActivity";
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_view);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
 	}
 	
 	@Override
@@ -29,6 +40,10 @@ public class HomeActivity extends ActionBarActivity{
 	    return super.onCreateOptionsMenu(menu);
 	}
 
+	public void createWalkButtonOnClick(View view){
+		//TODO	
+	}
+	
 	public void searchButton(View view){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
@@ -43,6 +58,7 @@ public class HomeActivity extends ActionBarActivity{
         Intent intent = new Intent(this, ChooseWalkActivity.class);
         startActivity(intent);
 	}
+	
 	
 	public void exploreButton(View view){
         Intent intent = new Intent(this, MapActivity.class);
@@ -61,7 +77,7 @@ public class HomeActivity extends ActionBarActivity{
     }
 	
 	public void settingsButton(MenuItem menu){
-        Intent intent = new Intent(this, SettingsActivity.class);
+        Intent intent = new Intent(this, QuickPrefsActivity.class);
         startActivity(intent);
     }
 	

@@ -4,22 +4,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="vertical" >
+        android:layout_below="@+id/textView21"
+        android:layout_margin="20dp"
+        android:fadeScrollbars="false"
+        android:paddingRight="10dip"
+        android:scrollbarStyle="outsideInset" >
+      	
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical" >
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Large Text"
+            android:text="Swansea"
             android:textSize="30sp" />
 
         <TextView
@@ -27,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Larger Text"
+            android:text="Cardiff"
             android:textSize="30sp" />
 
         <TextView
@@ -35,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Larger Text To Text Width"
+            android:text="Newport"
             android:textSize="30sp" />
 
         <TextView
@@ -43,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Large Text But not too large"
+            android:text="Wrexham"
             android:textSize="30sp" />
 
         <TextView
@@ -93,7 +102,7 @@
             android:layout_marginBottom="20dp"
             android:text="Large Text"
             android:textSize="30sp" />
-        
+
         <TextView
             android:id="@+id/textView11"
             android:layout_width="match_parent"
@@ -174,15 +183,19 @@
             android:text="Large Text"
             android:textSize="30sp" />
     </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:fadeScrollbars="false"
-        android:paddingRight="10dip"
-        android:scrollbarStyle="outsideInset" >
+        
     </ScrollView>
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Location"
+        android:textSize="40sp" />
 
 </RelativeLayout>

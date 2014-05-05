@@ -2,6 +2,7 @@ package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -21,12 +22,16 @@ public class WalkDetailActivity extends ActionBarActivity {
 	      finish();
 	      return;
 	    }
-	    setContentView(R.layout.walk_activity);
+	    //setContentView(R.layout.walk_activity);
 	    Bundle extras = getIntent().getExtras();
 	    if (extras != null) {
 	      String s = extras.getString(EXTRA_URL);
 	      TextView view = (TextView) findViewById(R.id.title);
 	      view.setText(s);
+	    }
+	    
+	    if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	    }
 	  }
 	}

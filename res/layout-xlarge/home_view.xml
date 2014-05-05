@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dbdbdb"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.6"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/currentLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/gridLayout1"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_toLeftOf="@+id/createWalkButton"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:text="Home Page"
+            android:textSize="60sp" />
+
+        <GridLayout
+            android:id="@+id/gridLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/currentLocation"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:columnCount="1"
+            android:rowCount="4" >
+
+            <Button
+                android:id="@+id/viewWalks"
+                android:layout_width="fill_parent"
+                android:layout_height="220dp"
+                android:layout_gravity="left"
+                android:layout_margin="15dp"
+                android:background="@drawable/button_background"
+                android:gravity="bottom|center"
+                android:onClick="viewWalkButton"
+                android:padding="20dp"
+                android:text="Saved Walks"
+                android:textSize="50sp" />
+
+            <Button
+                android:id="@+id/searchWalks"
+                android:layout_width="fill_parent"
+                android:layout_height="220dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/button_background"
+                android:gravity="bottom|center"
+                android:onClick="searchButton"
+                android:padding="20dp"
+                android:text="Download Walks"
+                android:textSize="50sp" />
+
+            <Button
+                android:id="@+id/myWalks"
+                android:layout_width="fill_parent"
+                android:layout_height="220dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/button_background"
+                android:gravity="bottom|center"
+                android:onClick="walkOptionButton"
+                android:padding="20dp"
+                android:text="My Walks"
+                android:textSize="50sp" />
+
+            <Button
+                android:id="@+id/explore"
+                android:layout_width="fill_parent"
+                android:layout_height="220dp"
+                android:layout_gravity="right"
+                android:layout_margin="15dp"
+                android:background="@drawable/map_nott2"
+                android:gravity="bottom|center"
+                android:onClick="exploreButton"
+                android:padding="20dp"
+                android:text="Explore"
+                android:textSize="50sp" />
+        </GridLayout>
+
+        <Button
+            android:id="@+id/createWalkButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/currentLocation"
+            android:layout_alignRight="@+id/gridLayout1"
+            android:layout_alignTop="@+id/currentLocation"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_background"
+            android:onClick="createWalkButtonOnClick"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="Create Walk  +"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -7,18 +7,24 @@
 
     <Button
         android:id="@+id/createWalkButton"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button_background"
         android:onClick="listCreateWalkButtonOnClick"
-        android:text="@string/create" >
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/create"
+        android:textSize="15sp" >
 
     </Button>
 
     <ListView
         android:id="@android:id/list"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"

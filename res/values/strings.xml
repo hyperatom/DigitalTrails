@@ -57,7 +57,7 @@
     
     <!-- Log In View Strings -->
     
-    <string name="welcome_text">Welcome to White\nRock Nature Trails</string>
+    <string name="welcome_text">Welcome to White Rock Nature Trails</string>
     <string name="log_in_prompt">Please enter your Log In email address and password</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
@@ -80,6 +80,7 @@
     <string name="register_title">Registration Status!</string>
     <string name="register_message">You successfully created an account</string>
     <string name="valid_register">OK</string>
+    <string name="register">Register</string>
     
     <!-- Reposition View Strings -->
     
@@ -96,13 +97,15 @@
     
     <!-- Settings View Strings -->
     
+    
+    
     <!-- View Waypoint View Strings -->
     
     <string name="media_description">Description</string>
     <string name="media_pictures">Pictures</string>
     <string name="media_audio">Audio</string>
     <string name="media_video">Video</string>
-    <string name="waypoint1">Waypoint 1 - Swansea Bay</string>
+    <string name="waypoint1">Swansea Bay</string>
     <string name="returnToWalkView">Return To Walk View</string>
     
     <!-- Walk Options View Strings -->

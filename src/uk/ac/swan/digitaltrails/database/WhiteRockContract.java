@@ -79,6 +79,7 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
+		/** Columns to project: id, title, short, long, walk_id */
 		public static final String[] PROJECTION_ALL = {ID, TITLE, SHORT_DESCR, LONG_DESCR, WALK_ID};
 
 	}
@@ -216,7 +217,8 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
-		public static final String[] PROJECTION_ALL = {ID, "duration_minutes", "distance_miles", "download_count", "difficulty_rating", "user_id"};
+		/** Columns to project: id, duration, distance, dl count, difficulty, user id */
+		public static final String[] PROJECTION_ALL = {ID, DURATION_MINUTES, DISTANCE_MILES, DOWNLOAD_COUNT, DIFFICULTY_RATING, USER_ID};
 	}
 	
 	public static final class WalkBrand implements CommonColumns {
@@ -261,6 +263,7 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
+		/** Project for Waypoint: id, lat, long, is_req, visit_order, walk_id, user_id */
 		public static final String[] PROJECTION_ALL = {ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER, WALK_ID, USER_ID};
 	}
 	
@@ -410,9 +413,10 @@ public class WhiteRockContract {
 	
 	interface WalkColumns extends CommonColumns {
 		public static final String DURATION_MINUTES = "duration_minutes";
-		public static final String DISTNACE_MILES = "distance_miles";
+		public static final String DISTANCE_MILES = "distance_miles";
 		public static final String DOWNLOAD_COUNT = "download_count";
 		public static final String DIFFICULTY_RATING = "difficulty_rating";
+		public static final String USER_ID = "user_id";
 	}
 	
 	/**
@@ -426,10 +430,6 @@ public class WhiteRockContract {
 		public static final String SHORT_DESCR = "short_description";
 		
 		public static final String LONG_DESCR = "long_description";
-	
-		public static final String WAYPOINT_ID = "waypoint_id";
-		
-		public static final String WALK_ID = "walk_id";
 	}
 	
 	interface WaypointDescriptionColumns extends DescriptionColumns {

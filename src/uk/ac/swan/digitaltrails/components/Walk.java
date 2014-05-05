@@ -7,8 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import uk.ac.swan.digitaltrails.utils.Duration;
 
-public class Walk implements Parcelable {
-	private String mTitle;
+public class Walk {
 	private long mId;
 	private ArrayList<Description> mDescriptions;
 	private Duration mDuration;
@@ -41,25 +40,6 @@ public class Walk implements Parcelable {
 	 */
 	public long getId() {
 		return mId;
-	}
-
-	/**
-	 * Setter for title
-	 * 
-	 * @param title to be set
-	 */
-	public boolean setTitle(String title) {
-		this.mTitle = title;
-		return true;
-	}
-
-	/**
-	 * Getter for title
-	 * 
-	 * @return The title
-	 */
-	public String getTitle() {
-		return mTitle;
 	}
 
 	public ArrayList<Description> getDescriptions() {
@@ -182,7 +162,6 @@ public class Walk implements Parcelable {
 	 */
 	public Walk() {
 		// Does not set id or ownerId cause that would break things.
-		setTitle("New Walk");
 		setDuration(new Duration(0, 0));
 		setDistance(0);
 		setDifficultyRating(0);
@@ -203,57 +182,10 @@ public class Walk implements Parcelable {
 			String longDescription, Duration duration, double distance,
 			long ownerId, long downloadCount, int difficulty) {
 		setId(id);
-		setTitle(title);
 		setDuration(duration);
 		setDistance(distance);
 		setOwnerId(ownerId);
 		setDownloadCount(downloadCount);
 		setDifficultyRating(difficulty);
-	}
-	
-	public String toString() {
-		return this.mTitle;
-	}
-
-	public static final Parcelable.Creator<Walk> CREATOR = new Creator<Walk>() {
-		public Walk createFromParcel(Parcel in) {
-			Walk newWalk = new Walk();
-			newWalk.setTitle(in.readString());
-			newWalk.setId(in.readLong());
-			newWalk.setDescriptions(in.readParcelableArray(Description.class.getClassLoader()));
-			newWalk.setDuration(new Duration(in.readInt(), in.readInt()));
-			newWalk.setDistance(in.readDouble());
-			//newWalk.setWaypoints(in.readTypedList(new ArrayList<Waypoint>(), Waypoint.CREATOR));
-			return newWalk;
-		}
-
-		@Override
-		public Walk[] newArray(int size) {
-			// TODO Auto-generated method stub
-			return new Walk[size];
-		}
-	};
-	
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(mTitle);
-		dest.writeLong(mId);
-		Description[] tempDescrArray = (Description[]) mDescriptions.toArray();
-		dest.writeParcelableArray(tempDescrArray, flags);
-		dest.writeInt(mDuration.getHours());
-		dest.writeInt(mDuration.getMinutes());
-		dest.writeDouble(mDistance);
-		Waypoint[] tempArray = new Waypoint[mWaypoints.size()];
-		mWaypoints.toArray(tempArray);
-		dest.writeParcelableArray(tempArray, flags);
-		dest.writeLong(mOwnerId);
-		dest.writeLong(mDownloadCount);
-		dest.writeInt(mDifficultyRating);
 	}
 }

@@ -2,6 +2,7 @@ package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
@@ -27,6 +28,10 @@ public class SplashActivity extends ActionBarActivity{
 	            finish();
 	        }
 	    }, (long) (1.5*1000)); // wait for 5 seconds
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
 	}
 	
 	public void splashButton(View view){

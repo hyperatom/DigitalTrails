@@ -49,7 +49,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 
 	/** Debugging tag */
 	private static final String TAG = "AddWaypointFragment";
-	
+
 	/** The current map */
 	private GoogleMap mMap;
 	/** SupportMapFragemnt to contain GoogleMap */
@@ -58,25 +58,26 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	private LocationClient mLocationClient;
 	/** Waypoints for walk */
 	private List<Waypoint> mWaypointList;
-	
+
 	private OnMapClosedListener mCallback;
 
 	public interface OnMapClosedListener {
 		public void onMapClosed(List<Waypoint> waypointList);
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
 		}
-
-		return inflater.inflate(R.layout.fragment_add_waypoint, container, false);
+		// TODO: Use args to check current waypoints we must display.
+		/* Changed from R.layout.fragment_add_waypoint to create_walk for now*/
+		return inflater.inflate(R.layout.fragment_create_walk, container, false);
 	}
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		
+
 		// ensure interface is implemented
 		try {
 			mCallback = (OnMapClosedListener) activity;
@@ -84,7 +85,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			throw new ClassCastException(activity.toString() + " Must implement OnMapClosedListener");
 		}
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -119,13 +120,13 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	public void onResume() {
 		super.onResume();
 	}
-	
+
 	@Override
 	public void onDetach() {
 		mCallback.onMapClosed(mWaypointList);
 		super.onDetach();
 	}
-	
+
 	/** 
 	 * Configure default settings for the GoogleMap map
 	 * @param map the GoogleMap to configure
@@ -180,9 +181,9 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 
 				}
 		);	
-		
+
 	}
-	
+
 	/** 
 	 * Initialise the map
 	 */
@@ -198,7 +199,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	}
 
 	// Location Listener Implementation 
-	
+
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
 		// TODO Auto-generated method stub
@@ -219,5 +220,5 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	}
 
 
-	
+
 }

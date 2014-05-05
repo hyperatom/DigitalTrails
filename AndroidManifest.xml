@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="19" />
 
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -35,14 +35,17 @@
 	    	android:syncable="true" >
 		</provider> 
 		
+		<activity android:name="uk.ac.swan.digitaltrails.accounts.QuickPrefsActivity"/>
+
+        <activity android:name="uk.ac.swan.digitaltrails.accounts.ShowSettingsActivity" />
+			
 		<activity
-            android:name="uk.ac.swan.digitaltrails.activities.SplashActivity"
-            android:label="@string/app_name">
-            
+            android:name="uk.ac.swan.digitaltrails.activities.SplashActivity" 
+		    android:label="@string/app_name">
 		    <intent-filter>
-		        <action android:name="android.intent.action.MAIN" />
-		        <category android:name="android.intent.category.LAUNCHER"/>
-		    </intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             
         </activity>
         
@@ -51,7 +54,7 @@
         </activity>
         
         <activity 
-            android:name="uk.ac.swan.digitaltrails.activities.LogInActivity"
+            android:name="uk.ac.swan.digitaltrails.fragments.LogInFragment"
             android:parentActivityName="uk.ac.swan.digitaltrails.activities.LaunchActivity" >
         	<!-- Parent activity meta-data to support 4.0 and lower -->
         	<meta-data
@@ -60,7 +63,7 @@
         </activity>
         
         <activity 
-            android:name="uk.ac.swan.digitaltrails.activities.RegisterActivity"
+            android:name="uk.ac.swan.digitaltrails.fragments.RegisterFragment"
             android:parentActivityName="uk.ac.swan.digitaltrails.activities.LaunchActivity" >
         	<!-- Parent activity meta-data to support 4.0 and lower -->
         	<meta-data
@@ -70,6 +73,7 @@
         
         <activity 
             android:name="uk.ac.swan.digitaltrails.activities.HomeActivity">
+        	
         </activity>
         
         <activity 
@@ -204,7 +208,6 @@
 	    <meta-data
 		    android:name="com.google.android.maps.v2.API_KEY"
 		    android:value="AIzaSyB6OgvyWOhqap4j0vWzH3gIRKyH3N5GBGs"/>
-	    
 	   
 	    <meta-data
 	        android:name="com.google.android.gms.version"
