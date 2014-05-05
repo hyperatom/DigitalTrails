@@ -16,6 +16,10 @@ public final class R {
         public static final int abc_slide_out_bottom=0x7f040004;
         public static final int abc_slide_out_top=0x7f040005;
     }
+    public static final class array {
+        public static final int syncInterval=0x7f0d0000;
+        public static final int syncIntervalValues=0x7f0d0001;
+    }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -945,6 +949,7 @@ containing a value of this type.
         public static final int abc_config_allowActionMenuItemTextWithIcon=0x7f070004;
         public static final int abc_config_showMenuShortcutsWhenKeyboardPresent=0x7f070003;
         public static final int abc_split_action_bar_is_narrow=0x7f070002;
+        public static final int portrait_only=0x7f070006;
     }
     public static final class color {
         public static final int abc_search_url_text_holo=0x7f080011;
@@ -1204,8 +1209,9 @@ containing a value of this type.
         public static final int swanbeach=0x7f02008d;
     }
     public static final class id {
-        public static final int TextView01=0x7f06006e;
-        public static final int account=0x7f0600c3;
+        public static final int RatingBar01=0x7f0600b1;
+        public static final int TextView01=0x7f06005e;
+        public static final int account=0x7f0600e7;
         public static final int accountName=0x7f06003f;
         public static final int accountPassword=0x7f060040;
         public static final int action_bar=0x7f06001f;
@@ -1219,131 +1225,145 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060027;
-        public static final int action_settings=0x7f0600c4;
+        public static final int action_settings=0x7f0600e8;
         public static final int activity_chooser_view_content=0x7f060028;
-        public static final int addWaypoint=0x7f060071;
+        public static final int addWaypoint=0x7f06007c;
         public static final int alreadyMember=0x7f060045;
         public static final int always=0x7f06000b;
-        public static final int backToWalkView=0x7f0600bf;
+        public static final int backToWalkView=0x7f0600e3;
         public static final int beginning=0x7f060011;
+        public static final int browseMedia=0x7f060067;
         public static final int browse_media_button=0x7f06005b;
-        public static final int button1=0x7f060078;
-        public static final int button2=0x7f06007c;
-        public static final int button3=0x7f06007d;
-        public static final int button8=0x7f0600a3;
-        public static final int button9=0x7f0600a4;
-        public static final int cancel=0x7f06006d;
-        public static final int cancelCreate=0x7f060074;
+        public static final int button1=0x7f060083;
+        public static final int button2=0x7f060086;
+        public static final int button3=0x7f060087;
+        public static final int button8=0x7f0600c4;
+        public static final int button9=0x7f0600c5;
+        public static final int cancel=0x7f060078;
+        public static final int cancelCreate=0x7f06007f;
+        public static final int center=0x7f060088;
         public static final int checkbox=0x7f060030;
-        public static final int chooseWalkDetailFragment=0x7f06005e;
-        public static final int chooseWalkListFragment=0x7f06005d;
+        public static final int chooseWalkDetailFragment=0x7f06006a;
+        public static final int chooseWalkListFragment=0x7f060069;
         public static final int collapseActionView=0x7f06000d;
-        public static final int confirme=0x7f06006b;
-        public static final int confirmt=0x7f06006c;
-        public static final int createWalk=0x7f060095;
-        public static final int createWalkButton=0x7f06009f;
-        public static final int currentLocation=0x7f06005c;
-        public static final int deatilLayout=0x7f06007e;
+        public static final int confirme=0x7f060076;
+        public static final int confirmt=0x7f060077;
+        public static final int createWalk=0x7f0600a8;
+        public static final int createWalkButton=0x7f0600b3;
+        public static final int currentLocation=0x7f060068;
+        public static final int deatilLayout=0x7f06008b;
         public static final int default_activity_button=0x7f06002b;
-        public static final int deleteWalkButton=0x7f06009d;
-        public static final int delete_button=0x7f060082;
-        public static final int descriptionText=0x7f060096;
+        public static final int deleteWalkButton=0x7f0600b0;
+        public static final int delete_button=0x7f06008f;
+        public static final int descriptionText=0x7f0600aa;
         public static final int description_edit=0x7f060054;
         public static final int description_label=0x7f060055;
-        public static final int detailsText=0x7f0600a0;
+        public static final int detailsText=0x7f0600b5;
         public static final int dialog=0x7f06000e;
         public static final int disableHome=0x7f060008;
         public static final int dropdown=0x7f06000f;
-        public static final int editText1=0x7f060070;
-        public static final int editWalkButton=0x7f06009c;
-        public static final int editWaypoints=0x7f060072;
+        public static final int editText1=0x7f06005d;
+        public static final int editWalkButton=0x7f0600af;
+        public static final int editWaypointInfo=0x7f06005c;
+        public static final int editWaypoints=0x7f06007d;
         public static final int edit_query=0x7f060033;
         public static final int edit_waypoint_info=0x7f060051;
-        public static final int email=0x7f06009a;
-        public static final int emaile=0x7f060068;
-        public static final int emailt=0x7f060067;
+        public static final int edit_waypoint_left=0x7f060089;
+        public static final int edit_waypoint_right=0x7f06008a;
+        public static final int email=0x7f0600ad;
+        public static final int emaile=0x7f060073;
+        public static final int emailt=0x7f060072;
         public static final int end=0x7f060013;
         public static final int expand_activities_button=0x7f060029;
         public static final int expanded_menu=0x7f06002f;
-        public static final int explore=0x7f0600aa;
+        public static final int explore=0x7f0600cb;
         public static final int filter=0x7f060050;
         public static final int firstName=0x7f060043;
         public static final int fragment_container=0x7f060048;
         public static final int fragment_container_large=0x7f06004a;
         public static final int fragment_container_thin=0x7f060049;
         public static final int fragment_launcher=0x7f060046;
-        public static final int fragment_my_walks_list=0x7f06009e;
-        public static final int fullnamee=0x7f060065;
-        public static final int fullnamet=0x7f060066;
-        public static final int gallery=0x7f06007b;
+        public static final int fragment_my_walks_list=0x7f0600b2;
+        public static final int fullnamee=0x7f060070;
+        public static final int fullnamet=0x7f060071;
+        public static final int gallery=0x7f060085;
         public static final int go=0x7f06004f;
-        public static final int gridLayout1=0x7f0600ab;
+        public static final int gridLayout1=0x7f0600cc;
         public static final int home=0x7f060014;
         public static final int homeAsUp=0x7f060005;
         public static final int hybrid=0x7f06001c;
-        public static final int hybrid_map=0x7f0600c8;
+        public static final int hybrid_map=0x7f0600ec;
         public static final int icon=0x7f06002d;
         public static final int ifRoom=0x7f06000a;
         public static final int image=0x7f06002a;
-        public static final int imageView1=0x7f0600ac;
-        public static final int info_view_view_pager=0x7f060061;
-        public static final int innerLayout=0x7f060085;
-        public static final int innerLayout1=0x7f0600ae;
-        public static final int innerLayout10=0x7f0600b7;
-        public static final int innerLayout2=0x7f0600af;
-        public static final int innerLayout3=0x7f0600b0;
-        public static final int innerLayout4=0x7f0600b1;
-        public static final int innerLayout5=0x7f0600b2;
-        public static final int innerLayout6=0x7f0600b3;
-        public static final int innerLayout7=0x7f0600b4;
-        public static final int innerLayout8=0x7f0600b5;
-        public static final int innerLayout9=0x7f0600b6;
-        public static final int label=0x7f0600a2;
+        public static final int imageView1=0x7f0600cd;
+        public static final int infoRegister=0x7f0600b4;
+        public static final int info_view_view_pager=0x7f06006d;
+        public static final int innerLayout=0x7f060098;
+        public static final int innerLayout1=0x7f0600cf;
+        public static final int innerLayout10=0x7f0600d8;
+        public static final int innerLayout2=0x7f0600d0;
+        public static final int innerLayout3=0x7f0600d1;
+        public static final int innerLayout4=0x7f0600d2;
+        public static final int innerLayout5=0x7f0600d3;
+        public static final int innerLayout6=0x7f0600d4;
+        public static final int innerLayout7=0x7f0600d5;
+        public static final int innerLayout8=0x7f0600d6;
+        public static final int innerLayout9=0x7f0600d7;
+        public static final int label=0x7f0600b7;
         public static final int lastName=0x7f060044;
+        public static final int latitudeEdit=0x7f060061;
+        public static final int latitudeText=0x7f060063;
         public static final int latitude_edit=0x7f060059;
         public static final int latitude_label=0x7f060056;
-        public static final int linearLayout1=0x7f060075;
-        public static final int linearLayout2=0x7f060081;
+        public static final int linearLayout1=0x7f060080;
+        public static final int linearLayout2=0x7f06008e;
         public static final int listMode=0x7f060001;
         public static final int list_item=0x7f06002c;
-        public static final int log_out=0x7f0600c5;
+        public static final int log_out=0x7f0600e9;
         public static final int login=0x7f06004c;
-        public static final int long_descr=0x7f06007f;
+        public static final int long_descr=0x7f06008c;
+        public static final int longitudeEdit=0x7f060064;
+        public static final int longitudeText=0x7f060065;
         public static final int longitude_edit=0x7f060058;
         public static final int longitude_label=0x7f060057;
+        public static final int main=0x7f060094;
         public static final int map=0x7f060047;
-        public static final int map_container=0x7f06009b;
-        public static final int maps=0x7f0600c6;
-        public static final int mediaAudio=0x7f0600bd;
-        public static final int mediaDescription=0x7f0600bb;
-        public static final int mediaPictures=0x7f0600bc;
-        public static final int mediaVideo=0x7f0600be;
-        public static final int menuB=0x7f0600a5;
+        public static final int map_container=0x7f0600ae;
+        public static final int maps=0x7f0600ea;
+        public static final int mediaAudio=0x7f0600e1;
+        public static final int mediaDescription=0x7f0600df;
+        public static final int mediaPictures=0x7f0600e0;
+        public static final int mediaVideo=0x7f0600e2;
+        public static final int menuB=0x7f0600c6;
         public static final int middle=0x7f060012;
-        public static final int myWalks=0x7f0600a9;
+        public static final int myWalks=0x7f0600ca;
         public static final int name_edit=0x7f060052;
         public static final int name_label=0x7f060053;
         public static final int never=0x7f060009;
         public static final int none=0x7f060010;
         public static final int normal=0x7f060000;
-        public static final int normal_map=0x7f0600c7;
-        public static final int pass=0x7f060099;
-        public static final int passworde=0x7f060069;
-        public static final int passwordt=0x7f06006a;
-        public static final int progressBar1=0x7f0600b8;
+        public static final int normal_map=0x7f0600eb;
+        public static final int pass=0x7f0600ac;
+        public static final int passworde=0x7f060074;
+        public static final int passwordt=0x7f060075;
+        public static final int progressBar1=0x7f0600dc;
         public static final int progress_circular=0x7f060018;
         public static final int progress_horizontal=0x7f060019;
         public static final int radio=0x7f060032;
-        public static final int ratingBar1=0x7f060083;
-        public static final int register=0x7f060097;
-        public static final int relativeLayout1=0x7f060062;
+        public static final int ratingBar1=0x7f060090;
+        public static final int register=0x7f0600ab;
+        public static final int relativeLayout1=0x7f06006e;
+        public static final int relativeLayout2=0x7f060079;
         public static final int satellite=0x7f06001a;
-        public static final int satellite_map=0x7f0600c9;
-        public static final int saveWalk=0x7f060073;
-        public static final int saveWaypoint=0x7f06007a;
-        public static final int scrollView1=0x7f060084;
+        public static final int satellite_map=0x7f0600ed;
+        public static final int saveWalk=0x7f06007e;
+        public static final int saveWaypoint=0x7f060084;
+        public static final int scrollView1=0x7f060097;
+        public static final int searchDetailFragment=0x7f0600da;
+        public static final int searchListFragment=0x7f0600d9;
         public static final int searchView1=0x7f06004b;
-        public static final int searchWalks=0x7f0600a8;
+        public static final int searchWalks=0x7f0600c9;
         public static final int search_badge=0x7f060035;
         public static final int search_bar=0x7f060034;
         public static final int search_button=0x7f060036;
@@ -1356,55 +1376,76 @@ containing a value of this type.
         public static final int search_plate=0x7f060039;
         public static final int search_src_text=0x7f06003a;
         public static final int search_voice_btn=0x7f06003e;
-        public static final int short_descr=0x7f0600b9;
+        public static final int settings_text_view=0x7f0600db;
+        public static final int short_descr=0x7f0600dd;
         public static final int shortcut=0x7f060031;
         public static final int showCustom=0x7f060007;
         public static final int showHome=0x7f060004;
         public static final int showTitle=0x7f060006;
         public static final int signUp=0x7f060042;
         public static final int split_action_bar=0x7f060021;
-        public static final int startButton=0x7f060080;
+        public static final int startButton=0x7f06008d;
         public static final int submit=0x7f060041;
         public static final int submit_area=0x7f06003c;
-        public static final int sync=0x7f0600c2;
+        public static final int sync=0x7f0600e6;
         public static final int tabMode=0x7f060002;
         public static final int terrain=0x7f06001b;
-        public static final int text1=0x7f0600ad;
-        public static final int textView1=0x7f060064;
-        public static final int textView2=0x7f060098;
-        public static final int textView21=0x7f0600a1;
+        public static final int text1=0x7f0600ce;
+        public static final int textView1=0x7f060062;
+        public static final int textView10=0x7f0600b9;
+        public static final int textView11=0x7f0600ba;
+        public static final int textView12=0x7f0600bb;
+        public static final int textView13=0x7f0600bc;
+        public static final int textView14=0x7f0600bd;
+        public static final int textView15=0x7f0600be;
+        public static final int textView16=0x7f0600bf;
+        public static final int textView17=0x7f0600c0;
+        public static final int textView18=0x7f0600c1;
+        public static final int textView19=0x7f0600c2;
+        public static final int textView2=0x7f06007b;
+        public static final int textView20=0x7f0600c3;
+        public static final int textView21=0x7f0600b6;
+        public static final int textView3=0x7f06007a;
+        public static final int textView4=0x7f060096;
+        public static final int textView5=0x7f060095;
+        public static final int textView6=0x7f060091;
+        public static final int textView7=0x7f060092;
+        public static final int textView8=0x7f060093;
+        public static final int textView9=0x7f0600b8;
         public static final int title=0x7f06002e;
-        public static final int titledit=0x7f060092;
+        public static final int titledit=0x7f0600a5;
         public static final int top_action_bar=0x7f060023;
         public static final int up=0x7f060024;
-        public static final int uploadMedia=0x7f060079;
+        public static final int uploadMedia=0x7f060066;
         public static final int upload_media_button=0x7f06005a;
         public static final int useLogo=0x7f060003;
-        public static final int viewWalks=0x7f0600a7;
-        public static final int walk1=0x7f060086;
-        public static final int walk10=0x7f06008f;
-        public static final int walk11=0x7f060090;
-        public static final int walk12=0x7f060091;
-        public static final int walk2=0x7f060087;
-        public static final int walk3=0x7f060088;
-        public static final int walk4=0x7f060089;
-        public static final int walk5=0x7f06008a;
-        public static final int walk6=0x7f06008b;
-        public static final int walk7=0x7f06008c;
-        public static final int walk8=0x7f06008d;
-        public static final int walk9=0x7f06008e;
-        public static final int walkDescriptionEdit=0x7f060094;
-        public static final int walkDescriptionText=0x7f060093;
-        public static final int walkNameT=0x7f06006f;
-        public static final int walkViewDetailFragment=0x7f0600c0;
-        public static final int walkViewListFragment=0x7f0600c1;
-        public static final int walk_details_fragment=0x7f060060;
-        public static final int walk_list_fragment=0x7f06005f;
-        public static final int waypoint1=0x7f0600a6;
-        public static final int waypointMap=0x7f0600ba;
-        public static final int waypointNameE=0x7f060076;
-        public static final int waypointNameT=0x7f060077;
-        public static final int welcome=0x7f060063;
+        public static final int viewWalks=0x7f0600c8;
+        public static final int walk1=0x7f060099;
+        public static final int walk10=0x7f0600a2;
+        public static final int walk11=0x7f0600a3;
+        public static final int walk12=0x7f0600a4;
+        public static final int walk2=0x7f06009a;
+        public static final int walk3=0x7f06009b;
+        public static final int walk4=0x7f06009c;
+        public static final int walk5=0x7f06009d;
+        public static final int walk6=0x7f06009e;
+        public static final int walk7=0x7f06009f;
+        public static final int walk8=0x7f0600a0;
+        public static final int walk9=0x7f0600a1;
+        public static final int walkDescriptionEdit=0x7f0600a7;
+        public static final int walkDescriptionText=0x7f0600a6;
+        public static final int walkNameE=0x7f06005f;
+        public static final int walkNameEdit=0x7f0600a9;
+        public static final int walkNameT=0x7f060060;
+        public static final int walkViewDetailFragment=0x7f0600e4;
+        public static final int walkViewListFragment=0x7f0600e5;
+        public static final int walk_details_fragment=0x7f06006c;
+        public static final int walk_list_fragment=0x7f06006b;
+        public static final int waypoint1=0x7f0600c7;
+        public static final int waypointMap=0x7f0600de;
+        public static final int waypointNameE=0x7f060081;
+        public static final int waypointNameT=0x7f060082;
+        public static final int welcome=0x7f06006f;
         public static final int withText=0x7f06000c;
     }
     public static final class integer {
@@ -1464,45 +1505,48 @@ containing a value of this type.
         public static final int activity_my_walks=0x7f03001b;
         public static final int activity_search=0x7f03001c;
         public static final int add_waypoint_info_dialog=0x7f03001d;
-        public static final int add_waypoint_view=0x7f03001e;
-        public static final int choose_walk=0x7f03001f;
-        public static final int choose_walk_activity=0x7f030020;
-        public static final int dialog_info_view=0x7f030021;
-        public static final int edit_account_view=0x7f030022;
-        public static final int edit_walks_view=0x7f030023;
-        public static final int edit_waypoint_view=0x7f030024;
-        public static final int explore_view=0x7f030025;
-        public static final int fragment_choose_walk_detail=0x7f030026;
-        public static final int fragment_choose_walk_list=0x7f030027;
-        public static final int fragment_create_walk=0x7f030028;
-        public static final int fragment_edit_walk=0x7f030029;
-        public static final int fragment_launch=0x7f03002a;
-        public static final int fragment_log_in=0x7f03002b;
-        public static final int fragment_map=0x7f03002c;
-        public static final int fragment_my_walk_details=0x7f03002d;
-        public static final int fragment_my_walk_list=0x7f03002e;
-        public static final int fragment_register=0x7f03002f;
-        public static final int fragment_search_detail=0x7f030030;
-        public static final int fragment_search_list=0x7f030031;
-        public static final int fragment_walk_detail=0x7f030032;
-        public static final int fragment_walk_list=0x7f030033;
-        public static final int home_view=0x7f030034;
-        public static final int info=0x7f030035;
-        public static final int info_view_dialog=0x7f030036;
-        public static final int my_walks_view=0x7f030037;
-        public static final int settings_view=0x7f030038;
-        public static final int splash=0x7f030039;
-        public static final int support_simple_spinner_dropdown_item=0x7f03003a;
-        public static final int test_fragment_walk_details=0x7f03003b;
-        public static final int test_fragment_walk_list=0x7f03003c;
-        public static final int view_waypoint_view=0x7f03003d;
-        public static final int walk_activity=0x7f03003e;
-        public static final int walk_view=0x7f03003f;
-        public static final int waypoint_list=0x7f030040;
+        public static final int add_waypoint_info_view=0x7f03001e;
+        public static final int add_waypoint_view=0x7f03001f;
+        public static final int choose_walk=0x7f030020;
+        public static final int choose_walk_activity=0x7f030021;
+        public static final int dialog_info_view=0x7f030022;
+        public static final int edit_account_view=0x7f030023;
+        public static final int edit_walks_view=0x7f030024;
+        public static final int edit_waypoint_view=0x7f030025;
+        public static final int explore_view=0x7f030026;
+        public static final int fragment_choose_walk_detail=0x7f030027;
+        public static final int fragment_choose_walk_list=0x7f030028;
+        public static final int fragment_create_walk=0x7f030029;
+        public static final int fragment_edit_walk=0x7f03002a;
+        public static final int fragment_launch=0x7f03002b;
+        public static final int fragment_log_in=0x7f03002c;
+        public static final int fragment_map=0x7f03002d;
+        public static final int fragment_my_walk_details=0x7f03002e;
+        public static final int fragment_my_walk_list=0x7f03002f;
+        public static final int fragment_register=0x7f030030;
+        public static final int fragment_search_detail=0x7f030031;
+        public static final int fragment_search_list=0x7f030032;
+        public static final int fragment_walk_detail=0x7f030033;
+        public static final int fragment_walk_list=0x7f030034;
+        public static final int home_view=0x7f030035;
+        public static final int info=0x7f030036;
+        public static final int info_view_dialog=0x7f030037;
+        public static final int my_walks_view=0x7f030038;
+        public static final int search_view=0x7f030039;
+        public static final int settings_view=0x7f03003a;
+        public static final int show_settings_layout=0x7f03003b;
+        public static final int splash=0x7f03003c;
+        public static final int support_simple_spinner_dropdown_item=0x7f03003d;
+        public static final int test_fragment_walk_details=0x7f03003e;
+        public static final int test_fragment_walk_list=0x7f03003f;
+        public static final int view_waypoint_view=0x7f030040;
+        public static final int walk_activity=0x7f030041;
+        public static final int walk_view=0x7f030042;
+        public static final int waypoint_list=0x7f030043;
     }
     public static final class menu {
-        public static final int main=0x7f0d0000;
-        public static final int maps_menu=0x7f0d0001;
+        public static final int main=0x7f0e0000;
+        public static final int maps_menu=0x7f0e0001;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1552,8 +1596,8 @@ containing a value of this type.
         public static final int account_title=0x7f0b0034;
         public static final int action_settings=0x7f0b0030;
         public static final int add_to_existing=0x7f0b0040;
-        public static final int add_waypoint_dialog_message=0x7f0b006b;
-        public static final int add_waypoint_dialog_title=0x7f0b006a;
+        public static final int add_waypoint_dialog_message=0x7f0b006c;
+        public static final int add_waypoint_dialog_title=0x7f0b006b;
         /**  CHRIS' STRINGS 
  Generic Strings 
          */
@@ -1584,9 +1628,9 @@ containing a value of this type.
         public static final int back_media=0x7f0b003a;
         public static final int cancel=0x7f0b0047;
         public static final int cancel_delete_media=0x7f0b003e;
-        public static final int cancel_delete_walk=0x7f0b0063;
-        public static final int cancel_delete_waypoint=0x7f0b0067;
-        public static final int cancel_waypoint=0x7f0b0069;
+        public static final int cancel_delete_walk=0x7f0b0064;
+        public static final int cancel_delete_waypoint=0x7f0b0068;
+        public static final int cancel_waypoint=0x7f0b006a;
         public static final int chooseWalk=0x7f0b0033;
         public static final int close=0x7f0b002d;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
@@ -1662,29 +1706,29 @@ containing a value of this type.
         public static final int common_signin_button_text_long=0x7f0b0020;
         public static final int confirm_delete_media=0x7f0b0039;
         public static final int confirm_delete_media_final=0x7f0b003d;
-        public static final int confirm_delete_walk=0x7f0b0062;
-        public static final int confirm_delete_waypoint=0x7f0b0066;
+        public static final int confirm_delete_walk=0x7f0b0063;
+        public static final int confirm_delete_waypoint=0x7f0b0067;
         /**  Waypoint List View Strings 
  Add Waypoint Fragment Strings 
          */
-        public static final int confirm_waypoint=0x7f0b0068;
-        public static final int create=0x7f0b004e;
+        public static final int confirm_waypoint=0x7f0b0069;
+        public static final int create=0x7f0b004f;
         public static final int create_new_walk=0x7f0b0041;
-        public static final int delete=0x7f0b004d;
+        public static final int delete=0x7f0b004e;
         public static final int delete_media_message=0x7f0b003c;
         public static final int delete_media_title=0x7f0b003b;
-        public static final int delete_walk_message=0x7f0b0061;
+        public static final int delete_walk_message=0x7f0b0062;
         /**  Walk Options View Strings 
          */
-        public static final int delete_walk_title=0x7f0b0060;
-        public static final int delete_waypoint_message=0x7f0b0065;
+        public static final int delete_walk_title=0x7f0b0061;
+        public static final int delete_waypoint_message=0x7f0b0066;
         /**  Walk View Strings 
          */
-        public static final int delete_waypoint_title=0x7f0b0064;
+        public static final int delete_waypoint_title=0x7f0b0065;
         public static final int dialog_info_view=0x7f0b002c;
         /**  My Walks View Strings 
          */
-        public static final int edit=0x7f0b004c;
+        public static final int edit=0x7f0b004d;
         public static final int email=0x7f0b0045;
         public static final int enter=0x7f0b004a;
         /**  Home View Strings 
@@ -1698,40 +1742,41 @@ containing a value of this type.
         public static final int log_in_message=0x7f0b0049;
         public static final int log_in_prompt=0x7f0b0043;
         public static final int map_menu=0x7f0b002b;
-        public static final int media_audio=0x7f0b005c;
+        public static final int media_audio=0x7f0b005d;
         /**  Search View Strings 
  Settings View Strings 
  View Waypoint View Strings 
          */
-        public static final int media_description=0x7f0b005a;
-        public static final int media_pictures=0x7f0b005b;
-        public static final int media_video=0x7f0b005d;
-        public static final int no=0x7f0b0054;
+        public static final int media_description=0x7f0b005b;
+        public static final int media_pictures=0x7f0b005c;
+        public static final int media_video=0x7f0b005e;
+        public static final int no=0x7f0b0055;
         public static final int noWalks=0x7f0b002e;
         public static final int normal_map=0x7f0b0028;
-        public static final int ok=0x7f0b0055;
+        public static final int ok=0x7f0b0056;
         public static final int password=0x7f0b0044;
-        public static final int register_message=0x7f0b0050;
+        public static final int register=0x7f0b004c;
+        public static final int register_message=0x7f0b0051;
         /**  Register View Strings 
          */
-        public static final int register_title=0x7f0b004f;
-        public static final int reposition_made_message=0x7f0b0059;
-        public static final int reposition_made_title=0x7f0b0058;
-        public static final int reposition_message=0x7f0b0057;
-        public static final int reposition_title=0x7f0b0056;
+        public static final int register_title=0x7f0b0050;
+        public static final int reposition_made_message=0x7f0b005a;
+        public static final int reposition_made_title=0x7f0b0059;
+        public static final int reposition_message=0x7f0b0058;
+        public static final int reposition_title=0x7f0b0057;
         public static final int retry=0x7f0b004b;
-        public static final int returnToWalkView=0x7f0b005f;
+        public static final int returnToWalkView=0x7f0b0060;
         public static final int satellite_map=0x7f0b002a;
         /**  Reposition View Strings 
          */
-        public static final int save=0x7f0b0052;
+        public static final int save=0x7f0b0053;
         /**  Add Waypoint View Strings 
  Choose Walk View Strings 
          */
         public static final int start=0x7f0b0032;
         public static final int valid_changes=0x7f0b0036;
-        public static final int valid_register=0x7f0b0051;
-        public static final int waypoint1=0x7f0b005e;
+        public static final int valid_register=0x7f0b0052;
+        public static final int waypoint1=0x7f0b005f;
         public static final int waypoint_media_message=0x7f0b0038;
         /**  Edit Walks View Strings 
  Edit Waypoint View Strings 
@@ -1741,7 +1786,7 @@ containing a value of this type.
  Log In View Strings 
          */
         public static final int welcome_text=0x7f0b0042;
-        public static final int yes=0x7f0b0053;
+        public static final int yes=0x7f0b0054;
     }
     public static final class style {
         /** 
@@ -1948,8 +1993,9 @@ containing a value of this type.
         public static final int Widget_AppCompat_Spinner_DropDown_ActionBar=0x7f0c0022;
     }
     public static final class xml {
-        public static final int sync_adapter=0x7f050000;
-        public static final int whiterock_authenticator=0x7f050001;
+        public static final int preferences=0x7f050000;
+        public static final int sync_adapter=0x7f050001;
+        public static final int whiterock_authenticator=0x7f050002;
     }
     public static final class styleable {
         /**  ============================================ 
