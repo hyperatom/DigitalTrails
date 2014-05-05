@@ -334,7 +334,12 @@ public final class R {
 		public static final int abc_popup_menu_item_layout = 0x7f030014;
 		public static final int abc_search_dropdown_item_icons_2line = 0x7f030015;
 		public static final int abc_search_view = 0x7f030016;
+<<<<<<< HEAD
+		public static final int abc_simple_decor = 0x7f030017;
+		public static final int support_simple_spinner_dropdown_item = 0x7f03003b;
+=======
 		public static final int support_simple_spinner_dropdown_item = 0x7f03003d;
+>>>>>>> 8e164cabe4364e9f5f8191602056463b6477530c
 	}
 	public static final class string {
 		public static final int abc_action_bar_home_description = 0x7f0b0001;
