@@ -9,7 +9,8 @@ public class Media {
 	@SerializedName("url") protected String mFileLocation;
 	@SerializedName("thumbnail_url") protected String mThumbnailLocation;
 	@SerializedName("caption") protected String mCaption;
-	@SerializedName("waypoint_id") protected Waypoint mWaypoint;
+	@SerializedName("waypoint_id") protected int mWaypointId;
+	protected Waypoint mWaypoint;
 	
 	public long getId() {
 		return mId;
