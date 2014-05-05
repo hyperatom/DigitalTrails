@@ -39,8 +39,6 @@ public abstract class DescriptionDataSource extends DataSource {
 		values.put(allColumns[1], d.getTitle());
 		values.put(allColumns[2], d.getShortDescription());
 		values.put(allColumns[3], d.getLongDescription());
-		values.put(allColumns[4], d.getForeignId());
-		Log.d(TAG, "foreign id: " + d.getForeignId());
 		Uri newDescr = mContext.getContentResolver().insert(uri, values);
 		Log.d(TAG, "New description id = " + newDescr);
 		return ContentUris.parseId(newDescr);

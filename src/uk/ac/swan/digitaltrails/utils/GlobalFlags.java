@@ -7,4 +7,5 @@ package uk.ac.swan.digitaltrails.utils;
  */
 public interface GlobalFlags {
 	public static final boolean DEBUG = false;
+	public static final String PREF_NAME = "WhiteRockPrefs";
 }

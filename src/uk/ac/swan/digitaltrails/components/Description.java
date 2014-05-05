@@ -12,7 +12,6 @@ public class Description implements Parcelable {
 	@SerializedName("short_description") protected String mShortDescription;
 	@SerializedName("long_description") protected String mLongDescription;
 	protected int mLanguage;
-	protected long mForeignId;
 
 	public enum Languages {
 		ENGLISH, WELSH
@@ -89,14 +88,6 @@ public class Description implements Parcelable {
 	 */
 	public String getLongDescription() {
 		return mLongDescription;
-	}
-
-	public void setForeignId(long id) {
-		mForeignId = id;
-	}
-
-	public long getForeignId() {
-		return mForeignId;
 	}
 
 	public void setLanguage(int language) {

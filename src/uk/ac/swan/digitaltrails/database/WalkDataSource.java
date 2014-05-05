@@ -33,12 +33,13 @@ public class WalkDataSource extends DataSource {
 	 * @param difficultyRating
 	 * @return
 	 */
-	public long addWalk(int duration, double distance, int downloadCount, int difficultyRating) {
+	public long addWalk(int duration, double distance, int downloadCount, int difficultyRating, long ownerId) {
 		ContentValues values = new ContentValues();
 		values.put(ALL_COLUMNS[1], duration);
 		values.put(ALL_COLUMNS[2], distance);
 		values.put(ALL_COLUMNS[3], downloadCount);
 		values.put(ALL_COLUMNS[4], difficultyRating);
+		values.put(ALL_COLUMNS[5], ownerId);
 		Uri addedWalk = mContext.getContentResolver().insert(URI, values);
 		return ContentUris.parseId(addedWalk);
 	}
@@ -49,12 +50,13 @@ public class WalkDataSource extends DataSource {
 		values.put(ALL_COLUMNS[2], walk.getDistance());
 		values.put(ALL_COLUMNS[3], walk.getDownloadCount());
 		values.put(ALL_COLUMNS[4], walk.getDifficultyRating());
+		values.put(ALL_COLUMNS[5], walk.getOwner());
 		Uri addedWalk = mContext.getContentResolver().insert(URI, values);
 		Log.d(TAG, "Walk added at pos: " + ContentUris.parseId(addedWalk));
 		return ContentUris.parseId(addedWalk);
 	}
 
-	/**
+	/** 
 	 * Delete walk from database
 	 * @param id the id of the walk to delete
 	 */

@@ -18,10 +18,12 @@ import uk.ac.swan.digitaltrails.fragments.EditWaypointMapFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkListFragment;
 import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
+import uk.ac.swan.digitaltrails.utils.GlobalFlags;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -324,9 +326,15 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	 * @param view
 	 */
 	public void createCreateButtonOnClick(View view) {
+		if (mWaypointList == null || mWaypointList.size() <= 0) {
+			onBackPressed();
+			return;
+		}
 		// Walk Table
 		WalkDataSource walkDataSource = new WalkDataSource(this);
-		long walkId = walkDataSource.addWalk(0, 0, 0, 0); //TODO: Use real values for this
+		SharedPreferences settings = this.getSharedPreferences(GlobalFlags.PREF_NAME, 0);
+		long userId = settings.getInt("userId", -1);
+		long walkId = walkDataSource.addWalk(0, 0, 0, 0, userId); //TODO: Use real values for this
 		Log.d(TAG, "walkId value = " + walkId);
 		// EnglishWalkDescriptions table
 		EditText titleView = (EditText) findViewById(R.id.titledit);

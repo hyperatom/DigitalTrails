@@ -63,6 +63,8 @@ public class WhiteRockContentProvider extends ContentProvider {
 	private static final int WAYPOINT_WITH_MEDIA_ID = 76;
 	private static final int WAYPOINT_WITH_MEDIA_WITH_ENGLISH_LIST = 80;
 	private static final int WAYPOINT_WITH_MEDIA_WITH_ENGLISH_ID = 81;
+	private static final int WALK_WITH_ENGLISH_LIST = 85;
+	private static final int WALK_WITH_ENGLISH_ID = 86;
 
 	/** Handler for database. */
 	private DatabaseHandler mDbHandler;
@@ -112,6 +114,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 		matcher.addURI(authority, WhiteRockContract.WaypointWithMedia.CONTENT_URI.toString()+"/#", WAYPOINT_WITH_MEDIA_ID);
 		matcher.addURI(authority, "waypoint_and_english_and_media",	WAYPOINT_WITH_MEDIA_WITH_ENGLISH_LIST);
 		matcher.addURI(authority, "waypoint_and_english_and_media/#", WAYPOINT_WITH_MEDIA_WITH_ENGLISH_ID);
+		matcher.addURI(authority, "walk_and_english", WALK_WITH_ENGLISH_LIST);
+		matcher.addURI(authority, "walk_and_english/#", WALK_WITH_ENGLISH_ID);
+
 		return matcher;
 	}
 
@@ -370,6 +375,10 @@ public class WhiteRockContentProvider extends ContentProvider {
 			return WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_TYPE;
 		case WAYPOINT_WITH_MEDIA_WITH_ENGLISH_ID:
 			return WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_TYPE_DIR;
+		case WALK_WITH_ENGLISH_LIST:
+			return WhiteRockContract.WalkWithEnglishDescriptions.CONTENT_TYPE;
+		case WALK_WITH_ENGLISH_ID:
+			return WhiteRockContract.WalkWithEnglishDescriptions.CONTENT_TYPE_DIR;
 		default:
 			throw new UnsupportedOperationException("URI " + uri + " is not supported.");	
 		}
@@ -492,6 +501,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 		SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 		String queryString;
 		boolean useAuthorityUri = false;
+		Log.d(TAG, "Uri in query:" + uri);
 		switch (URI_MATCHER.match(uri)) {
 		case WALK_LIST:
 			builder.setTables(DbSchema.TABLE_WALK);
@@ -639,7 +649,6 @@ public class WhiteRockContentProvider extends ContentProvider {
 					+ "(" + DbSchema.TABLE_WAYPOINT + "." + WhiteRockContract.Waypoint.ID + " = " 
 					+ DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR + "." + WhiteRockContract.EnglishWaypointDescriptions.WAYPOINT_ID +")";
 			builder.setTables(queryString);
-			//builder.setTables("waypoint LEFT OUTER JOIN english_waypoint_description ON (waypoint.id = english_waypoint_description.waypoint_id)");
 			if (TextUtils.isEmpty(sortOrder)) {
 				sortOrder = WhiteRockContract.WaypointWithEnglishDescription.SORT_ORDER_DEFAULT;
 			}
@@ -680,6 +689,24 @@ public class WhiteRockContentProvider extends ContentProvider {
 				sortOrder = WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.SORT_ORDER_DEFAULT;
 			}
 			break;
+		case WALK_WITH_ENGLISH_LIST:
+			queryString = DbSchema.TABLE_WALK + " LEFT OUTER JOIN "
+				+ DbSchema.TABLE_ENGLISH_WALK_DESCR + " ON "
+				+ DbSchema.TABLE_WALK + "." + WhiteRockContract.Walk.ID
+				+ " = " + DbSchema.TABLE_ENGLISH_WALK_DESCR + "." + WhiteRockContract.EnglishWalkDescriptions.WALK_ID;
+			builder.setTables(queryString);
+			if (TextUtils.isEmpty(sortOrder)) {
+				sortOrder = WhiteRockContract.WalkWithEnglishDescriptions.SORT_ORDER_DEFAULT;
+			}
+			break;
+//		case WALK_WITH_ENGLISH_ID:
+//			queryString = DbSchema.TABLE_WALK + " LEFT OUTER JOIN "
+//					+ DbSchema.TABLE_ENGLISH_WALK_DESCR + " ON "
+//					+ DbSchema.TABLE_WALK + "." + WhiteRockContract.Walk.ID
+//					+ DbSchema.TABLE_ENGLISH_WALK_DESCR + "." + WhiteRockContract.EnglishWalkDescriptions.WALK_ID;
+//			builder.setTables(queryString);
+//			builder.appendWhere(WhiteRockContract.WalkWithEnglishDescriptions._ID + " = " + uri.getLastPathSegment());
+//			break;
 		default:
 			throw new IllegalArgumentException("Unsupported URI: " + uri + " case argument is " + URI_MATCHER.match(uri));
 		}

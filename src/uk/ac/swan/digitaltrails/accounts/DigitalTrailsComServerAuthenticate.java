@@ -5,8 +5,14 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Account;
+import uk.ac.swan.digitaltrails.utils.GlobalFlags;
 import uk.ac.swan.digitaltrails.utils.HTTP;
+import uk.ac.swan.digitaltrails.utils.WhiteRockApp;
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 /**
@@ -16,7 +22,7 @@ import android.util.Log;
 public class DigitalTrailsComServerAuthenticate implements ServerAuthenticate {
 
 	private static final String TAG = "Comunicator";
-
+	
 	@Override
 	public Account userSignUp(String firstName, String lastName, String email,
 			String pass, String authType) throws Exception {
@@ -43,7 +49,12 @@ public class DigitalTrailsComServerAuthenticate implements ServerAuthenticate {
 		Log.d(TAG, response);
 	    
 		Account loggedIn = gson.fromJson(response, Account.class);
-	    
+		SharedPreferences settings = WhiteRockApp.getInstance().getSharedPreferences(GlobalFlags.PREF_NAME, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt("userId", loggedIn.id);
+		editor.commit();
+		Log.d(TAG, "userId logged in: " + settings.getInt("userId", -99));
+
 		return loggedIn;
 	}
 
@@ -63,7 +74,12 @@ public class DigitalTrailsComServerAuthenticate implements ServerAuthenticate {
 					        
 	    Account loggedIn = gson.fromJson(response, Account.class);
 		Log.d(TAG, "pass = " + loggedIn.password);
+		SharedPreferences settings = WhiteRockApp.getInstance().getSharedPreferences(GlobalFlags.PREF_NAME, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt("userId", loggedIn.id);
+		editor.commit();
+		Log.d(TAG, "userId logged in: " + settings.getInt("userId", -99));
+		// TODO: remove id on logout
 	    return loggedIn.password;
-
 	}
 }

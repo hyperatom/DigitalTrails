@@ -62,6 +62,24 @@ public class WhiteRockContract {
 		public static final String[] PROJECTION_ALL = {ID, DESCRIPTION, USER_ID};
 
 	}
+	
+	public static final class WalkWithEnglishDescriptions implements WalkDescriptionColumns, WalkColumns {
+		public static final Uri CONTENT_URI = Uri.withAppendedPath(
+				WhiteRockContract.CONTENT_URI, "walk_and_english");
+		
+		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
+				"vnd.uk.ac.swan.digitaltrails.walk_and_english";
+		
+		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
+				"vnd.uk.ac.swan.digitaltrails.walk_and_english";
+
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
+	
+		public static final String[] PROJECTION_ALL = {DbSchema.TABLE_WALK+"."+WalkColumns.ID, DURATION_MINUTES, DISTANCE_MILES, DOWNLOAD_COUNT, DIFFICULTY_RATING, USER_ID,
+														TITLE, SHORT_DESCR, LONG_DESCR, WALK_ID};
+
+	}
+	
 	/**
 	 * Constants for English Walk Descriptions
 	 * @author Lewis Hancock

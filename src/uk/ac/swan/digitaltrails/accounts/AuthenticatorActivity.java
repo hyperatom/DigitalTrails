@@ -22,7 +22,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 	public final static String ACCOUNT_NAME = "ACCOUNT_NAME";
 	public final static String IS_ADDING_NEW_ACCOUNT = "IS_ADDING_ACCOUNT";
 	
-	public final static  String ERROR_MESSAGE = "ERR_MSG";
+	public final static String ERROR_MESSAGE = "ERR_MSG";
 	
 	public final static String USER_PASS = "USER_PASS";
 	
@@ -96,7 +96,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 				String authToken = null;
 				Bundle data = new Bundle();
 				try {
-					Log.d(TAG, "I die at line 101");
 					authToken = AccountGeneral.sServerAuthenticate.userSignIn(userName, userPassword, mAuthTokenType);
 					Log.d(TAG, "authToken: " + authToken);
 					data.putString(AccountManager.KEY_ACCOUNT_NAME, userName);
@@ -104,6 +103,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 					data.putString(AccountManager.KEY_AUTHTOKEN, authToken);
 					data.putString(USER_PASS, userPassword);
 				} catch (Exception e) {
+					Log.d(TAG, "Exception here");
+					e.printStackTrace();
 					data.putString(ERROR_MESSAGE, e.getMessage());
 					Log.e(TAG, "Error: " + e.getMessage());
 				}
@@ -129,7 +130,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		String accountName = intent.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
 		String accountPassword = intent.getStringExtra(USER_PASS);
 		final Account account = new Account(accountName, intent.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE));
-		Log.d(TAG, "Alive before if: line 132");
 		if (getIntent().getBooleanExtra(IS_ADDING_NEW_ACCOUNT, false)) {
 			Log.d(TAG, "NOT Adding new account");
 			String authToken = intent.getStringExtra(AccountManager.KEY_AUTHTOKEN);
@@ -139,7 +139,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 			// create local account, set auth token.
 			mAccountManager.addAccountExplicitly(account, accountPassword, intent.getBundleExtra(AccountManager.KEY_USERDATA));
 			mAccountManager.setAuthToken(account, authTokenType, authToken);
-			Log.d(TAG, "Alive at end of if: line 142");
 		} else {
 			mAccountManager.setPassword(account, accountPassword);;
 		}

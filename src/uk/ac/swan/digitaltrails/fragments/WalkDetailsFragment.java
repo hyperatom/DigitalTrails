@@ -52,14 +52,19 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		mLongDescrText = (TextView) getView().findViewById(R.id.long_descr);
 		//setHasOptionsMenu(true);
 		getLoaderManager().initLoader(1, null, this);
-		
 		// check if arguments passed to the fragment
 		Bundle args = getArguments();
 		if (args != null) {
 			updateDetailsView(args.getInt(ARG_POSITION));
-		} else if (mCurrentPos != -1) {
+		} else if (mCurrentPos > 0) {
 			updateDetailsView(mCurrentPos);			
 		}	
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		getLoaderManager().restartLoader(1, null, this);
 	}
 	
 	@Override
@@ -78,7 +83,6 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		
 		mCurrentPos = position;
 		if (mCurrentPos >= 0){
-			
 			buttonStart.setEnabled(true);
 			getLoaderManager().restartLoader(1, null, this);
 		} else {

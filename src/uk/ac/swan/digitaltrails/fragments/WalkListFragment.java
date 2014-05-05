@@ -29,12 +29,12 @@ public class WalkListFragment extends ListFragment
 
 	private static final String TAG = "WalkListFragment";
 	
-	private ArrayList<Walk> mWalkList;
-	private ArrayList<Integer> mWalkIds;
-	private SimpleCursorAdapter mAdapter;
-	private SearchViewCompat mSearchView;
-	private String mCurFilter; 
-	private int mLayout;
+	protected ArrayList<Walk> mWalkList;
+	protected ArrayList<Integer> mWalkIds;
+	protected SimpleCursorAdapter mAdapter;
+	protected SearchViewCompat mSearchView;
+	protected String mCurFilter; 
+	protected int mLayout;
 
 	
 	public interface OnWalkSelectedListener {
@@ -104,7 +104,7 @@ public class WalkListFragment extends ListFragment
 	}
 	
 
-	static String [] WALK_SUMMARY_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions._ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, WhiteRockContract.EnglishWalkDescriptions.WALK_ID };
+	protected static String [] WALK_SUMMARY_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions._ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, WhiteRockContract.EnglishWalkDescriptions.WALK_ID };
 	
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
