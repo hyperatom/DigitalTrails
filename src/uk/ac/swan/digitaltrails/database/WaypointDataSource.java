@@ -36,6 +36,18 @@ public class WaypointDataSource extends DataSource {
 		return ContentUris.parseId(newWp);
 	}
 
+	public long addWaypoint(Waypoint wp) {
+		ContentValues values = new ContentValues();
+		values.put(ALL_COLUMNS[1], wp.getLatitude());
+		values.put(ALL_COLUMNS[2], wp.getLongitude());
+		values.put(ALL_COLUMNS[3], wp.isRequest());
+		values.put(ALL_COLUMNS[4], wp.getVisitOrder());
+		values.put(ALL_COLUMNS[5], wp.getWalkId());
+		values.put(ALL_COLUMNS[6], wp.getUserId());
+		Uri newWp = mContext.getContentResolver().insert(URI, values);
+		return ContentUris.parseId(newWp);	
+	}
+	
 	public int updateWaypoint(long id, Double latitude, Double longitude, Integer isRequest, Long visitOrder, Long walkId, Long userId) {
 		ContentValues values = new ContentValues();
 		if (latitude != null) {

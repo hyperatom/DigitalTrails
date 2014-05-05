@@ -19,6 +19,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -59,6 +60,7 @@ public class ChooseWalkActivity extends ActionBarActivity
 	 */
 	@Override
 	public void onWalkSelected(int position) {
+		Log.d("ChooseWalkActivity", String.valueOf(position));
 		WalkListFragment listFrag = (WalkListFragment) getSupportFragmentManager().findFragmentById(R.id.walk_list_fragment);
 		if (listFrag != null) {
 
@@ -90,9 +92,7 @@ public class ChooseWalkActivity extends ActionBarActivity
 	}
 	
 	public void loadWalkButtonClick(View view) {
-		
 		WalkDetailsFragment detailsFrag = (WalkDetailsFragment)getSupportFragmentManager().findFragmentById(R.id.walk_details_fragment);
-	
 		if(detailsFrag.getCurrentPosition() > 0){
 			Intent intent = new Intent(this, MapActivity.class);
 			intent.putExtra(MapActivity.ARG_EXPLORE, 1);

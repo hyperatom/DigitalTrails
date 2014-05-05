@@ -42,6 +42,17 @@ public class WalkDataSource extends DataSource {
 		Uri addedWalk = mContext.getContentResolver().insert(URI, values);
 		return ContentUris.parseId(addedWalk);
 	}
+	
+	public long addWalk(Walk walk) {
+		ContentValues values = new ContentValues();
+		values.put(ALL_COLUMNS[1], walk.getDuration());
+		values.put(ALL_COLUMNS[2], walk.getDistance());
+		values.put(ALL_COLUMNS[3], walk.getDownloadCount());
+		values.put(ALL_COLUMNS[4], walk.getDifficultyRating());
+		Uri addedWalk = mContext.getContentResolver().insert(URI, values);
+		Log.d(TAG, "Walk added at pos: " + ContentUris.parseId(addedWalk));
+		return ContentUris.parseId(addedWalk);
+	}
 
 	/**
 	 * Delete walk from database
@@ -95,7 +106,7 @@ public class WalkDataSource extends DataSource {
 	private Walk cursorToWalk(Cursor cursor) {
 		Walk walk = new Walk();
 		walk.setId(cursor.getLong(0));
-		walk.setDuration(new Duration(cursor.getInt(1)));
+		walk.setDuration(cursor.getInt(1));
 		walk.setDistance(cursor.getDouble(2));
 		walk.setDownloadCount(cursor.getLong(3));
 		walk.setDifficultyRating(cursor.getInt(4));

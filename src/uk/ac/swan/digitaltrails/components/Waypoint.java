@@ -138,7 +138,7 @@ public class Waypoint implements Parcelable {
 	}
 
 	
-	public WelshDescription getWelshDescription() {
+	public WaypointDescription getWelshDescription() {
 		return mWelshDescr;
 	}
 	
@@ -146,7 +146,7 @@ public class Waypoint implements Parcelable {
 		mWelshDescr = welshDescr;
 	}
 	
-	public EnglishDescription getEnglishDescription() {
+	public WaypointDescription getEnglishDescription() {
 		return mEnglishDescr;
 	}
 	

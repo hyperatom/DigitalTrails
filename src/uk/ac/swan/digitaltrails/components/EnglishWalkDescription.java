@@ -2,8 +2,7 @@ package uk.ac.swan.digitaltrails.components;
 
 import com.google.gson.annotations.SerializedName;
 
-public class EnglishWalkDescription extends EnglishDescription {
-	@SerializedName("walk_id") protected long mForeignId;
+public class EnglishWalkDescription extends WalkDescription {
 
 	public EnglishWalkDescription(int id, String title, String shortDesc, String longDesc) {
 		setId(id);

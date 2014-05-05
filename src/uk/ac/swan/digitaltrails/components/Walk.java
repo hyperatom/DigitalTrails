@@ -13,8 +13,7 @@ public class Walk implements Parcelable {
 	@SerializedName("id") private long mId;
 	@SerializedName("english_description") private EnglishWalkDescription mEnglishDescription;
 	@SerializedName("welsh_description") private WelshWalkDescription mWelshDescription;
-	@SerializedName("duration_minutes") private int mDur; //
-	private Duration mDuration;
+	@SerializedName("duration_minutes") private int mDuration; //
 	/** Total distance to walk in miles */
 	@SerializedName("distance_miles") private double mDistance;
 	@SerializedName("waypoints") private ArrayList<Waypoint> mWaypoints;
@@ -46,7 +45,7 @@ public class Walk implements Parcelable {
 		return mId;
 	}
 
-	public EnglishDescription getEnglishDescriptions() {
+	public WalkDescription getEnglishDescriptions() {
 		return mEnglishDescription;
 	}
 
@@ -55,7 +54,7 @@ public class Walk implements Parcelable {
 		return true;
 	}
 	
-	public WelshDescription getWelshDescriptions() {
+	public WalkDescription getWelshDescriptions() {
 		return mWelshDescription;
 	}
 
@@ -70,7 +69,7 @@ public class Walk implements Parcelable {
 	 * @param duration
 	 *            to be set
 	 */
-	public boolean setDuration(Duration duration) {
+	public boolean setDuration(int duration) {
 		this.mDuration = duration;
 		return true;
 	}
@@ -80,7 +79,7 @@ public class Walk implements Parcelable {
 	 * 
 	 * @return duration
 	 */
-	public Duration getDuration() {
+	public double getDuration() {
 		return mDuration;
 	}
 
@@ -169,7 +168,7 @@ public class Walk implements Parcelable {
 	 */
 	public Walk() {
 		// Does not set id or ownerId cause that would break things.
-		setDuration(new Duration(0, 0));
+		setDuration(0);
 		setDistance(0);
 		setDifficultyRating(0);
 		setDownloadCount(0);
@@ -186,7 +185,7 @@ public class Walk implements Parcelable {
 	 * @param distance
 	 */
 	public Walk(int id, String title, String shortDescription,
-			String longDescription, Duration duration, double distance,
+			String longDescription, int duration, double distance,
 			long ownerId, long downloadCount, int difficulty) {
 		setId(id);
 		setDuration(duration);
@@ -206,7 +205,7 @@ public class Walk implements Parcelable {
 			newWalk.setId(in.readLong());
 			newWalk.setEnglishDescription(in.readParcelable(EnglishDescription.class.getClassLoader()));
 			newWalk.setWelshDescription(in.readParcelable(WelshDescription.class.getClassLoader()));
-			newWalk.setDuration(new Duration(in.readInt(), in.readInt()));
+			newWalk.setDuration(in.readInt());
 			newWalk.setDistance(in.readDouble());
 			//newWalk.setWaypoints(in.readTypedList(new ArrayList<Waypoint>(), Waypoint.CREATOR));
 			return newWalk;
@@ -240,8 +239,7 @@ public class Walk implements Parcelable {
 		dest.writeLong(mId);
 		dest.writeParcelable(mEnglishDescription, flags);
 		dest.writeParcelable(mWelshDescription, flags);
-		dest.writeInt(mDuration.getHours());
-		dest.writeInt(mDuration.getMinutes());
+		dest.writeInt(mDuration);
 		dest.writeDouble(mDistance);
 		Waypoint[] tempArray = new Waypoint[mWaypoints.size()];
 		mWaypoints.toArray(tempArray);

@@ -34,7 +34,7 @@ public class HomeActivity extends ActionBarActivity{
 	}
 
 	public void createWalkButtonOnClick(View view){
-		// Needs to connect to the Fragment somehow
+		//TODO: Needs to connect to the Fragment somehow
 	}
 	public void searchButton(View view){
         Intent intent = new Intent(this, SearchActivity.class);
