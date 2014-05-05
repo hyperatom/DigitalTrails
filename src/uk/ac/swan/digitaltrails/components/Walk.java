@@ -45,7 +45,7 @@ public class Walk implements Parcelable {
 		return mId;
 	}
 
-	public EnglishDescription getEnglishDescriptions() {
+	public WalkDescription getEnglishDescriptions() {
 		return mEnglishDescription;
 	}
 
@@ -54,7 +54,7 @@ public class Walk implements Parcelable {
 		return true;
 	}
 	
-	public WelshDescription getWelshDescriptions() {
+	public WalkDescription getWelshDescriptions() {
 		return mWelshDescription;
 	}
 

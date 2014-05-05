@@ -3,6 +3,8 @@ package uk.ac.swan.digitaltrails.database;
 import java.util.List;
 
 import uk.ac.swan.digitaltrails.components.Description;
+import uk.ac.swan.digitaltrails.components.WalkDescription;
+import uk.ac.swan.digitaltrails.components.WaypointDescription;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -33,6 +35,30 @@ public abstract class DescriptionDataSource extends DataSource {
 	}
 
 	public long addDescription(Description d) {
+		ContentValues values = new ContentValues();
+		values.put(allColumns[1], d.getTitle());
+		values.put(allColumns[2], d.getShortDescription());
+		values.put(allColumns[3], d.getLongDescription());
+		values.put(allColumns[4], d.getForeignId());
+		Log.d(TAG, "foreign id: " + d.getForeignId());
+		Uri newDescr = mContext.getContentResolver().insert(uri, values);
+		Log.d(TAG, "New description id = " + newDescr);
+		return ContentUris.parseId(newDescr);
+	}
+	
+	public long addDescription(WalkDescription d) {
+		ContentValues values = new ContentValues();
+		values.put(allColumns[1], d.getTitle());
+		values.put(allColumns[2], d.getShortDescription());
+		values.put(allColumns[3], d.getLongDescription());
+		values.put(allColumns[4], d.getForeignId());
+		Log.d(TAG, "foreign id: " + d.getForeignId());
+		Uri newDescr = mContext.getContentResolver().insert(uri, values);
+		Log.d(TAG, "New description id = " + newDescr);
+		return ContentUris.parseId(newDescr);
+	}
+	
+	public long addDescription(WaypointDescription d) {
 		ContentValues values = new ContentValues();
 		values.put(allColumns[1], d.getTitle());
 		values.put(allColumns[2], d.getShortDescription());
