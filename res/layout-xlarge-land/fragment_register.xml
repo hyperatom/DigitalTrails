@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#dbdbdb" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.59"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="Welcome to White Rock Nature Trails"
+            android:textSize="60sp" />
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/welcome"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="0dip"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="" />
+
+            <EditText
+                android:id="@+id/fullnamee"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/emaile"
+                android:layout_alignLeft="@+id/passworde"
+                android:layout_marginBottom="60dp"
+                android:ems="10"
+                android:hint="Full name"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/emaile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/emailt"
+                android:layout_alignRight="@+id/passwordt"
+                android:text="Email Address"
+                android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/passworde"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/confirme"
+                android:layout_below="@+id/textView3"
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:hint="********"
+                android:textSize="25sp" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/emailt"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/textView3"
+                android:layout_alignLeft="@+id/passworde"
+                android:layout_marginBottom="30dp"
+                android:ems="10"
+                android:hint="Email"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/passwordt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/passworde"
+                android:layout_marginRight="30dp"
+                android:layout_toLeftOf="@+id/passworde"
+                android:text="Password"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/fullnamet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/fullnamee"
+                android:layout_alignRight="@+id/emaile"
+                android:text="Full name"
+                android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/confirme"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/passworde"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                android:ems="10"
+                android:hint="********"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/confirmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/confirme"
+                android:layout_alignRight="@+id/passwordt"
+                android:text="Confirm Password"
+                android:textSize="25sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0.05" >
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="400dp"
+            android:layout_height="65dp"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/button_background"
+            android:onClick="registerButton"
+            android:text="@string/register"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="400dp"
+            android:layout_height="65dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/textView1"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="200dp"
+            android:background="@drawable/button_background"
+            android:onClick="cancelButton"
+            android:text="@string/cancel"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/cancel"
+            android:layout_alignBottom="@+id/cancel"
+            android:layout_centerHorizontal="true"
+            android:text="" />
+        
+    </RelativeLayout>
+
+</LinearLayout>
