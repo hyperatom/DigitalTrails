@@ -1,5 +1,6 @@
 package uk.ac.swan.digitaltrails.fragments;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.swan.digitaltrails.R;
@@ -44,6 +45,7 @@ public class SearchListFragment extends ListFragment
 	private String mCurFilter;
 	private Account mConnectedAccount;
 	private Context mContext;
+	private ArrayList<Long> mWalkIds;
 	
 	public void setConnectedAccount(Account account) {
 		mConnectedAccount = account;
@@ -67,7 +69,7 @@ public class SearchListFragment extends ListFragment
 		// change layout depending on version of android;
 		mLayout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
 				android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
-
+		mWalkIds = new ArrayList<Long>();
 		
 		//		
 //		//TODO: Call from API.
@@ -107,15 +109,18 @@ public class SearchListFragment extends ListFragment
 		
 		if (mConnectedAccount == null) {
 			Log.d(TAG, "Account empty");
-			//setEmptyText("Not Logged In");
+			setEmptyText("Not Logged In");
 		} else {
+			setEmptyText("No Walks");
 			Log.d(TAG, "Account connected - lets do this");
 			Bundle bundle = new Bundle();
 			// sync no matter what
 //			bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
 //			bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 //			ContentResolver.requestSync(mConnectedAccount, WhiteRockContract.AUTHORITY, bundle);
-			mAdapter = new WalkLoaderAdapter(this.getActivity().getBaseContext(), null);
+			mAdapter = new WalkLoaderAdapter(this.getActivity().getBaseContext());
+			setListAdapter(mAdapter);
+			setListShown(false);
 			getLoaderManager().initLoader(0,  null,  this);
 		}
 
@@ -135,22 +140,31 @@ public class SearchListFragment extends ListFragment
 		return false;
 	}
 
-
+	
 	@Override
 	public Loader<List<Walk>> onCreateLoader(int arg0, Bundle arg1) {
-		return new WalkLoader(getActivity().getApplicationContext());
+		return new WalkLoader(getActivity());
 	}
 
 
 	@Override
 	public void onLoadFinished(Loader<List<Walk>> arg0, List<Walk> walks) {
-		mAdapter.setValues(walks);
+		Log.d(TAG, "onLoadFinished");
+		mAdapter.setData(walks);
+		for (Walk w : walks) {
+			mWalkIds.add(w.getId());
+		}
+		if (isResumed()) {
+			setListShown(true);
+		} else {
+			setListShownNoAnimation(true);
+		}
 	}
 
 
 	@Override
 	public void onLoaderReset(Loader<List<Walk>> arg0) {
-		mAdapter.clear();
+		mAdapter.setData(null);
 	}
 
 } 

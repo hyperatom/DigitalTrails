@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="syncInterval">
+        <item name="1800000">Every 30 minutes</item>
+        <item name="3600000">Every 1 hour</item>
+        <item name="7200000">Every 2 hours</item>
+        <item name="21600000">Every 6 hours</item>
+        <item name="43200000">Every 12 hours</item>
+        <item name="86400000">Every 24 hours</item>
+    </string-array>
+    
+    <string-array name="syncIntervalValues">
+        <item name="1800000">1800000</item>
+        <item name="3600000">3600000</item>
+        <item name="7200000">7200000</item>
+        <item name="21600000">21600000</item>
+        <item name="43200000">43200000</item>
+        <item name="86400000">86400000</item>
+    </string-array>
+</resources>

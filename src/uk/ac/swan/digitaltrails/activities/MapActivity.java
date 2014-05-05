@@ -464,11 +464,8 @@ public class MapActivity extends ActionBarActivity implements
 		Intent intent = new Intent(this, ChooseWalkActivity.class);
 		startActivity(intent);
 	}
-	
-	
-	
-	// Google Play Services stuff
-	
+
+	// Google Play Services stuff	
 	@Override
 	protected void onActivityResult(int reqCode, int resCode, Intent data) {
 		switch (reqCode) {
@@ -547,7 +544,6 @@ public class MapActivity extends ActionBarActivity implements
 	// LocationListener methods begin
 	@Override 
 	public void onLocationChanged(Location location) {
-		// compare location to waypoint locations.
 	}
 
 	@Override

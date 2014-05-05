@@ -13,7 +13,8 @@ public class Walk implements Parcelable {
 	@SerializedName("id") private long mId;
 	@SerializedName("english_description") private EnglishWalkDescription mEnglishDescription;
 	@SerializedName("welsh_description") private WelshWalkDescription mWelshDescription;
-	@SerializedName("duration_minutes") private Duration mDuration;
+	@SerializedName("duration_minutes") private int mDur; //
+	private Duration mDuration;
 	/** Total distance to walk in miles */
 	@SerializedName("distance_miles") private double mDistance;
 	@SerializedName("waypoints") private ArrayList<Waypoint> mWaypoints;

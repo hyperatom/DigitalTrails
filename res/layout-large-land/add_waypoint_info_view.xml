@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#dbdbdb">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_weight="0.55"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/editWaypointInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Edit Waypoint"
+            android:textSize="40sp" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/TextView01"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:text="Filler text to take up space.This is just a test. Not actual text that will be used. Filler text to take up space. This is just a test.Not actual text that will be used."
+            android:textSize="15sp" >
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/walkNameE"
+            android:layout_width="490dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView01"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/walkNameT"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:text="Singleton Park Trail"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editText1"
+            android:layout_below="@+id/walkNameE"
+            android:layout_marginTop="20dp"
+            android:text="Waypoint description:"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/latitudeEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/textView1"
+            android:layout_below="@+id/latitudeText"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:text="9883.2834"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/longitudeEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/longitudeText"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/longitudeText"
+            android:layout_marginTop="10dp"
+            android:text="9883.2834"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/latitudeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/editText1"
+            android:layout_marginTop="20dp"
+            android:text="Latitude:"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/walkNameT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/editWaypointInfo"
+            android:layout_marginTop="10dp"
+            android:text="Waypoint name:"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/longitudeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/latitudeEdit"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/textView1"
+            android:text="Longitude:"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" >
+
+        <Button
+            android:id="@+id/uploadMedia"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/button_background"
+            android:text="Upload Media"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/browseMedia"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/button_background"
+            android:text="Browse"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

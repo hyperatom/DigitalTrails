@@ -23,6 +23,7 @@ public class Waypoint implements Parcelable {
 	private Marker mMarker;
 	@SerializedName("visit_order") private int mVisitOrder;
 	@SerializedName("is_request") private boolean mIsRequest; 
+	
 	@SerializedName("english_description") private EnglishWaypointDescription mEnglishDescr;
 	@SerializedName("welsh_description") private WelshWaypointDescription mWelshDescr;
 	@SerializedName("images") private ArrayList<Photo> mPhotos;

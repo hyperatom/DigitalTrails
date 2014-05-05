@@ -12,7 +12,7 @@ public class Description implements Parcelable {
 	@SerializedName("short_description") protected String mShortDescription;
 	@SerializedName("long_description") protected String mLongDescription;
 	protected int mLanguage;
-	@SerializedName("waypoint_id") protected long mForeignId;
+	protected long mForeignId;
 
 	public enum Languages {
 		ENGLISH, WELSH

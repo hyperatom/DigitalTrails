@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:layout_margin="20dp"
+     android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Edit Waypoint"
+            android:textSize="60sp" />
+
+        <EditText
+            android:id="@+id/waypointNameE"
+            android:layout_width="490dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/waypointNameT"
+            android:layout_alignBottom="@+id/waypointNameT"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/TextView01"
+            android:ems="10"
+            android:hint="Give the waypoint a name"
+            android:textSize="25sp" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/waypointNameE"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/TextView01"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:text="Filler text to take up space. This is just a test. Not actual text that will be used. Filler text to take up space. This is just a test.Not actual text that will be used. 
+"
+            android:textSize="25dp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView01"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/center"
+            android:layout_below="@+id/editText1"
+            android:layout_marginTop="15dp"
+            android:onClick="viewMediaButton"
+            android:text="Gallery goes here" />
+
+        <Button
+            android:id="@+id/saveWaypoint"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/button1"
+            android:background="@drawable/button_background"
+            android:onClick="saveWaypointButton"
+            android:text="Save"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/uploadMedia"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_above="@+id/saveWaypoint"
+            android:layout_alignLeft="@+id/saveWaypoint"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button_background"
+            android:text="Upload media"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/waypointNameT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/welcome"
+            android:layout_marginTop="30dp"
+            android:text="Walk name:"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/waypointNameE"
+            android:layout_marginTop="30dp"
+            android:text="Walk description:"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/map"
+            android:layout_width="fill_parent"
+            android:layout_height="300dp"
+            android:layout_above="@+id/uploadMedia"
+            android:layout_alignLeft="@+id/uploadMedia"
+            android:layout_alignTop="@+id/button1"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button_background"
+            android:src="@drawable/map_nott2" />
+
+        <TextView
+            android:id="@+id/center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="" />
+
+</RelativeLayout>
+
+

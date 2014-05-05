@@ -50,8 +50,12 @@ public class EditWalkFragment extends WalkDetailsFragment {
 				Log.d("DATA LOG", "Col " + i + " value: " + data.getString(i));
 			}
 			mDescrId = data.getInt(0);
-			mTitleText.setText(data.getString(1));
-			mLongDescrText.setText(data.getString(3));
+			if (mTitleText != null && mLongDescrText != null) {
+				mTitleText.setText(data.getString(1));
+				mLongDescrText.setText(data.getString(3));
+			} else {
+				Log.d(TAG, "Title or descr text not found");
+			}
 		} else {
 			Log.d("DATA LOG", "Cursor is empty, wtf, the mCurrentPos is: " + mCurrentPos);
 		}
