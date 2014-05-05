@@ -52,12 +52,13 @@ public class SearchListFragment extends ListFragment
 	}
 	
 	public interface OnWalkSelectedListener {
-		public void onWalkSelected(int position);
+		public void onWalkSelected(Walk walk);
 	}
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		mCallback.onWalkSelected(position);
+		mCallback.onWalkSelected(mAdapter.getItem(position));
+		Log.d(TAG, "Walk Id of item: " + mAdapter.getItem(position).getId());
 		getListView().setItemChecked(position, true);
 	}
 
@@ -70,14 +71,6 @@ public class SearchListFragment extends ListFragment
 		mLayout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
 				android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
 		mWalkIds = new ArrayList<Long>();
-		
-		//		
-//		//TODO: Call from API.
-//		//
-//		setListAdapter(mAdapter);
-//		setListShown(false);
-//		getLoaderManager().initLoader(0, null, this);
-
 	}
 	
 	@Override

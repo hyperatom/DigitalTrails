@@ -1,12 +1,16 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
-import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
-import uk.ac.swan.digitaltrails.fragments.*;
+import uk.ac.swan.digitaltrails.components.Walk;
+import uk.ac.swan.digitaltrails.components.Waypoint;
+import uk.ac.swan.digitaltrails.database.DescriptionDataSource;
+import uk.ac.swan.digitaltrails.database.EnglishWalkDescriptionDataSource;
+import uk.ac.swan.digitaltrails.database.EnglishWaypointDescriptionDataSource;
+import uk.ac.swan.digitaltrails.database.WalkDataSource;
+import uk.ac.swan.digitaltrails.database.WaypointDataSource;
+import uk.ac.swan.digitaltrails.fragments.SearchDetailsFragment;
+import uk.ac.swan.digitaltrails.fragments.SearchListFragment;
 import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -28,6 +32,7 @@ SearchListFragment.OnWalkSelectedListener  {
 
 	public static final String TAG = "SearchActivity";
 	private Account mConnectedAccount;
+	private Walk mWalk;
 	
 	public Account getConnectedAccount() {
 		return mConnectedAccount;
@@ -70,17 +75,20 @@ SearchListFragment.OnWalkSelectedListener  {
 	}
 
 	@Override
-	public void onWalkSelected(int position) {
-		SearchDetailsFragment detailsFrag = (SearchDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.walk_details_fragment);
-		
+	public void onWalkSelected(Walk walk) {
+		Log.d(TAG, "Trying to choose a walk");
+		SearchDetailsFragment detailsFrag = (SearchDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.search_details_fragment);
+		mWalk = walk;
 		if (detailsFrag != null) {
+			Log.d(TAG, "In 2 pane view");
 			// if available and we are in 2-pane view.
-			detailsFrag.updateDetailsView(position);
+			detailsFrag.updateDetailsView(walk);
 		} else {
+			Log.d(TAG, "In 1 pane view");
 			// if in 1 pane view
 			SearchDetailsFragment newDetailsFragment = new SearchDetailsFragment();
 			Bundle args = new Bundle();
-			args.putInt(SearchDetailsFragment.ARG_POSITION, position);
+			args.putParcelable(SearchDetailsFragment.ARG_POSITION, walk);
 			newDetailsFragment.setArguments(args);
 			
 			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -112,6 +120,19 @@ SearchListFragment.OnWalkSelectedListener  {
 		startActivity(intent);
 	}
 
+	public void downloadWalkButtonOnClick(View v) {
+		Log.d(TAG, "Download button pressed");
+		WalkDataSource walkDataSource = new WalkDataSource(this);
+		DescriptionDataSource descrDataSource = new EnglishWalkDescriptionDataSource(this);
+		WaypointDataSource wpDataSource = new WaypointDataSource(this);
+		walkDataSource.addWalk(mWalk);
+		descrDataSource.addDescription(mWalk.getEnglishDescriptions());
+		descrDataSource = new EnglishWaypointDescriptionDataSource(this);
+		for (Waypoint wp : mWalk.getWaypoints()) {
+			wpDataSource.addWaypoint(wp);
+			descrDataSource.addDescription(wp.getEnglishDescription());
+		}
+	}
 
 
 }

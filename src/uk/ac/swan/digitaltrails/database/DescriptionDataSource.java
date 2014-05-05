@@ -32,6 +32,18 @@ public abstract class DescriptionDataSource extends DataSource {
 		return ContentUris.parseId(newDescr);
 	}
 
+	public long addDescription(Description d) {
+		ContentValues values = new ContentValues();
+		values.put(allColumns[1], d.getTitle());
+		values.put(allColumns[2], d.getShortDescription());
+		values.put(allColumns[3], d.getLongDescription());
+		values.put(allColumns[4], d.getForeignId());
+		Log.d(TAG, "foreign id: " + d.getForeignId());
+		Uri newDescr = mContext.getContentResolver().insert(uri, values);
+		Log.d(TAG, "New description id = " + newDescr);
+		return ContentUris.parseId(newDescr);
+	}
+	
 	public void deleteDescription(long id) {
 		Log.d(TAG, "Attempting to delete Description " + id);
 		mContext.getContentResolver().delete(uri, allColumns[0] + " == " + id, null);

@@ -121,12 +121,13 @@ public class WalkListFragment extends ListFragment
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		Log.d(TAG, "LoadFinished, data size: " + data.getCount());
 		mAdapter.swapCursor(data);
 		if (data != null && data.moveToFirst()) {
 			mWalkIds.add(data.getInt(2));
-			Log.d(TAG, "Num Walks Returned: " + data.getCount());
 			while (data.moveToNext())
 			{
+				Log.d(TAG, ""+data.getInt(2));
 				mWalkIds.add(data.getInt(2));
 			}
 		}		
@@ -135,7 +136,9 @@ public class WalkListFragment extends ListFragment
 		} else {
 			setListShownNoAnimation(true);
 		}
-		
+		for (int x : mWalkIds) {
+			Log.d(TAG, "Ids in list: " + x);
+		}
 	}
 
 	@Override
