@@ -45,7 +45,7 @@ public class Walk implements Parcelable {
 		return mId;
 	}
 
-	public EnglishDescription getEnglishDescriptions() {
+	public WalkDescription getEnglishDescriptions() {
 		return mEnglishDescription;
 	}
 
@@ -54,7 +54,7 @@ public class Walk implements Parcelable {
 		return true;
 	}
 	
-	public WelshDescription getWelshDescriptions() {
+	public WalkDescription getWelshDescriptions() {
 		return mWelshDescription;
 	}
 
@@ -203,8 +203,8 @@ public class Walk implements Parcelable {
 		public Walk createFromParcel(Parcel in) {
 			Walk newWalk = new Walk();
 			newWalk.setId(in.readLong());
-			newWalk.setEnglishDescription(in.readParcelable(EnglishDescription.class.getClassLoader()));
-			newWalk.setWelshDescription(in.readParcelable(WelshDescription.class.getClassLoader()));
+			newWalk.setEnglishDescription(in.readParcelable(EnglishWalkDescription.class.getClassLoader()));
+			newWalk.setWelshDescription(in.readParcelable(WelshWalkDescription.class.getClassLoader()));
 			newWalk.setDuration(in.readInt());
 			newWalk.setDistance(in.readDouble());
 			//newWalk.setWaypoints(in.readTypedList(new ArrayList<Waypoint>(), Waypoint.CREATOR));

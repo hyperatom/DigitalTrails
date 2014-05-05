@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Description;
-import uk.ac.swan.digitaltrails.components.EnglishDescription;
+import uk.ac.swan.digitaltrails.components.EnglishWalkDescription;
 import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.fragments.EditWaypointDialogFragment.EditWaypointDialogListener;
@@ -66,7 +66,7 @@ public class AddWaypointMapFragment extends MapFragment implements EditWaypointD
 			double latitude = Double.parseDouble(((EditText) view.findViewById(R.id.latitude_edit)).getText().toString().trim());
 			double longitude = Double.parseDouble(((EditText) view.findViewById(R.id.longitude_edit)).getText().toString().trim());
 			if (wp.getEnglishDescription() != null) {
-				EnglishDescription d = wp.getEnglishDescription();
+				EnglishWaypointDescription d = (EnglishWaypointDescription) wp.getEnglishDescription();
 				d.setTitle(title);
 				d.setLongDescription(description);
 				d.setShortDescription(snippet);	
