@@ -13,11 +13,18 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class ReceiveTransitionsIntentService extends IntentService {
 	
 	/**
 	 * Constructor
 	 * Sets identifier for the service
+	 */
+	/**
+	 * 
 	 */
 	public ReceiveTransitionsIntentService() {
 		super("ReceiveTransitionsIntentService");
@@ -28,6 +35,9 @@ public class ReceiveTransitionsIntentService extends IntentService {
 	/**
 	 * Handles incoming intents.
 	 * @param intent The intent sent by Location Services. 
+	 */
+	/* (non-Javadoc)
+	 * @see android.app.IntentService#onHandleIntent(android.content.Intent)
 	 */
 	@Override
 	protected void onHandleIntent(Intent intent) {

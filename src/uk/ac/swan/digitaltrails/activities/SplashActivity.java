@@ -7,8 +7,15 @@ import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
+/**
+ * @author Chris Lewis
+ *
+ */
 public class SplashActivity extends ActionBarActivity{
     
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,6 +36,9 @@ public class SplashActivity extends ActionBarActivity{
 	    }, (long) (1.5*1000)); // wait for 5 seconds
 	}
 	
+	/**
+	 * @param view
+	 */
 	public void splashButton(View view){
         Intent intent = new Intent(this, LaunchActivity.class);
         startActivity(intent);
@@ -37,6 +47,9 @@ public class SplashActivity extends ActionBarActivity{
     
    
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onDestroy()
+	 */
 	@Override
 	protected void onDestroy() {
 	     

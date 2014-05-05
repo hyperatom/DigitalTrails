@@ -14,28 +14,66 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class AddWaypointDialogFragment extends DialogFragment {
 
+	/**
+	 * @author Lewis Hancock
+	 *
+	 */
 	public interface AddWaypointDialogListener {
 		public void onDialogPositiveClick(DialogFragment dialog, View view);
 		public void onDialogNegativeClick(DialogFragment dialog, View view);
 	}
 
+	/**
+	 * 
+	 */
 	public static final String ARG_POSITION = "position";
+	/**
+	 * 
+	 */
 	public static final String ARG_TITLE = "title";
+	/**
+	 * 
+	 */
 	public static final String ARG_SNIPPET = "snippet";
+	/**
+	 * 
+	 */
 	public static final String ARG_DESCRIPTION = "descripiton";
+	/**
+	 * 
+	 */
 	public static final String ARG_INDEX = "index";
 	
+	/**
+	 * 
+	 */
 	public static final String TAG = "AddWaypointDialogListener";
 	
+	/**
+	 * 
+	 */
 	private AddWaypointDialogListener mListener;
+	/**
+	 * 
+	 */
 	private LatLng mPosition;
 	
+	/**
+	 * 
+	 */
 	public AddWaypointDialogFragment() {
 		super();
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.DialogFragment#onAttach(android.app.Activity)
+	 */
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		// Check we have implemented listener.
@@ -48,6 +86,9 @@ public class AddWaypointDialogFragment extends DialogFragment {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.DialogFragment#onCreateDialog(android.os.Bundle)
+	 */
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		super.onCreateDialog(savedInstanceState);
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -75,6 +116,9 @@ public class AddWaypointDialogFragment extends DialogFragment {
 	/**
 	 * Initialise EditText fields with the correct values
 	 * @param view The view to update
+	 */
+	/**
+	 * @param view
 	 */
 	protected void setupUi(View view) {
 		String lat;

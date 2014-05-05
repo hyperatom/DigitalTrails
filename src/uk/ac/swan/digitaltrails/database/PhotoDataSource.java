@@ -10,10 +10,20 @@ import android.util.Log;
 import uk.ac.swan.digitaltrails.components.Photo;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class PhotoDataSource extends MediaDataSource {
 
+	/**
+	 * 
+	 */
 	private static final String TAG = "PhotoDataSource";
 	
+	/**
+	 * @param context
+	 */
 	protected PhotoDataSource(Context context) {
 		super(context);
 		mTable = DbSchema.TABLE_WAYPOINT_IMAGE;
@@ -21,6 +31,10 @@ public class PhotoDataSource extends MediaDataSource {
 	
 	/**
 	 * 
+	 * @param fileLocation
+	 * @return
+	 */
+	/**
 	 * @param fileLocation
 	 * @return
 	 */
@@ -39,6 +53,9 @@ public class PhotoDataSource extends MediaDataSource {
 	 * 
 	 * @param photo
 	 */
+	/**
+	 * @param photo
+	 */
 	public void deletePhoto(Photo photo) {
 		long id = photo.getId();
 		Log.i(TAG, "Photo deleted with id: " + id);
@@ -47,6 +64,9 @@ public class PhotoDataSource extends MediaDataSource {
 
 	/**
 	 * 
+	 * @return
+	 */
+	/**
 	 * @return
 	 */
 	public List<Photo> getAllPhoto() {
@@ -67,6 +87,10 @@ public class PhotoDataSource extends MediaDataSource {
 	
 	/**
 	 * 
+	 * @return
+	 */
+	/**
+	 * @param wp
 	 * @return
 	 */
 	public List<Photo> getAllPhotosAtWaypoint(Waypoint wp) {
@@ -90,6 +114,10 @@ public class PhotoDataSource extends MediaDataSource {
 	 * 
 	 * @param cursor
 	 * @return New Photo.
+	 */
+	/**
+	 * @param cursor
+	 * @return
 	 */
 	private Photo cursorToPhoto(Cursor cursor) {
 		Photo photo = new Photo();

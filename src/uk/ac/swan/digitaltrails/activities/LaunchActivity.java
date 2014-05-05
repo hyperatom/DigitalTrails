@@ -21,13 +21,32 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+/**
+ * @author Lewis Hancock
+ * Activity to allow a user to login, register or continue as a guest.
+ */
 public class LaunchActivity extends ActionBarActivity{
 	
+	/**
+	 * Static tag for class
+	 */
 	private static final String TAG = "LaunchActivity";
+	/**
+	 * AccountManager to find the current account
+	 */
 	private AccountManager mAccountManager;
+	/**
+	 * 
+	 */
 	private String mAuthToken = null;
+	/**
+	 * The account logged in.
+	 */
 	private Account mConnectedAccount;
 	
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launch);
@@ -38,6 +57,10 @@ public class LaunchActivity extends ActionBarActivity{
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_launcher, launchFragment).commit();
 	}
 	
+	/**
+	 * OnClick method for skip button
+	 * @param view The view for the button
+	 */
 	public void skipButton(View view){
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
@@ -45,6 +68,10 @@ public class LaunchActivity extends ActionBarActivity{
 	
 	//LogInFragment functions
 	
+	/**
+	 * onClick method for LogIn button
+	 * @param view The view for the button
+	 */
 	public void logInButton(View view){
 		Log.d(TAG, "logInButton Pressed");
 		
@@ -59,15 +86,26 @@ public class LaunchActivity extends ActionBarActivity{
 		transaction.commit();
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onBackPressed()
+	 */
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
 	}
 	
+	/**
+	 * onClick method to cancel.
+	 * @param view The view for the button
+	 */
 	public void cancelButton(View view){
         onBackPressed();
     }
 
+	/**
+	 * OnClick method to sign in
+	 * @param view The view for the button
+	 */
 	public void signInButton(View view){
 		
 		Log.d("SIGN IN", "BUTTON PRESSED");
@@ -96,10 +134,19 @@ public class LaunchActivity extends ActionBarActivity{
 	
 	// Register functions
 	
+	/**
+	 * OnClick method to register / log in.
+	 * @param view The view for the button
+	 */
 	public void registerButtonOnClick(View view){
         getTokenForAccountCreateIfNeeded(AccountGeneral.ACCOUNT_TYPE, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
 	}
 	
+	/**
+	 * Get the token for the account, creating the authtoken if necessary.
+	 * @param accountType The type of account
+	 * @param authTokenType The type of auth token
+	 */
 	private void getTokenForAccountCreateIfNeeded(String accountType, String authTokenType) {
 		final Activity current = this;
 		final AccountManagerFuture<Bundle> future = mAccountManager.getAuthTokenByFeatures(accountType, authTokenType, null, this, null, null,
@@ -132,10 +179,18 @@ public class LaunchActivity extends ActionBarActivity{
 		}, null);
 	}
 	
+	/**
+	 * onClick to cancel registering
+	 * @param view The view for the button
+	 */
 	public void cancelRButton(View view){
         onBackPressed();
     }
 	
+	/**
+	 * onClick to register
+	 * @param view The view for the button
+	 */
 	public void registerButton(View view){
 		
 		Log.d("REGISTER", "BUTTON PRESSED");

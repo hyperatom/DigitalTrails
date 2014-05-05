@@ -14,8 +14,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+/**
+ * @author Lewis Hancock
+ * 
+ */
 public class WalkActivity extends ActionBarActivity {
 
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.walk_view);
@@ -41,6 +48,9 @@ public class WalkActivity extends ActionBarActivity {
 		    }
 	 }*/
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    // Inflate the menu items for use in the action bar
@@ -49,6 +59,9 @@ public class WalkActivity extends ActionBarActivity {
 	    return super.onCreateOptionsMenu(menu);
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
@@ -61,26 +74,41 @@ public class WalkActivity extends ActionBarActivity {
 	}
 	
 
+	/**
+	 * @param view
+	 */
 	public void waypointButton1(View view){
 	//	Intent intent = new Intent(this, ViewWaypointActivity.class);
 		//startActivity(intent);
 	}
 	
+	/**
+	 * @param view
+	 */
 	public void walkOptionsButton(View view){
         Intent intent = new Intent(this, MyWalksActivity.class);
         startActivity(intent);
     }
 
+	/**
+	 * @param menu
+	 */
 	public void accountButton(MenuItem menu){
         Intent intent = new Intent(this, EditAccountActivity.class);
         startActivity(intent);
     }
 	
+	/**
+	 * @param menu
+	 */
 	public void logOutButton(MenuItem menu){
         Intent intent = new Intent(this, LaunchActivity.class);
         startActivity(intent);
     }
 	
+	/**
+	 * @param menu
+	 */
 	public void settingsButton(MenuItem menu){
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);

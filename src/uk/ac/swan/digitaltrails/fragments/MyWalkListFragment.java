@@ -24,10 +24,20 @@ import android.widget.ListView;
  * @author Lewis H
  *
  */
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class MyWalkListFragment extends WalkListFragment {
 
+	/**
+	 * 
+	 */
 	private static final String TAG = "MyWalkListFragment";
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.ListFragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+	 */
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = super.onCreateView(inflater, container, savedInstanceState);
 		ListView listView = (ListView) v.findViewById(android.R.id.list);
@@ -41,6 +51,9 @@ public class MyWalkListFragment extends WalkListFragment {
 		return v;
 	}
 		
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkListFragment#onCreateLoader(int, android.os.Bundle)
+	 */
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri baseUri;
@@ -52,6 +65,9 @@ public class MyWalkListFragment extends WalkListFragment {
 		return new CursorLoader(getActivity(), baseUri, WhiteRockContract.WalkWithEnglishDescriptions.PROJECTION_ALL, select, null, WhiteRockContract.EnglishWalkDescriptions.WALK_ID + " COLLATE LOCALIZED ASC");
 	}
 
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkListFragment#onLoadFinished(android.support.v4.content.Loader, android.database.Cursor)
+	 */
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		Log.d(TAG, "LoadFinished, data size: " + data.getCount());

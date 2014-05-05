@@ -13,16 +13,41 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.util.Log;
 
+/**
+ * @author Lewis Hancock
+ * Class to abstract dealing with the database.
+ */
 public class DatabaseHandler extends SQLiteOpenHelper {
+	/**
+	 * 
+	 */
 	private static final String TAG = "DatabaseHandler::";
+	/**
+	 * 
+	 */
 	private static final String DB_NAME = DbSchema.DB_NAME;
+	/**
+	 * 
+	 */
 	private static final int DB_VERSION = 1;
 	
+	/**
+	 * 
+	 */
 	private static String DB_PATH = "";
+	/**
+	 * 
+	 */
 	private SQLiteDatabase mDatabase;
 		
+	/**
+	 * 
+	 */
 	private final Context mContext;
 
+	/**
+	 * @param context
+	 */
 	@SuppressLint("SdCardPath")
 	public DatabaseHandler(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
@@ -38,6 +63,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		this.mContext = context;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
+	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		Log.d(TAG, "CREATING");
@@ -80,6 +108,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		*/
 	}
 
+	/* (non-Javadoc)
+	 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)
+	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

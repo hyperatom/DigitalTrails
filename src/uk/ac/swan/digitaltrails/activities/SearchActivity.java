@@ -23,21 +23,35 @@ import android.view.MenuItem;
 import android.view.View;
 
 /**
+ * @author Lewis Hancock
  * Activity to allow users to search the remote database for walks, then download them.
- * @author Lewis H
- *
  */
 public class SearchActivity extends ActionBarActivity implements
 SearchListFragment.OnWalkSelectedListener  {
 
+	/**
+	 * Static constant for class tag
+	 */
 	public static final String TAG = "SearchActivity";
+	/**
+	 * The connected account
+	 */
 	private Account mConnectedAccount;
+	/**
+	 * The walk to download
+	 */
 	private Walk mWalk;
 	
+	/**
+	 * @return The connected account
+	 */
 	public Account getConnectedAccount() {
 		return mConnectedAccount;
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,6 +69,9 @@ SearchListFragment.OnWalkSelectedListener  {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
@@ -63,6 +80,9 @@ SearchListFragment.OnWalkSelectedListener  {
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -74,6 +94,9 @@ SearchListFragment.OnWalkSelectedListener  {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.SearchListFragment.OnWalkSelectedListener#onWalkSelected(uk.ac.swan.digitaltrails.components.Walk)
+	 */
 	@Override
 	public void onWalkSelected(Walk walk) {
 		Log.d(TAG, "Trying to choose a walk");
@@ -100,26 +123,46 @@ SearchListFragment.OnWalkSelectedListener  {
 		}
 	}
 
+	/**
+	 * onClick for return button
+	 * @param view
+	 */
 	public void returnButton(View view){
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * onClick method for account button
+	 * @param menu
+	 */
 	public void accountButton(MenuItem menu){
 		Intent intent = new Intent(this, EditAccountActivity.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * onClick method for logout menu button
+	 * @param menu
+	 */
 	public void logOutButton(MenuItem menu){
 		Intent intent = new Intent(this, LaunchActivity.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * onClick for settings menu butotn
+	 * @param menu
+	 */
 	public void settingsButton(MenuItem menu){
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * onClick method for downloadWalkButton
+	 * @param v
+	 */
 	public void downloadWalkButtonOnClick(View v) {
 		Log.d(TAG, "Download button pressed");
 		WalkDataSource walkDataSource = new WalkDataSource(this);

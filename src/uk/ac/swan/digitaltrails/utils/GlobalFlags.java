@@ -5,7 +5,17 @@ package uk.ac.swan.digitaltrails.utils;
  * @author Lewis H
  *
  */
+/**
+ * @author Lewis Hancock
+ *
+ */
 public interface GlobalFlags {
+	/**
+	 * 
+	 */
 	public static final boolean DEBUG = false;
+	/**
+	 * 
+	 */
 	public static final String PREF_NAME = "WhiteRockPrefs";
 }

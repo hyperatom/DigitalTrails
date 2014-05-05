@@ -19,18 +19,43 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
+	/**
+	 * 
+	 */
 	public static final String ARG_POSITION = "position";
+	/**
+	 * 
+	 */
 	private static final String TAG = "WalkDetailsFragment";
+	/**
+	 * 
+	 */
 	protected int mCurrentPos = -1;
+	/**
+	 * 
+	 */
 	protected TextView mTitleText;
+	/**
+	 * 
+	 */
 	protected TextView mLongDescrText;
 	
+	/**
+	 * @return
+	 */
 	public int getCurrentPosition() {
 		return mCurrentPos;
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
@@ -43,6 +68,9 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 
 	/**
 	 * Called during startup
+	 */
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onStart()
 	 */
 	@Override
 	public void onStart() {
@@ -61,12 +89,18 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		}	
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onResume()
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
 		getLoaderManager().restartLoader(1, null, this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onSaveInstanceState(android.os.Bundle)
+	 */
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState); 
@@ -75,6 +109,9 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 
 	/**
 	 * Display details for the walk
+	 * @param position
+	 */
+	/**
 	 * @param position
 	 */
 	public void updateDetailsView(int position) {
@@ -91,8 +128,14 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		
 	}
 
+	/**
+	 * 
+	 */
 	private static String[] WALK_DESCRIPTION_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions.ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, WhiteRockContract.EnglishWalkDescriptions.SHORT_DESCR, WhiteRockContract.EnglishWalkDescriptions.LONG_DESCR};
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int, android.os.Bundle)
+	 */
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri baseUri;
@@ -102,6 +145,9 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		return new CursorLoader(getActivity(), baseUri, WALK_DESCRIPTION_PROJECTION, select, null, WhiteRockContract.EnglishWalkDescriptions.WALK_ID+ " COLLATE LOCALIZED ASC");
 	} 
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoadFinished(android.support.v4.content.Loader, java.lang.Object)
+	 */
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		if (data != null && data.moveToFirst()) {
@@ -117,6 +163,9 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoaderReset(android.support.v4.content.Loader)
+	 */
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 	}

@@ -1,9 +1,19 @@
 package uk.ac.swan.digitaltrails.components;
 
-import com.google.gson.annotations.SerializedName;
 
+/**
+ * @author Thomas Milner
+ * Component to contain a welsh walk description
+ */
 public class WelshWalkDescription extends WalkDescription {
 
+	/**
+	 * Constructor
+	 * @param id
+	 * @param title
+	 * @param shortDesc
+	 * @param longDesc
+	 */
 	public WelshWalkDescription(int id, String title, String shortDesc, String longDesc) {
 		setId(id);
 		setTitle(title);
@@ -13,6 +23,9 @@ public class WelshWalkDescription extends WalkDescription {
 	}
 
 
+	/**
+	 * Default Constructor
+	 */
 	public WelshWalkDescription() {
 		setId(-1);
 		setTitle("");

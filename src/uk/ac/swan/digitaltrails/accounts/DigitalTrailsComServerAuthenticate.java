@@ -16,13 +16,19 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 /**
+ * @author Lewis Hancock
  * Communicates with DigitalTrails website
- * 
  */
 public class DigitalTrailsComServerAuthenticate implements ServerAuthenticate {
 
+	/**
+	 * Static tag for the class
+	 */
 	private static final String TAG = "Comunicator";
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.accounts.ServerAuthenticate#userSignUp(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public Account userSignUp(String firstName, String lastName, String email,
 			String pass, String authType) throws Exception {
@@ -58,6 +64,9 @@ public class DigitalTrailsComServerAuthenticate implements ServerAuthenticate {
 		return loggedIn;
 	}
 
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.accounts.ServerAuthenticate#userSignIn(java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public String userSignIn(String user, String pass, String authType)
 			throws Exception {

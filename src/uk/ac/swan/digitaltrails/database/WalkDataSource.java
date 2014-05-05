@@ -13,14 +13,30 @@ import android.net.Uri;
 import android.util.Log;
 
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class WalkDataSource extends DataSource {
 
+	/**
+	 * 
+	 */
 	private static final String TAG = "WalkDataSource";
 
+	/**
+	 * 
+	 */
 	private static final String[] ALL_COLUMNS = WhiteRockContract.Walk.PROJECTION_ALL;
 
+	/**
+	 * 
+	 */
 	private static final Uri URI = WhiteRockContract.Walk.CONTENT_URI;
 
+	/**
+	 * @param context
+	 */
 	public WalkDataSource(Context context) {
 		super(context);
 	}
@@ -31,6 +47,14 @@ public class WalkDataSource extends DataSource {
 	 * @param distance
 	 * @param downloadCount
 	 * @param difficultyRating
+	 * @return
+	 */
+	/**
+	 * @param duration
+	 * @param distance
+	 * @param downloadCount
+	 * @param difficultyRating
+	 * @param ownerId
 	 * @return
 	 */
 	public long addWalk(int duration, double distance, int downloadCount, int difficultyRating, long ownerId) {
@@ -44,6 +68,10 @@ public class WalkDataSource extends DataSource {
 		return ContentUris.parseId(addedWalk);
 	}
 	
+	/**
+	 * @param walk
+	 * @return
+	 */
 	public long addWalk(Walk walk) {
 		ContentValues values = new ContentValues();
 		values.put(ALL_COLUMNS[1], walk.getDuration());
@@ -60,11 +88,22 @@ public class WalkDataSource extends DataSource {
 	 * Delete walk from database
 	 * @param id the id of the walk to delete
 	 */
+	/**
+	 * @param id
+	 */
 	public void deleteWalk(long id) {
 		Log.i(TAG, "Walk deleted with id: " + id);
 		mContext.getContentResolver().delete(URI, ALL_COLUMNS[0] + " = " + id, null);
 	}
 
+	/**
+	 * @param id
+	 * @param duration
+	 * @param distance
+	 * @param downloadCount
+	 * @param difficultyRating
+	 * @return
+	 */
 	public int updateWalk(long id, Integer duration, Double distance, Integer downloadCount, Integer difficultyRating) {
 		ContentValues values = new ContentValues();
 		if (duration != null) {
@@ -86,6 +125,9 @@ public class WalkDataSource extends DataSource {
 	 * Look up all walks in the database and add them to a list.
 	 * @return
 	 */
+	/**
+	 * @return
+	 */
 	public List<Walk> getAllWalk() {
 		ArrayList<Walk> walkList = new ArrayList<Walk>();
 		Cursor cursor = mContext.getContentResolver().query(URI, ALL_COLUMNS, null, null, null);
@@ -104,6 +146,10 @@ public class WalkDataSource extends DataSource {
 	 * 
 	 * @param cursor
 	 * @return New Walk.
+	 */
+	/**
+	 * @param cursor
+	 * @return
 	 */
 	private Walk cursorToWalk(Cursor cursor) {
 		Walk walk = new Walk();

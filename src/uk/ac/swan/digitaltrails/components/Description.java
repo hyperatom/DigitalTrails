@@ -5,14 +5,37 @@ import com.google.gson.annotations.SerializedName;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * @author Lewis Hancock
+ * Class for Description components
+ */
 public class Description implements Parcelable {
 
+	/**
+	 * id of description
+	 */
 	@SerializedName("id") protected long mId;
+	/**
+	 * title of description
+	 */
 	@SerializedName("title") protected String mTitle;
+	/**
+	 * short description text
+	 */
 	@SerializedName("short_description") protected String mShortDescription;
+	/**
+	 * long description text
+	 */
 	@SerializedName("long_description") protected String mLongDescription;
+	/**
+	 * Language of this description.
+	 */
 	protected int mLanguage;
 
+	/**
+	 * @author Lewis Hancock
+	 *
+	 */
 	public enum Languages {
 		ENGLISH, WELSH
 	};
@@ -23,6 +46,9 @@ public class Description implements Parcelable {
 	 * @param id
 	 *            to be set
 	 */
+	/**
+	 * @param id
+	 */
 	public void setId(long id) {
 		this.mId = id;
 	}
@@ -32,21 +58,24 @@ public class Description implements Parcelable {
 	 * 
 	 * @return the id
 	 */
+	/**
+	 * @return
+	 */
 	public long getId() {
 		return mId;
 	}
 
+
 	/**
-	 * 
-	 * @param title
+	 * set the title
+	 * @param title title to set
 	 */
 	public void setTitle(String title) {
 		mTitle = title;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return The title of the description
 	 */
 	public String getTitle() {
 		return mTitle;
@@ -90,37 +119,60 @@ public class Description implements Parcelable {
 		return mLongDescription;
 	}
 
+	/**
+	 * setter for language
+	 * @param language the language to set
+	 */
 	public void setLanguage(int language) {
 		mLanguage = language;
 	}
 
+	/**
+	 * @return get the language
+	 */
 	public int getLanguage() {
 		return mLanguage;
 	}
 
+	/**
+	 * Default constructor
+	 */
 	public Description() {
 		setShortDescription("");
 		setLongDescription("");
 	}
 	
+	/**
+	 * Constructor
+	 * @param longDescription The long description of the description
+	 */
 	public Description(String longDescription) {
 		setLongDescription(longDescription);
 		setShortDescription(longDescription.substring(0, longDescription.length()/2));
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return "Title:" + getTitle() + " Short: " + getShortDescription() + " Long: "
 				+ getLongDescription() + " Language: " + getLanguage();
 	}
 
 	// todo: impl parcelable.
+	/* (non-Javadoc)
+	 * @see android.os.Parcelable#describeContents()
+	 */
 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
+	 */
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		// TODO Auto-generated method stub

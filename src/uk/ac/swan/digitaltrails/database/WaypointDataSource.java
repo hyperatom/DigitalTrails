@@ -14,16 +14,41 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class WaypointDataSource extends DataSource {
 
+	/**
+	 * 
+	 */
 	private static final String TAG = "WaypointDataSource";
+	/**
+	 * 
+	 */
 	private static final String[] ALL_COLUMNS = WhiteRockContract.Waypoint.PROJECTION_ALL;
+	/**
+	 * 
+	 */
 	private static final Uri URI = WhiteRockContract.Waypoint.CONTENT_URI;
 
+	/**
+	 * @param context
+	 */
 	public WaypointDataSource(Context context) {
 		super(context);
 	}
 
+	/**
+	 * @param latitude
+	 * @param longitude
+	 * @param isRequest
+	 * @param visitOrder
+	 * @param walkId
+	 * @param userId
+	 * @return
+	 */
 	public long addWaypoint(double latitude, double longitude, int isRequest, long visitOrder, long walkId, long userId) {
 		ContentValues values = new ContentValues();
 		values.put(ALL_COLUMNS[1], latitude);
@@ -36,6 +61,10 @@ public class WaypointDataSource extends DataSource {
 		return ContentUris.parseId(newWp);
 	}
 
+	/**
+	 * @param wp
+	 * @return
+	 */
 	public long addWaypoint(Waypoint wp) {
 		ContentValues values = new ContentValues();
 		values.put(ALL_COLUMNS[1], wp.getLatitude());
@@ -48,6 +77,16 @@ public class WaypointDataSource extends DataSource {
 		return ContentUris.parseId(newWp);	
 	}
 	
+	/**
+	 * @param id
+	 * @param latitude
+	 * @param longitude
+	 * @param isRequest
+	 * @param visitOrder
+	 * @param walkId
+	 * @param userId
+	 * @return
+	 */
 	public int updateWaypoint(long id, Double latitude, Double longitude, Integer isRequest, Long visitOrder, Long walkId, Long userId) {
 		ContentValues values = new ContentValues();
 		if (latitude != null) {
@@ -75,6 +114,9 @@ public class WaypointDataSource extends DataSource {
 	 * Delete waypoint from database
 	 * @param id the id of the waypoint to delete
 	 */
+	/**
+	 * @param id
+	 */
 	public void deleteWaypoint(long id) {
 		mContext.getContentResolver().delete(URI, ALL_COLUMNS[0] + " = " + id, null);
 	}
@@ -83,6 +125,9 @@ public class WaypointDataSource extends DataSource {
 	 * Delete all waypoints on a walk
 	 * @param walkId the walk to delete from
 	 */
+	/**
+	 * @param walkId
+	 */
 	public void deleteAllWaypointsInWalk(long walkId) {
 		mContext.getContentResolver().delete(URI, ALL_COLUMNS[5] + " = " + walkId, null);
 	}
@@ -90,6 +135,10 @@ public class WaypointDataSource extends DataSource {
 	/**
 	 * Get all waypoints from a walk
 	 * @param walkId the walk to get waypoints from
+	 */
+	/**
+	 * @param walkId
+	 * @return
 	 */
 	public Cursor getAllWaypointsInWalk(long walkId) {
 		String 	select  = "((" + ALL_COLUMNS[5] + " == " + walkId + "))";
@@ -105,6 +154,15 @@ public class WaypointDataSource extends DataSource {
 	 * @param getVisitOrder
 	 * @param getUserId
 	 * @return 
+	 */
+	/**
+	 * @param walkId
+	 * @param getLatitude
+	 * @param getLongitude
+	 * @param getIsRequest
+	 * @param getVisitOrder
+	 * @param getUserId
+	 * @return
 	 */
 	public Cursor getAllWaypointsInWalk(long walkId, boolean getLatitude, boolean getLongitude, boolean getIsRequest, boolean getVisitOrder, boolean getUserId) {
 		String 	select  = "((" + ALL_COLUMNS[5] + " == " + walkId + "))";

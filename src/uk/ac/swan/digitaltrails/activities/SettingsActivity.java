@@ -12,9 +12,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+/**
+ * @author Lewis Hancock
+ * Activity to modify user settings
+ */
 @SuppressLint("NewApi")
 public class SettingsActivity extends ActionBarActivity{
 
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_view);
@@ -23,6 +30,9 @@ public class SettingsActivity extends ActionBarActivity{
 		(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    // Inflate the menu items for use in the action bar
@@ -31,6 +41,9 @@ public class SettingsActivity extends ActionBarActivity{
 	    return super.onCreateOptionsMenu(menu);
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
@@ -43,16 +56,25 @@ public class SettingsActivity extends ActionBarActivity{
 	}
 	
 
+	/**
+	 * @param menu
+	 */
 	public void accountButton(MenuItem menu){
         Intent intent = new Intent(this, EditAccountActivity.class);
         startActivity(intent);
     }
 	
+	/**
+	 * @param menu
+	 */
 	public void logOutButton(MenuItem menu){
         Intent intent = new Intent(this, LaunchActivity.class);
         startActivity(intent);
     }
 	
+	/**
+	 * @param menu
+	 */
 	public void settingsButton(MenuItem menu){
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);

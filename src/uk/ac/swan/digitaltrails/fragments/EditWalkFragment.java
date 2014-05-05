@@ -15,15 +15,31 @@ import android.widget.TextView;
  * @author Lewis H
  *
  */
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class EditWalkFragment extends WalkDetailsFragment {
 	
+	/**
+	 * 
+	 */
 	private static final String TAG = "EditWalkFragment";
+	/**
+	 * 
+	 */
 	private long mDescrId;
 	
+	/**
+	 * @return
+	 */
 	public long getDescriptionId() {
 		return mDescrId;
 	}
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
@@ -33,6 +49,9 @@ public class EditWalkFragment extends WalkDetailsFragment {
 		return inflater.inflate(R.layout.fragment_edit_walk, container, false);
 	}
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment#onStart()
+	 */
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -41,6 +60,9 @@ public class EditWalkFragment extends WalkDetailsFragment {
 		Log.d(TAG, "current pos: " + mCurrentPos);
 	}
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment#onLoadFinished(android.support.v4.content.Loader, android.database.Cursor)
+	 */
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		//mAdapter.swapCursor(data);
@@ -62,6 +84,9 @@ public class EditWalkFragment extends WalkDetailsFragment {
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment#updateDetailsView(int)
+	 */
 	@Override
 	public void updateDetailsView(int position) {
 

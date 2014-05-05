@@ -57,7 +57,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 /**
  * Activity allowing the user to "go on a walk". Fully functional google map with geospaces etc.
- * @author Lewis H
+ * @author Lewis Hancock
  *
  */
 public class MapActivity extends ActionBarActivity implements
@@ -65,19 +65,55 @@ public class MapActivity extends ActionBarActivity implements
 		GooglePlayServicesClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener,
 		OnAddGeofencesResultListener {
 	
+	/**
+	 * Static tag string for the class.
+	 */
 	@SuppressWarnings("unused")
 	private static final String TAG = "MapActivity";
+	/**
+	 * 
+	 */
 	private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+	/**
+	 * number of milliseconds in a second
+	 */
 	private static final int MILLISECONDS_PER_SECOND = 1000;
+	/**
+	 * How often to update, in seconds.
+	 */
 	private static final int UPDATE_INTERVAL_IN_SECONDS = 10;
+	/**
+	 * How often to update.
+	 */
 	private static final long UPDATE_INTERVAL = MILLISECONDS_PER_SECOND * UPDATE_INTERVAL_IN_SECONDS;
+	/**
+	 * Fastest interval, in seconds.
+	 */
 	private static final int FASTEST_INTERVAL_IN_SECONDS = 5;
+	/**
+	 * Fastest interval.
+	 */ 
 	private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND * FASTEST_INTERVAL_IN_SECONDS;
 
+	/**
+	 * Static constant for argument explore.
+	 */
 	public static final String ARG_EXPLORE = "explore";
+	/**
+	 * static constant for argument geofences
+	 */
 	public static final String ARG_GEOFENCES = "geofences";
+	/**
+	 * static constant for argument receive geofences entered
+	 */
 	public static final String RECEIVE_GEOFENCES_ENTERED = "uk.ac.swan.digitaltrails.RECEIVE_GEOFENCES_ENTERED";
+	/**
+	 * static constant for argument receive geofences exited
+	 */
 	public static final String RECEIVE_GEOFENCES_EXITED = "uk.ac.swan.digitaltrails.RECEIVE_GEOFENCES_EXITED";
+	/**
+	 * enum for the type of request for location client
+	 */
 	public enum REQUEST_TYPE {ADD};
 	/** The current GoogleMap */
 	private GoogleMap mMap;
@@ -95,15 +131,35 @@ public class MapActivity extends ActionBarActivity implements
 	private LocationClient mLocationClient;
 	/** Holds current location */
 	private Location mCurrentLocation;
-	/** */
+	/**
+	 * The current location request
+	 */
 	private LocationRequest mLocationRequest;
 	/** Type of request for LocationRequest */
+	/**
+	 * the current request type
+	 */
 	private REQUEST_TYPE mRequestType;
+	/**
+	 * Is request in progress
+	 */
 	private boolean mInProgress;
+	/**
+	 * The current transition pending intent
+	 */
 	private PendingIntent mTransitionPendingIntent;
+	/**
+	 * The number of waypoints visited
+	 */
 	private int numVisited = 0;
+	/**
+	 * Filter for the query to run.
+	 */
 	private enum selectFilter {FILTER_WAYPOINT_WITH_DESCR, FILTER_WAYPOINT_WITH_MEDIA };
 	
+	/**
+	 * BroadcastReceiver to listen for when a geofence is entered / left
+	 */
 	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
 		public void onReceive(Context context, Intent intent) {
 			if(intent.getAction().equals(RECEIVE_GEOFENCES_ENTERED)) {
@@ -118,6 +174,9 @@ public class MapActivity extends ActionBarActivity implements
 	};
 	
 	// Activity Methods
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -147,6 +206,10 @@ public class MapActivity extends ActionBarActivity implements
 	}
 
 	
+	/**
+	 * Controls what happens when a geofence is entered
+	 * @param triggeredIds All the geofences entered
+	 */
 	private void geofenceEntered(String[] triggeredIds) {
 		Log.d(TAG, "In geofenceEntered, num geofences triggered: " + triggeredIds.length);
 		for (int i = 0; i < triggeredIds.length; i++) {
@@ -174,6 +237,10 @@ public class MapActivity extends ActionBarActivity implements
 		}
 	}
 	
+	/**
+	 * Controls what happens when a geofence is exited
+	 * @param triggeredIds The list of geofences exited
+	 */
 	private void geofencesExited(String[] triggeredIds) {
 		Log.d(TAG, "In geofenceEntered, num geofences triggered: " + triggeredIds.length);
 		for (int i = 0; i < triggeredIds.length; i++) {
@@ -217,17 +284,27 @@ public class MapActivity extends ActionBarActivity implements
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.maps_menu, menu);
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return changeMap(item);
 	}
 
+	/**
+	 * Displays the information DialogFragment for the chosen waypoint
+	 * @param wp The waypoint to display information for
+	 */
 	private void showInfoViewDialog(Waypoint wp) {
 		Bundle args = new Bundle();
 		args.putString(InfoViewDialogFragment.ARG_TITLE, wp.getEnglishDescription().getTitle());
@@ -238,12 +315,21 @@ public class MapActivity extends ActionBarActivity implements
 	}
 	
 
+	/**
+	 * Get the ReceiveTransitionIntentService
+	 * @return the ReceiveTransitionIntentService
+	 */
 	private PendingIntent getTransitionPendingIntent() {
 		Intent intent = new Intent(this, ReceiveTransitionsIntentService.class);
 		
 		return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 	}
 	
+	/**
+	 * Change the type of the map.
+	 * @param item The menu item
+	 * @return True if successful
+	 */
 	private boolean changeMap(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.normal_map:
@@ -274,22 +360,34 @@ public class MapActivity extends ActionBarActivity implements
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onResume()
+	 */
 	protected void onResume() {
 		super.onResume();
 		initMap();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onPause()
+	 */
 	@Override
 	protected void onPause() {
 		super.onPause();
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onStop()
+	 */
 	@Override
 	protected void onStop() {
 		mLocationClient.disconnect();
 		super.onStop();
 	}
 
+	/**
+	 * Initialise the map
+	 */
 	private void initMap() {
 		if (mMap == null) {
 			mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
@@ -301,6 +399,9 @@ public class MapActivity extends ActionBarActivity implements
 		}
 	}
 	
+	/**
+	 * Set the default map config.
+	 */
 	private void setDefaultMapConfig() {
 		mMap.getUiSettings().setCompassEnabled(true);
 		mMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -328,13 +429,16 @@ public class MapActivity extends ActionBarActivity implements
 		});
 	}
 	
+	/**
+	 * Resume the map
+	 */
 	private void resumeMap() {
 		setDefaultMapConfig();
 	}
 
 	/**
 	 * Create a list of markers, stored in mMarkers
-	 * @param waypoints
+	 * @param waypoints The waypoints to create markers from
 	 */
 	private void createMarkers(ArrayList<Waypoint> waypoints) {
 		for (Waypoint wp : waypoints) {
@@ -372,6 +476,9 @@ public class MapActivity extends ActionBarActivity implements
 		return geofences;
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int, android.os.Bundle)
+	 */
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri baseUri = WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_URI;
@@ -398,6 +505,9 @@ public class MapActivity extends ActionBarActivity implements
 		return new CursorLoader(this, baseUri, WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.PROJECTION_ALL, select, null, WhiteRockContract.WaypointWithEnglishDescription.VISIT_ORDER + " COLLATE LOCALIZED ASC");
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoadFinished(android.support.v4.content.Loader, java.lang.Object)
+	 */
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		// create Waypoints from all the db info.
@@ -455,16 +565,25 @@ public class MapActivity extends ActionBarActivity implements
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoaderReset(android.support.v4.content.Loader)
+	 */
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onBackPressed()
+	 */
 	public void onBackPressed(){
 		Intent intent = new Intent(this, ChooseWalkActivity.class);
 		startActivity(intent);
 	}
 
 	// Google Play Services stuff	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onActivityResult(int, int, android.content.Intent)
+	 */
 	@Override
 	protected void onActivityResult(int reqCode, int resCode, Intent data) {
 		switch (reqCode) {
@@ -477,6 +596,10 @@ public class MapActivity extends ActionBarActivity implements
 		}
 	}
 	
+	/**
+	 * Run when connected to services
+	 * @return true if successful, false otherwise
+	 */
 	private boolean servicesConnected() {
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 		ConnectionResult connectionResult = new ConnectionResult(resultCode, null);
@@ -496,6 +619,9 @@ public class MapActivity extends ActionBarActivity implements
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener#onConnectionFailed(com.google.android.gms.common.ConnectionResult)
+	 */
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
 		mInProgress = false;
@@ -519,6 +645,9 @@ public class MapActivity extends ActionBarActivity implements
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks#onConnected(android.os.Bundle)
+	 */
 	@Override
 	public void onConnected(Bundle dataBundle) {
 		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
@@ -533,6 +662,9 @@ public class MapActivity extends ActionBarActivity implements
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks#onDisconnected()
+	 */
 	@Override
 	public void onDisconnected() {
 		Toast.makeText(this, "Disconnected, please reconnect", Toast.LENGTH_SHORT).show();
@@ -541,10 +673,16 @@ public class MapActivity extends ActionBarActivity implements
 	}
 	
 	// LocationListener methods begin
+	/* (non-Javadoc)
+	 * @see com.google.android.gms.location.LocationListener#onLocationChanged(android.location.Location)
+	 */
 	@Override 
 	public void onLocationChanged(Location location) {
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.android.gms.location.LocationClient.OnAddGeofencesResultListener#onAddGeofencesResult(int, java.lang.String[])
+	 */
 	@Override
 	public void onAddGeofencesResult(int statusCode, String[] geofenceRequestIds) {
 		if (LocationStatusCodes.SUCCESS == statusCode) {

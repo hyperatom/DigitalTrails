@@ -10,22 +10,38 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class EnglishWalkDescriptionDataSource extends DescriptionDataSource {
 
+	/**
+	 * 
+	 */
 	private static final String TAG = "EnglishWalkDescriptionDataSource";
 	
+	/**
+	 * @param context
+	 */
 	public EnglishWalkDescriptionDataSource(Context context) {
 		super(context);
 		uri = WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI;
 		allColumns = WhiteRockContract.EnglishWalkDescriptions.PROJECTION_ALL;
 	}
 
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.database.DescriptionDataSource#getAllDescriptions()
+	 */
 	@Override
 	public List<Description> getAllDescriptions() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.database.DescriptionDataSource#cursorToDescription(android.database.Cursor)
+	 */
 	@Override
 	protected Description cursorToDescription(Cursor cursor) {
 		// TODO Auto-generated method stub

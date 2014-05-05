@@ -15,28 +15,66 @@ import android.widget.EditText;
 
 import com.google.android.gms.maps.model.LatLng;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class EditWaypointDialogFragment extends DialogFragment {
 
+	/**
+	 * @author Lewis Hancock
+	 *
+	 */
 	public interface EditWaypointDialogListener {
 		public void onEditDialogPositiveClick(DialogFragment dialog, View view);
 		public void onEditDialogNegativeClick(DialogFragment dialog, View view);
 	}
 
+	/**
+	 * 
+	 */
 	public static final String ARG_POSITION = "position";
+	/**
+	 * 
+	 */
 	public static final String ARG_TITLE = "title";
+	/**
+	 * 
+	 */
 	public static final String ARG_SNIPPET = "snippet";
+	/**
+	 * 
+	 */
 	public static final String ARG_DESCRIPTION = "descripiton";
+	/**
+	 * 
+	 */
 	public static final String ARG_INDEX = "index";
 	
+	/**
+	 * 
+	 */
 	private static final String TAG = "EditWaypointDialogFragment";
+	/**
+	 * 
+	 */
 	private EditWaypointDialogListener mListener;
+	/**
+	 * 
+	 */
 	private LatLng mPosition;
 
 
+	/**
+	 * @return
+	 */
 	public LatLng getPosition() {
 		return mPosition;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.DialogFragment#onAttach(android.app.Activity)
+	 */
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		// Check we have implemented listener.
@@ -48,6 +86,9 @@ public class EditWaypointDialogFragment extends DialogFragment {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.DialogFragment#onCreateDialog(android.os.Bundle)
+	 */
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		super.onCreateDialog(savedInstanceState);
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -75,6 +116,9 @@ public class EditWaypointDialogFragment extends DialogFragment {
 	/**
 	 * Initialise EditText fields with the correct values
 	 * @param view The view to update
+	 */
+	/**
+	 * @param view
 	 */
 	protected void setupUi(View view) {
 		String lat;

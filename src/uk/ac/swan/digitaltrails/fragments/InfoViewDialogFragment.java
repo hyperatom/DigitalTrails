@@ -25,18 +25,37 @@ import com.google.android.gms.plus.model.people.Person.Image;
  * @author Lewis Hancock
  *
  */
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class InfoViewDialogFragment extends DialogFragment {
 	
+	/**
+	 * 
+	 */
 	public static final String ARG_TITLE = "title";
+	/**
+	 * 
+	 */
 	public static final String ARG_SNIPPET = "snippet";
+	/**
+	 * 
+	 */
 	public static final String ARG_DESCRIPTION = "description";
 
+	/**
+	 * 
+	 */
 	public InfoViewDialogFragment() {
 		super();
 	}
 
 	
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.DialogFragment#onCreateDialog(android.os.Bundle)
+	 */
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -56,6 +75,9 @@ public class InfoViewDialogFragment extends DialogFragment {
 	/**
 	 * Initialise EditText fields with the correct values
 	 * @param view The view to update
+	 */
+	/**
+	 * @param view
 	 */
 	private void setupUi(View view) {
 		Bundle args = getArguments();

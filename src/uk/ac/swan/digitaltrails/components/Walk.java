@@ -9,16 +9,44 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import uk.ac.swan.digitaltrails.utils.Duration;
 
+/**
+ * @author Lewis Hancock
+ * Component to contain a walk item.
+ */
 public class Walk implements Parcelable {
+	/**
+	 * id of the walk
+	 */
 	@SerializedName("id") private long mId;
+	/**
+	 * english description for walk
+	 */
 	@SerializedName("english_description") private EnglishWalkDescription mEnglishDescription;
+	/**
+	 * welsh description for walk
+	 */
 	@SerializedName("welsh_description") private WelshWalkDescription mWelshDescription;
+	/**
+	 * duration in minutes
+	 */
 	@SerializedName("duration_minutes") private int mDuration; //
 	/** Total distance to walk in miles */
 	@SerializedName("distance_miles") private double mDistance;
+	/**
+	 * list of waypoints in the walk
+	 */
 	@SerializedName("waypoints") private ArrayList<Waypoint> mWaypoints;
+	/**
+	 * id of the user who created the walk
+	 */
 	@SerializedName("user_id") private long mOwnerId;
+	/**
+	 * number of times walk has been downloaded
+	 */
 	@SerializedName("download_count") private long mDownloadCount;
+	/**
+	 * how difficult the walk is
+	 */
 	@SerializedName("difficulty_rating") private int mDifficultyRating;
 
 	/**
@@ -26,6 +54,10 @@ public class Walk implements Parcelable {
 	 * 
 	 * @param id to be set
 	 * @return true if set, false otherwise
+	 */
+	/**
+	 * @param id
+	 * @return
 	 */
 	public boolean setId(long id) {
 		if (id >= 0) {
@@ -41,23 +73,40 @@ public class Walk implements Parcelable {
 	 * 
 	 * @return the id
 	 */
+	/**
+	 * @return
+	 */
 	public long getId() {
 		return mId;
 	}
 
+	/**
+	 * @return
+	 */
 	public WalkDescription getEnglishDescriptions() {
 		return mEnglishDescription;
 	}
 
+	/**
+	 * @param description
+	 * @return
+	 */
 	public boolean setEnglishDescriptions(EnglishWalkDescription description) {
 		mEnglishDescription = description;
 		return true;
 	}
 	
+	/**
+	 * @return
+	 */
 	public WalkDescription getWelshDescriptions() {
 		return mWelshDescription;
 	}
 
+	/**
+	 * @param description
+	 * @return
+	 */
 	public boolean setWelshDescriptions(WelshWalkDescription description) {
 		mWelshDescription = description;
 		return true;
@@ -123,10 +172,17 @@ public class Walk implements Parcelable {
 		return mWaypoints;
 	}
 
+	/**
+	 * @return
+	 */
 	public long getOwner() {
 		return mOwnerId;
 	}
 
+	/**
+	 * @param ownerId
+	 * @return
+	 */
 	public boolean setOwnerId(long ownerId) {
 		if (ownerId >= 0) {
 			mOwnerId = ownerId;
@@ -136,10 +192,17 @@ public class Walk implements Parcelable {
 		
 	}
 
+	/**
+	 * @return
+	 */
 	public long getDownloadCount() {
 		return mDownloadCount;
 	}
 
+	/**
+	 * @param downloadCount
+	 * @return
+	 */
 	public boolean setDownloadCount(long downloadCount) {
 		if (downloadCount >= 0) {
 			mDownloadCount = downloadCount;
@@ -149,10 +212,17 @@ public class Walk implements Parcelable {
 		return true;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getDifficultyRating() {
 		return mDifficultyRating;
 	}
 
+	/**
+	 * @param difficultyRating
+	 * @return
+	 */
 	public boolean setDifficultyRating(int difficultyRating) {
 		if (difficultyRating > 0 && difficultyRating < 6) {
 			mDifficultyRating = difficultyRating;
@@ -176,13 +246,15 @@ public class Walk implements Parcelable {
 
 	/**
 	 * Constructor method.
-	 * 
 	 * @param id
 	 * @param title
 	 * @param shortDescription
 	 * @param longDescription
 	 * @param duration
 	 * @param distance
+	 * @param ownerId
+	 * @param downloadCount
+	 * @param difficulty
 	 */
 	public Walk(int id, String title, String shortDescription,
 			String longDescription, int duration, double distance,
@@ -195,10 +267,16 @@ public class Walk implements Parcelable {
 		setDifficultyRating(difficulty);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return this.mEnglishDescription.mTitle;
 	}
 
+	/**
+	 * Create from parcelable
+	 */
 	public static final Parcelable.Creator<Walk> CREATOR = new Creator<Walk>() {
 		public Walk createFromParcel(Parcel in) {
 			Walk newWalk = new Walk();
@@ -218,22 +296,34 @@ public class Walk implements Parcelable {
 		}
 	};
 	
+	/* (non-Javadoc)
+	 * @see android.os.Parcelable#describeContents()
+	 */
 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+	 * @param readParcelable
+	 */
 	protected void setWelshDescription(Parcelable readParcelable) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * @param readParcelable
+	 */
 	protected void setEnglishDescription(Parcelable readParcelable) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
+	 */
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeLong(mId);

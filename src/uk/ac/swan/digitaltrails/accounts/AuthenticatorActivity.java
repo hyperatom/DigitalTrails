@@ -12,29 +12,64 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 /**
+ * @author Lewis Hancock
  * Authenticator activity. In charge of identifying a user.
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
+	/**
+	 * Static key for account type arguments.
+	 */
 	public final static String ACCOUNT_TYPE = "ACCOUNT_TYPE";
+	/**
+	 * Static key for auth type
+	 */
 	public final static String AUTH_TYPE = "AUTH_TYPE";
+	/**
+	 * Static key for account name
+	 */
 	public final static String ACCOUNT_NAME = "ACCOUNT_NAME";
+	/**
+	 * 
+	 */
 	public final static String IS_ADDING_NEW_ACCOUNT = "IS_ADDING_ACCOUNT";
 	
+	/**
+	 * Static key for Error Message
+	 */
 	public final static String ERROR_MESSAGE = "ERR_MSG";
 	
+	/**
+	 * Static key for user password
+	 */
 	public final static String USER_PASS = "USER_PASS";
 	
+	/**
+	 * 1 if user is trying to sign up.
+	 */
 	private final int REQ_SIGNUP = 1;
 	
+	/**
+	 * Static tag variable for the class.
+	 */
 	private final String TAG = "AuthenticatorActivity";
 	
+	/**
+	 * The account manager to auth with
+	 */
 	private AccountManager mAccountManager;
+	/**
+	 * The type of token to use
+	 */
 	private String mAuthTokenType;
 	
 	/**
 	 * Called when activity created
+	 */
+	/* (non-Javadoc)
+	 * @see android.accounts.AccountAuthenticatorActivity#onCreate(android.os.Bundle)
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +107,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		});
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// returned signup, user created account.
@@ -82,6 +120,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		}
 	}
 	
+	/**
+	 * Submit login request.
+	 */
 	public void submit() {
 		
 		final String userName = ((TextView) findViewById(R.id.accountName)).getText().toString();
@@ -126,6 +167,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		
 	}
 	
+	/**
+	 * Finish logging in.
+	 * @param intent The intent requesting this.
+	 */
 	private void finishLogin(Intent intent) {
 		String accountName = intent.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
 		String accountPassword = intent.getStringExtra(USER_PASS);

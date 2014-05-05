@@ -23,57 +23,184 @@ import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class WhiteRockContentProvider extends ContentProvider {
 
+	/**
+	 * 
+	 */
 	private static final UriMatcher URI_MATCHER = buildUriMatcher();
+	/**
+	 * 
+	 */
 	private static final String TAG = "WhiteRockContentProvider";
 
 	// Constants for URI matcher.
+	/**
+	 * 
+	 */
 	private static final int WALK_LIST = 1;
+	/**
+	 * 
+	 */
 	private static final int WALK_ID = 2;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_LIST = 5;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_ID = 6;
+	/**
+	 * 
+	 */
 	private static final int WELSH_WALK_DESCR_LIST = 10;
+	/**
+	 * 
+	 */
 	private static final int WELSH_WALK_DESCR_ID = 11;
+	/**
+	 * 
+	 */
 	private static final int ENGLISH_WALK_DESCR_LIST = 15;
+	/**
+	 * 
+	 */
 	private static final int ENGLISH_WALK_DESCR_ID = 16;
+	/**
+	 * 
+	 */
 	private static final int WELSH_WAYPOINT_DESCR_LIST = 20;
+	/**
+	 * 
+	 */
 	private static final int WELSH_WAYPOINT_DESCR_ID = 21;
+	/**
+	 * 
+	 */
 	private static final int ENGLISH_WAYPOINT_DESCR_LIST = 25;
+	/**
+	 * 
+	 */
 	private static final int ENGLISH_WAYPOINT_DESCR_ID = 26;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_AUDIO_LIST = 30;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_AUDIO_ID = 31;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_VIDEO_LIST = 35;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_VIDEO_ID = 36;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_IMAGE_LIST = 40;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_IMAGE_ID = 41;
+	/**
+	 * 
+	 */
 	private static final int BUG_REPORT_LIST = 45;
+	/**
+	 * 
+	 */
 	private static final int BUG_REPORT_ID = 46;
+	/**
+	 * 
+	 */
 	private static final int CONTENT_REPORT_LIST = 50;
+	/**
+	 * 
+	 */
 	private static final int CONTENT_REPORT_ID = 51;
+	/**
+	 * 
+	 */
 	private static final int USER_LIST = 55;
+	/**
+	 * 
+	 */
 	private static final int USER_ID = 56;
+	/**
+	 * 
+	 */
 	private static final int USER_SETTINGS_LIST = 60;
+	/**
+	 * 
+	 */
 	private static final int USER_SETTINGS_ID = 61;
+	/**
+	 * 
+	 */
 	private static final int SETTINGS_TYPE_LIST = 65;
+	/**
+	 * 
+	 */
 	private static final int SETTINGS_TYPE_ID = 66;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_WITH_ENGLISH_DESCR_LIST = 70;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_WITH_ENGLISH_DESCR_ID = 71;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_WITH_MEDIA_LIST = 75;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_WITH_MEDIA_ID = 76;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_WITH_MEDIA_WITH_ENGLISH_LIST = 80;
+	/**
+	 * 
+	 */
 	private static final int WAYPOINT_WITH_MEDIA_WITH_ENGLISH_ID = 81;
+	/**
+	 * 
+	 */
 	private static final int WALK_WITH_ENGLISH_LIST = 85;
+	/**
+	 * 
+	 */
 	private static final int WALK_WITH_ENGLISH_ID = 86;
 
 	/** Handler for database. */
+	/**
+	 * 
+	 */
 	private DatabaseHandler mDbHandler;
 	/** ThreadLocal storage for batch processing. */
+	/**
+	 * 
+	 */
 	private final ThreadLocal<Boolean> mIsInBatchMode = new ThreadLocal<Boolean>();
 	//TODO: Use constants from contract, not magic strings.
 	/**
 	 * Create UriMatcher
 	 * @return the UriMatcher to use.
+	 */
+	/**
+	 * @return
 	 */
 	private static UriMatcher buildUriMatcher() {
 		final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -122,6 +249,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 
 
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#onCreate()
+	 */
 	@Override
 	public boolean onCreate() {
 		Context context = getContext();
@@ -129,6 +259,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#delete(android.net.Uri, java.lang.String, java.lang.String[])
+	 */
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		SQLiteDatabase db = mDbHandler.getWritableDatabase();
@@ -303,6 +436,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 		return deleteCount;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#getType(android.net.Uri)
+	 */
 	@Override
 	public String getType(Uri uri) {
 		final int match = URI_MATCHER.match(uri);
@@ -384,6 +520,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#insert(android.net.Uri, android.content.ContentValues)
+	 */
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
 		SQLiteDatabase db = mDbHandler.getWritableDatabase();
@@ -494,6 +633,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#query(android.net.Uri, java.lang.String[], java.lang.String, java.lang.String[], java.lang.String)
+	 */
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
 			String sortOrder) {
@@ -721,6 +863,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 		return cursor;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#update(android.net.Uri, android.content.ContentValues, java.lang.String, java.lang.String[])
+	 */
 	@Override
 	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 		Log.d(TAG, "in update" + uri);
@@ -900,6 +1045,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#applyBatch(java.util.ArrayList)
+	 */
 	@Override
 	public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations)
 			throws OperationApplicationException {
@@ -919,6 +1067,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 	}
 
 	// Depending on how we are actually storing our images etc. this could deal with opening them!
+	/* (non-Javadoc)
+	 * @see android.content.ContentProvider#openFile(android.net.Uri, java.lang.String)
+	 */
 	@Override
 	public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
 		if ((URI_MATCHER.match(uri) != WAYPOINT_AUDIO_ID) ||
@@ -932,6 +1083,12 @@ public class WhiteRockContentProvider extends ContentProvider {
 
 	/**
 	 * Log queries in Honeycomb and higher
+	 * @param builder
+	 * @param projection
+	 * @param selection
+	 * @param sortOrder
+	 */
+	/**
 	 * @param builder
 	 * @param projection
 	 * @param selection
@@ -973,6 +1130,11 @@ public class WhiteRockContentProvider extends ContentProvider {
 	 * @param uri
 	 * @return
 	 */
+	/**
+	 * @param id
+	 * @param uri
+	 * @return
+	 */
 	private Uri getUriForId(long id, Uri uri) {
 		Log.d(TAG, "getUriForId:: "+id);
 		if (id > 0) {
@@ -986,6 +1148,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 		throw new SQLException("Problem inserting into uri: " + uri + " " + id);
 	}
 
+	/**
+	 * @return
+	 */
 	private boolean isInBatchMode() {
 		return mIsInBatchMode.get() != null && mIsInBatchMode.get();
 	}

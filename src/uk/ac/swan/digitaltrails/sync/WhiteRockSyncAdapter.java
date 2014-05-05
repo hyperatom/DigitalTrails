@@ -18,16 +18,30 @@ import android.os.Bundle;
  * @author Lewis Hancock
  * WhiteRockSyncAdapter syncs between server and the local database.
  */
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 	
 	/** Blank final - may only be initialised once and then not changed */
+	/**
+	 * 
+	 */
 	private final AccountManager ACCOUNT_MANAGER;
 	
+	/**
+	 * @param context
+	 * @param autoInitialise
+	 */
 	public WhiteRockSyncAdapter(Context context, boolean autoInitialise) {
 		super(context, autoInitialise);
 		ACCOUNT_MANAGER = AccountManager.get(context);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.content.AbstractThreadedSyncAdapter#onPerformSync(android.accounts.Account, android.os.Bundle, java.lang.String, android.content.ContentProviderClient, android.content.SyncResult)
+	 */
 	@Override
 	public void onPerformSync(Account account, Bundle extras, String authority,
 			ContentProviderClient provider, SyncResult syncResult) {
