@@ -7,9 +7,16 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
 
+/**
+ * @author Chris Lewis
+ * Class to display user settings.
+ */
 public class ShowSettingsActivity extends Activity {
 
- @Override
+ /* (non-Javadoc)
+ * @see android.app.Activity#onCreate(android.os.Bundle)
+ */
+@Override
  protected void onCreate(Bundle savedInstanceState) {
 
   super.onCreate(savedInstanceState);

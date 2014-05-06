@@ -33,28 +33,69 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class SearchListFragment extends ListFragment 
 	implements LoaderCallbacks<List<Walk>>, OnQueryTextListener {
 
+	/**
+	 * 
+	 */
 	private static final String TAG = "SearchListFragment";
 	
+	/**
+	 * 
+	 */
 	private OnWalkSelectedListener mCallback;
+	/**
+	 * 
+	 */
 	private WalkLoaderAdapter mAdapter;
+	/**
+	 * 
+	 */
 	private SearchView mSearchView;
+	/**
+	 * 
+	 */
 	private int mLayout;
+	/**
+	 * 
+	 */
 	private String mCurFilter;
+	/**
+	 * 
+	 */
 	private Account mConnectedAccount;
+	/**
+	 * 
+	 */
 	private Context mContext;
+	/**
+	 * 
+	 */
 	private ArrayList<Long> mWalkIds;
 	
+	/**
+	 * @param account
+	 */
 	public void setConnectedAccount(Account account) {
 		mConnectedAccount = account;
 	}
 	
+	/**
+	 * @author Lewis Hancock
+	 *
+	 */
 	public interface OnWalkSelectedListener {
 		public void onWalkSelected(Walk walk);
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.ListFragment#onListItemClick(android.widget.ListView, android.view.View, int, long)
+	 */
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		mCallback.onWalkSelected(mAdapter.getItem(position));
@@ -63,6 +104,9 @@ public class SearchListFragment extends ListFragment
 	}
 
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
+	 */
 	@SuppressLint("InlinedApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +117,9 @@ public class SearchListFragment extends ListFragment
 		mWalkIds = new ArrayList<Long>();
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onAttach(android.app.Activity)
+	 */
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -88,6 +135,9 @@ public class SearchListFragment extends ListFragment
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onStart()
+	 */
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -96,6 +146,9 @@ public class SearchListFragment extends ListFragment
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
+	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -120,6 +173,9 @@ public class SearchListFragment extends ListFragment
 	}
 
 
+	/* (non-Javadoc)
+	 * @see android.support.v7.widget.SearchView.OnQueryTextListener#onQueryTextChange(java.lang.String)
+	 */
 	@Override
 	public boolean onQueryTextChange(String arg0) {
 		// TODO Auto-generated method stub
@@ -127,6 +183,9 @@ public class SearchListFragment extends ListFragment
 	}
 
 
+	/* (non-Javadoc)
+	 * @see android.support.v7.widget.SearchView.OnQueryTextListener#onQueryTextSubmit(java.lang.String)
+	 */
 	@Override
 	public boolean onQueryTextSubmit(String arg0) {
 		// TODO Auto-generated method stub
@@ -134,12 +193,18 @@ public class SearchListFragment extends ListFragment
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int, android.os.Bundle)
+	 */
 	@Override
 	public Loader<List<Walk>> onCreateLoader(int arg0, Bundle arg1) {
 		return new WalkLoader(getActivity());
 	}
 
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoadFinished(android.support.v4.content.Loader, java.lang.Object)
+	 */
 	@Override
 	public void onLoadFinished(Loader<List<Walk>> arg0, List<Walk> walks) {
 		Log.d(TAG, "onLoadFinished");
@@ -155,6 +220,9 @@ public class SearchListFragment extends ListFragment
 	}
 
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoaderReset(android.support.v4.content.Loader)
+	 */
 	@Override
 	public void onLoaderReset(Loader<List<Walk>> arg0) {
 		mAdapter.setData(null);

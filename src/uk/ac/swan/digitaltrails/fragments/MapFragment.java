@@ -5,7 +5,6 @@ import java.util.List;
 
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Description;
-import uk.ac.swan.digitaltrails.components.EnglishDescription;
 import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
 import uk.ac.swan.digitaltrails.components.Media;
 import uk.ac.swan.digitaltrails.components.Waypoint;
@@ -46,32 +45,67 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * @author Lewis H
  *
  */
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class MapFragment extends Fragment implements
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener,
 LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 
 	/** Debugging tag */
+	/**
+	 * 
+	 */
 	private static final String TAG = "MapFragment";
 	/** The current map */
+	/**
+	 * 
+	 */
 	protected GoogleMap mMap;
 	/** SupportMapFragemnt to contain GoogleMap */
+	/**
+	 * 
+	 */
 	protected SupportMapFragment mFragment;
 	/** current LocationClient */
+	/**
+	 * 
+	 */
 	protected LocationClient mLocationClient;
 	/** Waypoints for walk */
+	/**
+	 * 
+	 */
 	protected ArrayList<Waypoint> mWaypointList;
 	/** Listen for when we close the map */
+	/**
+	 * 
+	 */
 	protected OnMapClosedListener mCallback;
 	/** ArrayList of Markers currently on the map */
+	/**
+	 * 
+	 */
 	protected ArrayList<Marker> mMarkers;
 
+	/**
+	 * 
+	 */
 	public static String ARG_POSITION = "position";
 
+	/**
+	 * @author Lewis Hancock
+	 *
+	 */
 	public interface OnMapClosedListener {
 		public void onMapClosed(List<Waypoint> waypointList);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
@@ -79,6 +113,9 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		return inflater.inflate(R.layout.fragment_map, container, false);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onAttach(android.app.Activity)
+	 */
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -91,6 +128,9 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -110,6 +150,9 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		mWaypointList = new ArrayList<Waypoint>();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onStart()
+	 */
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -119,17 +162,26 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		mLocationClient.connect();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onStop()
+	 */
 	@Override
 	public void onStop() {
 		mLocationClient.disconnect();
 		super.onStop();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onResume()
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onDetach()
+	 */
 	@Override
 	public void onDetach() {
 		mCallback.onMapClosed(mWaypointList);
@@ -139,6 +191,9 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 	/** 
 	 * Configure default settings for the GoogleMap map
 	 * @param map the GoogleMap to configure
+	 */
+	/**
+	 * @param map
 	 */
 	protected void defaultMapConfig(GoogleMap map) {
 		map.getUiSettings().setCompassEnabled(true);
@@ -160,6 +215,9 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		setInfoClickListener(map);
 	}
 	
+	/**
+	 * @param pos
+	 */
 	protected void showAddDialog(LatLng pos) {
 		Bundle args = new Bundle();
 		args.putParcelable(AddWaypointDialogFragment.ARG_POSITION, pos);
@@ -170,6 +228,9 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.AddWaypointDialogFragment.AddWaypointDialogListener#onDialogPositiveClick(android.support.v4.app.DialogFragment, android.view.View)
+	 */
 	@Override
 	public void onDialogPositiveClick(DialogFragment dialog, View view) {
 		Log.d(TAG, "OnPosClick");
@@ -196,16 +257,25 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.AddWaypointDialogFragment.AddWaypointDialogListener#onDialogNegativeClick(android.support.v4.app.DialogFragment, android.view.View)
+	 */
 	@Override
 	public void onDialogNegativeClick(DialogFragment dialog, View view) {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * @param map
+	 */
 	protected void setInfoClickListener(GoogleMap map) {
 		// Implemented by children.
 	}
 	
+	/**
+	 * @param waypoint
+	 */
 	protected void showEditDialog(Waypoint waypoint) {
 		Bundle args = new Bundle();
 		args.putLong(EditWaypointDialogFragment.ARG_INDEX, mWaypointList.indexOf(waypoint));
@@ -221,6 +291,9 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 	/** 
 	 * Initialise the map
 	 */
+	/**
+	 * 
+	 */
 	private void initMap() {
 		if (mMap == null) {
 			mMap = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_container)).getMap();
@@ -232,6 +305,10 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		}
 	}
 
+	/**
+	 * @param item
+	 * @return
+	 */
 	protected boolean changeMap(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.normal_map:
@@ -264,12 +341,18 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 
 	// Location Listener Implementation 
 
+	/* (non-Javadoc)
+	 * @see com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener#onConnectionFailed(com.google.android.gms.common.ConnectionResult)
+	 */
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks#onConnected(android.os.Bundle)
+	 */
 	@Override
 	public void onConnected(Bundle arg0) {
 		Log.d(TAG, "LocClient Connected");
@@ -277,12 +360,18 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 15)); 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks#onDisconnected()
+	 */
 	@Override
 	public void onDisconnected() {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * @param waypoints
+	 */
 	protected void createMarkers(ArrayList<Waypoint> waypoints) {
 		for (Waypoint wp : waypoints) {
 			if (wp.isRequest() == false) {
@@ -298,6 +387,9 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int, android.os.Bundle)
+	 */
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri baseUri = WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_URI;
@@ -309,6 +401,9 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		return new CursorLoader(getActivity().getBaseContext(), baseUri, WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.PROJECTION_ALL, select, null, WhiteRockContract.WaypointWithEnglishDescription.VISIT_ORDER + " COLLATE LOCALIZED ASC");
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoadFinished(android.support.v4.content.Loader, java.lang.Object)
+	 */
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		// create Waypoints from all the db info.
@@ -362,6 +457,9 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoaderReset(android.support.v4.content.Loader)
+	 */
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
 		// TODO Auto-generated method stub

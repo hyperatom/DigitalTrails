@@ -22,38 +22,82 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class WalkListFragment extends ListFragment 
 	implements LoaderCallbacks<Cursor>, OnQueryTextListener {
 
+	/**
+	 * 
+	 */
 	private OnWalkSelectedListener mCallback;
 
+	/**
+	 * 
+	 */
 	private static final String TAG = "WalkListFragment";
 	
-	private ArrayList<Walk> mWalkList;
-	private ArrayList<Integer> mWalkIds;
-	private SimpleCursorAdapter mAdapter;
-	private SearchViewCompat mSearchView;
-	private String mCurFilter; 
-	private int mLayout;
+	/**
+	 * 
+	 */
+	protected ArrayList<Walk> mWalkList;
+	/**
+	 * 
+	 */
+	protected ArrayList<Integer> mWalkIds;
+	/**
+	 * 
+	 */
+	protected SimpleCursorAdapter mAdapter;
+	/**
+	 * 
+	 */
+	protected SearchViewCompat mSearchView;
+	/**
+	 * 
+	 */
+	protected String mCurFilter; 
+	/**
+	 * 
+	 */
+	protected int mLayout;
 
 	
+	/**
+	 * @author Lewis Hancock
+	 *
+	 */
 	public interface OnWalkSelectedListener {
 		public void onWalkSelected(int position);
 	}
 	
 	
+	/**
+	 * @param walkList
+	 */
 	public void setWalkList(ArrayList<Walk> walkList) {
 		mWalkList = walkList;
 	}
 	
+	/**
+	 * @return
+	 */
 	public ArrayList<Walk> getWalkList() {
 		return mWalkList;
 	}
 	
+	/**
+	 * @return
+	 */
 	public ArrayList<Integer> getWalkIds() {
 		return mWalkIds;
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
+	 */
 	@SuppressLint("InlinedApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +107,9 @@ public class WalkListFragment extends ListFragment
 				android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onAttach(android.app.Activity)
+	 */
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -74,12 +121,18 @@ public class WalkListFragment extends ListFragment
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.ListFragment#onListItemClick(android.widget.ListView, android.view.View, int, long)
+	 */
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		mCallback.onWalkSelected(position);
 		getListView().setItemChecked(position, true);
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onStart()
+	 */
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -89,6 +142,9 @@ public class WalkListFragment extends ListFragment
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
+	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -104,8 +160,14 @@ public class WalkListFragment extends ListFragment
 	}
 	
 
-	static String [] WALK_SUMMARY_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions._ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, WhiteRockContract.EnglishWalkDescriptions.WALK_ID };
+	/**
+	 * 
+	 */
+	protected static String [] WALK_SUMMARY_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions._ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, WhiteRockContract.EnglishWalkDescriptions.WALK_ID };
 	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int, android.os.Bundle)
+	 */
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri baseUri;
@@ -119,6 +181,9 @@ public class WalkListFragment extends ListFragment
 		return new CursorLoader(getActivity(), baseUri, WALK_SUMMARY_PROJECTION, select, null, WhiteRockContract.EnglishWalkDescriptions.WALK_ID + " COLLATE LOCALIZED ASC");
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoadFinished(android.support.v4.content.Loader, java.lang.Object)
+	 */
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		Log.d(TAG, "LoadFinished, data size: " + data.getCount());
@@ -141,18 +206,27 @@ public class WalkListFragment extends ListFragment
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoaderReset(android.support.v4.content.Loader)
+	 */
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
 		mAdapter.swapCursor(null);
 	}
 
 	// onQueryTextListener interface
+	/* (non-Javadoc)
+	 * @see android.support.v7.widget.SearchView.OnQueryTextListener#onQueryTextChange(java.lang.String)
+	 */
 	@Override
 	public boolean onQueryTextChange(String arg0) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v7.widget.SearchView.OnQueryTextListener#onQueryTextSubmit(java.lang.String)
+	 */
 	@Override
 	public boolean onQueryTextSubmit(String arg0) {
 		// TODO Auto-generated method stub

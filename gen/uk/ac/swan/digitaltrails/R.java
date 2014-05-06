@@ -1677,19 +1677,19 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000b;
-        public static final int account_message=0x7f0b0036;
+        public static final int account_message=0x7f0b0037;
         /**  Create Walk View Strings 
  Edit Account View Strings 
          */
-        public static final int account_title=0x7f0b0035;
-        public static final int action_settings=0x7f0b0031;
-        public static final int add_to_existing=0x7f0b0041;
-        public static final int add_waypoint_dialog_message=0x7f0b006f;
-        public static final int add_waypoint_dialog_title=0x7f0b006e;
+        public static final int account_title=0x7f0b0036;
+        public static final int action_settings=0x7f0b0032;
+        public static final int add_to_existing=0x7f0b0042;
+        public static final int add_waypoint_dialog_message=0x7f0b0070;
+        public static final int add_waypoint_dialog_title=0x7f0b006f;
         /**  CHRIS' STRINGS 
  Generic Strings 
          */
-        public static final int app_name=0x7f0b0030;
+        public static final int app_name=0x7f0b0031;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -1713,13 +1713,13 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f0b0021;
-        public static final int back_media=0x7f0b003b;
-        public static final int cancel=0x7f0b0048;
-        public static final int cancel_delete_media=0x7f0b003f;
-        public static final int cancel_delete_walk=0x7f0b0067;
-        public static final int cancel_delete_waypoint=0x7f0b006b;
-        public static final int cancel_waypoint=0x7f0b006d;
-        public static final int chooseWalk=0x7f0b0034;
+        public static final int back_media=0x7f0b003c;
+        public static final int cancel=0x7f0b0049;
+        public static final int cancel_delete_media=0x7f0b0040;
+        public static final int cancel_delete_walk=0x7f0b0068;
+        public static final int cancel_delete_waypoint=0x7f0b006c;
+        public static final int cancel_waypoint=0x7f0b006e;
+        public static final int chooseWalk=0x7f0b0035;
         public static final int close=0x7f0b002e;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
@@ -1792,95 +1792,96 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f0b0020;
-        public static final int confirm_delete_media=0x7f0b003a;
-        public static final int confirm_delete_media_final=0x7f0b003e;
-        public static final int confirm_delete_walk=0x7f0b0066;
-        public static final int confirm_delete_waypoint=0x7f0b006a;
+        public static final int confirm_delete_media=0x7f0b003b;
+        public static final int confirm_delete_media_final=0x7f0b003f;
+        public static final int confirm_delete_walk=0x7f0b0067;
+        public static final int confirm_delete_waypoint=0x7f0b006b;
         /**  Waypoint List View Strings 
  Add Waypoint Fragment Strings 
          */
-        public static final int confirm_waypoint=0x7f0b006c;
-        public static final int create=0x7f0b0050;
-        public static final int create_new_walk=0x7f0b0042;
-        public static final int delete=0x7f0b004f;
-        public static final int delete_media_message=0x7f0b003d;
-        public static final int delete_media_title=0x7f0b003c;
-        public static final int delete_walk_message=0x7f0b0065;
+        public static final int confirm_waypoint=0x7f0b006d;
+        public static final int create=0x7f0b0051;
+        public static final int create_new_walk=0x7f0b0043;
+        public static final int delete=0x7f0b0050;
+        public static final int delete_media_message=0x7f0b003e;
+        public static final int delete_media_title=0x7f0b003d;
+        public static final int delete_walk_message=0x7f0b0066;
         /**  Walk Options View Strings 
          */
-        public static final int delete_walk_title=0x7f0b0064;
-        public static final int delete_waypoint_message=0x7f0b0069;
+        public static final int delete_walk_title=0x7f0b0065;
+        public static final int delete_waypoint_message=0x7f0b006a;
         /**  Walk View Strings 
          */
-        public static final int delete_waypoint_title=0x7f0b0068;
+        public static final int delete_waypoint_title=0x7f0b0069;
         public static final int dialog_info_view=0x7f0b002d;
-        public static final int download=0x7f0b005d;
+        public static final int download=0x7f0b005e;
         /**  Search View Strings 
          */
-        public static final int download_title=0x7f0b005c;
+        public static final int download_title=0x7f0b005d;
         /**  My Walks View Strings 
          */
-        public static final int edit=0x7f0b004e;
-        public static final int email=0x7f0b0046;
-        public static final int enter=0x7f0b004b;
+        public static final int edit=0x7f0b004f;
+        public static final int email=0x7f0b0047;
+        public static final int enter=0x7f0b004c;
         /**  Home View Strings 
          */
-        public static final int explore_title=0x7f0b0040;
-        public static final int hello_world=0x7f0b0032;
+        public static final int explore_title=0x7f0b0041;
+        public static final int hello_world=0x7f0b0033;
         public static final int hybrid_map=0x7f0b002a;
         public static final int information_label=0x7f0b0028;
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f0b0027;
-        public static final int log_in=0x7f0b0047;
-        public static final int log_in_error=0x7f0b0049;
-        public static final int log_in_message=0x7f0b004a;
-        public static final int log_in_prompt=0x7f0b0044;
+        public static final int log_in=0x7f0b0048;
+        public static final int log_in_error=0x7f0b004a;
+        public static final int log_in_message=0x7f0b004b;
+        public static final int log_in_prompt=0x7f0b0045;
         public static final int map_menu=0x7f0b002c;
-        public static final int media_audio=0x7f0b0060;
+        public static final int media_audio=0x7f0b0061;
         /**  Settings View Strings 
  View Waypoint View Strings 
          */
-        public static final int media_description=0x7f0b005e;
-        public static final int media_pictures=0x7f0b005f;
-        public static final int media_video=0x7f0b0061;
-        public static final int no=0x7f0b0056;
+        public static final int media_description=0x7f0b005f;
+        public static final int media_pictures=0x7f0b0060;
+        public static final int media_video=0x7f0b0062;
+        public static final int no=0x7f0b0057;
         public static final int noWalks=0x7f0b002f;
         public static final int normal_map=0x7f0b0029;
-        public static final int ok=0x7f0b0057;
-        public static final int password=0x7f0b0045;
-        public static final int register=0x7f0b004d;
-        public static final int register_message=0x7f0b0052;
+        public static final int ok=0x7f0b0058;
+        public static final int password=0x7f0b0046;
+        public static final int prefName=0x7f0b0030;
+        public static final int register=0x7f0b004e;
+        public static final int register_message=0x7f0b0053;
         /**  Register View Strings 
          */
-        public static final int register_title=0x7f0b0051;
-        public static final int reposition_made_message=0x7f0b005b;
-        public static final int reposition_made_title=0x7f0b005a;
-        public static final int reposition_message=0x7f0b0059;
-        public static final int reposition_title=0x7f0b0058;
-        public static final int retry=0x7f0b004c;
-        public static final int returnToWalkView=0x7f0b0063;
+        public static final int register_title=0x7f0b0052;
+        public static final int reposition_made_message=0x7f0b005c;
+        public static final int reposition_made_title=0x7f0b005b;
+        public static final int reposition_message=0x7f0b005a;
+        public static final int reposition_title=0x7f0b0059;
+        public static final int retry=0x7f0b004d;
+        public static final int returnToWalkView=0x7f0b0064;
         public static final int satellite_map=0x7f0b002b;
         /**  Reposition View Strings 
          */
-        public static final int save=0x7f0b0054;
+        public static final int save=0x7f0b0055;
         /**  Add Waypoint View Strings 
  Choose Walk View Strings 
          */
-        public static final int start=0x7f0b0033;
-        public static final int valid_changes=0x7f0b0037;
-        public static final int valid_register=0x7f0b0053;
-        public static final int waypoint1=0x7f0b0062;
-        public static final int waypoint_media_message=0x7f0b0039;
+        public static final int start=0x7f0b0034;
+        public static final int valid_changes=0x7f0b0038;
+        public static final int valid_register=0x7f0b0054;
+        public static final int waypoint1=0x7f0b0063;
+        public static final int waypoint_media_message=0x7f0b003a;
         /**  Edit Walks View Strings 
  Edit Waypoint View Strings 
          */
-        public static final int waypoint_media_title=0x7f0b0038;
+        public static final int waypoint_media_title=0x7f0b0039;
         /**  Launch View Strings 
  Log In View Strings 
          */
-        public static final int welcome_text=0x7f0b0043;
-        public static final int yes=0x7f0b0055;
+        public static final int welcome_text=0x7f0b0044;
+        public static final int yes=0x7f0b0056;
     }
     public static final class style {
         /** 

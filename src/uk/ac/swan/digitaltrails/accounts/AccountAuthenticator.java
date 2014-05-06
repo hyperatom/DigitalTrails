@@ -11,17 +11,36 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+/**
+ * Class to handle a WhiteRock account. Talks to the account manager to perform
+ * all available actions. 
+ * @author Lewis Hancock
+ *
+ */
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
+	/**
+	 * Identifier tag for the class
+	 */
 	private static final String TAG = "AccountAuthenticator";
+	/**
+	 * Var to store context since Android is stupid.
+	 */
 	private final Context mContext;
 	
+	/**
+	 * The context being given to the app.yyyy
+	 * @param context
+	 */
 	public AccountAuthenticator(Context context) {
 		super(context);
 		this.mContext = context.getApplicationContext();
 		Log.d(TAG, "context: " + mContext);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.accounts.AbstractAccountAuthenticator#addAccount(android.accounts.AccountAuthenticatorResponse, java.lang.String, java.lang.String, java.lang.String[], android.os.Bundle)
+	 */
 	@Override
 	public Bundle addAccount(AccountAuthenticatorResponse response, String accountType,
 			String authTokenType, String[] requiredFeatures, Bundle options)
@@ -38,6 +57,9 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 		return bundle;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.accounts.AbstractAccountAuthenticator#getAuthToken(android.accounts.AccountAuthenticatorResponse, android.accounts.Account, java.lang.String, android.os.Bundle)
+	 */
 	@Override
 	public Bundle getAuthToken(AccountAuthenticatorResponse response,
 			Account account, String authTokenType, Bundle options)
@@ -92,6 +114,9 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 		return bundle;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.accounts.AbstractAccountAuthenticator#getAuthTokenLabel(java.lang.String)
+	 */
 	@Override
 	public String getAuthTokenLabel(String authTokenType) {
 		if (AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS.equals(authTokenType)) {
@@ -103,6 +128,9 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.accounts.AbstractAccountAuthenticator#hasFeatures(android.accounts.AccountAuthenticatorResponse, android.accounts.Account, java.lang.String[])
+	 */
 	@Override
 	public Bundle hasFeatures(AccountAuthenticatorResponse response,
 			Account account, String[] features) throws NetworkErrorException {
@@ -111,18 +139,27 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.accounts.AbstractAccountAuthenticator#confirmCredentials(android.accounts.AccountAuthenticatorResponse, android.accounts.Account, android.os.Bundle)
+	 */
 	@Override
 	public Bundle confirmCredentials(AccountAuthenticatorResponse response,
 			Account account, Bundle options) throws NetworkErrorException {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.accounts.AbstractAccountAuthenticator#editProperties(android.accounts.AccountAuthenticatorResponse, java.lang.String)
+	 */
 	@Override
 	public Bundle editProperties(AccountAuthenticatorResponse response,
 			String accountType) {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.accounts.AbstractAccountAuthenticator#updateCredentials(android.accounts.AccountAuthenticatorResponse, android.accounts.Account, java.lang.String, android.os.Bundle)
+	 */
 	@Override
 	public Bundle updateCredentials(AccountAuthenticatorResponse response,
 			Account account, String authTokenType, Bundle options)

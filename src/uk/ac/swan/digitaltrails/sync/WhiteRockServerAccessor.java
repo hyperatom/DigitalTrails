@@ -28,21 +28,41 @@ import uk.ac.swan.digitaltrails.utils.HTTP;
  * @author Tom Milner
  *
  */
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class WhiteRockServerAccessor {
 	// TODO: Add error codes.
+	/**
+	 * 
+	 */
 	private static final String TAG = "Server Accessor";
+	/**
+	 * 
+	 */
 	private Account mAccount;
 	
+	/**
+	 * @param account
+	 */
 	public WhiteRockServerAccessor(Account account){
 		mAccount = account;
 	}
 	
+	/**
+	 * 
+	 */
 	public WhiteRockServerAccessor() {
 		
 	}
 	
 	/**
 	 * Method which gets all walks.
+	 * @throws Exception
+	 */
+	/**
+	 * @return
 	 * @throws Exception
 	 */
 	public ArrayList<Walk> getWalks() throws Exception {
@@ -61,6 +81,11 @@ public class WhiteRockServerAccessor {
 	 * @param id the walk ID to get. 
 	 * @throws Exception
 	 */
+	/**
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
 	public Walk getWalk(int id) throws Exception {
 		
 		String response = HTTP.get(HTTP.BASEURL+"/walks/"+id);
@@ -77,6 +102,11 @@ public class WhiteRockServerAccessor {
 	 * @param id the walk ID to get. 
 	 * @throws Exception
 	 */
+	/**
+	 * @param query
+	 * @return
+	 * @throws Exception
+	 */
 	public ArrayList<Walk> searchForWalk(String query) throws Exception {
 		
 		String response = HTTP.get(HTTP.BASEURL+"/walks/search/"+query);
@@ -91,6 +121,11 @@ public class WhiteRockServerAccessor {
 	/**
 	 * Method which gets a walk.
 	 * @param id the walk ID to get. 
+	 * @throws Exception
+	 */
+	/**
+	 * @param walk
+	 * @return
 	 * @throws Exception
 	 */
 	public Walk addWalk(Walk walk) throws Exception {
@@ -111,6 +146,11 @@ public class WhiteRockServerAccessor {
 	 * @param id the walk ID to get. 
 	 * @throws Exception
 	 */
+	/**
+	 * @param walk
+	 * @return
+	 * @throws Exception
+	 */
 	public Walk updateWalk(Walk walk) throws Exception {
 		
 		Gson gson = new GsonBuilder().create();
@@ -125,6 +165,10 @@ public class WhiteRockServerAccessor {
 	}
 	
 	//NOT WORKING....
+	/**
+	 * @param media
+	 * @return
+	 */
 	public Media uploadMedia(Media media){
 		
 		Gson gson = new GsonBuilder().create();

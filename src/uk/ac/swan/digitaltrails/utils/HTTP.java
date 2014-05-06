@@ -50,51 +50,115 @@ import android.util.Log;
  * @author Thomas Milner
  *
  */
+/**
+ * @author Lewis Hancock
+ *
+ */
 @SuppressWarnings("deprecation")
 public class HTTP {
 
+	/**
+	 * 
+	 */
 	public static final String TAG = "SecureHTTP";
 	
+	/**
+	 * 
+	 */
 	public static final String BASEURL = "http://whiterockapi.tmilner.co.uk";
 	
+	/**
+	 * 
+	 */
 	private static final HttpClient mClient = new DefaultHttpClient();
 	
+	/**
+	 * @author Lewis Hancock
+	 *
+	 */
 	public static enum Type {
 		GET,POST,PUT,DELETE
 	};
 
+	/**
+	 * @param url
+	 * @return
+	 */
 	public static String get(String url){
 		return request(null, url, Type.GET);
 	}
 	
+	/**
+	 * @param message
+	 * @param url
+	 * @return
+	 */
 	public static String post(String message,String url){
 		return request(message, url, Type.POST);
 	}
 	
+	/**
+	 * @param message
+	 * @param url
+	 * @return
+	 */
 	public static String put(String message, String url){
 		return request(message, url, Type.PUT);
 	}
 	
+	/**
+	 * @param url
+	 * @return
+	 */
 	public static String delete(String url){
 		return request(null, url, Type.DELETE);
 	}
 	
+	/**
+	 * @param url
+	 * @param account
+	 * @return
+	 */
 	public static String secureGet(String url, Account account){
 		return secureRequest(null, url, Type.GET, account);
 	}
 	
+	/**
+	 * @param message
+	 * @param url
+	 * @param account
+	 * @return
+	 */
 	public static String securePost(String message, String url, Account account){
 		return secureRequest(message, url, Type.POST, account);
 	}
 	
+	/**
+	 * @param message
+	 * @param url
+	 * @param account
+	 * @return
+	 */
 	public static String securePut(String message, String url, Account account){
 		return secureRequest(message, url, Type.PUT, account);
 	}
 	
+	/**
+	 * @param url
+	 * @param account
+	 * @return
+	 */
 	public static String secureDelete(String url, Account account){
 		return secureRequest(null, url, Type.DELETE, account);
 	}
 	
+	/**
+	 * @param message
+	 * @param url
+	 * @param type
+	 * @param account
+	 * @return
+	 */
 	public static String secureRequest(String message, String url, Type type, Account account){
 		//Get AuthToken and Hash
 		String hash = "";
@@ -178,6 +242,12 @@ public class HTTP {
 	 * @param type
 	 * @return
 	 */
+	/**
+	 * @param message
+	 * @param url
+	 * @param type
+	 * @return
+	 */
 	public static String request(String message, String url, Type type){
 		
 		HttpRequestBase request = null;
@@ -245,6 +315,13 @@ public class HTTP {
 	 * @param file The file
 	 * @return The response.
 	 */
+	/**
+	 * @param url
+	 * @param account
+	 * @param file
+	 * @param message
+	 * @return
+	 */
 	public static String postFile(String url, Account account, File file, String message){
 		
 		//Get AuthToken and Hash
@@ -291,6 +368,13 @@ public class HTTP {
 		} 
 	}
 	
+	/**
+	 * @param message
+	 * @param key
+	 * @return
+	 * @throws GeneralSecurityException
+	 * @throws UnsupportedEncodingException
+	 */
 	private static String computeSignature(String message, String key) throws GeneralSecurityException, UnsupportedEncodingException {
         // Get an hmac_sha1 key from the raw key bytes
         byte[] keyBytes = key.getBytes();           

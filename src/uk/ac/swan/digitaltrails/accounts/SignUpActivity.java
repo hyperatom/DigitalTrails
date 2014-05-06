@@ -13,12 +13,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+/**
+ * @author Lewis Hancock
+ * Activity to allow users to create an account.
+ */
 public class SignUpActivity extends Activity {
 
+	/**
+	 * Static tag string for the class.
+	 */
 	private String TAG = "SignUpActivity";
+	/**
+	 * Type of account for the user.
+	 */
 	private String mAccountType;
 	
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstnaceState) {
 		super.onCreate(savedInstnaceState);
@@ -44,6 +57,9 @@ public class SignUpActivity extends Activity {
 		});
 	}
 	
+	/**
+	 * Create the user account.
+	 */
 	private void createAccount() {
 		new AsyncTask<String, Void, Intent>() {
 			
@@ -100,6 +116,9 @@ public class SignUpActivity extends Activity {
 		}.execute(); 
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onBackPressed()
+	 */
 	@Override
 	public void onBackPressed() {
 		setResult(RESULT_CANCELED);

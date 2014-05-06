@@ -9,18 +9,28 @@ import android.database.Cursor;
 import android.util.Log;
 import uk.ac.swan.digitaltrails.components.Audio;
 import uk.ac.swan.digitaltrails.components.Waypoint;
+/**
+ * @author Lewis Hancock
+ * Data Access Object for the Audio component.
+ */
 public class AudioDataSource extends MediaDataSource {
 
+	/**
+	 * static constant tag for the class.
+	 */
 	private static final String TAG = "AudioDataSource";
+	/**
+	 * Constructor
+	 * @param context The context to use
+	 */
 	protected AudioDataSource(Context context) {
 		super(context);
 		mTable = DbSchema.TABLE_WAYPOINT_AUDIO;
 	}
 
 	/**
-	 * 
-	 * @param fileLocation
-	 * @return
+	 * @param fileLocation location of this file
+	 * @return Audio component which is created
 	 */
 	public Audio createAudio(String fileLocation) {
 		ContentValues values = new ContentValues();
@@ -34,8 +44,8 @@ public class AudioDataSource extends MediaDataSource {
 	}
 
 	/**
-	 * 
-	 * @param audio
+	 * Deletes an audio file from the database.
+	 * @param audio The audio file to delete
 	 */
 	public void deleteAudio(Audio audio) {
 		long id = audio.getId();
@@ -44,8 +54,8 @@ public class AudioDataSource extends MediaDataSource {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Get all audio files in the database
+	 * @return A List of all audio files
 	 */
 	public List<Audio> getAllAudio() {
 		ArrayList<Audio> audioList = new ArrayList<Audio>();
@@ -63,6 +73,11 @@ public class AudioDataSource extends MediaDataSource {
 		return audioList;
 	}
 	
+	/**
+	 * Get all audio objects at a certain waypoint
+	 * @param wp Th waypoint
+	 * @return List of Audio objects
+	 */
 	public List<Audio> getAllAudioAtWaypoint(Waypoint wp) {
 		ArrayList<Audio> audioList = new ArrayList<Audio>();
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS,  "waypoint_id" + " = " + wp.getId(),  null, null, null, null);

@@ -13,13 +13,29 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class WalkLoaderAdapter extends ArrayAdapter<Walk> {
 
+	/**
+	 * 
+	 */
 	private static final String TAG = "WalkLoaderAdapater";
+	/**
+	 * 
+	 */
 	private final Context mContext;
+	/**
+	 * 
+	 */
 	private final LayoutInflater mInflater;
 	//private ArrayList<Walk> mValues;
 	
+	/**
+	 * @param context
+	 */
 	public WalkLoaderAdapter(Context context) {
 		super(context,  R.layout.fragment_search_list);
 		mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -31,6 +47,9 @@ public class WalkLoaderAdapter extends ArrayAdapter<Walk> {
 //		mValues = (ArrayList<Walk>) values;
 //	}
 	
+	/* (non-Javadoc)
+	 * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
+	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Log.d(TAG, "Putting items into list");
 		View view;
@@ -45,6 +64,9 @@ public class WalkLoaderAdapter extends ArrayAdapter<Walk> {
 		return view;
 	}
 	
+	/**
+	 * @param walks
+	 */
 	public void setData(List<Walk> walks) {
 		clear();
 		if (walks != null) {

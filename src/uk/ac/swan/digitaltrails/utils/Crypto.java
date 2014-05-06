@@ -16,13 +16,29 @@ import android.util.Log;
  * Contains Cryptography functions including HMAC_SHA1 encryption.
  *
  */
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class Crypto {
 
+	/**
+	 * 
+	 */
 	private static final String HMAC_SHA1_ALGORITHM = "HmacSHA1";
+	/**
+	 * 
+	 */
 	private static final String TAG = "Crypto";
 
 	/**
 	 * 
+	 * @param secret
+	 * @param data
+	 * @return
+	 * @throws java.security.SignatureException
+	 */
+	/**
 	 * @param secret
 	 * @param data
 	 * @return

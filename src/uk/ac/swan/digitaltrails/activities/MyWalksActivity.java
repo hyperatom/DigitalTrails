@@ -18,10 +18,12 @@ import uk.ac.swan.digitaltrails.fragments.EditWaypointMapFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkListFragment;
 import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
+import uk.ac.swan.digitaltrails.utils.GlobalFlags;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,13 +36,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+/**
+ * @author Lewis Hancock
+ * Activity to manager the user's created walks.
+ */
 @SuppressLint("NewApi")
 public class MyWalksActivity extends ActionBarActivity implements
 MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedListener {
 
+	/**
+	 * Static constant tag for the class.
+	 */
 	private static final String TAG = "MyWalksActivity";
+	/**
+	 * The list of waypoints in the walk.
+	 */
 	private List<Waypoint> mWaypointList;
 
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_walks);
@@ -75,6 +93,9 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
@@ -83,6 +104,9 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkListFragment.OnWalkSelectedListener#onWalkSelected(int)
+	 */
 	@Override
 	public void onWalkSelected(int position) {
 		WalkListFragment listFrag = (WalkListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
@@ -122,12 +146,18 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 
 	}
 
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.MapFragment.OnMapClosedListener#onMapClosed(java.util.List)
+	 */
 	@Override
 	public void onMapClosed(List<Waypoint> waypointList) {
 		Log.d(TAG, "onMapClosed call");
 		mWaypointList = waypointList;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onBackPressed()
+	 */
 	@Override
 	public void onBackPressed() {
 		// Do different things depending on our chosen fragment.
@@ -139,16 +169,28 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		super.onBackPressed();
 	}
 
+	/**
+	 * onClick for the account button
+	 * @param menu
+	 */
 	public void accountButton(MenuItem menu){
 		Intent intent = new Intent(this, EditAccountActivity.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * onClick for the logout button
+	 * @param menu
+	 */
 	public void logOutButton(MenuItem menu){
 		Intent intent = new Intent(this, LaunchActivity.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * onClick for settings button
+	 * @param menu
+	 */
 	public void settingsButton(MenuItem menu){
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
@@ -189,6 +231,11 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 
 	// EditWalkFragment functions
 
+
+	/**
+	 * onClick for editAddWaypoint button
+	 * @param view
+	 */
 	public void editAddWaypointButtonOnClick(View view){
 		Log.d(TAG, "editAddWaypointButton Pressed");
 
@@ -212,13 +259,25 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		transaction.commit();
 	}
 
+	/**
+	 * onClick for editEditWaypointButton
+	 * @param view
+	 */
 	public void editEditWaypointButtonOnClick(View view) {
 	}
 
+	/**
+	 * onClick for cancelling an edit
+	 * @param view
+	 */
 	public void editCancelButtonOnClick(View view){
 		onBackPressed();
 	}
 
+	/**
+	 * onClick for edit save button
+	 * @param view
+	 */
 	public void editSaveButtonOnClick(View view){
 		// update stuff here
 		WalkDataSource walkSource = new WalkDataSource(this);
@@ -324,9 +383,15 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	 * @param view
 	 */
 	public void createCreateButtonOnClick(View view) {
+		if (mWaypointList == null || mWaypointList.size() <= 0) {
+			onBackPressed();
+			return;
+		}
 		// Walk Table
 		WalkDataSource walkDataSource = new WalkDataSource(this);
-		long walkId = walkDataSource.addWalk(0, 0, 0, 0); //TODO: Use real values for this
+		SharedPreferences settings = this.getSharedPreferences(GlobalFlags.PREF_NAME, 0);
+		long userId = settings.getInt("userId", -1);
+		long walkId = walkDataSource.addWalk(0, 0, 0, 0, userId); //TODO: Use real values for this
 		Log.d(TAG, "walkId value = " + walkId);
 		// EnglishWalkDescriptions table
 		EditText titleView = (EditText) findViewById(R.id.titledit);
@@ -368,6 +433,10 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		transaction.commit();
 	}
 
+	/**
+	 * onClick for deleteWalkButton
+	 * @param view
+	 */
 	public void deleteWalkButtonOnClick(View view){
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -375,13 +444,14 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		builder.setPositiveButton(R.string.confirm_delete_walk, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				MyWalkDetailsFragment detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_large);
+				
 				if (detailsFrag == null) {
 					detailsFrag = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 				}
+				
 				int walkId = detailsFrag.getCurrentPosition();
 				WalkDataSource wdSource = new WalkDataSource(getBaseContext());
 				WaypointDataSource wpdSource = new WaypointDataSource(getBaseContext());
-				
 				DescriptionDataSource descdSource = new EnglishWalkDescriptionDataSource(getBaseContext());
 				descdSource.deleteAllDescriptions(walkId);
 				

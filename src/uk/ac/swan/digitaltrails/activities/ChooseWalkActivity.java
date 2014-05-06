@@ -23,15 +23,17 @@ import android.util.Log;
 import android.view.View;
 
 /**
- * Activity to allow a user to choose a walk, see its details and then load it.
  * @author Lewis Hancock
- *
+ *  Activity to allow a user to choose a walk, see its details and then load it.
  */
 public class ChooseWalkActivity extends ActionBarActivity
 			implements WalkListFragment.OnWalkSelectedListener {
 	
 	/**
 	 * 	Called when the activity is first created
+	 */
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,9 @@ public class ChooseWalkActivity extends ActionBarActivity
 
 	/**
 	 * Display selected walk data.
+	 */
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkListFragment.OnWalkSelectedListener#onWalkSelected(int)
 	 */
 	@Override
 	public void onWalkSelected(int position) {
@@ -91,6 +96,10 @@ public class ChooseWalkActivity extends ActionBarActivity
 		}
 	}
 	
+	/**
+	 * Load the walk for the user to begin.
+	 * @param view The view of the button.
+	 */
 	public void loadWalkButtonClick(View view) {
 		WalkDetailsFragment detailsFrag = (WalkDetailsFragment)getSupportFragmentManager().findFragmentById(R.id.walk_details_fragment);
 		if(detailsFrag.getCurrentPosition() > 0){
@@ -101,6 +110,10 @@ public class ChooseWalkActivity extends ActionBarActivity
 		}
 	}
 	
+	/**
+	 * Button OnClick method to delete a walk.
+	 * @param view The view of the button
+	 */
 	public void deleteWalkButtonClick(View view) {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -157,6 +170,9 @@ public class ChooseWalkActivity extends ActionBarActivity
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onBackPressed()
+	 */
 	public void onBackPressed(){
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);

@@ -13,16 +13,39 @@ import android.net.Uri;
 import android.util.Log;
 
 
+/**
+ * @author Lewis Hancock
+ * Abstract base class for all DescriptionDataSources to manage Descriptions in the database.
+ */
 public abstract class DescriptionDataSource extends DataSource {
 
+	/**
+	 * 
+	 */
 	private static final String TAG = "DescriptionDataSource";
+	/**
+	 * 
+	 */
 	protected Uri uri;
+	/**
+	 * 
+	 */
 	protected String[] allColumns;
 	
+	/**
+	 * @param context
+	 */
 	public DescriptionDataSource(Context context) {
 		super(context);
 	}
 
+	/**
+	 * @param title
+	 * @param shortDescr
+	 * @param longDescr
+	 * @param foreignId
+	 * @return
+	 */
 	public long addDescription(String title, String shortDescr, String longDescr, long foreignId ) {
 		ContentValues values = new ContentValues();
 		values.put(allColumns[1], title);
@@ -34,18 +57,26 @@ public abstract class DescriptionDataSource extends DataSource {
 		return ContentUris.parseId(newDescr);
 	}
 
+	/**
+	 * Add a Description
+	 * @param d
+	 * @return
+	 */
 	public long addDescription(Description d) {
 		ContentValues values = new ContentValues();
 		values.put(allColumns[1], d.getTitle());
 		values.put(allColumns[2], d.getShortDescription());
 		values.put(allColumns[3], d.getLongDescription());
-		values.put(allColumns[4], d.getForeignId());
-		Log.d(TAG, "foreign id: " + d.getForeignId());
 		Uri newDescr = mContext.getContentResolver().insert(uri, values);
 		Log.d(TAG, "New description id = " + newDescr);
 		return ContentUris.parseId(newDescr);
 	}
 	
+	/**
+	 * Add a WalkDescription
+	 * @param d
+	 * @return
+	 */
 	public long addDescription(WalkDescription d) {
 		ContentValues values = new ContentValues();
 		values.put(allColumns[1], d.getTitle());
@@ -58,6 +89,11 @@ public abstract class DescriptionDataSource extends DataSource {
 		return ContentUris.parseId(newDescr);
 	}
 	
+	/**
+	 * Add a WaypointDescription
+	 * @param d
+	 * @return
+	 */
 	public long addDescription(WaypointDescription d) {
 		ContentValues values = new ContentValues();
 		values.put(allColumns[1], d.getTitle());
@@ -70,17 +106,32 @@ public abstract class DescriptionDataSource extends DataSource {
 		return ContentUris.parseId(newDescr);
 	}
 	
+	/**
+	 * Delete desired description
+	 * @param id id of description
+	 */
 	public void deleteDescription(long id) {
 		Log.d(TAG, "Attempting to delete Description " + id);
 		mContext.getContentResolver().delete(uri, allColumns[0] + " == " + id, null);
 		Log.d(TAG, "Deleted Description with ID: " + id);
 	}
 	
+	/**
+	 * Delete all descriptions with the same parentId
+	 * @param parentId the parent which will have descriptions deleted
+	 */
 	public void deleteAllDescriptions(long parentId) {
 		// allColumns[4] = walk_id / waypoint_id
 		mContext.getContentResolver().delete(uri, allColumns[4] + " == " + parentId, null);
 	}
 	
+	/**
+	 * Update the values of a description in the database
+	 * @param id
+	 * @param title
+	 * @param shortDescr
+	 * @param longDescr
+	 */
 	public void updateDescription(long id, String title, String shortDescr, String longDescr) {
 		ContentValues values = new ContentValues();
 		Log.d(TAG, "Attempting to update Description " + id);

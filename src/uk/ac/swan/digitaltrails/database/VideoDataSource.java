@@ -10,10 +10,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class VideoDataSource extends MediaDataSource {
 
+	/**
+	 * 
+	 */
 	private static final String TAG = "VideoDataSource";
 	
+	/**
+	 * @param context
+	 */
 	protected VideoDataSource(Context context) {
 		super(context);
 		mTable = DbSchema.TABLE_WAYPOINT_VIDEO;
@@ -21,6 +31,10 @@ public class VideoDataSource extends MediaDataSource {
 	
 	/**
 	 * 
+	 * @param fileLocation
+	 * @return
+	 */
+	/**
 	 * @param fileLocation
 	 * @return
 	 */
@@ -39,6 +53,9 @@ public class VideoDataSource extends MediaDataSource {
 	 * 
 	 * @param video
 	 */
+	/**
+	 * @param video
+	 */
 	public void deleteVideo(Video video) {
 		long id = video.getId();
 		Log.i(TAG, "Video deleted with id: " + id);
@@ -47,6 +64,9 @@ public class VideoDataSource extends MediaDataSource {
 
 	/**
 	 * 
+	 * @return
+	 */
+	/**
 	 * @return
 	 */
 	public List<Video> getAllVideos() {
@@ -69,6 +89,10 @@ public class VideoDataSource extends MediaDataSource {
 	 * 
 	 * @return
 	 */
+	/**
+	 * @param wp
+	 * @return
+	 */
 	public List<Video> getAllVideosAtWaypoint(Waypoint wp) {
 		ArrayList<Video> videoList = new ArrayList<Video>();
 		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS,  "Waypoint_id" + " = " + wp.getId(),  null, null, null, null);
@@ -89,6 +113,10 @@ public class VideoDataSource extends MediaDataSource {
 	 * 
 	 * @param cursor
 	 * @return New Video.
+	 */
+	/**
+	 * @param cursor
+	 * @return
 	 */
 	private Video cursorToVideo(Cursor cursor) {
 		Video video = new Video();

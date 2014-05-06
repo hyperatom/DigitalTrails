@@ -5,7 +5,7 @@
  *
  */
 /**
- * @author Admin
+ * @author Lewis Hancock
  *
  */
 package uk.ac.swan.digitaltrails.database;

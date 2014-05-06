@@ -1,9 +1,19 @@
 package uk.ac.swan.digitaltrails.components;
 
-import com.google.gson.annotations.SerializedName;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class EnglishWaypointDescription extends WaypointDescription {
 
+	/**
+	 * constructor
+	 * @param id id
+	 * @param title title
+	 * @param shortDesc short description
+	 * @param longDesc long description
+	 */
 	public EnglishWaypointDescription(int id, String title, String shortDesc, String longDesc) {
 		setId(id);
 		setTitle(title);
@@ -13,6 +23,9 @@ public class EnglishWaypointDescription extends WaypointDescription {
 	}
 
 
+	/**
+	 * default constructor
+	 */
 	public EnglishWaypointDescription() {
 		setId(-1);
 		setTitle("");

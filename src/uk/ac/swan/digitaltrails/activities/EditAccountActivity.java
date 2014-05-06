@@ -12,8 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
+/**
+ * @author Chris Lewis
+ * Activity which allows user to edit an account.
+ */
 public class EditAccountActivity extends ActionBarActivity{
 	
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_account_view);
@@ -21,6 +28,9 @@ public class EditAccountActivity extends ActionBarActivity{
 			(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
@@ -32,20 +42,35 @@ public class EditAccountActivity extends ActionBarActivity{
 	    return super.onOptionsItemSelected(item);
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onBackPressed()
+	 */
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
 	}
 
+	/**
+	 * Cancel editing on the Account.
+	 * @param view View of the button
+	 */
 	public void cancelEditAccountButton(View view){
         onBackPressed();
     }
 	
+	/**
+	 * Save the changes to the Account.
+	 * @param view View of the button.
+	 */
 	public void saveButton(View view){
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 	
+	/**
+	 * Confirms changes to account.
+	 * @param view The view of the button.
+	 */
 	public void accountChanges(View view){
 		Log.d("ACCOUNT CHANGES", "BUTTON PRESSED");
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);

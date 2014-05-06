@@ -11,18 +11,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class SearchDetailsFragment extends WalkDetailsFragment implements LoaderCallbacks<Cursor> {
 
+	/**
+	 * 
+	 */
 	public static String ARG_POSITION;
+	/**
+	 * 
+	 */
 	private static final String TAG = "SearchDetailsFragment";
+	/**
+	 * 
+	 */
 	private int mCurrentPos = -1;
 
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment#getCurrentPosition()
+	 */
 	public int getCurrentPosition() {
 		return mCurrentPos;
 	}
 	
 	/**
 	 * Called during startup
+	 */
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment#onStart()
 	 */
 	@Override
 	public void onStart() {
@@ -34,6 +53,9 @@ public class SearchDetailsFragment extends WalkDetailsFragment implements Loader
 		} 
 	}
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
@@ -44,6 +66,9 @@ public class SearchDetailsFragment extends WalkDetailsFragment implements Loader
 		return inflater.inflate(R.layout.fragment_search_detail, container, false);
 	}
 	
+	/**
+	 * @param walk
+	 */
 	public void updateDetailsView(Walk walk) {
 		if (walk != null) {
 			((TextView) getView().findViewById(R.id.title)).setText(walk.getEnglishDescriptions().getTitle());

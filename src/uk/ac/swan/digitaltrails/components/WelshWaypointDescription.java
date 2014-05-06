@@ -1,9 +1,19 @@
 package uk.ac.swan.digitaltrails.components;
 
-import com.google.gson.annotations.SerializedName;
 
+/**
+ * @author Thomas Milner
+ * Component to contain a welsh waypoint description item
+ */
 public class WelshWaypointDescription extends WaypointDescription {
 
+	/**
+	 * Constructor
+	 * @param id
+	 * @param title
+	 * @param shortDesc
+	 * @param longDesc
+	 */
 	public WelshWaypointDescription(int id, String title, String shortDesc, String longDesc) {
 		setId(id);
 		setTitle(title);
@@ -13,6 +23,9 @@ public class WelshWaypointDescription extends WaypointDescription {
 	}
 
 
+	/**
+	 * Default constructor.
+	 */
 	public WelshWaypointDescription() {
 		setId(-1);
 		setTitle("");

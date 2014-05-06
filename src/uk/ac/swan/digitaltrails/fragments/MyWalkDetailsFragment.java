@@ -8,8 +8,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class MyWalkDetailsFragment extends WalkDetailsFragment {
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
@@ -21,6 +28,9 @@ public class MyWalkDetailsFragment extends WalkDetailsFragment {
 	/**
 	 * Display details for the walk
 	 * @param position
+	 */
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment#updateDetailsView(int)
 	 */
 	public void updateDetailsView(int position) {
 		Button editButton = (Button)getView().findViewById(R.id.editWalkButton);

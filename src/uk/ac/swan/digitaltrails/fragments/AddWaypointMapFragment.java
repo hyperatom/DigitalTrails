@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Description;
-import uk.ac.swan.digitaltrails.components.EnglishDescription;
+import uk.ac.swan.digitaltrails.components.EnglishWalkDescription;
 import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.fragments.EditWaypointDialogFragment.EditWaypointDialogListener;
@@ -20,21 +20,40 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * @author Lewis Hancock
+ *
+ */
 public class AddWaypointMapFragment extends MapFragment implements EditWaypointDialogListener {
 
+	/**
+	 * 
+	 */
 	public static String ARG_POSITION = "position";
 
+	/**
+	 * 
+	 */
 	private static String TAG = "AddWaypointMapFragment";
 
 	/** ArrayList of Markers currently on the map */
+	/**
+	 * 
+	 */
 	private ArrayList<Marker> mMarkers;
 
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.MapFragment#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mMarkers = new ArrayList<Marker>();
 	}
 
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.MapFragment#onStart()
+	 */
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -43,6 +62,9 @@ public class AddWaypointMapFragment extends MapFragment implements EditWaypointD
 		//getLoaderManager().initLoader(0, args, this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.MapFragment#setInfoClickListener(com.google.android.gms.maps.GoogleMap)
+	 */
 	@Override
 	protected void setInfoClickListener(GoogleMap map) {
 		map.setOnInfoWindowClickListener(
@@ -55,6 +77,9 @@ public class AddWaypointMapFragment extends MapFragment implements EditWaypointD
 				});
 	}
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.EditWaypointDialogFragment.EditWaypointDialogListener#onEditDialogPositiveClick(android.support.v4.app.DialogFragment, android.view.View)
+	 */
 	@Override
 	public void onEditDialogPositiveClick(DialogFragment dialog, View view) {
 		long index = dialog.getArguments().getLong(EditWaypointDialogFragment.ARG_INDEX); 
@@ -66,7 +91,7 @@ public class AddWaypointMapFragment extends MapFragment implements EditWaypointD
 			double latitude = Double.parseDouble(((EditText) view.findViewById(R.id.latitude_edit)).getText().toString().trim());
 			double longitude = Double.parseDouble(((EditText) view.findViewById(R.id.longitude_edit)).getText().toString().trim());
 			if (wp.getEnglishDescription() != null) {
-				EnglishDescription d = wp.getEnglishDescription();
+				EnglishWaypointDescription d = (EnglishWaypointDescription) wp.getEnglishDescription();
 				d.setTitle(title);
 				d.setLongDescription(description);
 				d.setShortDescription(snippet);	
@@ -87,6 +112,9 @@ public class AddWaypointMapFragment extends MapFragment implements EditWaypointD
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see uk.ac.swan.digitaltrails.fragments.EditWaypointDialogFragment.EditWaypointDialogListener#onEditDialogNegativeClick(android.support.v4.app.DialogFragment, android.view.View)
+	 */
 	@Override
 	public void onEditDialogNegativeClick(DialogFragment dialog, View view) {
 	}
