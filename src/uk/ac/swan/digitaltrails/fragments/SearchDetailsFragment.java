@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 /**
@@ -71,8 +72,28 @@ public class SearchDetailsFragment extends WalkDetailsFragment implements Loader
 	 */
 	public void updateDetailsView(Walk walk) {
 		if (walk != null) {
+			String difficulty = "";
+			switch(walk.getDifficultyRating()){
+			case 0:
+			case 1:
+				difficulty = "Easy";
+				break;
+			case 2:
+			case 3:
+				difficulty = "Medium";
+				break;
+			case 4:
+			case 5:
+				difficulty = "Hard";
+				break;
+			}
+			
 			((TextView) getView().findViewById(R.id.title)).setText(walk.getEnglishDescriptions().getTitle());
 			((TextView) getView().findViewById(R.id.long_descr)).setText(walk.getEnglishDescriptions().getLongDescription());
+			((RatingBar) getView().findViewById(R.id.ratingBar1)).setRating(walk.getDifficultyRating());
+			((TextView) getView().findViewById(R.id.textView7)).setText(difficulty);
+			((TextView) getView().findViewById(R.id.textView8)).setText(""+walk.getDistance());
+			((TextView) getView().findViewById(R.id.textView8)).setText(""+walk.getWaypoints().size());
 		}
 	}
 
