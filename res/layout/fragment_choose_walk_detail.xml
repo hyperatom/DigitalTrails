@@ -151,11 +151,20 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/map" >
 
-            <TextView
-                android:id="@+id/long_descr"
+            <ScrollView
+                android:id="@+id/scroll"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/startButton"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" >
+                
+                <TextView
+                android:id="@+id/long_descr"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
@@ -164,6 +173,8 @@
                 android:inputType="textMultiLine"
                 android:text="@string/chooseWalk"
                 android:textSize="10sp" />
+            </ScrollView>
+            
 
             <Button
                 android:id="@+id/startButton"
@@ -189,7 +200,7 @@
                 android:layout_height="30dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@+id/textView9"
-                android:layout_below="@+id/long_descr"
+                android:layout_below="@+id/scroll"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/button_background"
                 android:onClick="deleteWalkButtonClick"

@@ -5,7 +5,7 @@ package uk.ac.swan.digitaltrails.database;
  * @author Lewis Hancock
  *
  */
-interface DbSchema {
+public interface DbSchema {
 
 	/**
 	 *  Database name.

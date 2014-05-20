@@ -1,7 +1,9 @@
 package uk.ac.swan.digitaltrails.fragments;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.database.DbSchema;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import uk.ac.swan.digitaltrails.database.WhiteRockContract.EnglishWalkDescriptions;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -138,12 +140,10 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri baseUri;
 		baseUri = WhiteRockContract.WalkWithEnglishDescriptions.CONTENT_URI;
-		String select = "((walk_id == " + mCurrentPos + "))";
+		String select = "(("+DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+EnglishWalkDescriptions.WALK_ID + " == " + mCurrentPos + "))";
 		Log.d(TAG, "Select String: " + select);
-		
-		return new CursorLoader(getActivity(), baseUri, WhiteRockContract.WalkWithEnglishDescriptions.PROJECTION_ALL, select, null, WhiteRockContract.WalkWithEnglishDescriptions.WALK_ID + " COLLATE LOCALIZED ASC");
+		return new CursorLoader(getActivity(), baseUri, WhiteRockContract.WalkWithEnglishDescriptions.PROJECTION_ALL, select, null, DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+WhiteRockContract.EnglishWalkDescriptions.WALK_ID+ " COLLATE LOCALIZED ASC");
 	} 
-
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoadFinished(android.support.v4.content.Loader, java.lang.Object)
 	 */
