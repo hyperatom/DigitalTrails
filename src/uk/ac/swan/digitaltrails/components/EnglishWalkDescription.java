@@ -1,6 +1,5 @@
 package uk.ac.swan.digitaltrails.components;
 
-import com.google.gson.annotations.SerializedName;
 
 /**
  * @author Lewis Hancock

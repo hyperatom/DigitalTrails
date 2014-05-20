@@ -98,7 +98,7 @@ public class WhiteRockContract {
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
 	
 		public static final String[] PROJECTION_ALL = {DbSchema.TABLE_WALK+"."+WalkColumns.ID, DURATION_MINUTES, DISTANCE_MILES, DOWNLOAD_COUNT, DIFFICULTY_RATING, USER_ID,
-														TITLE, SHORT_DESCR, LONG_DESCR, WALK_ID};
+														TITLE, SHORT_DESCR, LONG_DESCR, WalkDescriptionColumns.WALK_ID};
 
 	}
 	
@@ -290,7 +290,7 @@ public class WhiteRockContract {
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
 		/** Columns to project: id, duration, distance, dl count, difficulty, user id */
-		public static final String[] PROJECTION_ALL = {ID, DURATION_MINUTES, DISTANCE_MILES, DOWNLOAD_COUNT, DIFFICULTY_RATING, USER_ID};
+		public static final String[] PROJECTION_ALL = {ID, DURATION_MINUTES, DISTANCE_MILES, DOWNLOAD_COUNT, DIFFICULTY_RATING, USER_ID, WALK_ID};
 	}
 	
 	/**
@@ -537,6 +537,7 @@ public class WhiteRockContract {
 		public static final String DOWNLOAD_COUNT = "download_count";
 		public static final String DIFFICULTY_RATING = "difficulty_rating";
 		public static final String USER_ID = "user_id";
+		public static final String WALK_ID = "walk_id";
 	}
 	
 	/**

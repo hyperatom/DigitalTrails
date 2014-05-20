@@ -19,34 +19,36 @@ import android.util.Log;
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
 	/**
-	 * 
+	 * Static final TAG to identify the class
 	 */
 	private static final String TAG = "DatabaseHandler::";
 	/**
-	 * 
+	 * Name of the database.
 	 */
 	private static final String DB_NAME = DbSchema.DB_NAME;
 	/**
-	 * 
+	 * Version of the database
 	 */
 	private static final int DB_VERSION = 1;
 	
 	/**
-	 * 
+	 * Where to find the database
 	 */
 	private static String DB_PATH = "";
+	
 	/**
-	 * 
+	 * The SQLite Database we are accessing.
 	 */
 	private SQLiteDatabase mDatabase;
 		
 	/**
-	 * 
+	 * The Context to use.
 	 */
 	private final Context mContext;
 
 	/**
-	 * @param context
+	 * Constructor
+	 * @param context The context to use.
 	 */
 	@SuppressLint("SdCardPath")
 	public DatabaseHandler(Context context) {
@@ -61,6 +63,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		Log.d(TAG,"DB Path is: " + DB_PATH+DB_NAME);
 		Log.d(TAG, "Version Number: " + android.os.Build.VERSION.SDK_INT);
 		this.mContext = context;
+		
+		
 	}
 
 	/* (non-Javadoc)

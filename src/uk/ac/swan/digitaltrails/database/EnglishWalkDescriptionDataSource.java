@@ -12,7 +12,7 @@ import android.util.Log;
 
 /**
  * @author Lewis Hancock
- *
+ * See DescriptionDataSource
  */
 public class EnglishWalkDescriptionDataSource extends DescriptionDataSource {
 

@@ -168,7 +168,9 @@ SearchListFragment.OnWalkSelectedListener  {
 		WalkDataSource walkDataSource = new WalkDataSource(this);
 		DescriptionDataSource descrDataSource = new EnglishWalkDescriptionDataSource(this);
 		WaypointDataSource wpDataSource = new WaypointDataSource(this);
-		walkDataSource.addWalk(mWalk);
+		mWalk.setWalkId(mWalk.getId());
+		long walkId = walkDataSource.addWalk(mWalk);
+		mWalk.getEnglishDescriptions().setForeignId(walkId);
 		descrDataSource.addDescription(mWalk.getEnglishDescriptions());
 		descrDataSource = new EnglishWaypointDescriptionDataSource(this);
 		for (Waypoint wp : mWalk.getWaypoints()) {

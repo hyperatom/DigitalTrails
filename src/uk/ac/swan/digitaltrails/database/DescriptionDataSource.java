@@ -20,31 +20,33 @@ import android.util.Log;
 public abstract class DescriptionDataSource extends DataSource {
 
 	/**
-	 * 
+	 * Constant TAG to identify the class
 	 */
 	private static final String TAG = "DescriptionDataSource";
 	/**
-	 * 
+	 * The Uri of the table to access.
 	 */
 	protected Uri uri;
 	/**
-	 * 
+	 * All columns in the table.
 	 */
 	protected String[] allColumns;
 	
 	/**
-	 * @param context
+	 * Constructor
+	 * @param context The context to use
 	 */
 	public DescriptionDataSource(Context context) {
 		super(context);
 	}
 
 	/**
-	 * @param title
-	 * @param shortDescr
-	 * @param longDescr
-	 * @param foreignId
-	 * @return
+	 * Adds the description to the database
+	 * @param title Title of description
+	 * @param shortDescr Short description
+	 * @param longDescr Long Description
+	 * @param foreignId foreign id that the description belongs to
+	 * @return The id of the newly added entry.
 	 */
 	public long addDescription(String title, String shortDescr, String longDescr, long foreignId ) {
 		ContentValues values = new ContentValues();
@@ -59,8 +61,8 @@ public abstract class DescriptionDataSource extends DataSource {
 
 	/**
 	 * Add a Description
-	 * @param d
-	 * @return
+	 * @param d the description to add
+	 * @return the id of the description
 	 */
 	public long addDescription(Description d) {
 		ContentValues values = new ContentValues();
@@ -74,8 +76,8 @@ public abstract class DescriptionDataSource extends DataSource {
 	
 	/**
 	 * Add a WalkDescription
-	 * @param d
-	 * @return
+	 * @param d the walk description to add
+	 * @return The ID of the newly added WalkDescription
 	 */
 	public long addDescription(WalkDescription d) {
 		ContentValues values = new ContentValues();
@@ -91,8 +93,8 @@ public abstract class DescriptionDataSource extends DataSource {
 	
 	/**
 	 * Add a WaypointDescription
-	 * @param d
-	 * @return
+	 * @param d the WaypointDescripiton to add
+	 * @return the id of the newly added WaypointDescription
 	 */
 	public long addDescription(WaypointDescription d) {
 		ContentValues values = new ContentValues();
@@ -105,6 +107,25 @@ public abstract class DescriptionDataSource extends DataSource {
 		Log.d(TAG, "New description id = " + newDescr);
 		return ContentUris.parseId(newDescr);
 	}
+	
+	public ContentValues getContentValues(WalkDescription d) {
+		ContentValues values = new ContentValues();
+		values.put(allColumns[1], d.getTitle());
+		values.put(allColumns[2], d.getShortDescription());
+		values.put(allColumns[3], d.getLongDescription());
+		values.put(allColumns[4], d.getForeignId());
+		return values;
+	}
+	
+	public ContentValues getContentValues(WaypointDescription d) {
+		ContentValues values = new ContentValues();
+		values.put(allColumns[1], d.getTitle());
+		values.put(allColumns[2], d.getShortDescription());
+		values.put(allColumns[3], d.getLongDescription());
+		values.put(allColumns[4], d.getForeignId());
+		return values;
+	}
+
 	
 	/**
 	 * Delete desired description

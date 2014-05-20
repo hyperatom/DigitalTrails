@@ -42,14 +42,6 @@ public class WalkDataSource extends DataSource {
 	}
 
 	/**
-	 * Add walk to Db
-	 * @param duration
-	 * @param distance
-	 * @param downloadCount
-	 * @param difficultyRating
-	 * @return
-	 */
-	/**
 	 * @param duration
 	 * @param distance
 	 * @param downloadCount
@@ -64,6 +56,7 @@ public class WalkDataSource extends DataSource {
 		values.put(ALL_COLUMNS[3], downloadCount);
 		values.put(ALL_COLUMNS[4], difficultyRating);
 		values.put(ALL_COLUMNS[5], ownerId);
+		//values.put(ALL_COLUMNS[6], walkId)
 		Uri addedWalk = mContext.getContentResolver().insert(URI, values);
 		return ContentUris.parseId(addedWalk);
 	}
@@ -82,6 +75,21 @@ public class WalkDataSource extends DataSource {
 		Uri addedWalk = mContext.getContentResolver().insert(URI, values);
 		Log.d(TAG, "Walk added at pos: " + ContentUris.parseId(addedWalk));
 		return ContentUris.parseId(addedWalk);
+	}
+	
+	/**
+	 * Return ContentValues for the walk.
+	 * @param walk the walk to deal with.
+	 * @return The ContentValues for the walk.
+	 */
+	public ContentValues getContentValues(Walk walk) {
+		ContentValues values = new ContentValues();
+		values.put(ALL_COLUMNS[1], walk.getDuration());
+		values.put(ALL_COLUMNS[2], walk.getDistance());
+		values.put(ALL_COLUMNS[3], walk.getDownloadCount());
+		values.put(ALL_COLUMNS[4], walk.getDifficultyRating());
+		values.put(ALL_COLUMNS[5], walk.getOwner());
+		return values;
 	}
 
 	/** 
@@ -125,9 +133,6 @@ public class WalkDataSource extends DataSource {
 	 * Look up all walks in the database and add them to a list.
 	 * @return
 	 */
-	/**
-	 * @return
-	 */
 	public List<Walk> getAllWalk() {
 		ArrayList<Walk> walkList = new ArrayList<Walk>();
 		Cursor cursor = mContext.getContentResolver().query(URI, ALL_COLUMNS, null, null, null);
@@ -143,15 +148,10 @@ public class WalkDataSource extends DataSource {
 
 	/**
 	 * Create Walk from the cursor.
-	 * 
 	 * @param cursor
 	 * @return New Walk.
 	 */
-	/**
-	 * @param cursor
-	 * @return
-	 */
-	private Walk cursorToWalk(Cursor cursor) {
+	public Walk cursorToWalk(Cursor cursor) {
 		Walk walk = new Walk();
 		walk.setId(cursor.getLong(0));
 		walk.setDuration(cursor.getInt(1));
@@ -160,8 +160,4 @@ public class WalkDataSource extends DataSource {
 		walk.setDifficultyRating(cursor.getInt(4));
 		return walk;
 	}
-
-
-
-
 }

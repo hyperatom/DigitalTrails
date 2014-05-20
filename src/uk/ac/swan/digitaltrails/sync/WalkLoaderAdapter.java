@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 /**
  * @author Lewis Hancock
- *
+ * ArrayAdapter which takes Walk objects and displays them on a custom ListFragment Layout
  */
 public class WalkLoaderAdapter extends ArrayAdapter<Walk> {
 
@@ -65,7 +65,8 @@ public class WalkLoaderAdapter extends ArrayAdapter<Walk> {
 	}
 	
 	/**
-	 * @param walks
+	 * Set this ArrayAdapter's data to a List<Walk>
+	 * @param walks the List to set the data to.
 	 */
 	public void setData(List<Walk> walks) {
 		clear();

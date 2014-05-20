@@ -14,10 +14,16 @@ import uk.ac.swan.digitaltrails.utils.Duration;
  * Component to contain a walk item.
  */
 public class Walk implements Parcelable {
+	
+	/**
+	 * local walk id
+	 */
+	private long mId;
+	
 	/**
 	 * id of the walk
 	 */
-	@SerializedName("id") private long mId;
+	@SerializedName("id") private long mWalkId;
 	/**
 	 * english description for walk
 	 */
@@ -80,6 +86,14 @@ public class Walk implements Parcelable {
 		return mId;
 	}
 
+	public long getWalkId() {
+		return mWalkId;
+	}
+	
+	public void setWalkId(long walkId) {
+		mWalkId = walkId;
+	}
+	
 	/**
 	 * @return
 	 */

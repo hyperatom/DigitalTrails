@@ -53,9 +53,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	 */
 	private List<Waypoint> mWaypointList;
 
-	/* (non-Javadoc)
-	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
-	 */
+
 	/* (non-Javadoc)
 	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
 	 */
