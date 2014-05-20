@@ -152,24 +152,33 @@
             android:layout_centerHorizontal="true"
             android:text="" />
 
-        <TextView
-            android:id="@+id/long_descr"
+        <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_above="@+id/download_button"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/map"
-            android:layout_marginTop="10dp"
-            android:inputType="textMultiLine"
-            android:text="@string/download_title"
-            android:textSize="10sp" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp" >
+            
+            <TextView
+                android:id="@+id/long_descr"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:inputType="textMultiLine"
+                android:text="@string/download_title"
+                android:textSize="10sp" />
+            
+        </ScrollView>
 
         <Button
             android:id="@+id/download_button"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_alignLeft="@+id/long_descr"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/button_background"
