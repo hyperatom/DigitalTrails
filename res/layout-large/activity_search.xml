@@ -17,26 +17,12 @@
             android:id="@+id/searchQuery"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/filter"
-            android:layout_alignTop="@+id/filter"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/filter"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:ems="10"
             android:hint="@string/search_" >
 
 	    </EditText>
-
-        <Button
-            android:id="@+id/filter"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/button_background"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="Filter By"
-            android:textSize="30sp" />
     </RelativeLayout>
 
     <LinearLayout

@@ -68,6 +68,14 @@ public class SearchDetailsFragment extends WalkDetailsFragment implements Loader
 	}
 	
 	/**
+	 * 
+	 */
+	@Override
+	public void updateDetailsView(int pos){
+		
+	}
+	
+	/**
 	 * @param walk
 	 */
 	public void updateDetailsView(Walk walk) {
