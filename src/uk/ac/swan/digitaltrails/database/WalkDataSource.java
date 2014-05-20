@@ -160,4 +160,5 @@ public class WalkDataSource extends DataSource {
 		walk.setDifficultyRating(cursor.getInt(4));
 		return walk;
 	}
+	
 }

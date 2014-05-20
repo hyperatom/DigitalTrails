@@ -111,9 +111,6 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 	 * Display details for the walk
 	 * @param position
 	 */
-	/**
-	 * @param position
-	 */
 	public void updateDetailsView(int position) {
 		
 		Button buttonStart = (Button)getView().findViewById(R.id.startButton);
