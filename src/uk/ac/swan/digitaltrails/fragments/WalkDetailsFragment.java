@@ -145,7 +145,7 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		baseUri = WhiteRockContract.WalkWithEnglishDescriptions.CONTENT_URI;
 		String select = "((walk_id == " + mCurrentPos + "))";
 		Log.d(TAG, "Select String: " + select);
-		return new CursorLoader(getActivity(), baseUri, WhiteRockContract.WalkWithEnglishDescriptions.PROJECTION_ALL, select, null, WhiteRockContract.EnglishWalkDescriptions.WALK_ID+ " COLLATE LOCALIZED ASC");
+		return new CursorLoader(getActivity(), baseUri, WhiteRockContract.WalkWithEnglishDescriptions.PROJECTION_ALL, select, null, WhiteRockContract.WalkWithEnglishDescriptions.WALK_ID+ " COLLATE LOCALIZED ASC");
 	} 
 
 	/* (non-Javadoc)
