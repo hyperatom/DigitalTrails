@@ -168,7 +168,7 @@
             <Button
                 android:id="@+id/startButton"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_alignLeft="@+id/textView9"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="5dp"
@@ -186,7 +186,7 @@
             <Button
                 android:id="@+id/delete_walk"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@+id/textView9"
                 android:layout_below="@+id/long_descr"
