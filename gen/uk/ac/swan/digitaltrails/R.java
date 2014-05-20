@@ -1593,7 +1593,6 @@ containing a value of this type.
         public static final int activity_my_walks=0x7f03001c;
         public static final int activity_search=0x7f03001d;
         public static final int add_waypoint_info_dialog=0x7f03001e;
-<<<<<<< HEAD
         public static final int add_waypoint_view=0x7f03001f;
         public static final int choose_walk=0x7f030020;
         public static final int choose_walk_activity=0x7f030021;
@@ -1631,46 +1630,6 @@ containing a value of this type.
         public static final int walk_activity=0x7f030041;
         public static final int walk_view=0x7f030042;
         public static final int waypoint_list=0x7f030043;
-=======
-        public static final int add_waypoint_info_view=0x7f03001f;
-        public static final int add_waypoint_view=0x7f030020;
-        public static final int choose_walk=0x7f030021;
-        public static final int choose_walk_activity=0x7f030022;
-        public static final int dialog_info_view=0x7f030023;
-        public static final int edit_account_view=0x7f030024;
-        public static final int edit_walks_view=0x7f030025;
-        public static final int edit_waypoint_view=0x7f030026;
-        public static final int explore_view=0x7f030027;
-        public static final int fragment_choose_walk_detail=0x7f030028;
-        public static final int fragment_choose_walk_list=0x7f030029;
-        public static final int fragment_create_walk=0x7f03002a;
-        public static final int fragment_edit_walk=0x7f03002b;
-        public static final int fragment_launch=0x7f03002c;
-        public static final int fragment_log_in=0x7f03002d;
-        public static final int fragment_map=0x7f03002e;
-        public static final int fragment_my_walk_details=0x7f03002f;
-        public static final int fragment_my_walk_list=0x7f030030;
-        public static final int fragment_register=0x7f030031;
-        public static final int fragment_search_detail=0x7f030032;
-        public static final int fragment_search_list=0x7f030033;
-        public static final int fragment_walk_detail=0x7f030034;
-        public static final int fragment_walk_list=0x7f030035;
-        public static final int home_view=0x7f030036;
-        public static final int info=0x7f030037;
-        public static final int info_view_dialog=0x7f030038;
-        public static final int my_walks_view=0x7f030039;
-        public static final int search_view=0x7f03003a;
-        public static final int settings_view=0x7f03003b;
-        public static final int show_settings_layout=0x7f03003c;
-        public static final int splash=0x7f03003d;
-        public static final int support_simple_spinner_dropdown_item=0x7f03003e;
-        public static final int test_fragment_walk_details=0x7f03003f;
-        public static final int test_fragment_walk_list=0x7f030040;
-        public static final int view_waypoint_view=0x7f030041;
-        public static final int walk_activity=0x7f030042;
-        public static final int walk_view=0x7f030043;
-        public static final int waypoint_list=0x7f030044;
->>>>>>> 6a36c312b9b03cb2edeb7507c09de54911eb86a6
     }
     public static final class menu {
         public static final int main=0x7f0e0000;
