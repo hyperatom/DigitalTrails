@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +28,7 @@ import android.view.View;
  * Activity to allow users to search the remote database for walks, then download them.
  */
 public class SearchActivity extends ActionBarActivity implements
-SearchListFragment.OnWalkSelectedListener  {
+SearchListFragment.OnWalkSelectedListener, OnQueryTextListener   {
 
 	/**
 	 * Static constant for class tag
@@ -175,6 +176,22 @@ SearchListFragment.OnWalkSelectedListener  {
 			wpDataSource.addWaypoint(wp);
 			descrDataSource.addDescription(wp.getEnglishDescription());
 		}
+	}
+
+	@Override
+	public boolean onQueryTextChange(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String arg0) {
+		Log.d(TAG, "Search Sumbitted");
+		Bundle bundle = new Bundle();
+		bundle.putString("query", arg0);
+		SearchListFragment list = (SearchListFragment) getSupportFragmentManager().findFragmentById(R.id.search_list_fragment);
+		list.search(bundle);
+		return true;
 	}
 
 
