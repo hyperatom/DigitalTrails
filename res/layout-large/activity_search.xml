@@ -13,31 +13,18 @@
         android:layout_weight="0.00"
         android:orientation="vertical" >
 
-<<<<<<< HEAD
-        <SearchView
-            android:id="@+id/searchView1"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-=======
         <EditText
-	        android:id="@+id/searchQuery"
-	        android:layout_width="fill_parent"
-	        android:layout_height="0dp"
-	        android:layout_centerVertical="true"
->>>>>>> 1798a8c3f869f74d33787285f871491dcc1fc61d
+            android:id="@+id/searchQuery"
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_alignBottom="@+id/filter"
+            android:layout_alignTop="@+id/filter"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/filter"
-<<<<<<< HEAD
-            android:background="#FFFFFF" >
+            android:ems="10"
+            android:hint="@string/search_" >
 
-        </SearchView>
-=======
-	    	android:hint="@string/search_"
-	        android:ems="10" >
 	    </EditText>
->>>>>>> 1798a8c3f869f74d33787285f871491dcc1fc61d
 
         <Button
             android:id="@+id/filter"

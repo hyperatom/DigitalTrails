@@ -13,19 +13,6 @@
         android:layout_weight="0.00"
         android:orientation="vertical" >
 
-<<<<<<< HEAD
-        <SearchView
-            android:id="@+id/searchView1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@+id/filter"
-            android:background="#FFFFFF" >
-
-        </SearchView>
-=======
         <EditText
 	        android:id="@+id/searchQuery"
 	        android:layout_width="fill_parent"
@@ -38,7 +25,6 @@
 	    	android:hint="@string/search_"
 	        android:ems="10" >
 	    </EditText>
->>>>>>> 1798a8c3f869f74d33787285f871491dcc1fc61d
 
         <Button
             android:id="@+id/filter"

@@ -10,29 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
-<<<<<<< HEAD
-        android:layout_marginRight="5dp"
-        android:layout_weight="0.00"
-        android:orientation="vertical" >
-
-        <SearchView
-            android:id="@+id/searchView1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="#FFFFFF" >
-
-        </SearchView>
-
-    </RelativeLayout>
-=======
     	android:layout_marginRight="5dp"
     	android:layout_weight="0.00"
     	android:hint="@string/search_"
         android:ems="10" >
     </EditText>
->>>>>>> 1798a8c3f869f74d33787285f871491dcc1fc61d
 
     <LinearLayout
         android:layout_width="fill_parent"
