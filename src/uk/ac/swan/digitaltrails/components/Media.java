@@ -29,10 +29,7 @@ public class Media {
 	 *  the id of the waypoint the media is part of
 	 */
 	@SerializedName("waypoint_id") protected int mWaypointId;
-	/**
-	 * 
-	 */
-	protected Waypoint mWaypoint;
+	
 	
 	/**
 	 * @return
@@ -62,18 +59,21 @@ public class Media {
 		this.mFileLocation = location;
 	}
 	
+
 	/**
-	 * @return
+	 * Get Waypoint ID
+	 * @return ID of waypoint the media belongs to.
 	 */
-	public Waypoint getWaypoint() {
-		return mWaypoint;
+	public long getWaypointId() {
+		return mWaypointId;
 	}
 	
 	/**
-	 * @param waypoint
+	 * Set waypoint id
+	 * @param id the id to set it to.
 	 */
-	public void setWaypoint(Waypoint waypoint) {
-		mWaypoint = waypoint;
+	public void setWaypointId(int id) {
+		mWaypointId = id;
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class Media {
 	public Media(int id, String fileLocation, Waypoint place) {
 		setId(id);
 		setFileLocation(fileLocation);
-		setWaypoint(place);
+		setWaypointId((int) place.getId());
 	}
 	
 }

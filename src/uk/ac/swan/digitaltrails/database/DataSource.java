@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * Class to define methods for DataSources.
+ * Abstract class to define methods for DataSources.
  * DataSources are to be used to add, update and delete from the database. 
  * @author Lewis Hancock
  *
@@ -12,19 +12,20 @@ import android.database.sqlite.SQLiteDatabase;
 public abstract class DataSource {
 
 	/**
-	 * 
+	 * The context to use
 	 */
 	protected Context mContext;
 	/**
-	 * 
+	 * The database to use
 	 */
 	protected SQLiteDatabase mWhiteRockDB;
 	/**
-	 * 
+	 * The Table to access
 	 */
 	protected String mTable;
 
 	/**
+	 * Constructor
 	 * @param context
 	 */
 	public DataSource(Context context) {

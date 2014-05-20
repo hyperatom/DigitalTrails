@@ -541,7 +541,7 @@ public class MapActivity extends ActionBarActivity implements
 						wp.setEnglishDescription(desc);
 						Media media = new Media();
 						media.setFileLocation(data.getString(11));
-						media.setWaypoint(wp);
+						media.setWaypointId((int) wp.getId());
 						wp.setMedia(mediaList);
 						wp.getMediaFiles().add(media);
 					}

@@ -12,7 +12,7 @@ import uk.ac.swan.digitaltrails.components.Waypoint;
 
 /**
  * @author Lewis Hancock
- *
+ * Allows for CRUD operations for PhotoDataSource
  */
 public class PhotoDataSource extends MediaDataSource {
 
@@ -22,6 +22,7 @@ public class PhotoDataSource extends MediaDataSource {
 	private static final String TAG = "PhotoDataSource";
 	
 	/**
+	 * Constructor
 	 * @param context
 	 */
 	protected PhotoDataSource(Context context) {
@@ -30,11 +31,7 @@ public class PhotoDataSource extends MediaDataSource {
 	}
 	
 	/**
-	 * 
-	 * @param fileLocation
-	 * @return
-	 */
-	/**
+	 * Create a photo
 	 * @param fileLocation
 	 * @return
 	 */
@@ -50,11 +47,8 @@ public class PhotoDataSource extends MediaDataSource {
 	}
 
 	/**
-	 * 
-	 * @param photo
-	 */
-	/**
-	 * @param photo
+	 * Delete a photo from the database
+	 * @param photo the Photo to delete
 	 */
 	public void deletePhoto(Photo photo) {
 		long id = photo.getId();
@@ -63,11 +57,8 @@ public class PhotoDataSource extends MediaDataSource {
 	}
 
 	/**
-	 * 
-	 * @return
-	 */
-	/**
-	 * @return
+	 * Get all photos in the database
+	 * @return List of Photos
 	 */
 	public List<Photo> getAllPhoto() {
 		ArrayList<Photo> photoList = new ArrayList<Photo>();
@@ -84,14 +75,11 @@ public class PhotoDataSource extends MediaDataSource {
 		cursor.close();
 		return photoList;
 	}
-	
+
 	/**
-	 * 
-	 * @return
-	 */
-	/**
-	 * @param wp
-	 * @return
+	 * Get all photos at a certain waypoint.
+	 * @param wp The Waypoint to retrieve photos for.
+	 * @return List of Photos
 	 */
 	public List<Photo> getAllPhotosAtWaypoint(Waypoint wp) {
 		ArrayList<Photo> photoList = new ArrayList<Photo>();
@@ -114,10 +102,6 @@ public class PhotoDataSource extends MediaDataSource {
 	 * 
 	 * @param cursor
 	 * @return New Photo.
-	 */
-	/**
-	 * @param cursor
-	 * @return
 	 */
 	private Photo cursorToPhoto(Cursor cursor) {
 		Photo photo = new Photo();

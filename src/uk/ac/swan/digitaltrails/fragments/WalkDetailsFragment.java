@@ -197,7 +197,4 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 	}
-	
-
-	
 }

@@ -4,8 +4,6 @@ import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
 import uk.ac.swan.digitaltrails.accounts.SignUpActivity;
 import uk.ac.swan.digitaltrails.fragments.LaunchFragment;
-import uk.ac.swan.digitaltrails.fragments.LogInFragment;
-import uk.ac.swan.digitaltrails.fragments.RegisterFragment;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -14,6 +12,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SyncStatusObserver;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
@@ -44,6 +43,7 @@ public class LaunchActivity extends ActionBarActivity{
 	 */
 	private Account mConnectedAccount;
 	
+
 	/* (non-Javadoc)
 	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
 	 */
@@ -57,6 +57,7 @@ public class LaunchActivity extends ActionBarActivity{
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_launcher, launchFragment).commit();
 	}
 	
+	
 	/**
 	 * OnClick method for skip button
 	 * @param view The view for the button
@@ -65,27 +66,7 @@ public class LaunchActivity extends ActionBarActivity{
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
-	
-	//LogInFragment functions
-	
-	/**
-	 * onClick method for LogIn button
-	 * @param view The view for the button
-	 */
-	public void logInButton(View view){
-		Log.d(TAG, "logInButton Pressed");
-		
-		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-		LogInFragment logInFrag = new LogInFragment();
-	
-		
-			Log.d(TAG, "1 pane, replace fragment_launcher");
-			transaction.replace(R.id.fragment_launcher, logInFrag);
-		
-		transaction.addToBackStack(null);
-		transaction.commit();
-	}
-	
+
 	/* (non-Javadoc)
 	 * @see android.support.v7.app.ActionBarActivity#onBackPressed()
 	 */
@@ -100,36 +81,6 @@ public class LaunchActivity extends ActionBarActivity{
 	 */
 	public void cancelButton(View view){
         onBackPressed();
-    }
-
-	/**
-	 * OnClick method to sign in
-	 * @param view The view for the button
-	 */
-	public void signInButton(View view){
-		
-		Log.d("SIGN IN", "BUTTON PRESSED");
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		
-		// Add the positive button
-		builder.setPositiveButton(R.string.enter, new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		        	   Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-		        	   startActivity(intent);
-		           }
-		       });
-		// Add the negative button
-		builder.setNegativeButton(R.string.retry, new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		               // User cancelled the dialog
-		           }
-		       });  
-		//Set the title
-		builder.setTitle(R.string.log_in_error)
-			.setMessage(R.string.log_in_message);
-		//Build and create dialog
-		builder.create();
-		builder.show();	
     }
 	
 	// Register functions
@@ -187,28 +138,4 @@ public class LaunchActivity extends ActionBarActivity{
         onBackPressed();
     }
 	
-	/**
-	 * onClick to register
-	 * @param view The view for the button
-	 */
-	public void registerButton(View view){
-		
-		Log.d("REGISTER", "BUTTON PRESSED");
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		
-		// Add the neutral button
-		builder.setNeutralButton(R.string.valid_register, new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		        	   Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-		        	   startActivity(intent);
-		           }
-		       });
-		
-		//Set the title
-		builder.setTitle(R.string.register_title)
-			.setMessage(R.string.register_message);
-		//Build and create dialog
-		builder.create();
-		builder.show();	
-    }	
 }
