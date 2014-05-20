@@ -1,11 +1,7 @@
 package uk.ac.swan.digitaltrails.fragments;
 
-import java.util.Arrays;
-
 import uk.ac.swan.digitaltrails.R;
-import uk.ac.swan.digitaltrails.activities.MapActivity;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,7 +141,7 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		String select = "((walk_id == " + mCurrentPos + "))";
 		Log.d(TAG, "Select String: " + select);
 		
-		return new CursorLoader(getActivity(), baseUri, WhiteRockContract.WalkWithEnglishDescriptions.PROJECTION_ALL, select, null, WhiteRockContract.WalkWithEnglishDescriptions.WALK_ID+ " COLLATE LOCALIZED ASC");
+		return new CursorLoader(getActivity(), baseUri, WhiteRockContract.WalkWithEnglishDescriptions.PROJECTION_ALL, select, null, WhiteRockContract.WalkWithEnglishDescriptions.WALK_ID + " COLLATE LOCALIZED ASC");
 	} 
 
 	/* (non-Javadoc)
