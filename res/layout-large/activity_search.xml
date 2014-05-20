@@ -16,7 +16,7 @@
         <EditText
             android:id="@+id/searchQuery"
             android:layout_width="fill_parent"
-            android:layout_height="0dip"
+            android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/filter"
             android:layout_alignTop="@+id/filter"
             android:layout_marginLeft="10dp"
