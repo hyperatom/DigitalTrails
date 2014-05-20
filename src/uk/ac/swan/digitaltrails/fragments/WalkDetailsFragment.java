@@ -2,7 +2,9 @@ package uk.ac.swan.digitaltrails.fragments;
 
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.activities.MapActivity;
+import uk.ac.swan.digitaltrails.database.DbSchema;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import uk.ac.swan.digitaltrails.database.WhiteRockContract.WalkColumns;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -17,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 /**
@@ -139,10 +142,10 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		Uri baseUri;
-		baseUri = WhiteRockContract.EnglishWalkDescriptions.CONTENT_URI;
+		baseUri = WhiteRockContract.WalkWithEnglishDescriptions.CONTENT_URI;
 		String select = "((walk_id == " + mCurrentPos + "))";
 		Log.d(TAG, "Select String: " + select);
-		return new CursorLoader(getActivity(), baseUri, WALK_DESCRIPTION_PROJECTION, select, null, WhiteRockContract.EnglishWalkDescriptions.WALK_ID+ " COLLATE LOCALIZED ASC");
+		return new CursorLoader(getActivity(), baseUri, WhiteRockContract.WalkWithEnglishDescriptions.PROJECTION_ALL, select, null, WhiteRockContract.EnglishWalkDescriptions.WALK_ID+ " COLLATE LOCALIZED ASC");
 	} 
 
 	/* (non-Javadoc)
@@ -155,9 +158,32 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 			for (int i = 0; i < data.getColumnCount(); i++) {
 				Log.d("DATA LOG", "Col " + i + " value: " + data.getString(i));
 			}
+			//DURATION_MINUTES, DISTANCE_MILES, DOWNLOAD_COUNT, DIFFICULTY_RATING, USER_ID, TITLE, SHORT_DESCR, LONG_DESCR, WALK_ID;
+			mTitleText.setText(data.getString(6));
+			mLongDescrText.setText(data.getString(8));
 			
-			mTitleText.setText(data.getString(1));
-			mLongDescrText.setText(data.getString(3));
+			String difficulty = "";
+			switch(data.getInt(4)){
+			case 0:
+			case 1:
+				difficulty = "Easy";
+				break;
+			case 2:
+			case 3:
+				difficulty = "Medium";
+				break;
+			case 4:
+			case 5:
+				difficulty = "Hard";
+				break;
+			}
+			
+			RatingBar rating = ((RatingBar) getView().findViewById(R.id.ratingBar1));
+			rating.setRating(data.getInt(4));
+			rating.setEnabled(false);
+			((TextView) getView().findViewById(R.id.textView7)).setText(difficulty);
+			((TextView) getView().findViewById(R.id.textView8)).setText(""+data.getInt(2));
+			((TextView) getView().findViewById(R.id.textView6)).setText(""+data.getInt(1));
 			
 		} else {
 			Log.d("DATA LOG", "Cursor is empty, wtf, the mCurrentPos is: " + mCurrentPos);
