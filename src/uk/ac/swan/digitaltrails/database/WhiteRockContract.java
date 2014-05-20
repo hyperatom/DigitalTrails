@@ -98,7 +98,7 @@ public class WhiteRockContract {
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
 	
 		public static final String[] PROJECTION_ALL = {DbSchema.TABLE_WALK+"."+WalkColumns.ID, DURATION_MINUTES, DISTANCE_MILES, DOWNLOAD_COUNT, DIFFICULTY_RATING, USER_ID,
-														TITLE, SHORT_DESCR, LONG_DESCR, WalkDescriptionColumns.WALK_ID};
+														TITLE, SHORT_DESCR, LONG_DESCR, DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+WalkDescriptionColumns.WALK_ID};
 
 	}
 	
