@@ -80,22 +80,6 @@
             android:hint="Give your new walk a name"
             android:textSize="25sp" />
 
-        <EditText
-            android:id="@+id/walkDescriptionEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_above="@+id/addWaypoint"
-            android:layout_alignLeft="@+id/title"
-            android:layout_alignRight="@+id/title"
-            android:layout_alignTop="@+id/walkDescriptionText"
-            android:layout_marginBottom="20dp"
-            android:ems="10"
-            android:hint="Provide a description of the walk"
-            android:inputType="textMultiLine" >
-
-            <requestFocus />
-        </EditText>
-
         <TextView
             android:id="@+id/walkNameT"
             android:layout_width="wrap_content"
@@ -106,13 +90,27 @@
             android:text="Walk name:"
             android:textSize="25sp" />
 
+        <EditText
+            android:id="@+id/walkDescriptionEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_above="@+id/addWaypoint"
+            android:layout_alignLeft="@+id/titledit"
+            android:layout_alignRight="@+id/titledit"
+            android:layout_marginBottom="25dp"
+            android:ems="10"
+            android:hint="Provide a description of the walk"
+            android:inputType="textMultiLine" >
+
+            <requestFocus />
+        </EditText>
+
         <TextView
             android:id="@+id/walkDescriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="25dp"
+            android:layout_alignTop="@+id/walkDescriptionEdit"
+            android:layout_marginRight="37dp"
             android:layout_toLeftOf="@+id/walkDescriptionEdit"
             android:text="Walk description:"
             android:textSize="25sp" />

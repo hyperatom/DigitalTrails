@@ -1,41 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-
-    <EditText
-        android:id="@+id/accountName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Email address"
-        android:inputType="textEmailAddress"
-        android:padding="10dp" />
+    android:layout_height="fill_parent"
+    android:layout_margin="20dp"
+    android:orientation="vertical" >
 
     <EditText
         android:id="@+id/accountPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_above="@+id/submit"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="80dp"
+        android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/submit"
+    <EditText
+        android:id="@+id/accountName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_above="@+id/accountPassword"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="60dp"
+        android:ems="10"
+        android:hint="Email address"
+        android:inputType="textEmailAddress"
         android:padding="10dp"
-        android:text="Sign in" />
+        android:textSize="30sp" >
+
+    </EditText>
 
     <TextView
         android:id="@+id/signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/submit"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:padding="10dp"
-        android:text="New user?" />
+        android:text="New user?"
+        android:textSize="20sp" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/button_background"
+        android:padding="10dp"
+        android:text="Sign in"
+        android:textSize="30sp" />
+
+</RelativeLayout>

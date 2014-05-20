@@ -21,7 +21,7 @@
             android:layout_toLeftOf="@+id/createWalkButton"
             android:paddingLeft="20dp"
             android:text="Home Page"
-            android:textSize="40sp"
+            android:textSize="50sp"
             android:gravity="center" />
 
         <LinearLayout
@@ -45,7 +45,7 @@
                 android:onClick="viewWalkButton"
                 android:padding="20dp"
                 android:text="Saved Walks"
-                android:textSize="30sp"
+                android:textSize="40sp"
                 android:layout_weight="1" />
 
             <Button
@@ -59,7 +59,7 @@
                 android:onClick="walkOptionButton"
                 android:padding="20dp"
                 android:text="My Walks"
-                android:textSize="30sp" 
+                android:textSize="40sp" 
                 android:layout_weight="1"/>
 
             <Button
@@ -73,7 +73,7 @@
                 android:onClick="searchButton"
                 android:padding="20dp"
                 android:text="Download Walks"
-                android:textSize="30sp" 
+                android:textSize="40sp" 
                 android:layout_weight="1"/>
 
             <Button
@@ -87,7 +87,7 @@
                 android:onClick="exploreButton"
                 android:padding="20dp"
                 android:text="Explore"
-                android:textSize="30sp" />
+                android:textSize="40sp" />
 
         </LinearLayout>
 
