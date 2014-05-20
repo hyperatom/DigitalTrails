@@ -8,7 +8,7 @@ import android.database.Cursor;
 
 /**
  * @author Lewis Hancock
- *
+ * See DescriptionDataSource
  */
 public class EnglishWaypointDescriptionDataSource extends DescriptionDataSource {
 

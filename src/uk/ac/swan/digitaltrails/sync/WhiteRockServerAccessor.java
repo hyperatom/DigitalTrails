@@ -28,10 +28,6 @@ import uk.ac.swan.digitaltrails.utils.HTTP;
  * @author Tom Milner
  *
  */
-/**
- * @author Lewis Hancock
- *
- */
 public class WhiteRockServerAccessor {
 	// TODO: Add error codes.
 	/**
@@ -51,7 +47,7 @@ public class WhiteRockServerAccessor {
 	}
 	
 	/**
-	 * 
+	 * Default consturctor
 	 */
 	public WhiteRockServerAccessor() {
 		
@@ -59,10 +55,7 @@ public class WhiteRockServerAccessor {
 	
 	/**
 	 * Method which gets all walks.
-	 * @throws Exception
-	 */
-	/**
-	 * @return
+	 * @return ArrayList of Walk Objects.
 	 * @throws Exception
 	 */
 	public ArrayList<Walk> getWalks() throws Exception {
@@ -78,12 +71,8 @@ public class WhiteRockServerAccessor {
 	
 	/**
 	 * Method which gets a walk.
-	 * @param id the walk ID to get. 
-	 * @throws Exception
-	 */
-	/**
-	 * @param id
-	 * @return
+	 * @param id the walk ID to get.
+	 * @return The walk received
 	 * @throws Exception
 	 */
 	public Walk getWalk(int id) throws Exception {
@@ -98,13 +87,9 @@ public class WhiteRockServerAccessor {
 	}
 	
 	/**
-	 * Method which gets a walk.
-	 * @param id the walk ID to get. 
-	 * @throws Exception
-	 */
-	/**
-	 * @param query
-	 * @return
+	 * Method which searches for a walk.
+	 * @param query the walk to find
+	 * @return ArrayList of Walk objects which match the query
 	 * @throws Exception
 	 */
 	public ArrayList<Walk> searchForWalk(String query) throws Exception {
@@ -119,13 +104,9 @@ public class WhiteRockServerAccessor {
 	}
 	
 	/**
-	 * Method which gets a walk.
-	 * @param id the walk ID to get. 
-	 * @throws Exception
-	 */
-	/**
-	 * @param walk
-	 * @return
+	 * Method which adds a walk.
+	 * @param walk Walk the add
+	 * @return The added walk
 	 * @throws Exception
 	 */
 	public Walk addWalk(Walk walk) throws Exception {
@@ -141,14 +122,11 @@ public class WhiteRockServerAccessor {
 		return gson.fromJson(response, Walk.class);
 	}
 	
+
 	/**
-	 * Method which gets a walk.
-	 * @param id the walk ID to get. 
-	 * @throws Exception
-	 */
-	/**
-	 * @param walk
-	 * @return
+	 * Method to update a walk
+	 * @param walk Walk to update
+	 * @return updated walk
 	 * @throws Exception
 	 */
 	public Walk updateWalk(Walk walk) throws Exception {
@@ -169,7 +147,7 @@ public class WhiteRockServerAccessor {
 	 * @param media
 	 * @return
 	 */
-	public Media uploadMedia(Media media){
+/*	public Media uploadMedia(Media media){
 		
 		Gson gson = new GsonBuilder().create();
 		
@@ -184,7 +162,7 @@ public class WhiteRockServerAccessor {
 		Log.d(TAG, response);
 		
 		return gson.fromJson(response, Photo.class);
-	}
+	}*/
 	
 	//TODO: add more get methods as necessary
 

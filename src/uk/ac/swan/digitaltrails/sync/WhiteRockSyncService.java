@@ -9,10 +9,6 @@ import android.os.IBinder;
  * @author Lewis Hancock
  * Service handles account sync. Returns IBinder of WhiteRockSyncAdapter.
  */
-/**
- * @author Lewis Hancock
- *
- */
 public class WhiteRockSyncService extends Service {
 
 	/**

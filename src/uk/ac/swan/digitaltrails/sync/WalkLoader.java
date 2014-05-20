@@ -11,7 +11,7 @@ import android.util.Log;
 
 /**
  * @author Lewis Hancock
- *
+ * Custom AsyncTaskLoader to load a list of Walk objects from the ContentProvider
  */
 public class WalkLoader extends AsyncTaskLoader<List<Walk>> {
 
@@ -21,11 +21,12 @@ public class WalkLoader extends AsyncTaskLoader<List<Walk>> {
 	private static final String TAG = "WalkLoader";
 	
 	/**
-	 * 
+	 * The list of walks returned
 	 */
 	private List<Walk> mWalks;
 	
 	/**
+	 * Constructor
 	 * @param context
 	 */
 	public WalkLoader(Context context) {

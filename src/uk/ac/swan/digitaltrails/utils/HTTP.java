@@ -3,23 +3,16 @@
  */
 package uk.ac.swan.digitaltrails.utils;
 
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.security.GeneralSecurityException;
-import java.security.spec.KeySpec;
 
 import javax.crypto.Mac;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import ch.boye.httpclientandroidlib.HttpResponse;
+import uk.ac.swan.digitaltrails.components.Account;
+import android.util.Log;
 import ch.boye.httpclientandroidlib.client.ClientProtocolException;
 import ch.boye.httpclientandroidlib.client.HttpClient;
 import ch.boye.httpclientandroidlib.client.ResponseHandler;
@@ -34,25 +27,10 @@ import ch.boye.httpclientandroidlib.entity.mime.content.FileBody;
 import ch.boye.httpclientandroidlib.entity.mime.content.StringBody;
 import ch.boye.httpclientandroidlib.impl.client.BasicResponseHandler;
 import ch.boye.httpclientandroidlib.impl.client.DefaultHttpClient;
-import ch.boye.httpclientandroidlib.util.EntityUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import uk.ac.swan.digitaltrails.components.Account;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import android.util.Log;
 
 /**
  * @author Thomas Milner
- *
- */
-/**
- * @author Lewis Hancock
- *
+ * Class to do HTTP requests.
  */
 @SuppressWarnings("deprecation")
 public class HTTP {
@@ -72,62 +50,64 @@ public class HTTP {
 	 */
 	private static final HttpClient mClient = new DefaultHttpClient();
 	
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
 	public static enum Type {
 		GET,POST,PUT,DELETE
 	};
 
 	/**
-	 * @param url
-	 * @return
+	 * perform get request
+	 * @param url url to get
+	 * @return the result of the request
 	 */
 	public static String get(String url){
 		return request(null, url, Type.GET);
 	}
 	
 	/**
-	 * @param message
-	 * @param url
-	 * @return
+	 * perform post request
+	 * @param message message to send
+	 * @param url url to send to 
+	 * @return result of request
 	 */
 	public static String post(String message,String url){
 		return request(message, url, Type.POST);
 	}
 	
 	/**
-	 * @param message
-	 * @param url
-	 * @return
+	 * perform put request
+	 * @param message message to send
+	 * @param url url to put to
+	 * @return result of the request
 	 */
 	public static String put(String message, String url){
 		return request(message, url, Type.PUT);
 	}
 	
 	/**
-	 * @param url
-	 * @return
+	 * perform delete request
+	 * @param url url to perform request on
+	 * @return result of request
 	 */
 	public static String delete(String url){
 		return request(null, url, Type.DELETE);
 	}
 	
 	/**
-	 * @param url
-	 * @param account
-	 * @return
+	 * do a secure get request
+	 * @param url url to request from
+	 * @param account the account asking to get
+	 * @return result of request
 	 */
 	public static String secureGet(String url, Account account){
 		return secureRequest(null, url, Type.GET, account);
 	}
 	
 	/**
-	 * @param message
-	 * @param url
-	 * @param account
-	 * @return
+	 * do a secure post
+	 * @param message the message to pass
+	 * @param url url to post to
+	 * @param account account which is posting
+	 * @return the result of request
 	 */
 	public static String securePost(String message, String url, Account account){
 		return secureRequest(message, url, Type.POST, account);

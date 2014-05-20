@@ -4,7 +4,7 @@ import android.content.Context;
 
 /**
  * @author Lewis Hancock
- *
+ * See DataSource
  */
 public class MediaDataSource extends DataSource {
 

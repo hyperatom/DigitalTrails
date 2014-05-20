@@ -12,7 +12,7 @@ import android.util.Log;
 
 /**
  * @author Lewis Hancock
- *
+ * CRUD operations for video data sources.
  */
 public class VideoDataSource extends MediaDataSource {
 
@@ -22,6 +22,7 @@ public class VideoDataSource extends MediaDataSource {
 	private static final String TAG = "VideoDataSource";
 	
 	/**
+	 * Constructor
 	 * @param context
 	 */
 	protected VideoDataSource(Context context) {
@@ -30,13 +31,9 @@ public class VideoDataSource extends MediaDataSource {
 	}
 	
 	/**
-	 * 
+	 * Create a video
 	 * @param fileLocation
-	 * @return
-	 */
-	/**
-	 * @param fileLocation
-	 * @return
+	 * @return the created video
 	 */
 	public Video createVideo(String fileLocation) {
 		ContentValues values = new ContentValues();
@@ -50,11 +47,8 @@ public class VideoDataSource extends MediaDataSource {
 	}
 
 	/**
-	 * 
-	 * @param video
-	 */
-	/**
-	 * @param video
+	 * delete the chosen video
+	 * @param video the video to delete
 	 */
 	public void deleteVideo(Video video) {
 		long id = video.getId();
@@ -63,11 +57,8 @@ public class VideoDataSource extends MediaDataSource {
 	}
 
 	/**
-	 * 
-	 * @return
-	 */
-	/**
-	 * @return
+	 * Get all videos
+	 * @return List of all Videos in database
 	 */
 	public List<Video> getAllVideos() {
 		ArrayList<Video> videoList = new ArrayList<Video>();
@@ -85,13 +76,11 @@ public class VideoDataSource extends MediaDataSource {
 		return videoList;
 	}
 	
+	
 	/**
-	 * 
-	 * @return
-	 */
-	/**
-	 * @param wp
-	 * @return
+	 * Get all videos at a specified waypoint.
+	 * @param wp The Waypoint to retrieve videos for.
+	 * @return List of all videos
 	 */
 	public List<Video> getAllVideosAtWaypoint(Waypoint wp) {
 		ArrayList<Video> videoList = new ArrayList<Video>();
@@ -113,10 +102,6 @@ public class VideoDataSource extends MediaDataSource {
 	 * 
 	 * @param cursor
 	 * @return New Video.
-	 */
-	/**
-	 * @param cursor
-	 * @return
 	 */
 	private Video cursorToVideo(Cursor cursor) {
 		Video video = new Video();

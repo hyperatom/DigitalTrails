@@ -5,10 +5,6 @@ package uk.ac.swan.digitaltrails.utils;
  * @author Lewis H
  *
  */
-/**
- * @author Lewis Hancock
- *
- */
 public interface GlobalFlags {
 	/**
 	 * 
