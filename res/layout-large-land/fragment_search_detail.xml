@@ -25,15 +25,19 @@
                     android:id="@+id/title"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:gravity="center"
                     android:text="@string/download_title"
                     android:textSize="30sp" />
+
             </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
                 android:orientation="vertical" >
 
                 <ImageView
@@ -83,7 +87,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/button_background"
-                    android:onClick="downloadWalkButtonClick"
+                    android:onClick="downloadWalkButtonOnClick"
                     android:text="@string/download"
                     android:textSize="15sp" />
             </RelativeLayout>
