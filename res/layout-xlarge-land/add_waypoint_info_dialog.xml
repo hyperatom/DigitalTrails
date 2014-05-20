@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/edit_waypoint_info"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="Name:"
             android:textSize="25sp" />
 
@@ -32,7 +32,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/name_label"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:textSize="25sp" />
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/name_edit"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="Description:"
             android:textSize="25sp" />
 
@@ -53,7 +53,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/description_label"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="textMultiLine"
             android:textSize="25sp" />
@@ -64,19 +64,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/description_edit"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="Latitude:"
             android:textSize="25sp" />
+
 		<EditText
-            android:id="@+id/latitude_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/latitude_label"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:textSize="25sp" />
+		    android:id="@+id/latitude_edit"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentRight="true"
+		    android:layout_below="@+id/latitude_label"
+		    android:layout_marginTop="10dp"
+		    android:ems="10"
+		    android:textSize="25sp" />
 
         <TextView
             android:id="@+id/longitude_label"
@@ -84,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/latitude_edit"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="Longitude:"
             android:textSize="25sp" />
 
@@ -95,7 +96,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/longitude_label"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
             android:textSize="25sp" >
 
@@ -106,7 +107,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" >
 
@@ -117,7 +118,7 @@
             android:layout_alignLeft="@+id/textView1"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/button_background"
             android:text="Upload Media"
@@ -130,7 +131,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignRight="@+id/textView1"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/button_background"
             android:text="Browse"

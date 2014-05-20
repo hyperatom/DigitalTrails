@@ -24,21 +24,20 @@
             android:textSize="40sp"
             android:gravity="center" />
 
-        <GridLayout
+        <LinearLayout
             android:id="@+id/gridLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/currentLocation"
             android:layout_centerHorizontal="true"
-            android:layout_margin="20dp"
-            android:columnCount="1"
-            android:rowCount="4" >
+            android:orientation="vertical"
+            android:layout_margin="20dp">
 
             <Button
                 android:id="@+id/viewWalks"
                 android:layout_width="fill_parent"
-                android:layout_height="150dp"
+                android:layout_height="0dip"
                 android:layout_gravity="left"
                 android:layout_margin="10dp"
                 android:background="@drawable/button_background"
@@ -46,45 +45,51 @@
                 android:onClick="viewWalkButton"
                 android:padding="20dp"
                 android:text="Saved Walks"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/searchWalks"
-                android:layout_width="fill_parent"
-                android:layout_height="150dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/button_background"
-                android:gravity="bottom|center"
-                android:onClick="searchButton"
-                android:padding="20dp"
-                android:text="Download Walks"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/myWalks"
                 android:layout_width="fill_parent"
-                android:layout_height="150dp"
+                android:layout_height="0dip"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/button_background"
                 android:gravity="bottom|center"
                 android:onClick="walkOptionButton"
                 android:padding="20dp"
                 android:text="My Walks"
-                android:textSize="30sp" />
+                android:textSize="30sp" 
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/searchWalks"
+                android:layout_width="fill_parent"
+                android:layout_height="0dip"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_background"
+                android:gravity="bottom|center"
+                android:onClick="searchButton"
+                android:padding="20dp"
+                android:text="Download Walks"
+                android:textSize="30sp" 
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/explore"
                 android:layout_width="fill_parent"
-                android:layout_height="150dp"
-                android:layout_gravity="right"
+                android:layout_height="0dip"
                 android:layout_margin="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/map_nott2"
                 android:gravity="bottom|center"
                 android:onClick="exploreButton"
                 android:padding="20dp"
                 android:text="Explore"
                 android:textSize="30sp" />
-        </GridLayout>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/createWalkButton"

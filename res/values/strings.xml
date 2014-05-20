@@ -130,6 +130,7 @@
     <string name="cancel_waypoint">Cancel</string>
     <string name="add_waypoint_dialog_title">Add This Waypoint?</string>
     <string name="add_waypoint_dialog_message">Are you sure you want to add this waypoint to your walk?</string>
+    <string name="search_">Search...</string>
     
     
 </resources>

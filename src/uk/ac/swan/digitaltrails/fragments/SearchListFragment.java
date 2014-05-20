@@ -8,6 +8,7 @@ import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
 import uk.ac.swan.digitaltrails.activities.SearchActivity;
 import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import uk.ac.swan.digitaltrails.sync.SearchWalkLoader;
 import uk.ac.swan.digitaltrails.sync.WalkLoader;
 import uk.ac.swan.digitaltrails.sync.WalkLoaderAdapter;
 import uk.ac.swan.digitaltrails.sync.WhiteRockServerAccessor;
@@ -38,7 +39,7 @@ import android.widget.ListView;
  *
  */
 public class SearchListFragment extends ListFragment 
-	implements LoaderCallbacks<List<Walk>>, OnQueryTextListener {
+	implements LoaderCallbacks<List<Walk>>{
 
 	/**
 	 * 
@@ -160,6 +161,7 @@ public class SearchListFragment extends ListFragment
 			setEmptyText("No Walks");
 			Log.d(TAG, "Account connected - lets do this");
 			Bundle bundle = new Bundle();
+			bundle.putString("query","*");
 			// sync no matter what
 //			bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
 //			bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
@@ -167,38 +169,17 @@ public class SearchListFragment extends ListFragment
 			mAdapter = new WalkLoaderAdapter(this.getActivity().getBaseContext());
 			setListAdapter(mAdapter);
 			setListShown(false);
-			getLoaderManager().initLoader(0,  null,  this);
+			getLoaderManager().initLoader(0,  bundle,  this);
 		}
 
 	}
-
-
-	/* (non-Javadoc)
-	 * @see android.support.v7.widget.SearchView.OnQueryTextListener#onQueryTextChange(java.lang.String)
-	 */
-	@Override
-	public boolean onQueryTextChange(String arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see android.support.v7.widget.SearchView.OnQueryTextListener#onQueryTextSubmit(java.lang.String)
-	 */
-	@Override
-	public boolean onQueryTextSubmit(String arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int, android.os.Bundle)
 	 */
 	@Override
-	public Loader<List<Walk>> onCreateLoader(int arg0, Bundle arg1) {
-		return new WalkLoader(getActivity());
+	public Loader<List<Walk>> onCreateLoader(int arg0, Bundle bundle) {
+		return new SearchWalkLoader(getActivity(), bundle);
 	}
 
 
@@ -226,6 +207,10 @@ public class SearchListFragment extends ListFragment
 	@Override
 	public void onLoaderReset(Loader<List<Walk>> arg0) {
 		mAdapter.setData(null);
+	}
+	
+	public void search(Bundle bundle){
+		getLoaderManager().restartLoader(0, bundle, this);
 	}
 
 } 
