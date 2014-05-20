@@ -8,6 +8,7 @@ import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
 import uk.ac.swan.digitaltrails.activities.SearchActivity;
 import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import uk.ac.swan.digitaltrails.sync.SearchWalkLoader;
 import uk.ac.swan.digitaltrails.sync.WalkLoader;
 import uk.ac.swan.digitaltrails.sync.WalkLoaderAdapter;
 import uk.ac.swan.digitaltrails.sync.WhiteRockServerAccessor;
@@ -178,7 +179,7 @@ public class SearchListFragment extends ListFragment
 	 */
 	@Override
 	public boolean onQueryTextChange(String arg0) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
@@ -188,7 +189,9 @@ public class SearchListFragment extends ListFragment
 	 */
 	@Override
 	public boolean onQueryTextSubmit(String arg0) {
-		// TODO Auto-generated method stub
+		Bundle bundle = new Bundle();
+		bundle.putString("query", arg0);
+		getLoaderManager().restartLoader(0, bundle, this);
 		return false;
 	}
 
@@ -197,8 +200,8 @@ public class SearchListFragment extends ListFragment
 	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int, android.os.Bundle)
 	 */
 	@Override
-	public Loader<List<Walk>> onCreateLoader(int arg0, Bundle arg1) {
-		return new WalkLoader(getActivity());
+	public Loader<List<Walk>> onCreateLoader(int arg0, Bundle bundle) {
+		return new SearchWalkLoader(getActivity(), bundle);
 	}
 
 
