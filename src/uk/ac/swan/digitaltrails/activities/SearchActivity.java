@@ -200,7 +200,9 @@ SearchListFragment.OnWalkSelectedListener   {
 		descrDataSource.addDescription(mWalk.getEnglishDescriptions());
 		descrDataSource = new EnglishWaypointDescriptionDataSource(this);
 		for (Waypoint wp : mWalk.getWaypoints()) {
-			wpDataSource.addWaypoint(wp);
+			wp.setWalkId(walkId);
+			long wpId = wpDataSource.addWaypoint(wp);
+			wp.getEnglishDescription().setForeignId(wpId);
 			descrDataSource.addDescription(wp.getEnglishDescription());
 		}
 	}
