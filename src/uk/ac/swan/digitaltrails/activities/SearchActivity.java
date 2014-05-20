@@ -17,18 +17,21 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 /**
  * @author Lewis Hancock
  * Activity to allow users to search the remote database for walks, then download them.
  */
 public class SearchActivity extends ActionBarActivity implements
-SearchListFragment.OnWalkSelectedListener, OnQueryTextListener   {
+SearchListFragment.OnWalkSelectedListener   {
 
 	/**
 	 * Static constant for class tag
@@ -68,6 +71,28 @@ SearchListFragment.OnWalkSelectedListener, OnQueryTextListener   {
 			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchListFragment).commit();
 		} 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		EditText search = (EditText) findViewById(R.id.searchQuery);
+		
+		search.addTextChangedListener(new TextWatcher() {
+		     
+		    @Override
+		    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+		        search(cs.toString());
+		    }
+		     
+		    @Override
+		    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+		            int arg3) {
+		        // TODO Auto-generated method stub
+		         
+		    }
+		     
+		    @Override
+		    public void afterTextChanged(Editable arg0) {
+		        // TODO Auto-generated method stub                          
+		    }
+		});
 	}
 
 	/* (non-Javadoc)
@@ -178,20 +203,12 @@ SearchListFragment.OnWalkSelectedListener, OnQueryTextListener   {
 		}
 	}
 
-	@Override
-	public boolean onQueryTextChange(String arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean onQueryTextSubmit(String arg0) {
+	public void search(String query) {
 		Log.d(TAG, "Search Sumbitted");
 		Bundle bundle = new Bundle();
-		bundle.putString("query", arg0);
+		bundle.putString("query", query);
 		SearchListFragment list = (SearchListFragment) getSupportFragmentManager().findFragmentById(R.id.search_list_fragment);
 		list.search(bundle);
-		return true;
 	}
 
 
