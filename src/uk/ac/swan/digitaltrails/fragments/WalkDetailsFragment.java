@@ -158,6 +158,7 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 			
 			mTitleText.setText(data.getString(1));
 			mLongDescrText.setText(data.getString(3));
+			
 		} else {
 			Log.d("DATA LOG", "Cursor is empty, wtf, the mCurrentPos is: " + mCurrentPos);
 		}

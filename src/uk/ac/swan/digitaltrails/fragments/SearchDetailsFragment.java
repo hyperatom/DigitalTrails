@@ -93,7 +93,7 @@ public class SearchDetailsFragment extends WalkDetailsFragment implements Loader
 			((RatingBar) getView().findViewById(R.id.ratingBar1)).setRating(walk.getDifficultyRating());
 			((TextView) getView().findViewById(R.id.textView7)).setText(difficulty);
 			((TextView) getView().findViewById(R.id.textView8)).setText(""+walk.getDistance());
-			((TextView) getView().findViewById(R.id.textView8)).setText(""+walk.getWaypoints().size());
+			((TextView) getView().findViewById(R.id.textView6)).setText(""+walk.getWaypoints().size());
 		}
 	}
 
