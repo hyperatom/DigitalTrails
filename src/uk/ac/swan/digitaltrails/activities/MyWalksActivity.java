@@ -104,7 +104,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 			transaction.addToBackStack(null);
 			transaction.commit();
 		}
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	/* (non-Javadoc)
