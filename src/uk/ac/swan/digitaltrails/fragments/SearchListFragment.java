@@ -32,6 +32,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 
 /**
@@ -124,6 +125,8 @@ public class SearchListFragment extends ListFragment
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		EditText search = (EditText) activity.findViewById(R.id.searchQuery);
+		search.setVisibility(EditText.VISIBLE);
 		try {
 			mCallback = (OnWalkSelectedListener) activity;
 		} catch (ClassCastException e) {
