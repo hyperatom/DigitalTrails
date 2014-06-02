@@ -358,6 +358,7 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 	@Override
 	public void onConnected(Bundle arg0) {
 		Log.d(TAG, "LocClient Connected");
+		if(mLocationClient == null) return;
 		LatLng userLatLng = new LatLng(mLocationClient.getLastLocation().getLatitude(), mLocationClient.getLastLocation().getLongitude());
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 15)); 
 	}

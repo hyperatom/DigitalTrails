@@ -90,6 +90,7 @@ public class WalkDataSource extends DataSource {
 		values.put(ALL_COLUMNS[3], walk.getDownloadCount());
 		values.put(ALL_COLUMNS[4], walk.getDifficultyRating());
 		values.put(ALL_COLUMNS[5], walk.getOwner());
+		values.put(ALL_COLUMNS[6], walk.getWalkId());
 		return values;
 	}
 

@@ -63,6 +63,7 @@ public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 	public void onPerformSync(Account account, Bundle extras, String authority,
 			ContentProviderClient provider, SyncResult syncResult) {
 
+		Log.d(TAG, "Syncing!");
 		StringBuilder sb = new StringBuilder();
 		if (extras != null) {
 			for (String key : extras.keySet()) {
@@ -131,52 +132,64 @@ public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 				// We know the walk exists, so we remove it from the map.
 				remoteMap.remove(tmp.getWalkId());
 				
-				updateLocalWaypointData(walk, tmp);
+				//updateLocalWaypointData(walk, tmp, batch);
 				
 				// Check to see if we need to update it.
-				Uri existingUri = WhiteRockContract.Walk.CONTENT_URI.buildUpon().appendPath(Long.toString(tmp.getId())).build();
+				Uri existingUri = WhiteRockContract.Walk.CONTENT_URI.buildUpon().appendPath(Long.toString(walk.getId())).build();
 	
 				if ((tmp.getDifficultyRating() != -1 && tmp.getDifficultyRating() != walk.getDifficultyRating()) ||
 						tmp.getDownloadCount() != -1 && tmp.getDownloadCount() != walk.getDownloadCount() ||
 						tmp.getEnglishDescriptions() != null && !tmp.getEnglishDescriptions().equals(walk.getEnglishDescriptions()) ||
 						tmp.getWelshDescriptions() != null && !tmp.getWelshDescriptions().equals(walk.getWelshDescriptions()) ||
 						tmp.getDistance() != -1 && tmp.getDistance() != walk.getDistance()) {
-					
+										
 					Log.i(TAG, "Scheduling Update: " + existingUri);
-					//batch.add(ContentProviderOperation.newUpdate(existingUri))
+					batch.add(ContentProviderOperation.newUpdate(existingUri)
+							.withValues(walkDataSource.getContentValues(tmp))
+							.build());
 				} else {
 					Log.i(TAG, "No Action Required: " + existingUri);
 				}
-			} else {
-				// Entry does not exist. Remove it from db.
-				walkDescDataSource.deleteAllDescriptions(walk.getId());
-				wpDataSource.deleteAllWaypointsInWalk(walk.getId());
-				for (Waypoint wp : walk.getWaypoints()) {
-					wpDescDataSource.deleteAllDescriptions(wp.getId());
-				}
-				walkDataSource.deleteWalk(walk.getId());
-			}
+			} // could delete here, but strategy is to NOT delete from devices.
 		}
 		// adding new items
 		for (Walk walk : remoteMap.values()) {
-			Log.i(TAG, "Inserting remote data");
-			walkDataSource.addWalk(walk);
+			Log.i(TAG, "Storing walk for batch insert");
+			Uri uri = WhiteRockContract.Walk.CONTENT_URI;
+			ContentValues values = walkDataSource.getContentValues(walk);
+			Log.d(TAG, "Values in contentvalues: " + values.size());
+			batch.add(ContentProviderOperation.newInsert(uri)
+					.withValues(walkDataSource.getContentValues(walk))
+					.build());
+			
+			Log.i(TAG, "Adding waypoint for batch insert");
+			for (Waypoint wp : walk.getWaypoints()) {
+				Uri wpUri = WhiteRockContract.Waypoint.CONTENT_URI;
+				batch.add(ContentProviderOperation.newInsert(wpUri)
+						.withValues(wpDataSource.getContentValues(wp))
+						.build());
+			}
+			//walkDataSource.addWalk(walk);
 		}		
 		Log.i(TAG, "Applying Batch Update");
 		mContentResolver.applyBatch(WhiteRockContract.AUTHORITY, batch);
 		mContentResolver.notifyChange(WhiteRockContract.Walk.CONTENT_URI, null, false);
 	}
-
 	
-	private void updateLocalWaypointData(Walk walk, Walk tmpWalk) {
+	private void updateLocalWaypointData(Walk walk, Walk tmpWalk, ArrayList<ContentProviderOperation> batch) {
+		Log.d(TAG, "Updating waypoints");
 		HashMap<Long, Waypoint> wpMap = new HashMap<Long, Waypoint>();
+		WaypointDataSource wpDataSource = new WaypointDataSource(this.getContext());
 		// Check Waypoints
 		for (Waypoint wp : tmpWalk.getWaypoints()) {
 			wpMap.put(wp.getId(), wp);
 		}
+		Log.d(TAG, "This walk has: " + wpMap.size() + " waypoints");
 		for (Waypoint wp : walk.getWaypoints()) {
 			Waypoint tmpWp = wpMap.get(wp.getId());
 			if (tmpWp != null) {
+				wpMap.remove(tmpWp.getId());
+				Uri existingUri = WhiteRockContract.Waypoint.CONTENT_URI.buildUpon().appendPath(Long.toString(wp.getId())).build();
 				// Check to see if it requires updating.
 				if ((tmpWp.getEnglishDescription() != null && !tmpWp.getEnglishDescription().equals(wp.getEnglishDescription())) ||
 					(tmpWp.isRequest() != wp.isRequest()) ||
@@ -185,9 +198,19 @@ public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 					tmpWp.getLongitude() != wp.getLongitude() ||
 					tmpWp.getVisitOrder() != wp.getVisitOrder()) {
 					
-					// Update as necessary.				
+					// Update as necessary.		
+					batch.add(ContentProviderOperation.newUpdate(existingUri)
+							.withValues(wpDataSource.getContentValues(tmpWp))
+							.build());
 				}
 			}
+		}
+		for (Waypoint wp : wpMap.values()) {
+			Log.d(TAG, "Storing Waypoint for batch insert");
+			Uri uri = WhiteRockContract.Waypoint.CONTENT_URI;
+			batch.add(ContentProviderOperation.newInsert(uri)
+					.withValues(wpDataSource.getContentValues(wp))
+					.build());
 		}
 	}
 	
