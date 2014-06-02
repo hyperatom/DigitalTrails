@@ -636,7 +636,6 @@ public class WhiteRockContentProvider extends ContentProvider {
 		}
 		db.close();
 		return getUriForId(id, uri);
-
 	}
 
 	/* (non-Javadoc)
@@ -1132,11 +1131,6 @@ public class WhiteRockContentProvider extends ContentProvider {
 
 	/**
 	 * Get the ID where we are inserting into
-	 * @param id
-	 * @param uri
-	 * @return
-	 */
-	/**
 	 * @param id
 	 * @param uri
 	 * @return

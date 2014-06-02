@@ -77,7 +77,7 @@ SearchListFragment.OnWalkSelectedListener   {
 			searchListFragment.setArguments(getIntent().getExtras());
 			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchListFragment).commit();
 		} 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		EditText search = (EditText) findViewById(R.id.searchQuery);
 		
@@ -201,8 +201,9 @@ SearchListFragment.OnWalkSelectedListener   {
 		WalkDataSource walkDataSource = new WalkDataSource(this);
 		DescriptionDataSource descrDataSource = new EnglishWalkDescriptionDataSource(this);
 		WaypointDataSource wpDataSource = new WaypointDataSource(this);
-		mWalk.setWalkId(mWalk.getId());
+		Log.d(TAG, "walkId: " + mWalk.getWalkId());
 		long walkId = walkDataSource.addWalk(mWalk);
+		
 		mWalk.getEnglishDescriptions().setForeignId(walkId);
 		descrDataSource.addDescription(mWalk.getEnglishDescriptions());
 		descrDataSource = new EnglishWaypointDescriptionDataSource(this);
