@@ -3,7 +3,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="20dp" >
+        android:layout_marginLeft="20dp"
+        android:background="#dbdbdb" >
  
 		<Button
 		    android:id="@+id/menuB"
