@@ -11,21 +11,18 @@
     android:orientation="vertical"
     android:padding="50dp" >
 
-    <ImageButton
+    <Button
         android:id="@+id/viewWalks"
         android:layout_width="fill_parent"
         android:layout_height="0dip"
-        android:layout_gravity="left"
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:background="@drawable/button_background"
-        android:gravity="bottom|center"
         android:onClick="viewWalkButton"
-        android:text="Saved Walks"
         android:textSize="50sp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_action_save"
-        android:padding="50dp" />
+        android:padding="20dp"
+        android:text="Saved Walks"
+        android:drawableTop="@drawable/ic_action_save"/>
    
 
     <Button

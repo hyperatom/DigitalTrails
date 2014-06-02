@@ -139,7 +139,17 @@
             android:layout_height="340dp"
             android:layout_alignParentLeft="true" >
 
-            <TextView
+            <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="20dp" >
+                
+                <TextView
                 android:id="@+id/long_descr"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -150,7 +160,8 @@
                 android:layout_marginTop="10dp"
                 android:inputType="textMultiLine"
                 android:text="@string/chooseWalk"
-                android:textSize="15sp" />
+                android:textSize="25sp" />
+            </ScrollView>
 
             <TextView
                 android:id="@+id/textView9"

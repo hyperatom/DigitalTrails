@@ -4,54 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
 
         <RelativeLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/long_descr"
-                android:layout_width="wrap_content"
+                android:id="@+id/title"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/map"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="20dp"
-                android:inputType="textMultiLine"
-                android:text="@string/download_title"
-                android:textSize="15sp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp" />
-
-            <Button
-                android:id="@+id/download_button"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/long_descr"
+                android:layout_alignParentTop="true"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/button_background"
-                android:onClick="downloadWalkButtonOnClick"
-                android:text="@string/download"
-                android:textSize="20sp" />
+                android:gravity="center"
+                android:text="@string/download_title"
+                android:textSize="30sp" />
 
             <RelativeLayout
                 android:id="@+id/linearLayout1"
                 android:layout_width="fill_parent"
                 android:layout_height="150dp"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/download_button"
                 android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
                 android:gravity="top"
                 android:orientation="vertical" >
 
@@ -143,28 +122,42 @@
                     android:textSize="15sp" />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+            <Button
+                android:id="@+id/download_button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_above="@+id/linearLayout1"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="@string/download_title"
-                android:textSize="30sp" />
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/button_background"
+                android:onClick="downloadWalkButtonOnClick"
+                android:text="@string/download"
+                android:textSize="20sp" />
 
-            <ImageView
-                android:id="@+id/map"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+            <ScrollView
+                android:id="@+id/scroll"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_above="@+id/download_button"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/title"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/button_background"
-                android:gravity="center"
-                android:src="@drawable/map_nott" />
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="30dp" >
+
+                <TextView
+                    android:id="@+id/long_descr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/chooseWalk"
+                    android:textSize="25sp" />
+            </ScrollView>
+
         </RelativeLayout>
-    </ScrollView>
 </RelativeLayout>

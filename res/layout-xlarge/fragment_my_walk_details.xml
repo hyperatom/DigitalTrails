@@ -27,6 +27,7 @@
         android:layout_above="@+id/relativeLayout1"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/linearLayout2"
+        android:layout_margin="20dp"
         android:orientation="vertical" >
 
         <ScrollView

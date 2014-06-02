@@ -5,25 +5,19 @@
     android:background="#dbdbdb"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+    <EditText
+        android:id="@+id/searchQuery"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
         android:layout_weight="0.00"
-        android:orientation="vertical" >
+        android:ems="10"
+        android:hint="@string/search_" >
 
-        <EditText
-            android:id="@+id/searchQuery"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:ems="10"
-            android:hint="@string/search_" >
-
-	    </EditText>
-    </RelativeLayout>
+        <requestFocus />
+    </EditText>
 
     <LinearLayout
         android:layout_width="fill_parent"

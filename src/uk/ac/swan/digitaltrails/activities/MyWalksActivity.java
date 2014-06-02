@@ -26,6 +26,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -64,6 +65,11 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_walks);
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
+		
 		// check if using small layout
 		if (findViewById(R.id.fragment_container) != null) {
 
