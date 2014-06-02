@@ -125,8 +125,6 @@ public class SearchListFragment extends ListFragment
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		EditText search = (EditText) activity.findViewById(R.id.searchQuery);
-		search.setVisibility(EditText.VISIBLE);
 		try {
 			mCallback = (OnWalkSelectedListener) activity;
 		} catch (ClassCastException e) {
@@ -138,7 +136,12 @@ public class SearchListFragment extends ListFragment
 		mConnectedAccount = accounts[0];
 
 	}
-	
+
+	public void onPause(){
+		super.onPause();
+		EditText search = (EditText) getActivity().findViewById(R.id.searchQuery);
+		search.setVisibility(EditText.GONE);
+	}
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.Fragment#onStart()
 	 */
@@ -156,7 +159,8 @@ public class SearchListFragment extends ListFragment
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
+		EditText search = (EditText) getActivity().findViewById(R.id.searchQuery);
+		search.setVisibility(EditText.VISIBLE);
 		if (mConnectedAccount == null) {
 			Log.d(TAG, "Account empty");
 			setEmptyText("Not Logged In");

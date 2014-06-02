@@ -142,7 +142,11 @@ public class WalkListFragment extends ListFragment
 			getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		}
 	}
-	
+	public void onPause(){
+		super.onPause();
+		EditText search = (EditText) getActivity().findViewById(R.id.searchQuery);
+		search.setVisibility(EditText.GONE);
+	}
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
 	 */
