@@ -82,6 +82,7 @@ public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 			
 			Log.i(TAG, "Update Local Walk Data");
 			updateLocalWalkData((ArrayList<Walk>) remoteWalks, syncResult);
+			
 		} catch (OperationCanceledException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,6 +132,7 @@ public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 				remoteMap.remove(tmp.getWalkId());
 				
 				updateLocalWaypointData(walk, tmp);
+				
 				// Check to see if we need to update it.
 				Uri existingUri = WhiteRockContract.Walk.CONTENT_URI.buildUpon().appendPath(Long.toString(tmp.getId())).build();
 	
@@ -166,17 +168,16 @@ public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 	}
 
 	
-	private void updateLocalWaypointData(Walk walk, Walk tmp) {
+	private void updateLocalWaypointData(Walk walk, Walk tmpWalk) {
 		HashMap<Long, Waypoint> wpMap = new HashMap<Long, Waypoint>();
 		// Check Waypoints
-		for (Waypoint wp : tmp.getWaypoints()) {
+		for (Waypoint wp : tmpWalk.getWaypoints()) {
 			wpMap.put(wp.getId(), wp);
 		}
-		
 		for (Waypoint wp : walk.getWaypoints()) {
 			Waypoint tmpWp = wpMap.get(wp.getId());
 			if (tmpWp != null) {
-				// Check it.
+				// Check to see if it requires updating.
 				if ((tmpWp.getEnglishDescription() != null && !tmpWp.getEnglishDescription().equals(wp.getEnglishDescription())) ||
 					(tmpWp.isRequest() != wp.isRequest()) ||
 					(tmpWp.getWelshDescription() != null && !tmpWp.getWelshDescription().equals(wp.getWelshDescription())) || 
@@ -184,12 +185,10 @@ public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 					tmpWp.getLongitude() != wp.getLongitude() ||
 					tmpWp.getVisitOrder() != wp.getVisitOrder()) {
 					
-					// Update as necessary.
-					
+					// Update as necessary.				
 				}
 			}
 		}
-
 	}
 	
 }

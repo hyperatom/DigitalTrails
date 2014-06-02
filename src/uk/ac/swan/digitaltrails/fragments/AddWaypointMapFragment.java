@@ -36,12 +36,6 @@ public class AddWaypointMapFragment extends MapFragment implements EditWaypointD
 	 */
 	private static String TAG = "AddWaypointMapFragment";
 
-	/** ArrayList of Markers currently on the map */
-	/**
-	 * 
-	 */
-	private ArrayList<Marker> mMarkers;
-
 	/* (non-Javadoc)
 	 * @see uk.ac.swan.digitaltrails.fragments.MapFragment#onCreate(android.os.Bundle)
 	 */
@@ -72,6 +66,9 @@ public class AddWaypointMapFragment extends MapFragment implements EditWaypointD
 
 					@Override
 					public void onInfoWindowClick(Marker marker) {
+						int index = mMarkers.indexOf(marker);
+						Log.d(TAG, "wp index: " + index);
+						assert (index > 0 && index < mWaypointList.size());
 						showEditDialog(mWaypointList.get(mMarkers.indexOf(marker)));
 					}
 				});
