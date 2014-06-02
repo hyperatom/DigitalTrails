@@ -1,7 +1,12 @@
 package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
+import uk.ac.swan.digitaltrails.database.WhiteRockContract;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -54,6 +59,22 @@ public class EditAccountActivity extends ActionBarActivity{
 	public void onBackPressed() {
 		super.onBackPressed();
 	}
+	
+	public void onSync(MenuItem v){
+		// Pass the settings flags by inserting them in a bundle
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        /*
+         * Request the sync for the default account, authority, and
+         * manual sync settings
+         */
+        AccountManager am = AccountManager.get(this);
+		Account a = am.getAccountsByType(AccountGeneral.ACCOUNT_TYPE)[0];
+        ContentResolver.requestSync(a, WhiteRockContract.AUTHORITY, settingsBundle);
+	}
 
 	/**
 	 * Cancel editing on the Account.
@@ -93,6 +114,21 @@ public class EditAccountActivity extends ActionBarActivity{
 		//Build and create dialog
 		builder.create();
 		builder.show();
+	}
+	
+	public void logOutButton(MenuItem v){
+		AccountManager am = AccountManager.get(this);
+		Account a = am.getAccountsByType(AccountGeneral.ACCOUNT_TYPE)[0];
+		String authToken;
+		try {
+			authToken = am.peekAuthToken(a, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
+			am.invalidateAuthToken(AccountGeneral.ACCOUNT_TYPE, authToken);
+			am.removeAccount(a, null, null);
+			Intent i = new Intent(this, SplashActivity.class);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

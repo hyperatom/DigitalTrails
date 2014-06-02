@@ -3,16 +3,21 @@ package uk.ac.swan.digitaltrails.activities;
 import java.util.ArrayList;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.DescriptionDataSource;
 import uk.ac.swan.digitaltrails.database.EnglishWalkDescriptionDataSource;
 import uk.ac.swan.digitaltrails.database.EnglishWaypointDescriptionDataSource;
 import uk.ac.swan.digitaltrails.database.WalkDataSource;
 import uk.ac.swan.digitaltrails.database.WaypointDataSource;
+import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -21,6 +26,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -195,5 +201,36 @@ public class ChooseWalkActivity extends ActionBarActivity
 	public void onBackPressed(){
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
+	}
+	
+	public void logOutButton(MenuItem v){
+		AccountManager am = AccountManager.get(this);
+		Account a = am.getAccountsByType(AccountGeneral.ACCOUNT_TYPE)[0];
+		String authToken;
+		try {
+			authToken = am.peekAuthToken(a, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
+			am.invalidateAuthToken(AccountGeneral.ACCOUNT_TYPE, authToken);
+			am.removeAccount(a, null, null);
+			Intent i = new Intent(this, SplashActivity.class);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void onSync(MenuItem v){
+		// Pass the settings flags by inserting them in a bundle
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        /*
+         * Request the sync for the default account, authority, and
+         * manual sync settings
+         */
+        AccountManager am = AccountManager.get(this);
+		Account a = am.getAccountsByType(AccountGeneral.ACCOUNT_TYPE)[0];
+        ContentResolver.requestSync(a, WhiteRockContract.AUTHORITY, settingsBundle);
 	}
 }
