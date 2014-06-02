@@ -129,11 +129,6 @@ public class WalkListFragment extends ListFragment
 		}
 	}
 	
-	public void onPause(){
-		super.onPause();
-		search.setVisibility(EditText.GONE);
-	}
-	
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.ListFragment#onListItemClick(android.widget.ListView, android.view.View, int, long)
 	 */
