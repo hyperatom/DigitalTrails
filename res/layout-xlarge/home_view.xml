@@ -11,7 +11,7 @@
     android:orientation="vertical"
     android:padding="50dp" >
 
-    <Button
+    <ImageButton
         android:id="@+id/viewWalks"
         android:layout_width="fill_parent"
         android:layout_height="0dip"
@@ -21,9 +21,12 @@
         android:background="@drawable/button_background"
         android:gravity="bottom|center"
         android:onClick="viewWalkButton"
-        android:padding="20dp"
         android:text="Saved Walks"
-        android:textSize="50sp" />
+        android:textSize="50sp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_action_save"
+        android:padding="50dp" />
+   
 
     <Button
         android:id="@+id/myWalks"
@@ -33,6 +36,7 @@
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:background="@drawable/button_background"
+        android:drawableTop="@drawable/ic_action_man"
         android:gravity="bottom|center"
         android:onClick="walkOptionButton"
         android:padding="20dp"
@@ -47,6 +51,7 @@
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:background="@drawable/button_background"
+        android:drawableTop="@drawable/ic_action_download_walk"
         android:gravity="bottom|center"
         android:onClick="searchButton"
         android:padding="20dp"
@@ -60,6 +65,7 @@
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:background="@drawable/button_background"
+        android:drawableTop="@drawable/ic_action_explore"
         android:gravity="bottom|center"
         android:onClick="exploreButton"
         android:padding="20dp"

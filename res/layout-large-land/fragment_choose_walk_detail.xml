@@ -135,19 +135,6 @@
         android:layout_marginRight="40dp"
         android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/map"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/textView4"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/button_background"
-            android:gravity="center"
-            android:src="@drawable/map_nott" />
-
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -159,8 +146,7 @@
         <RelativeLayout
             android:id="@+id/main_sub"
             android:layout_width="match_parent"
-            android:layout_height="340dp"
-            android:layout_toRightOf="@+id/map" >
+            android:layout_height="340dp" >
 
             <TextView
                 android:id="@+id/long_descr"
@@ -170,6 +156,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginBottom="5dp"
                 android:inputType="textMultiLine"
                 android:text="@string/chooseWalk"
                 android:textSize="15sp" />
