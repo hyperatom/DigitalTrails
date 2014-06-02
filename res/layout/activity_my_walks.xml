@@ -13,7 +13,9 @@
         android:layout_marginRight="5dp"
         android:layout_weight="0.00"
         android:ems="10"
-        android:hint="@string/search_" >
+        android:hint="@string/search_"
+        android:visibility="gone" >
+
     </EditText>
 
     <FrameLayout
