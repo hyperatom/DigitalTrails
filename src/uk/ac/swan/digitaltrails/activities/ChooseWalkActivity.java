@@ -107,6 +107,9 @@ public class ChooseWalkActivity extends ActionBarActivity
 	 */
 	public void loadWalkButtonClick(View view) {
 		WalkDetailsFragment detailsFrag = (WalkDetailsFragment)getSupportFragmentManager().findFragmentById(R.id.walk_details_fragment);
+		if (detailsFrag == null) {
+			detailsFrag = (WalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+		}
 		if(detailsFrag.getCurrentPosition() > 0){
 			Intent intent = new Intent(this, MapActivity.class);
 			intent.putExtra(MapActivity.ARG_EXPLORE, 1);

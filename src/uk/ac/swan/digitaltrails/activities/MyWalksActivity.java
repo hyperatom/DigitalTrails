@@ -158,12 +158,17 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	 */
 	@Override
 	public void onBackPressed() {
-		// Do different things depending on our chosen fragment.
-		MyWalkListFragment walkFrag = (MyWalkListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
-		if (walkFrag.isVisible()) {
-			Intent intent = new Intent(this, HomeActivity.class);
-			startActivity(intent);
-		}
+//		// Do different things depending on our chosen fragment.
+//		MyWalkListFragment walkFrag = (MyWalkListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
+//		if (walkFrag != null) {
+//			Intent intent = new Intent(this, HomeActivity.class);
+//			startActivity(intent);
+//		} else {
+//			MyWalkDetailsFragment walkDetails = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
+//			if (walkDetails != null) {
+//				
+//			}
+//		}
 		super.onBackPressed();
 	}
 

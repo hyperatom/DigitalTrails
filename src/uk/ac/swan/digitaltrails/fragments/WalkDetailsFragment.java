@@ -172,11 +172,11 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 			}
 			
 			RatingBar rating = ((RatingBar) getView().findViewById(R.id.ratingBar1));
-			rating.setRating(data.getInt(4));
-			rating.setEnabled(false);
-			((TextView) getView().findViewById(R.id.textView7)).setText(difficulty);
-			((TextView) getView().findViewById(R.id.textView8)).setText(""+data.getInt(2));
-			((TextView) getView().findViewById(R.id.textView6)).setText(""+data.getInt(1));
+			//rating.setRating(data.getInt(4));
+			//rating.setEnabled(false);
+			//((TextView) getView().findViewById(R.id.textView7)).setText(difficulty);
+			//((TextView) getView().findViewById(R.id.textView8)).setText(""+data.getInt(2));
+			//((TextView) getView().findViewById(R.id.textView6)).setText(""+data.getInt(1));
 			
 		} else {
 			Log.d("DATA LOG", "Cursor is empty, wtf, the mCurrentPos is: " + mCurrentPos);
