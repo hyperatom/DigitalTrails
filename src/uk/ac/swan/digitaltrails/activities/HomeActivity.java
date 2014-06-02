@@ -46,7 +46,7 @@ public class HomeActivity extends ActionBarActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_view);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(false);
 		Intent intent = getIntent();
 		mConnectedAccount = (Account) intent.getParcelableExtra("account");
 		TableObserver observer = new TableObserver(null);

@@ -15,6 +15,7 @@ import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -39,6 +40,10 @@ public class ChooseWalkActivity extends ActionBarActivity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.choose_walk_activity);
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
 
 		// check if using small layout
 		if (findViewById(R.id.fragment_container) != null) {
