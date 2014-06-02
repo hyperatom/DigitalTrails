@@ -130,6 +130,7 @@ public class WalkListFragment extends ListFragment
 	}
 	
 	public void onPause(){
+		super.onPause();
 		search.setVisibility(EditText.GONE);
 	}
 	
