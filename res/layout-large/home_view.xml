@@ -8,7 +8,8 @@
     android:layout_alignParentRight="true"
     android:layout_alignParentTop="true"
     android:layout_margin="20dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#dbdbdb" >
 
     <Button
         android:id="@+id/viewWalks"
