@@ -288,6 +288,14 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	public void editCancelButtonOnClick(View view){
 		onBackPressed();
 	}
+	
+	/**
+	 * onClick for cancelling creating a waypoint
+	 * @param view
+	 */
+	public void cancelCreateButton(View view){
+		onBackPressed();
+	}
 
 	/**
 	 * onClick for edit save button
