@@ -43,11 +43,6 @@ public class WalkListFragment extends ListFragment
 	/**
 	 * 
 	 */
-	private EditText search;
-	
-	/**
-	 * 
-	 */
 	protected ArrayList<Walk> mWalkList;
 	/**
 	 * 
@@ -119,17 +114,12 @@ public class WalkListFragment extends ListFragment
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-
+		
 		try {
 			mCallback = (OnWalkSelectedListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString() + " must implement onWalkSelectedListener");
 		}
-	}
-	
-	public void onPause(){
-		super.onPause();
-		search.setVisibility(EditText.GONE);
 	}
 	
 	/* (non-Javadoc)
@@ -159,7 +149,7 @@ public class WalkListFragment extends ListFragment
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		search = (EditText) getActivity().findViewById(R.id.searchQuery);
+		EditText search = (EditText) getActivity().findViewById(R.id.searchQuery);
 		search.setVisibility(EditText.VISIBLE);
 
 		//setHasOptionsMenu(true);
