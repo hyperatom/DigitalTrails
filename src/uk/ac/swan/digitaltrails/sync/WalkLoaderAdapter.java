@@ -70,7 +70,9 @@ public class WalkLoaderAdapter extends ArrayAdapter<Walk> {
 	public void setData(List<Walk> walks) {
 		clear();
 		if (walks != null) {
-			addAll(walks);
+			for (Walk walk : walks) {
+				  this.add(walk);
+			}
 		}
 	}
 	

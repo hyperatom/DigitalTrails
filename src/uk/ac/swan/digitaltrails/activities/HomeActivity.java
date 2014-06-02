@@ -1,9 +1,15 @@
 package uk.ac.swan.digitaltrails.activities;
 
+import java.io.IOException;
+
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.sync.TableObserver;
 import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -117,38 +123,40 @@ public class HomeActivity extends ActionBarActivity{
         startActivity(intent);
 	}
 	
-	/**
-	 * Button onClick to view account details.
-	 * @param menu The item of the menu
-	 */
-	public void accountButton(MenuItem menu){
-        Intent intent = new Intent(this, EditAccountActivity.class);
-        startActivity(intent);
-    }
-	
-	/**
-	 * Button onClick to log out.
-	 * @param menu The item of the menu
-	 */
-	public void logOutButton(MenuItem menu){
-        Intent intent = new Intent(this, LaunchActivity.class);
-        startActivity(intent);
-    }
-	
-	/**
-	 * Button onClick for settings.
-	 * @param menu The item of the menu
-	 */
-	public void settingsButton(MenuItem menu){
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
-    }
-	
 	/* (non-Javadoc)
 	 * @see android.support.v7.app.ActionBarActivity#onBackPressed()
 	 */
 	public void onBackPressed(){
 		
+	}
+	
+	public void onSync(MenuItem v){
+		// Pass the settings flags by inserting them in a bundle
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        /*
+         * Request the sync for the default account, authority, and
+         * manual sync settings
+         */
+        ContentResolver.requestSync(mConnectedAccount, WhiteRockContract.AUTHORITY, settingsBundle);
+	}
+	
+	public void logOutButton(MenuItem v){
+		AccountManager am = AccountManager.get(this);
+		Account a = am.getAccountsByType(AccountGeneral.ACCOUNT_TYPE)[0];
+		String authToken;
+		try {
+			authToken = am.peekAuthToken(a, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
+			am.invalidateAuthToken(AccountGeneral.ACCOUNT_TYPE, authToken);
+			am.removeAccount(a, null, null);
+			Intent i = new Intent(this, SplashActivity.class);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -42,7 +42,9 @@
             android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:textSize="30sp" />
+            android:textSize="30sp" >
+               <requestFocus />
+        </EditText>
 
         <EditText
             android:id="@+id/pass"
@@ -54,10 +56,9 @@
             android:layout_marginTop="50dp"
             android:ems="10"
             android:hint="@string/password"
-            android:textSize="30sp" >
+            android:textSize="30sp" />
 
-            <requestFocus />
-        </EditText>
+         
        
     </RelativeLayout>
 
