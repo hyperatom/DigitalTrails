@@ -3,7 +3,8 @@
     android:id="@+id/fragment_my_walks_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#dbdbdb" >
 
     <Button
         android:id="@+id/createWalkButton"

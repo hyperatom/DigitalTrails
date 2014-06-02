@@ -65,7 +65,6 @@ public class ChooseWalkActivity extends ActionBarActivity
 			
 			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, walkListFragment).commit();
 		}
-
 	}
 
 	/**

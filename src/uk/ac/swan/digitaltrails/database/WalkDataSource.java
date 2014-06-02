@@ -73,6 +73,7 @@ public class WalkDataSource extends DataSource {
 		values.put(ALL_COLUMNS[4], walk.getDifficultyRating());
 		values.put(ALL_COLUMNS[5], walk.getOwner());
 		values.put(ALL_COLUMNS[6], walk.getWalkId());
+		Log.d(TAG, "walkId = " + walk.getWalkId());
 		Uri addedWalk = mContext.getContentResolver().insert(URI, values);
 		Log.d(TAG, "Walk added at pos: " + ContentUris.parseId(addedWalk));
 		return ContentUris.parseId(addedWalk);
@@ -135,7 +136,7 @@ public class WalkDataSource extends DataSource {
 	 * Look up all walks in the database and add them to a list.
 	 * @return
 	 */
-	public List<Walk> getAllWalk() {
+	public List<Walk> getAllWalks() {
 		ArrayList<Walk> walkList = new ArrayList<Walk>();
 		Cursor cursor = mContext.getContentResolver().query(URI, ALL_COLUMNS, null, null, null);
 		cursor.moveToFirst();
@@ -160,6 +161,8 @@ public class WalkDataSource extends DataSource {
 		walk.setDistance(cursor.getDouble(2));
 		walk.setDownloadCount(cursor.getLong(3));
 		walk.setDifficultyRating(cursor.getInt(4));
+		walk.setOwnerId(cursor.getLong(5));
+		walk.setWalkId(cursor.getLong(6));
 		return walk;
 	}
 	

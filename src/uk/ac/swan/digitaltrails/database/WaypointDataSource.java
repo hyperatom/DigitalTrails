@@ -1,18 +1,15 @@
 package uk.ac.swan.digitaltrails.database;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import com.google.android.gms.maps.Projection;
-
-import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
+
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * @author Lewis Hancock
@@ -166,15 +163,6 @@ public class WaypointDataSource extends DataSource {
 	 * @param getUserId
 	 * @return 
 	 */
-	/**
-	 * @param walkId
-	 * @param getLatitude
-	 * @param getLongitude
-	 * @param getIsRequest
-	 * @param getVisitOrder
-	 * @param getUserId
-	 * @return
-	 */
 	public Cursor getAllWaypointsInWalk(long walkId, boolean getLatitude, boolean getLongitude, boolean getIsRequest, boolean getVisitOrder, boolean getUserId) {
 		String 	select  = "((" + ALL_COLUMNS[5] + " == " + walkId + "))";
 		ArrayList<String> projection = new ArrayList<String>();
@@ -200,4 +188,25 @@ public class WaypointDataSource extends DataSource {
 		projection.toArray(arr);
 		return mContext.getContentResolver().query(URI, arr, select, null, ALL_COLUMNS[5] + " COLLATE LOCALIZED ASC");
 	}
+	
+	public ArrayList<Waypoint> cursorToWaypoints(Cursor cursor) {
+		ArrayList<Waypoint> waypoints = new ArrayList<Waypoint>();
+		
+		if (cursor != null && cursor.moveToFirst()) {
+			cursor.moveToPrevious();
+			while (cursor.moveToNext()) {
+				Waypoint wp = new Waypoint();
+				wp.setId(cursor.getLong(0));
+				wp.setLatitude(cursor.getDouble(1));
+				wp.setLongitude(cursor.getDouble(2));
+				wp.setLatLng(new LatLng(wp.getLatitude(), wp.getLongitude()));
+				wp.setIsRequest(cursor.getInt(3));
+				wp.setVisitOrder(cursor.getInt(4));
+				waypoints.add(wp);
+			}
+		}
+		return waypoints;
+		
+	}
+	
 }

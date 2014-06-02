@@ -57,6 +57,7 @@
             android:id="@+id/walkDescriptionEdit"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
+            android:layout_above="@+id/linearLayout1"
             android:layout_alignLeft="@+id/titledit"
             android:layout_alignRight="@+id/titledit"
             android:layout_below="@+id/titledit"
