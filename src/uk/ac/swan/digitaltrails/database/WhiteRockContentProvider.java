@@ -189,6 +189,9 @@ public class WhiteRockContentProvider extends ContentProvider {
 	 * 
 	 */
 	private DatabaseHandler mDbHandler;
+	
+	private SQLiteDatabase mDatabase;
+	
 	/** ThreadLocal storage for batch processing. */
 	/**
 	 * 
@@ -432,7 +435,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 		if (deleteCount > 0 && !isInBatchMode()) {
 			getContext().getContentResolver().notifyChange(uri, null);
 		}
-
+		db.close();
 		return deleteCount;
 	}
 
@@ -526,6 +529,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
 		SQLiteDatabase db = mDbHandler.getWritableDatabase();
+		
 		long id = 0;
 		switch (URI_MATCHER.match(uri)) {
 		case WALK_LIST:
@@ -533,104 +537,105 @@ public class WhiteRockContentProvider extends ContentProvider {
 			db.insert(DbSchema.TABLE_WALK,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case WAYPOINT_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_WAYPOINT,
 					null,
 					values);
-			db.close();
-			Log.d(TAG, "Attempting insert into waypoint table");
-			return getUriForId(id, uri);
+			break;
+
 		case ENGLISH_WALK_DESCR_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_ENGLISH_WALK_DESCR,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case WELSH_WALK_DESCR_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_WELSH_WALK_DESCR,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case ENGLISH_WAYPOINT_DESCR_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case WELSH_WAYPOINT_DESCR_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_WELSH_WAYPOINT_DESCR,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case WAYPOINT_AUDIO_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_WAYPOINT_AUDIO,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case WAYPOINT_VIDEO_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_WAYPOINT_VIDEO,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case WAYPOINT_IMAGE_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_WAYPOINT_IMAGE,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case BUG_REPORT_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_BUG_REPORT,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case CONTENT_REPORT_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_CONTENT_REPORT,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case USER_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_USER,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case USER_SETTINGS_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_USER,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
+
 		case SETTINGS_TYPE_LIST:
 			id = 
 			db.insert(DbSchema.TABLE_SETTING_TYPE,
 					null,
 					values);
-			db.close();
-			return getUriForId(id, uri);
+			break;
 		default:
 			throw new IllegalArgumentException(
 					"Unsupported URI For Insertion: " + uri);
+			
 		}
+		return getUriForId(id, uri);
+
 	}
 
 	/* (non-Javadoc)

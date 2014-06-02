@@ -2,10 +2,11 @@ package uk.ac.swan.digitaltrails.sync;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Walk;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,15 +52,12 @@ public class WalkLoaderAdapter extends ArrayAdapter<Walk> {
 	 * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Log.d(TAG, "Putting items into list");
 		View view;
 		view = mInflater.inflate(R.layout.fragment_search_list, parent, false);
 		Walk item = (Walk) getItem(position);
 		TextView textView = (TextView) view.findViewById(R.id.label);
-		Log.d(TAG, "gotTextView");
 		if (textView != null) {
 			textView.setText(item.getEnglishDescriptions().getTitle());
-			Log.d(TAG, "SettingText");
 		}
 		return view;
 	}
@@ -68,6 +66,7 @@ public class WalkLoaderAdapter extends ArrayAdapter<Walk> {
 	 * Set this ArrayAdapter's data to a List<Walk>
 	 * @param walks the List to set the data to.
 	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void setData(List<Walk> walks) {
 		clear();
 		if (walks != null) {

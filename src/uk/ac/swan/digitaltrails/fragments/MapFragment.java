@@ -358,8 +358,13 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 	@Override
 	public void onConnected(Bundle arg0) {
 		Log.d(TAG, "LocClient Connected");
-		LatLng userLatLng = new LatLng(mLocationClient.getLastLocation().getLatitude(), mLocationClient.getLastLocation().getLongitude());
-		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 15)); 
+		try{
+			LatLng userLatLng = new LatLng(mLocationClient.getLastLocation().getLatitude(), mLocationClient.getLastLocation().getLongitude());
+			mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 15)); 
+		}catch(Exception e){
+			Toast t = Toast.makeText(getActivity(), "Please turn on your GPS", Toast.LENGTH_LONG);
+			t.show();
+		}
 	}
 
 	/* (non-Javadoc)
