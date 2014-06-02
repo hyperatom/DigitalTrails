@@ -2,24 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:baselineAligned="false" >
-    
-    <fragment
-    	android:name="uk.ac.swan.digitaltrails.fragments.WalkListFragment"
-    	android:id="@+id/walk_list_fragment"
-    	android:layout_weight="1"
-    	android:layout_width="0dp"
-    	android:layout_height="match_parent"
-    	class="uk.ac.swan.digitaltrails.fragments.WalkListFragment" />
+    android:baselineAligned="false"
+    android:orientation="vertical" >
 
-    <fragment 
-        android:name="uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment"
-        android:id="@+id/walk_details_fragment"
-        android:layout_weight="3"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/searchQuery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="0.00"
+        android:ems="10"
+        android:hint="@string/search_" >
+    </EditText>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment" />
-    
-</LinearLayout>
+        android:orientation="horizontal" >
 
+        <fragment
+            android:id="@+id/walk_list_fragment"
+            android:name="uk.ac.swan.digitaltrails.fragments.WalkListFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            class="uk.ac.swan.digitaltrails.fragments.WalkListFragment" />
+
+        <fragment
+            android:id="@+id/walk_details_fragment"
+            android:name="uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            class="uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment" />
+    </LinearLayout>
+
+</LinearLayout>

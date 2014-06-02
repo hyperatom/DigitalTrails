@@ -3,21 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
-    <FrameLayout
-        android:id="@+id/fragment_container_thin"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/searchQuery"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/go"
+        android:ems="10"
+        android:hint="@string/search_" >
+    </EditText>
+
+    <LinearLayout 
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-    </FrameLayout>
+        android:orientation="horizontal" >
 
-    <FrameLayout
-        android:id="@+id/fragment_container_large"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        <FrameLayout
+            android:id="@+id/fragment_container_thin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+        </FrameLayout>
 
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/fragment_container_large"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+        </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>
