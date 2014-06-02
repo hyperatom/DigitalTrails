@@ -11,7 +11,6 @@
 	    android:text="@+id/label"
 	    android:textSize="45px"
 	    android:padding="10dp" >
-
     </TextView>
 
 </RelativeLayout>

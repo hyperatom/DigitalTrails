@@ -381,7 +381,9 @@ public class MapActivity extends ActionBarActivity implements
 	 */
 	@Override
 	protected void onStop() {
-		mLocationClient.disconnect();
+		if (mLocationClient != null) {
+			mLocationClient.disconnect();
+		}
 		super.onStop();
 	}
 
@@ -570,14 +572,6 @@ public class MapActivity extends ActionBarActivity implements
 	 */
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
-	}
-	
-	/* (non-Javadoc)
-	 * @see android.support.v7.app.ActionBarActivity#onBackPressed()
-	 */
-	public void onBackPressed(){
-		Intent intent = new Intent(this, ChooseWalkActivity.class);
-		startActivity(intent);
 	}
 
 	// Google Play Services stuff	
