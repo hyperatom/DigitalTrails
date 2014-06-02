@@ -106,6 +106,15 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		}
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+          case android.R.id.home:
+            onBackPressed();
+        }
+        return true;
+    }
 
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
@@ -217,7 +226,7 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
 	}
-
+	
 	/**
 	 * Load the EditWalkFragment after clicking on "Edit"
 	 * @param view
@@ -279,6 +288,10 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		}
 		transaction.addToBackStack(null);
 		transaction.commit();
+	}
+	
+	public void doneAddingWaypointsButton(View view){
+		onBackPressed();
 	}
 
 	/**

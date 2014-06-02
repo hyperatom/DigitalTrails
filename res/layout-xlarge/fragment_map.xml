@@ -14,22 +14,23 @@
         android:layout_below="@+id/done"
         android:gravity="center"
         android:text="Press and hold on a location to add a waypoint"
-        android:textSize="20sp" />
+        android:textSize="40sp" />
     
     <Button
         android:id="@+id/done"
         android:layout_width="150dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button_background"
+        android:gravity="center"
         android:onClick="doneAddingWaypointsButton"
         android:text="Finish Adding Waypoints"
-        android:textSize="12sp" />
+        android:textSize="30sp" />
 
     <FrameLayout
         android:id="@+id/map_container"
@@ -41,7 +42,6 @@
         android:layout_below="@+id/currentLocation"
         android:layout_marginTop="10dp"
         android:orientation="vertical" >
-
     </FrameLayout>
 
 </RelativeLayout>
