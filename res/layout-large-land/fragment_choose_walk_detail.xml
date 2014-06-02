@@ -15,10 +15,11 @@
             android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/chooseWalk"
             android:textSize="30sp" />
+
     </LinearLayout>
 
     <RelativeLayout
@@ -135,19 +136,6 @@
         android:layout_marginRight="40dp"
         android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/map"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/textView4"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/button_background"
-            android:gravity="center"
-            android:src="@drawable/map_nott" />
-
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -159,20 +147,30 @@
         <RelativeLayout
             android:id="@+id/main_sub"
             android:layout_width="match_parent"
-            android:layout_height="340dp"
-            android:layout_toRightOf="@+id/map" >
+            android:layout_height="340dp" >
 
-            <TextView
-                android:id="@+id/long_descr"
+            <ScrollView
+                android:id="@+id/scroll"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:layout_above="@+id/startButton"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+                android:layout_margin="20dp" >
+                
+                <TextView
+                android:id="@+id/long_descr"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="10dp"
                 android:inputType="textMultiLine"
                 android:text="@string/chooseWalk"
-                android:textSize="15sp" />
+                android:textSize="25sp" />
+            </ScrollView>
 
             <Button
                 android:id="@+id/startButton"
@@ -197,10 +195,9 @@
                 android:id="@+id/delete_walk"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@+id/textView9"
-                android:layout_below="@+id/long_descr"
-                android:layout_marginRight="5dp"
                 android:background="@drawable/button_background"
                 android:onClick="deleteWalkButtonClick"
                 android:text="Delete walk"

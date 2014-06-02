@@ -4,6 +4,7 @@ import uk.ac.swan.digitaltrails.R;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -26,6 +27,10 @@ public class EditAccountActivity extends ActionBarActivity{
 		setContentView(R.layout.edit_account_view);
 		this.getWindow().setSoftInputMode
 			(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
 	}
 	
 	/* (non-Javadoc)

@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.location.Location;
 import android.net.Uri;
@@ -203,6 +204,10 @@ public class MapActivity extends ActionBarActivity implements
 			mLocationRequest.setInterval(UPDATE_INTERVAL);
 			mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
 		}
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
 	}
 
 	

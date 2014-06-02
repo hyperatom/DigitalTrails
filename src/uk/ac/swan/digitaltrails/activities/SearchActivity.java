@@ -12,6 +12,7 @@ import uk.ac.swan.digitaltrails.fragments.SearchDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.SearchListFragment;
 import android.accounts.Account;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
@@ -61,6 +62,11 @@ SearchListFragment.OnWalkSelectedListener   {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
+		
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
+		
 		if (findViewById(R.id.fragment_container) != null) {
 
 			if (savedInstanceState != null) {
