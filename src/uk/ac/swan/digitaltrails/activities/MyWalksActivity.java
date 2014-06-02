@@ -111,6 +111,8 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	 */
 	@Override
 	public void onWalkSelected(int position) {
+		EditText search = (EditText) findViewById(R.id.searchQuery);
+		search.setVisibility(EditText.INVISIBLE);
 		WalkListFragment listFrag = (WalkListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
 		if (listFrag != null) {
 
