@@ -77,7 +77,7 @@ SearchListFragment.OnWalkSelectedListener   {
 			searchListFragment.setArguments(getIntent().getExtras());
 			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchListFragment).commit();
 		} 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		EditText search = (EditText) findViewById(R.id.searchQuery);
 		
