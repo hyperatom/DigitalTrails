@@ -25,6 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * @author Lewis Hancock
@@ -205,6 +206,9 @@ SearchListFragment.OnWalkSelectedListener   {
 			wp.getEnglishDescription().setForeignId(wpId);
 			descrDataSource.addDescription(wp.getEnglishDescription());
 		}
+		Toast toast = Toast.makeText(getBaseContext(), "Walk Downloaded Successfully", Toast.LENGTH_SHORT);
+		toast.show();
+		onBackPressed();
 	}
 
 	public void search(String query) {
@@ -212,6 +216,9 @@ SearchListFragment.OnWalkSelectedListener   {
 		Bundle bundle = new Bundle();
 		bundle.putString("query", query);
 		SearchListFragment list = (SearchListFragment) getSupportFragmentManager().findFragmentById(R.id.search_list_fragment);
+		if (list == null) {
+			list = (SearchListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+		}
 		list.search(bundle);
 	}
 

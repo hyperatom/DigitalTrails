@@ -3,23 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
-    <fragment
-        android:id="@+id/walk_list_fragment"
-        android:name="uk.ac.swan.digitaltrails.fragments.WalkListFragment"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        class="uk.ac.swan.digitaltrails.fragments.WalkListFragment" />
+    <EditText
+        android:id="@+id/searchQuery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="0.00"
+        android:ems="10"
+        android:hint="@string/search_" >
+    </EditText>
 
-    <fragment
-        android:id="@+id/walk_details_fragment"
-        android:name="uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3"
-        class="uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment" />
+        android:orientation="horizontal" >
+
+        <fragment
+            android:id="@+id/walk_list_fragment"
+            android:name="uk.ac.swan.digitaltrails.fragments.WalkListFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            class="uk.ac.swan.digitaltrails.fragments.WalkListFragment" />
+
+        <fragment
+            android:id="@+id/walk_details_fragment"
+            android:name="uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            class="uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment" />
+    </LinearLayout>
 
 </LinearLayout>
-

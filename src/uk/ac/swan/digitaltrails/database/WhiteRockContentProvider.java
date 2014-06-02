@@ -841,14 +841,14 @@ public class WhiteRockContentProvider extends ContentProvider {
 				sortOrder = WhiteRockContract.WalkWithEnglishDescriptions.SORT_ORDER_DEFAULT;
 			}
 			break;
-//		case WALK_WITH_ENGLISH_ID:
-//			queryString = DbSchema.TABLE_WALK + " LEFT OUTER JOIN "
-//					+ DbSchema.TABLE_ENGLISH_WALK_DESCR + " ON "
-//					+ DbSchema.TABLE_WALK + "." + WhiteRockContract.Walk.ID
-//					+ DbSchema.TABLE_ENGLISH_WALK_DESCR + "." + WhiteRockContract.EnglishWalkDescriptions.WALK_ID;
-//			builder.setTables(queryString);
-//			builder.appendWhere(WhiteRockContract.WalkWithEnglishDescriptions._ID + " = " + uri.getLastPathSegment());
-//			break;
+		case WALK_WITH_ENGLISH_ID:
+			queryString = DbSchema.TABLE_WALK + " LEFT OUTER JOIN "
+					+ DbSchema.TABLE_ENGLISH_WALK_DESCR + " ON "
+					+ DbSchema.TABLE_WALK + "." + WhiteRockContract.Walk.ID
+					+ DbSchema.TABLE_ENGLISH_WALK_DESCR + "." + WhiteRockContract.EnglishWalkDescriptions.WALK_ID;
+			builder.setTables(queryString);
+			builder.appendWhere(WhiteRockContract.WalkWithEnglishDescriptions._ID + " = " + uri.getLastPathSegment());
+			break;
 		default:
 			throw new IllegalArgumentException("Unsupported URI: " + uri + " case argument is " + URI_MATCHER.match(uri));
 		}

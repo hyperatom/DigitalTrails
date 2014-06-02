@@ -73,8 +73,8 @@ public class EditWalkFragment extends WalkDetailsFragment {
 			}
 			mDescrId = data.getInt(0);
 			if (mTitleText != null && mLongDescrText != null) {
-				mTitleText.setText(data.getString(1));
-				mLongDescrText.setText(data.getString(3));
+				mTitleText.setText(data.getString(6));
+				mLongDescrText.setText(data.getString(8));
 			} else {
 				Log.d(TAG, "Title or descr text not found");
 			}
