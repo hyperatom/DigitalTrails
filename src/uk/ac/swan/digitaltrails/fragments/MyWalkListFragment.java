@@ -62,7 +62,7 @@ public class MyWalkListFragment extends WalkListFragment {
 		baseUri = WhiteRockContract.WalkWithEnglishDescriptions.CONTENT_URI;
 		String select = "((user_id == " + userId +"))";
 		Log.d(TAG, "Select String: " + select);
-		return new CursorLoader(getActivity(), baseUri, WhiteRockContract.WalkWithEnglishDescriptions.PROJECTION_ALL, select, null, WhiteRockContract.EnglishWalkDescriptions.WALK_ID + " COLLATE LOCALIZED ASC");
+		return new CursorLoader(getActivity(), baseUri, WhiteRockContract.WalkWithEnglishDescriptions.PROJECTION_ALL, select, null, "title" + " COLLATE LOCALIZED ASC");
 	}
 
 	/* (non-Javadoc)

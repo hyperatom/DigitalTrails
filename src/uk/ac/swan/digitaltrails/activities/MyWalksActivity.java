@@ -15,8 +15,10 @@ import uk.ac.swan.digitaltrails.fragments.AddWaypointMapFragment;
 import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.EditWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.EditWaypointMapFragment;
+import uk.ac.swan.digitaltrails.fragments.MapFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkListFragment;
+import uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
 import uk.ac.swan.digitaltrails.utils.GlobalFlags;
 import android.annotation.SuppressLint;
@@ -25,6 +27,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -35,6 +38,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * @author Lewis Hancock
@@ -158,18 +162,21 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	 */
 	@Override
 	public void onBackPressed() {
-//		// Do different things depending on our chosen fragment.
-//		MyWalkListFragment walkFrag = (MyWalkListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
-//		if (walkFrag != null) {
-//			Intent intent = new Intent(this, HomeActivity.class);
-//			startActivity(intent);
-//		} else {
-//			MyWalkDetailsFragment walkDetails = (MyWalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
-//			if (walkDetails != null) {
-//				
-//			}
-//		}
-		super.onBackPressed();
+		// Do different things depending on our chosen fragment.
+		Fragment container = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+		if (container == null) {
+			container = getSupportFragmentManager().findFragmentById(R.id.fragment_container_thin);
+			if (!container.isVisible()) {
+				super.onBackPressed();
+				return;
+			} else {
+				Intent intent = new Intent(this, HomeActivity.class);
+				startActivity(intent);
+			}
+		} else {
+			super.onBackPressed();
+			return;
+		}
 	}
 
 	/**
@@ -260,13 +267,6 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		}
 		transaction.addToBackStack(null);
 		transaction.commit();
-	}
-
-	/**
-	 * onClick for editEditWaypointButton
-	 * @param view
-	 */
-	public void editEditWaypointButtonOnClick(View view) {
 	}
 
 	/**
@@ -411,10 +411,16 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 				descrDataSource.addDescription(wp.getEnglishDescription().getTitle(), wp.getEnglishDescription().getShortDescription(), wp.getEnglishDescription().getLongDescription(), waypointId);
 			}
 		}
-			mWaypointList.clear();
-		onBackPressed();
+		mWaypointList.clear();
+		reloadActivity();
 	}
 
+	public void reloadActivity() {
+		Intent intent = getIntent();
+		finish();
+		startActivity(intent);
+	}
+	
 	/**
 	 * Called when CreateWalkFragment add waypoint button is pressed. Swap in AddWaypointFragment.
 	 * @param view
@@ -478,7 +484,9 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 				
 				wdSource.deleteWalk(walkId);
 				mWaypointList.clear();
-				onBackPressed();
+				reloadActivity();
+				Toast toast = Toast.makeText(getBaseContext(), "Successfully Deleted Walk", Toast.LENGTH_SHORT);
+				toast.show();
 			}
 		});
 		// Add the negative button

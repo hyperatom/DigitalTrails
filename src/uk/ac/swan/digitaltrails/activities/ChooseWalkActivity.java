@@ -22,6 +22,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * @author Lewis Hancock
@@ -128,9 +129,11 @@ public class ChooseWalkActivity extends ActionBarActivity
 		// Add the positive button
 		builder.setPositiveButton(R.string.confirm_delete_walk, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
+				boolean singlePane = false;
 				WalkDetailsFragment detailsFrag = (WalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.walk_details_fragment);
 				if (detailsFrag == null) {
 					detailsFrag = (WalkDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+					singlePane = true;
 				}
 				int walkId = detailsFrag.getCurrentPosition();
 				WalkDataSource wdSource = new WalkDataSource(getBaseContext());
@@ -160,7 +163,16 @@ public class ChooseWalkActivity extends ActionBarActivity
 				
 				wdSource.deleteWalk(walkId);
 				waypointList.clear();
-				onBackPressed();
+				
+				if (singlePane) {
+					onBackPressed();
+				} else {
+					WalkListFragment listFrag = (WalkListFragment) getSupportFragmentManager().findFragmentById(R.id.walk_list_fragment);
+					detailsFrag.updateDetailsView(0);
+					listFrag.getLoaderManager().restartLoader(0, null, listFrag);					
+				}
+				Toast toast = Toast.makeText(getBaseContext(), "Successfully Deleted Walk", Toast.LENGTH_SHORT);
+				toast.show();
 			}
 		});
 		// Add the negative button
