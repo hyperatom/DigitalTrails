@@ -9,6 +9,7 @@ import uk.ac.swan.digitaltrails.database.EnglishWalkDescriptionDataSource;
 import uk.ac.swan.digitaltrails.database.EnglishWaypointDescriptionDataSource;
 import uk.ac.swan.digitaltrails.database.WalkDataSource;
 import uk.ac.swan.digitaltrails.database.WaypointDataSource;
+import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
@@ -60,7 +61,6 @@ public class ChooseWalkActivity extends ActionBarActivity
 			
 			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, walkListFragment).commit();
 		}
-
 	}
 
 	/**

@@ -634,6 +634,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 					"Unsupported URI For Insertion: " + uri);
 			
 		}
+		db.close();
 		return getUriForId(id, uri);
 
 	}
