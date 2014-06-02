@@ -3,6 +3,7 @@ package uk.ac.swan.digitaltrails.activities;
 import java.util.ArrayList;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
 import uk.ac.swan.digitaltrails.components.Description;
 import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
 import uk.ac.swan.digitaltrails.components.Media;
@@ -11,11 +12,14 @@ import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.ErrorDialogFragment;
 import uk.ac.swan.digitaltrails.fragments.InfoViewDialogFragment;
 import uk.ac.swan.digitaltrails.utils.ReceiveTransitionsIntentService;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -692,6 +696,37 @@ public class MapActivity extends ActionBarActivity implements
 		}
 		mInProgress = false;
 		mLocationClient.disconnect();
+	}
+	
+	public void logOutButton(MenuItem v){
+		AccountManager am = AccountManager.get(this);
+		Account a = am.getAccountsByType(AccountGeneral.ACCOUNT_TYPE)[0];
+		String authToken;
+		try {
+			authToken = am.peekAuthToken(a, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS);
+			am.invalidateAuthToken(AccountGeneral.ACCOUNT_TYPE, authToken);
+			am.removeAccount(a, null, null);
+			Intent i = new Intent(this, SplashActivity.class);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void onSync(MenuItem v){
+		// Pass the settings flags by inserting them in a bundle
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        /*
+         * Request the sync for the default account, authority, and
+         * manual sync settings
+         */
+        AccountManager am = AccountManager.get(this);
+		Account a = am.getAccountsByType(AccountGeneral.ACCOUNT_TYPE)[0];
+        ContentResolver.requestSync(a, WhiteRockContract.AUTHORITY, settingsBundle);
 	}
 	
 } 

@@ -163,7 +163,7 @@ public class WalkListFragment extends ListFragment
 					new int[] {android.R.id.text1}, 0);	
 		setListAdapter(mAdapter);
 		setListShown(false);
-
+	
 		getLoaderManager().initLoader(0, null, this);
 	}
 	
