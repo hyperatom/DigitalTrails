@@ -254,6 +254,8 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		Marker marker = mMap.addMarker(options);
 		marker.setDraggable(true);
 		mMarkers.add(marker);
+		Toast toast = Toast.makeText(this.getActivity().getBaseContext(), "Waypoint Successfully Added", Toast.LENGTH_SHORT);
+		toast.show();
 	}
 
 	
