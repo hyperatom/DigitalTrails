@@ -119,9 +119,7 @@ public class WalkListFragment extends ListFragment
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		search = (EditText) activity.findViewById(R.id.searchQuery);
-		search.setVisibility(EditText.VISIBLE);
-		
+
 		try {
 			mCallback = (OnWalkSelectedListener) activity;
 		} catch (ClassCastException e) {
@@ -161,7 +159,9 @@ public class WalkListFragment extends ListFragment
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
+		search = (EditText) getActivity().findViewById(R.id.searchQuery);
+		search.setVisibility(EditText.VISIBLE);
+
 		//setHasOptionsMenu(true);
 		setEmptyText("No Walks");	//TODO load this from resource.
 		mAdapter = new SimpleCursorAdapter(getActivity(), mLayout, null,
@@ -169,6 +169,7 @@ public class WalkListFragment extends ListFragment
 					new int[] {android.R.id.text1}, 0);	
 		setListAdapter(mAdapter);
 		setListShown(false);
+
 		getLoaderManager().initLoader(0, null, this);
 	}
 	
