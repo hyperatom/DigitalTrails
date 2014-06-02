@@ -7,6 +7,7 @@ import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -52,6 +53,11 @@ public class HomeActivity extends ActionBarActivity{
 		TableObserver observer = new TableObserver(null);
 		getContentResolver().registerContentObserver(WhiteRockContract.CONTENT_URI, true, observer);
 		//ContentResolver.addPeriodicSync(mConnectedAccount, WhiteRockContract.AUTHORITY, null, SYNC_INTERVAL);
+	
+		if(getResources().getBoolean(R.bool.portrait_only)){
+	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	    }
+	
 	}
 	
 	/* (non-Javadoc)

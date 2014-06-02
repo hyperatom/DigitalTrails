@@ -114,7 +114,8 @@
         </activity>
         <activity
             android:name="uk.ac.swan.digitaltrails.activities.ChooseWalkActivity"
-            android:parentActivityName="uk.ac.swan.digitaltrails.activities.HomeActivity" >
+            android:parentActivityName="uk.ac.swan.digitaltrails.activities.HomeActivity" 
+            android:windowSoftInputMode="adjustNothing|stateHidden">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -134,7 +135,8 @@
         </activity>
         <activity
             android:name="uk.ac.swan.digitaltrails.activities.SearchActivity"
-            android:parentActivityName="uk.ac.swan.digitaltrails.activities.HomeActivity" >
+            android:parentActivityName="uk.ac.swan.digitaltrails.activities.HomeActivity"
+            android:windowSoftInputMode="adjustNothing|stateHidden">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -145,7 +147,8 @@
         </activity>
         <activity
             android:name="uk.ac.swan.digitaltrails.activities.MyWalksActivity"
-            android:parentActivityName="uk.ac.swan.digitaltrails.activities.HomeActivity" >
+            android:parentActivityName="uk.ac.swan.digitaltrails.activities.HomeActivity"
+            android:windowSoftInputMode="adjustNothing|stateHidden" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
