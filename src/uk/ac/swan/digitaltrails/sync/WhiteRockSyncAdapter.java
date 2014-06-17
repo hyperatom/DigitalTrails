@@ -147,8 +147,11 @@ public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 				if ((tmp.getDifficultyRating() != -1 && tmp.getDifficultyRating() != walk.getDifficultyRating()) ||
 						tmp.getDownloadCount() != -1 && tmp.getDownloadCount() != walk.getDownloadCount() ||
 						tmp.getDistance() != -1 && tmp.getDistance() != walk.getDistance() ||
-						tmp.getEnglishDescriptions().getTitle() != null && !tmp.getEnglishDescriptions().getTitle().equals(walk.getEnglishDescriptions().getTitle())) {
-								
+						tmp.getEnglishDescriptions().getTitle() != null && !tmp.getEnglishDescriptions().getTitle().equals(walk.getEnglishDescriptions().getTitle()) ||
+						tmp.getEnglishDescriptions().getLongDescription() != null  && !tmp.getEnglishDescriptions().getLongDescription().equals(walk.getEnglishDescriptions().getLongDescription()) ||
+						tmp.getWelshDescriptions().getTitle() != null && !tmp.getWelshDescriptions().getTitle().equals(walk.getWelshDescriptions().getTitle()) ||
+						tmp.getWelshDescriptions().getLongDescription() != null  && !tmp.getWelshDescriptions().getLongDescription().equals(walk.getWelshDescriptions().getLongDescription())) {
+		
 					
 					Log.i(TAG, "Scheduling Update: " + existingUri);
 					ContentValues values = walkDataSource.getContentValues(tmp);
@@ -167,11 +170,23 @@ public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 							.withValues(values)
 							.withYieldAllowed(true)
 							.build());
+					
+//					descrUri = WhiteRockContract.WelshWalkDescriptions.CONTENT_URI.buildUpon().appendPath(Long.toString(walk.getWelshDescriptions().getId())).build();
+//					values.clear();
+//					values = walkDescDataSource.getContentValues(tmp.getWelshDescriptions());
+//					values.remove("_id");
+//					values.remove("walk_id");
+//					batch.add(ContentProviderOperation.newUpdate(descrUri)
+//							.withValues(values)
+//							.withYieldAllowed(true)
+//							.build());
+
 				} else {
 					Log.i(TAG, "No Action Required: " + existingUri);
 				}
 				
-				updateLocalWaypointData(walk, tmp, batch);
+				//TODO: Fix updating waypoint data.
+				//updateLocalWaypointData(walk, tmp, batch);
 
 			} // could delete here, but strategy is to NOT delete from devices.
 		}
