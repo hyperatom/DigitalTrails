@@ -3,9 +3,8 @@
     android:id="@+id/deatilLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:orientation="vertical"
-    android:background="#dbdbdb" >
+    android:background="#dbdbdb"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -150,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:text="@string/download_title"
+            android:text="@string/chooseWalk"
             android:textSize="15sp" />
     </ScrollView>
 

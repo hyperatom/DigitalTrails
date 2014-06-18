@@ -20,7 +20,7 @@
             <RelativeLayout
                 android:id="@+id/relativeLayout1"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="5dp"
@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="Edit Account"
-                    android:textSize="40sp" />
+                    android:textSize="30sp" />
 
                 <View
                     android:layout_width="400dp"
@@ -164,7 +164,7 @@
         <Button
             android:id="@+id/login"
             android:layout_width="200dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="25dp"
@@ -176,7 +176,7 @@
         <Button
             android:id="@+id/cancel"
             android:layout_width="200dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="25dp"
