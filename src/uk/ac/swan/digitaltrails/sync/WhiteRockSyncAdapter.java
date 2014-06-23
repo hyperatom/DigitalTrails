@@ -148,9 +148,7 @@ public class WhiteRockSyncAdapter extends AbstractThreadedSyncAdapter {
 						tmp.getDownloadCount() != -1 && tmp.getDownloadCount() != walk.getDownloadCount() ||
 						tmp.getDistance() != -1 && tmp.getDistance() != walk.getDistance() ||
 						tmp.getEnglishDescriptions().getTitle() != null && !tmp.getEnglishDescriptions().getTitle().equals(walk.getEnglishDescriptions().getTitle()) ||
-						tmp.getEnglishDescriptions().getLongDescription() != null  && !tmp.getEnglishDescriptions().getLongDescription().equals(walk.getEnglishDescriptions().getLongDescription()) ||
-						tmp.getWelshDescriptions().getTitle() != null && !tmp.getWelshDescriptions().getTitle().equals(walk.getWelshDescriptions().getTitle()) ||
-						tmp.getWelshDescriptions().getLongDescription() != null  && !tmp.getWelshDescriptions().getLongDescription().equals(walk.getWelshDescriptions().getLongDescription())) {
+						tmp.getEnglishDescriptions().getLongDescription() != null  && !tmp.getEnglishDescriptions().getLongDescription().equals(walk.getEnglishDescriptions().getLongDescription())) {
 		
 					
 					Log.i(TAG, "Scheduling Update: " + existingUri);
