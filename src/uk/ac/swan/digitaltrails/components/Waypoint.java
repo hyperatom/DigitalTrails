@@ -2,6 +2,7 @@ package uk.ac.swan.digitaltrails.components;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -14,12 +15,14 @@ import com.google.gson.annotations.SerializedName;
  * component to contain a waypoint item
  *
  */
+@SuppressLint("ParcelCreator")
 public class Waypoint implements Parcelable {
 
+	private long mId;
 	/**
 	 * 
 	 */
-	@SerializedName("id") private long mId;
+	@SerializedName("id") private long mWaypointId;
 	/**
 	 * 
 	 */
@@ -82,9 +85,7 @@ public class Waypoint implements Parcelable {
 	 * 
 	 * @return
 	 */
-	/**
-	 * @return
-	 */
+
 	public long getId() {
 		return mId;
 	}
@@ -93,13 +94,19 @@ public class Waypoint implements Parcelable {
 	 * 
 	 * @param id
 	 */
-	/**
-	 * @param id
-	 */
+
 	public void setId(long id) {
 		this.mId = id;
 	}
 
+	public long getWaypointId() {
+		return mWaypointId;
+	}
+	
+	public void setWaypointId(long id) {
+		this.mWaypointId = id;
+	}
+	
 	/**
 	 * @return
 	 */

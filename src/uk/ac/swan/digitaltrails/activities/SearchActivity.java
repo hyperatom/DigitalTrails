@@ -2,6 +2,7 @@ package uk.ac.swan.digitaltrails.activities;
 
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
+import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
 import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.DescriptionDataSource;
@@ -241,8 +242,11 @@ SearchListFragment.OnWalkSelectedListener   {
 		for (Waypoint wp : mWalk.getWaypoints()) {
 			wp.setWalkId(walkId);
 			long wpId = wpDataSource.addWaypoint(wp);
+			Log.d(TAG, "Waypoint remoteId: " + wp.getWaypointId());
 			wp.getEnglishDescription().setForeignId(wpId);
-			descrDataSource.addDescription(wp.getEnglishDescription());
+			EnglishWaypointDescription descr = wp.getEnglishDescription();
+			descrDataSource.addDescription(descr);
+			Log.d(TAG, "descr ids: " + descr.getId() +  " " + descr.getDescriptionId());
 		}
 		Toast toast = Toast.makeText(getBaseContext(), "Walk Downloaded Successfully", Toast.LENGTH_SHORT);
 		toast.show();

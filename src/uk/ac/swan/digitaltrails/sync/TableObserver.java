@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 
 public class TableObserver extends ContentObserver {
@@ -23,7 +24,7 @@ public class TableObserver extends ContentObserver {
 	
 	@Override
 	public void onChange(boolean selfChange, Uri changeUri) {
-		ContentResolver.requestSync(mAccount, WhiteRockContract.AUTHORITY, null);
+		ContentResolver.requestSync(mAccount, WhiteRockContract.AUTHORITY, new Bundle());
 	}
 	
 	public TableObserver(Handler handler) {

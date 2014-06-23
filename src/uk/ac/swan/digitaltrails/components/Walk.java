@@ -1,13 +1,11 @@
 package uk.ac.swan.digitaltrails.components;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import com.google.gson.annotations.SerializedName;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import uk.ac.swan.digitaltrails.utils.Duration;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * @author Lewis Hancock

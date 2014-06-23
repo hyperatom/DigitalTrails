@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
  * Abstract class to define methods for DataSources.
  * DataSources are to be used to add, update and delete from the database. 
  * @author Lewis Hancock
- *
  */
 public abstract class DataSource {
 

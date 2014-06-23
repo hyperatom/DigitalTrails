@@ -11,7 +11,7 @@ public class MediaDataSource extends DataSource {
 	/**
 	 * 
 	 */
-	protected final String[] ALL_COLUMNS = { "id", "file_location" };
+	protected final String[] ALL_COLUMNS = { "id", "file_location", "remote_id" };
 
 	/**
 	 * @param context

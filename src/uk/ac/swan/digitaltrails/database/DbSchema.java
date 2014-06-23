@@ -129,7 +129,8 @@ public interface DbSchema {
 			+"is_request INT,"
 			+"visit_order INT,"
 			+"walk_id INT,"
-			+"user_id INT"
+			+"user_id INT,"
+			+"waypoint_id INT"
 			+")";
 	
 	/**
@@ -139,7 +140,8 @@ public interface DbSchema {
 			"CREATE TABLE `waypoint_audio` (" 
 			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
 			+"file_name TEXT,"
-			+"waypoint_id INT"
+			+"waypoint_id INT,"
+			+"remote_id INT"
 			+")";
 	
 	/**
@@ -149,7 +151,8 @@ public interface DbSchema {
 			"CREATE TABLE `waypoint_video` (" 
 			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
 			+"file_name TEXT,"
-			+"waypoint_id INT"
+			+"waypoint_id INT,"
+			+"remote_id INT"
 			+")";
 	
 	/**
@@ -159,7 +162,8 @@ public interface DbSchema {
 			"CREATE TABLE `waypoint_image` ("
 			+"_id INTEGER PRIMARY KEY AUTOINCREMENT ,"
 			+"file_name TEXT,"
-			+"waypoint_id INT"
+			+"waypoint_id INT,"
+			+"remote_id INT"
 			+")";
 	
 	/**
@@ -171,7 +175,8 @@ public interface DbSchema {
 			+"title TEXT,"
 			+"short_description TEXT,"
 			+"long_description TEXT,"
-			+"waypoint_id INT"
+			+"waypoint_id INT,"
+			+"description_id INT"
 			+")";
 	
 	/**
@@ -195,7 +200,8 @@ public interface DbSchema {
 			+"title TEXT,"
 			+"short_description TEXT,"
 			+"long_description TEXT,"
-			+"waypoint_id INT"
+			+"waypoint_id INT,"
+			+"description_id INT"
 			+")";
 	
 	/**

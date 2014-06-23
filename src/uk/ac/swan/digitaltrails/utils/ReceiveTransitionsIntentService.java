@@ -15,16 +15,13 @@ import android.widget.Toast;
 
 /**
  * @author Lewis Hancock
- *
+ * Deals with entering and exiting geofences.
  */
 public class ReceiveTransitionsIntentService extends IntentService {
 	
 	/**
 	 * Constructor
 	 * Sets identifier for the service
-	 */
-	/**
-	 * 
 	 */
 	public ReceiveTransitionsIntentService() {
 		super("ReceiveTransitionsIntentService");

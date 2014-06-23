@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -38,27 +39,6 @@ public class WaypointDataSource extends DataSource {
 	}
 
 	/**
-	 * @param latitude
-	 * @param longitude
-	 * @param isRequest
-	 * @param visitOrder
-	 * @param walkId
-	 * @param userId
-	 * @return
-	 */
-	public long addWaypoint(double latitude, double longitude, int isRequest, long visitOrder, long walkId, long userId) {
-		ContentValues values = new ContentValues();
-		values.put(ALL_COLUMNS[1], latitude);
-		values.put(ALL_COLUMNS[2], longitude);
-		values.put(ALL_COLUMNS[3], isRequest);
-		values.put(ALL_COLUMNS[4], visitOrder);
-		values.put(ALL_COLUMNS[5], walkId);
-		values.put(ALL_COLUMNS[6], userId);
-		Uri newWp = mContext.getContentResolver().insert(URI, values);
-		return ContentUris.parseId(newWp);
-	}
-
-	/**
 	 * @param wp
 	 * @return
 	 */
@@ -70,6 +50,8 @@ public class WaypointDataSource extends DataSource {
 		values.put(ALL_COLUMNS[4], wp.getVisitOrder());
 		values.put(ALL_COLUMNS[5], wp.getWalkId());
 		values.put(ALL_COLUMNS[6], wp.getUserId());
+		values.put(ALL_COLUMNS[7], wp.getWaypointId());
+		Log.d(TAG, "New Waypoint Values: " + values.toString());
 		Uri newWp = mContext.getContentResolver().insert(URI, values);
 		return ContentUris.parseId(newWp);	
 	}
@@ -82,6 +64,7 @@ public class WaypointDataSource extends DataSource {
 		values.put(ALL_COLUMNS[4], wp.getVisitOrder());
 		values.put(ALL_COLUMNS[5], wp.getWalkId());
 		values.put(ALL_COLUMNS[6], wp.getUserId());
+		values.put(ALL_COLUMNS[7], wp.getWaypointId());
 		return values;
 	}
 	
@@ -117,13 +100,14 @@ public class WaypointDataSource extends DataSource {
 		}
 		return mContext.getContentResolver().update(URI, values, ALL_COLUMNS[0] + " == " + id, null);
 	}
+	
+	public int updateWaypoint(Waypoint wp) {
+		return mContext.getContentResolver().update(URI, this.getContentValues(wp), ALL_COLUMNS[0] + " == " + wp.getId(), null);
+	}
 
 	/**
 	 * Delete waypoint from database
 	 * @param id the id of the waypoint to delete
-	 */
-	/**
-	 * @param id
 	 */
 	public void deleteWaypoint(long id) {
 		mContext.getContentResolver().delete(URI, ALL_COLUMNS[0] + " = " + id, null);
@@ -132,9 +116,6 @@ public class WaypointDataSource extends DataSource {
 	/**
 	 * Delete all waypoints on a walk
 	 * @param walkId the walk to delete from
-	 */
-	/**
-	 * @param walkId
 	 */
 	public void deleteAllWaypointsInWalk(long walkId) {
 		mContext.getContentResolver().delete(URI, ALL_COLUMNS[5] + " = " + walkId, null);
@@ -202,6 +183,9 @@ public class WaypointDataSource extends DataSource {
 				wp.setLatLng(new LatLng(wp.getLatitude(), wp.getLongitude()));
 				wp.setIsRequest(cursor.getInt(3));
 				wp.setVisitOrder(cursor.getInt(4));
+				wp.setWalkId(cursor.getLong(5));
+				wp.setUserId(cursor.getLong(6));
+				wp.setWaypointId(cursor.getLong(7));
 				waypoints.add(wp);
 			}
 		}

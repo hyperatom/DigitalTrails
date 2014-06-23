@@ -222,12 +222,6 @@ public class HTTP {
 	 * @param type
 	 * @return
 	 */
-	/**
-	 * @param message
-	 * @param url
-	 * @param type
-	 * @return
-	 */
 	public static String request(String message, String url, Type type){
 		
 		HttpRequestBase request = null;
@@ -290,12 +284,6 @@ public class HTTP {
 	
 	/**
 	 * A method to post a file 
-	 * @param uri The URL to post too.
-	 * @param account The account to authenticate with
-	 * @param file The file
-	 * @return The response.
-	 */
-	/**
 	 * @param url
 	 * @param account
 	 * @param file

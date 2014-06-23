@@ -6,6 +6,8 @@ import java.util.List;
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
 import uk.ac.swan.digitaltrails.components.Description;
+import uk.ac.swan.digitaltrails.components.EnglishWalkDescription;
+import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
 import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.DescriptionDataSource;
@@ -331,13 +333,18 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		}
 		Log.d(TAG+":editSaveButtOn", "walk: " + editFrag.getCurrentPosition() + " descr " + editFrag.getDescriptionId());
 		long walkId = editFrag.getCurrentPosition();
-		walkSource.updateWalk(walkId, 0, 0.0, 0, 0);
+		walkSource.updateWalk(walkId, 0, 0.0, 0, 0); // TODO: use real values
 		EditText title = (EditText) findViewById(R.id.title);
 		EditText descr = (EditText) findViewById(R.id.long_descr);
 		DescriptionDataSource descrDataSource = new EnglishWalkDescriptionDataSource(this);
 		String longDescr = descr.getText().toString();
 		String shortDescr = descr.getText().subSequence(0, descr.getText().length()/2).toString();
-		descrDataSource.updateDescription(editFrag.getDescriptionId(), title.getText().toString(), shortDescr, descr.getText().toString());
+		Description update = new Description();
+		update.setId(editFrag.getDescriptionId());
+		update.setTitle(title.getText().toString());
+		update.setShortDescription(shortDescr);
+		update.setLongDescription(longDescr);
+		descrDataSource.updateDescription(update);
 		
 		WaypointDataSource wpDataSource = new WaypointDataSource(this);
 
@@ -371,10 +378,13 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 					wpDataSource.updateWaypoint(wp.getId(), newWp.getLatitude(), newWp.getLongitude(), null, (long) newWp.getVisitOrder(), null, null);
 					if (newWp.getEnglishDescription().getId() == -1) {
 						Log.d(TAG, "Adding new descr");
-						descrDataSource.addDescription(newWp.getEnglishDescription().getTitle().toString(), newWp.getEnglishDescription().getShortDescription(), newWp.getEnglishDescription().getLongDescription(), wp.getId());
+						EnglishWaypointDescription newDescr = newWp.getEnglishDescription();
+						newDescr.setForeignId(wp.getId());
+						descrDataSource.addDescription(newDescr);
 					} else {
 						Log.d(TAG, "Updating descr");
-						descrDataSource.updateDescription(newWp.getEnglishDescription().getId(), newWp.getEnglishDescription().getTitle().toString(), newWp.getEnglishDescription().getShortDescription(), newWp.getEnglishDescription().getLongDescription());
+						EnglishWaypointDescription updatedDescr = newWp.getEnglishDescription();
+						descrDataSource.updateDescription(updatedDescr);
 					}
 					mWaypointList.remove(i);
 					continue;
@@ -388,8 +398,10 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		if (mWaypointList.size() > 0) {
 			for (Waypoint wp : mWaypointList) {
 				// add what is left over
-				long waypointId = wpDataSource.addWaypoint(wp.getLatitude(), wp.getLongitude(), 0, wp.getId(), walkId, 0);
-				descrDataSource.addDescription(wp.getEnglishDescription().getTitle(), wp.getEnglishDescription().getShortDescription(), wp.getEnglishDescription().getLongDescription(), waypointId);
+				long waypointId = wpDataSource.addWaypoint(wp);
+				EnglishWaypointDescription newDescr = wp.getEnglishDescription();
+				newDescr.setForeignId(waypointId);
+				descrDataSource.addDescription(newDescr);
 			}
 			mWaypointList.clear();
 		}
@@ -441,15 +453,22 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 		EditText titleView = (EditText) findViewById(R.id.titledit);
 		EditText descr = (EditText) findViewById(R.id.walkDescriptionEdit);
 		DescriptionDataSource descrDataSource = new EnglishWalkDescriptionDataSource(this);
-		descrDataSource.addDescription(titleView.getText().toString(), descr.getText().toString().substring(0, descr.getText().length()/2), descr.getText().toString(), walkId);
+		EnglishWalkDescription newDescr = new EnglishWalkDescription();
+		newDescr.setTitle(titleView.getText().toString());
+		newDescr.setShortDescription(descr.getText().toString().substring(0, descr.getText().length()/2));
+		newDescr.setLongDescription(descr.getText().toString());
+		newDescr.setForeignId(walkId);
+		descrDataSource.addDescription(newDescr);
 
 		WaypointDataSource wpDataSource = new WaypointDataSource(this);
 		// Waypoints
 		if (mWaypointList.size() > 0) {
 			descrDataSource = new EnglishWaypointDescriptionDataSource(this);
 			for (Waypoint wp : mWaypointList) {
-				long waypointId = wpDataSource.addWaypoint(wp.getLatitude(), wp.getLongitude(), 0, wp.getId(), walkId, 0);
-				descrDataSource.addDescription(wp.getEnglishDescription().getTitle(), wp.getEnglishDescription().getShortDescription(), wp.getEnglishDescription().getLongDescription(), waypointId);
+				long waypointId = wpDataSource.addWaypoint(wp);
+				EnglishWaypointDescription updatedDescr = wp.getEnglishDescription();
+				updatedDescr.setForeignId(waypointId);
+				descrDataSource.addDescription(updatedDescr);
 			}
 		}
 		mWaypointList.clear();

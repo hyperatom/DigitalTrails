@@ -35,11 +35,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 * Where to find the database
 	 */
 	private static String DB_PATH = "";
-	
-	/**
-	 * The SQLite Database we are accessing.
-	 */
-	private SQLiteDatabase mDatabase;
 		
 	/**
 	 * The Context to use.
@@ -62,9 +57,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		}
 		Log.d(TAG,"DB Path is: " + DB_PATH+DB_NAME);
 		Log.d(TAG, "Version Number: " + android.os.Build.VERSION.SDK_INT);
-		this.mContext = context;
-		
-		
+		this.mContext = context;		
 	}
 
 	/* (non-Javadoc)
@@ -96,7 +89,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// create Report tables.
 		db.execSQL(DbSchema.CREATE_TABLE_BUG_REPORT);
 		db.execSQL(DbSchema.CREATE_TABLE_CONTENT_REPORT);
-		
+
 		/*
 		if (!existsDatabase()) {
 			Log.d(TAG, "Db doesn't exist - begin copy");

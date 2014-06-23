@@ -8,6 +8,7 @@ import android.annotation.TargetApi;
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Build;
@@ -185,17 +187,8 @@ public class WhiteRockContentProvider extends ContentProvider {
 	private static final int WALK_WITH_ENGLISH_ID = 86;
 
 	/** Handler for database. */
-	/**
-	 * 
-	 */
-	private DatabaseHandler mDbHandler;
-	
-	private SQLiteDatabase mDatabase;
-	
+	private DatabaseHandler mDbHandler;	
 	/** ThreadLocal storage for batch processing. */
-	/**
-	 * 
-	 */
 	private final ThreadLocal<Boolean> mIsInBatchMode = new ThreadLocal<Boolean>();
 	//TODO: Use constants from contract, not magic strings.
 	/**
@@ -435,7 +428,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 		if (deleteCount > 0 && !isInBatchMode()) {
 			getContext().getContentResolver().notifyChange(uri, null);
 		}
-		db.close();
+		//db.close();
 		return deleteCount;
 	}
 
@@ -634,7 +627,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 					"Unsupported URI For Insertion: " + uri);
 			
 		}
-		db.close();
+		//db.close();
 		return getUriForId(id, uri);
 	}
 
@@ -1045,6 +1038,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 		if (updateCount > 0 && !isInBatchMode()) {
 			getContext().getContentResolver().notifyChange(uri, null);
 		}
+		//db.close();
 		return updateCount;
 
 	}
@@ -1088,12 +1082,6 @@ public class WhiteRockContentProvider extends ContentProvider {
 
 	/**
 	 * Log queries in Honeycomb and higher
-	 * @param builder
-	 * @param projection
-	 * @param selection
-	 * @param sortOrder
-	 */
-	/**
 	 * @param builder
 	 * @param projection
 	 * @param selection

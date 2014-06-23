@@ -12,7 +12,12 @@ public class Media {
 	/**
 	 * the id
 	 */
-	@SerializedName("id") protected long mId;
+	protected long mId;
+	
+	/**
+	 * the remote id.
+	 */
+	@SerializedName("id") protected long mRemoteId;
 	/**
 	 * the file location
 	 */
@@ -43,6 +48,10 @@ public class Media {
 	 */
 	public void setId(long id) {
 		this.mId = id;
+	}
+	
+	public long getRemoteId() {
+		return mRemoteId;
 	}
 	
 	/**

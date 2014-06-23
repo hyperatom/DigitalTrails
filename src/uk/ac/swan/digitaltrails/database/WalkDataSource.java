@@ -99,9 +99,6 @@ public class WalkDataSource extends DataSource {
 	 * Delete walk from database
 	 * @param id the id of the walk to delete
 	 */
-	/**
-	 * @param id
-	 */
 	public void deleteWalk(long id) {
 		Log.i(TAG, "Walk deleted with id: " + id);
 		mContext.getContentResolver().delete(URI, ALL_COLUMNS[0] + " = " + id, null);
@@ -130,6 +127,10 @@ public class WalkDataSource extends DataSource {
 			values.put(ALL_COLUMNS[4], difficultyRating.intValue());
 		}
 		return mContext.getContentResolver().update(URI, values, ALL_COLUMNS[0] + " == " + id, null);
+	}
+	
+	public int updateWalk(Walk walk) {
+		return mContext.getContentResolver().update(URI, this.getContentValues(walk), ALL_COLUMNS[0] + " == " + walk.getId(), null);
 	}
 	
 	/**

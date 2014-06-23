@@ -40,10 +40,6 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
 	public static final class BugReport implements ReportColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "bug_report");
@@ -57,9 +53,7 @@ public class WhiteRockContract {
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
 		public static final String[] PROJECTION_ALL = {ID, DESCRIPTION, USER_ID};
-
 	}
-	
 	
 	/**
 	 * @author Lewis Hancock
@@ -99,16 +93,10 @@ public class WhiteRockContract {
 	
 		public static final String[] PROJECTION_ALL = {DbSchema.TABLE_WALK+"."+WalkColumns.ID, DURATION_MINUTES, DISTANCE_MILES, DOWNLOAD_COUNT, DIFFICULTY_RATING, USER_ID,
 														TITLE, SHORT_DESCR, LONG_DESCR, DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+WalkDescriptionColumns.WALK_ID};
-
 	}
 	
 	/**
 	 * Constants for English Walk Descriptions
-	 * @author Lewis Hancock
-	 *
-	 */
-	/**
-	 * @author Lewis Hancock
 	 *
 	 */
 	public static final class EnglishWalkDescriptions implements WalkDescriptionColumns {
@@ -133,10 +121,6 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
 	public static final class WelshWalkDescriptions implements WalkDescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "welsh_walk_description");
@@ -158,10 +142,6 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
 	public static final class EnglishWaypointDescriptions implements WaypointDescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "english_waypoint_description");
@@ -174,7 +154,8 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
-		public static final String[] PROJECTION_ALL = {ID, TITLE, SHORT_DESCR, LONG_DESCR, WAYPOINT_ID};
+		/** id, title, short, long, wpId, descrId */
+		public static final String[] PROJECTION_ALL = {ID, TITLE, SHORT_DESCR, LONG_DESCR, WAYPOINT_ID, REMOTE_ID};
 
 	}
 	
@@ -183,10 +164,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
+
 	public static final class WelshWaypointDescriptions implements WaypointDescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "welsh_waypoint_description");
@@ -199,7 +177,7 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
-		public static final String[] PROJECTION_ALL = {ID, TITLE, SHORT_DESCR, LONG_DESCR, WAYPOINT_ID};
+		public static final String[] PROJECTION_ALL = {ID, TITLE, SHORT_DESCR, LONG_DESCR, WAYPOINT_ID, REMOTE_ID};
 
 	}
 	
@@ -248,10 +226,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
+
 	public static final class User implements CommonColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "user");
@@ -273,10 +248,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
+
 	public static final class Walk implements WalkColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
 				WhiteRockContract.CONTENT_URI, "walk");
@@ -289,7 +261,7 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
-		/** Columns to project: id, duration, distance, dl count, difficulty, user id */
+		/** Columns to project: id, duration, distance, dl count, difficulty, user id, walk_id */
 		public static final String[] PROJECTION_ALL = {ID, DURATION_MINUTES, DISTANCE_MILES, DOWNLOAD_COUNT, DIFFICULTY_RATING, USER_ID, WALK_ID};
 	}
 	
@@ -347,8 +319,8 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
-		/** Project for Waypoint: id, lat, long, is_req, visit_order, walk_id, user_id */
-		public static final String[] PROJECTION_ALL = {ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER, WALK_ID, USER_ID};
+		/** Project for Waypoint: id, lat, long, is_req, visit_order, walk_id, user_id, waypoint_id */
+		public static final String[] PROJECTION_ALL = {ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER, WALK_ID, USER_ID, REMOTE_WAYPOINT_ID};
 	}
 	
 	/**
@@ -356,10 +328,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
+
 	public static final class WaypointAudio implements MediaColumns  {
 		
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
@@ -373,7 +342,7 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
 		
-		public static final String[] PROJECTION_ALL = {ID, FILE_NAME, WAYPOINT_ID};
+		public static final String[] PROJECTION_ALL = {ID, FILE_NAME, WAYPOINT_ID, REMOTE_ID};
 	}
 	
 	/**
@@ -381,10 +350,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
+
 	public static final class WaypointVideo implements MediaColumns {
 		
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
@@ -399,7 +365,7 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
 	
-		public static final String[] PROJECTION_ALL = {ID, FILE_NAME, WAYPOINT_ID};
+		public static final String[] PROJECTION_ALL = {ID, FILE_NAME, WAYPOINT_ID, REMOTE_ID};
 
 	}
 	
@@ -408,10 +374,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
+
 	public static final class WaypointImage implements MediaColumns {
 		
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
@@ -426,7 +389,7 @@ public class WhiteRockContract {
 		
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
 	
-		public static final String[] PROJECTION_ALL = {ID, FILE_NAME, WAYPOINT_ID};
+		public static final String[] PROJECTION_ALL = {ID, FILE_NAME, WAYPOINT_ID, REMOTE_ID};
 
 	}
 	
@@ -503,10 +466,7 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
+
 	interface CommonColumns extends BaseColumns {
 		public static final String ID = "_id";
 	}
@@ -516,15 +476,14 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
+
 	interface MediaColumns extends CommonColumns {
 		
 		public static final String FILE_NAME = "file_name";
 		
 		public static final String WAYPOINT_ID = "waypoint_id";
+		
+		public static final String REMOTE_ID = "remote_id";
 	}
 	
 	/**
@@ -545,16 +504,15 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
+
 	interface DescriptionColumns extends CommonColumns {
 		public static final String TITLE = "title";
 		
 		public static final String SHORT_DESCR = "short_description";
 		
 		public static final String LONG_DESCR = "long_description";
+		
+		public static final String REMOTE_ID = "description_id";
 	}
 	
 	/**
@@ -577,10 +535,7 @@ public class WhiteRockContract {
 	/**
 	 * Interface to define common columns in report tables.
 	 */
-	/**
-	 * @author Lewis Hancock
-	 *
-	 */
+
 	interface ReportColumns extends CommonColumns {
 		public static final String DESCRIPTION = "description";
 		public static final String USER_ID = "user_id";
@@ -597,6 +552,7 @@ public class WhiteRockContract {
 		public static final String USER_ID = "user_id";
 		public static final String IS_REQUEST = "is_request";
 		public static final String VISIT_ORDER = "visit_order";
+		public static final String REMOTE_WAYPOINT_ID = "waypoint_id";
 	}
 
 }

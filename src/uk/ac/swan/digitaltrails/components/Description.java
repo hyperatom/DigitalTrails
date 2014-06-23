@@ -14,7 +14,12 @@ public class Description implements Parcelable {
 	/**
 	 * id of description
 	 */
-	@SerializedName("id") protected long mId;
+	protected long mId;
+	
+	/**
+	 * Remote ID for this description. Really, really frustrating way of dealing with this shit.
+	 */
+	@SerializedName("id") protected long mDescriptionId;
 	/**
 	 * title of description
 	 */
@@ -65,6 +70,13 @@ public class Description implements Parcelable {
 		return mId;
 	}
 
+	public long getDescriptionId() {
+		return mDescriptionId;
+	}
+	
+	public void setDescriptionId(long id) {
+		mDescriptionId = id;
+	}
 
 	/**
 	 * set the title
