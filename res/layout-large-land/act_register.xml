@@ -1,24 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
     android:background="#dbdbdb" >
+
+    <TextView
+        android:id="@+id/alreadyMember"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="25dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Already a member?" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/alreadyMember"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_background"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Create Account" />
 
     <EditText
         android:id="@+id/firstName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/submit"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/submit"
         android:layout_marginTop="20dp"
+        android:ems="10"
         android:hint="First Name"
         android:inputType="text"
-        android:padding="10dp" />
+        android:padding="10dp" >
+
+        <requestFocus />
+    </EditText>
 
     <EditText
         android:id="@+id/lastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_alignLeft="@+id/firstName"
+        android:layout_alignRight="@+id/firstName"
+        android:layout_below="@+id/firstName"
+        android:layout_marginTop="15dp"
+        android:ems="10"
         android:hint="Last Name"
         android:inputType="text"
         android:padding="10dp" />
@@ -27,7 +61,11 @@
         android:id="@+id/accountName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/firstName"
+        android:layout_alignRight="@+id/lastName"
+        android:layout_below="@+id/lastName"
+        android:layout_marginTop="15dp"
+        android:ems="10"
         android:hint="Email address"
         android:inputType="textEmailAddress"
         android:padding="10dp" />
@@ -36,26 +74,13 @@
         android:id="@+id/accountPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/submit"
+        android:layout_alignRight="@+id/accountName"
+        android:layout_below="@+id/accountName"
+        android:layout_marginTop="15dp"
+        android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="10dp" />
 
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:text="Create Account" />
-
-    <TextView
-        android:id="@+id/alreadyMember"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:padding="5dp"
-        android:text="Already a member?" />
-
-</LinearLayout>
+</RelativeLayout>

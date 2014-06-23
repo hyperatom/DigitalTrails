@@ -5,23 +5,15 @@
     android:orientation="vertical"
     android:background="@drawable/swanbeach">
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"
-        android:text="Welcome To White Rock Nature Trails"
-        android:textColor="#FFFFFF"
-        android:textSize="55sp" />
-
     <Button
         android:id="@+id/register"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="180dp"
+        android:layout_marginRight="180dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/button_background"
         android:onClick="registerButtonOnClick"
@@ -35,9 +27,22 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/textView1"
         android:layout_marginBottom="20dp"
-        android:layout_marginRight="0dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/button_background"
         android:onClick="skipButton"
         android:text="Continue As Guest" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:text="Welcome To\nWhite Rock Nature Trails"
+        android:textColor="#FFFFFF"
+        android:textSize="55sp"
+        android:gravity="center" />
 
 </RelativeLayout>

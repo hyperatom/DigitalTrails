@@ -135,16 +135,6 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/TextView01"
-            android:layout_alignBottom="@+id/TextView01"
-            android:layout_alignRight="@+id/textView2"
-            android:text="Walk length :"
-            android:textSize="25sp" />
-
-        <TextView
             android:id="@+id/TextView01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -175,17 +165,6 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView3"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/textView3"
-            android:text="6.6 miles"
-            android:textSize="25sp" />
-
-        <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -204,6 +183,27 @@
             android:layout_alignBottom="@+id/TextView01"
             android:layout_toRightOf="@+id/textView1"
             android:text="Easy"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/TextView01"
+            android:layout_alignBottom="@+id/TextView01"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="60dp"
+            android:text="Walk length :"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView3"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_toLeftOf="@+id/textView7"
+            android:text="6.6 miles"
             android:textSize="25sp" />
 
     </RelativeLayout>

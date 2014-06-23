@@ -12,6 +12,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/done"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:gravity="center"
         android:text="Press and hold on a location to add a waypoint"
         android:textSize="30sp" />
