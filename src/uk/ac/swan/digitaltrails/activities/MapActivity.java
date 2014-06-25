@@ -10,6 +10,7 @@ import uk.ac.swan.digitaltrails.components.Media;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.ErrorDialogFragment;
+import uk.ac.swan.digitaltrails.fragments.ImageGridFragment;
 import uk.ac.swan.digitaltrails.fragments.InfoViewDialogFragment;
 import uk.ac.swan.digitaltrails.utils.ReceiveTransitionsIntentService;
 import android.accounts.Account;
@@ -323,6 +324,23 @@ public class MapActivity extends ActionBarActivity implements
 		dialog.show(getSupportFragmentManager(), "infoDialog");
 	}
 	
+	private void showImageDialog(Waypoint wp) {
+		Bundle args = new Bundle();
+		int count = wp.getPhotos().size();
+		Log.d(TAG, "Count is: " + count);
+		String[] paths = new String[count];
+		
+		if (count > 0) {
+			for (int i = 0; i < count; ++i) {
+				paths[i] = wp.getPhotos().get(i).getFileLocation();
+			}
+		}
+		args.putStringArray(ImageGridFragment.IMAGE_PATH_EXTRA, paths);
+		DialogFragment dialog = new ImageGridFragment();
+		dialog.setArguments(args);
+		dialog.show(getSupportFragmentManager(), "imageDialog");
+	}
+	
 
 	/**
 	 * Get the ReceiveTransitionIntentService
@@ -435,7 +453,8 @@ public class MapActivity extends ActionBarActivity implements
 			@Override
 			public void onInfoWindowClick(Marker marker) {
 				// find waypoint and show dialog for it.
-				showInfoViewDialog(mWaypoints.get(mMarkers.indexOf(marker)));
+				//showInfoViewDialog(mWaypoints.get(mMarkers.indexOf(marker)));
+				showImageDialog(mWaypoints.get(mMarkers.indexOf(marker)));
 			}
 		});
 	}
@@ -522,6 +541,7 @@ public class MapActivity extends ActionBarActivity implements
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		// create Waypoints from all the db info.
+		// TODO: Tidy this mess up so we get our actual images from it.
 		if (data != null && data.moveToFirst()) {
 			if (mCurFilter == selectFilter.FILTER_WAYPOINT_WITH_DESCR) {
 				data.moveToPrevious();

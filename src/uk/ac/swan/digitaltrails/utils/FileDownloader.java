@@ -33,22 +33,27 @@ public class FileDownloader extends AsyncTask<Media, Void, Media> {
 	private final int TIMEOUT_CONNECTION = 5000; // 5 sec
 	private final int TIMEOUT_SOCKET = 30000; // 30 sec
 	private static final String TAG = "FileDownloader";
-	private static final String SERVER_ROOT = "http://s523031181.websitehome.co.uk/media/image/";
 	
 	private Uri mUri;
 	private String mType;
+	private final String serverRoot;
 
 	public FileDownloader(Media m) {
 		// This is probably terrible, but it's very late and I'm on a tight schedule.
 		if (m instanceof Audio) {
 			mUri = WhiteRockContract.WaypointAudio.CONTENT_URI;
 			mType = "audio";
+			serverRoot = "http://s523031181.websitehome.co.uk/media/audio/";
 		} else if (m instanceof Photo) {
 			mUri = WhiteRockContract.WaypointImage.CONTENT_URI;
 			mType = "photo";
+			serverRoot = "http://s523031181.websitehome.co.uk/media/image/";
 		} else if (m instanceof Video) {
 			mUri = WhiteRockContract.WaypointVideo.CONTENT_URI;
 			mType = "video";
+			serverRoot = "http://s523031181.websitehome.co.uk/media/video/";
+		} else {
+			serverRoot = "";
 		}
 	}
 	
@@ -88,7 +93,7 @@ public class FileDownloader extends AsyncTask<Media, Void, Media> {
 		}
 		try {
 			Log.i(TAG, "Creating file directory");
-			String fileUrl = SERVER_ROOT+media.getFileLocation();
+			String fileUrl = serverRoot+media.getFileLocation();
 			URL url = new URL(fileUrl);
 			String root = WhiteRockApp.getContext().getExternalFilesDir(null).toString();
 			Log.d(TAG, "Root is: " + root);
