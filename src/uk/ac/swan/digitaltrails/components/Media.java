@@ -33,7 +33,7 @@ public class Media {
 	/**
 	 *  the id of the waypoint the media is part of
 	 */
-	@SerializedName("waypoint_id") protected int mWaypointId;
+	@SerializedName("waypoint_id") protected long mWaypointId;
 	
 	
 	/**
@@ -54,6 +54,9 @@ public class Media {
 		return mRemoteId;
 	}
 	
+	public void setRemoteId(long id) {
+		mRemoteId = id;
+	}
 	/**
 	 * @return
 	 */
@@ -81,7 +84,7 @@ public class Media {
 	 * Set waypoint id
 	 * @param id the id to set it to.
 	 */
-	public void setWaypointId(int id) {
+	public void setWaypointId(long id) {
 		mWaypointId = id;
 	}
 	
@@ -101,7 +104,7 @@ public class Media {
 	public Media(int id, String fileLocation, Waypoint place) {
 		setId(id);
 		setFileLocation(fileLocation);
-		setWaypointId((int) place.getId());
+		setWaypointId(place.getId());
 	}
 	
 }

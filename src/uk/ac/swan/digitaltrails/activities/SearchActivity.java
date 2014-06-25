@@ -1,8 +1,14 @@
 package uk.ac.swan.digitaltrails.activities;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
+import uk.ac.swan.digitaltrails.components.Audio;
 import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
+import uk.ac.swan.digitaltrails.components.Photo;
+import uk.ac.swan.digitaltrails.components.Video;
 import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.database.DescriptionDataSource;
@@ -13,6 +19,7 @@ import uk.ac.swan.digitaltrails.database.WaypointDataSource;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.SearchDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.SearchListFragment;
+import uk.ac.swan.digitaltrails.utils.FileDownloader;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.ContentResolver;
@@ -239,6 +246,7 @@ SearchListFragment.OnWalkSelectedListener   {
 		mWalk.getEnglishDescriptions().setForeignId(walkId);
 		descrDataSource.addDescription(mWalk.getEnglishDescriptions());
 		descrDataSource = new EnglishWaypointDescriptionDataSource(this);
+		
 		for (Waypoint wp : mWalk.getWaypoints()) {
 			wp.setWalkId(walkId);
 			long wpId = wpDataSource.addWaypoint(wp);
@@ -247,6 +255,25 @@ SearchListFragment.OnWalkSelectedListener   {
 			EnglishWaypointDescription descr = wp.getEnglishDescription();
 			descrDataSource.addDescription(descr);
 			Log.d(TAG, "descr ids: " + descr.getId() +  " " + descr.getDescriptionId());
+			
+			Log.d(TAG, "Number of audio files: " + wp.getAudioFiles().size());
+			
+			// Short of time - just made the AsyncTask onPostExecute method add to the db.
+			for (Audio audio : wp.getAudioFiles()) {
+				audio.setWaypointId(wpId);
+				new FileDownloader(audio).execute(audio);
+			}
+		
+			Log.d(TAG, "Number of image files: " + wp.getPhotos().size());
+			for (Photo photo : wp.getPhotos()) {
+				photo.setWaypointId(wpId);
+				new FileDownloader(photo).execute(photo);
+			}
+			
+			// TODO: Uncomment when videos are available.
+//			for (Video video : wp.getVideos()) {
+//				new FileDownloader().execute(video);
+//			}
 		}
 		Toast toast = Toast.makeText(getBaseContext(), "Walk Downloaded Successfully", Toast.LENGTH_SHORT);
 		toast.show();

@@ -3,11 +3,16 @@ package uk.ac.swan.digitaltrails.database;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.util.Log;
+import uk.ac.swan.digitaltrails.components.Media;
 import uk.ac.swan.digitaltrails.components.Photo;
+import uk.ac.swan.digitaltrails.components.Photo;
+import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.components.Waypoint;
 
 /**
@@ -22,92 +27,105 @@ public class PhotoDataSource extends MediaDataSource {
 	private static final String TAG = "PhotoDataSource";
 	
 	/**
+	 * All columns in table. id, fileLoc, waypointId, remoteId
+	 */
+	private static final String[] ALL_COLUMNS = WhiteRockContract.WaypointImage.PROJECTION_ALL;
+	
+	/**
+	 * The URI of the table.
+	 */
+	private static final Uri URI = WhiteRockContract.WaypointImage.CONTENT_URI;
+
+	
+	/**
 	 * Constructor
 	 * @param context
 	 */
-	protected PhotoDataSource(Context context) {
+	public PhotoDataSource(Context context) {
 		super(context);
-		mTable = DbSchema.TABLE_WAYPOINT_IMAGE;
 	}
 	
-	/**
-	 * Create a photo
-	 * @param fileLocation
-	 * @return
-	 */
-	public Photo createPhoto(String fileLocation) {
+	@Override
+	public long addMedia(Media m) {
+		Photo photo = (Photo) m;
+		ContentValues values = getContentValues(photo);
+		Uri newAudio = mContext.getContentResolver().insert(URI, values);
+		return ContentUris.parseId(newAudio);
+	}
+
+	@Override
+	public ContentValues getContentValues(Media m) {
+		Photo photo = (Photo) m;
 		ContentValues values = new ContentValues();
-		values.put(ALL_COLUMNS[1], fileLocation);
-		long insertId = mWhiteRockDB.insert(mTable, null, values);
-		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, "id" + " = "
-				+ insertId, null, null, null, null);
-		Photo newPhoto = cursorToPhoto(cursor);
-		cursor.close();
-		return newPhoto;
+		values.put(ALL_COLUMNS[1], photo.getFileLocation());
+		values.put(ALL_COLUMNS[2], photo.getWaypointId());
+		values.put(ALL_COLUMNS[3], photo.getRemoteId());
+		return values;
 	}
 
-	/**
-	 * Delete a photo from the database
-	 * @param photo the Photo to delete
-	 */
-	public void deletePhoto(Photo photo) {
-		long id = photo.getId();
-		Log.i(TAG, "Photo deleted with id: " + id);
-		mWhiteRockDB.delete(mTable, "id" + " = " + id, null);
+	@Override
+	public int updateMedia(Media m) {
+		Photo photo = (Photo) m;
+		return mContext.getContentResolver().update(URI, this.getContentValues(photo), ALL_COLUMNS[0] + " == " + photo.getId(), null);
 	}
 
-	/**
-	 * Get all photos in the database
-	 * @return List of Photos
-	 */
-	public List<Photo> getAllPhoto() {
-		ArrayList<Photo> photoList = new ArrayList<Photo>();
-		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS, null, null,
-				null, null, null);
+	@Override
+	public void deleteMedia(Media m) {
+		mContext.getContentResolver().delete(URI, ALL_COLUMNS[0] + " == " + m.getId(), null);
+	}
 
-		cursor.moveToFirst();
-		while (!cursor.isAfterLast()) {
-			Photo photo = cursorToPhoto(cursor);
-			photoList.add(photo);
-			cursor.moveToNext();
-		}
+	@Override
+	public void deleteMedia(long mediaId) {
+		mContext.getContentResolver().delete(URI, ALL_COLUMNS[0] + " == " + mediaId, null);		
+	}
+	
+	@Override
+	public void deleteAllMediaAtWaypoint(long waypointId) {
+		mContext.getContentResolver().delete(URI, ALL_COLUMNS[2] + " == " + waypointId, null);		
+	}
+
+	@Override
+	public void deleteAllMediaAtWaypoint(Waypoint waypoint) {
+		mContext.getContentResolver().delete(URI, ALL_COLUMNS[2] + " == " + waypoint.getId(), null);		
+	}
+	
+	@Override
+	public void deleteAllMediaAtWalk(long walkId) {
+	}
+
+	@Override
+	public Cursor getAllMediaAtWaypoint(long waypointId) {
+		String select = "((" + ALL_COLUMNS[2] + " == " + waypointId + "))";
+		return mContext.getContentResolver().query(URI, ALL_COLUMNS, select, null, ALL_COLUMNS[0] + " COLLATE LOCALIZED ASC");
+	}
+	
+	@Override
+	public Cursor getAllMediaAtWaypoint(Waypoint waypoint) {
+		String select = "((" + ALL_COLUMNS[2] + " == " + waypoint.getId() + "))";
+		return mContext.getContentResolver().query(URI, ALL_COLUMNS, select, null, ALL_COLUMNS[0] + " COLLATE LOCALIZED ASC");
+	}
+
+	@Override
+	public ArrayList<Media> cursorToMedia(Cursor cursor) {
+		ArrayList<Media> photoList = new ArrayList<Media>();
 		
-		cursor.close();
+		if (cursor != null && cursor.moveToFirst()) {
+			cursor.moveToPrevious();
+			while (cursor.moveToNext()) {
+				Photo photo = new Photo();
+				photo.setId(cursor.getLong(0));
+				photo.setFileLocation(cursor.getString(1));
+				photo.setWaypointId(cursor.getLong(2));
+				photo.setRemoteId(cursor.getLong(3));
+				photoList.add(photo);
+			}
+		}
 		return photoList;
 	}
 
-	/**
-	 * Get all photos at a certain waypoint.
-	 * @param wp The Waypoint to retrieve photos for.
-	 * @return List of Photos
-	 */
-	public List<Photo> getAllPhotosAtWaypoint(Waypoint wp) {
-		ArrayList<Photo> photoList = new ArrayList<Photo>();
-		Cursor cursor = mWhiteRockDB.query(mTable, ALL_COLUMNS,  "Waypoint_id" + " = " + wp.getId(),  null, null, null, null);
-		cursor.moveToFirst();
-		while (!cursor.isAfterLast()) {
-			Photo photo = cursorToPhoto(cursor);
-			photoList.add(photo);
-			cursor.moveToNext();
-		}
+	@Override
+	public void deleteAllMediaAtWalk(Walk walk) {
+		// TODO Auto-generated method stub
 		
-		cursor.close();
-		return photoList;
 	}
-	
-
-
-	/**
-	 * Create Photo from the cursor.
-	 * 
-	 * @param cursor
-	 * @return New Photo.
-	 */
-	private Photo cursorToPhoto(Cursor cursor) {
-		Photo photo = new Photo();
-		photo.setId(cursor.getLong(0));
-		photo.setFileLocation(cursor.getString(1));
-		return photo;
-	}
-	
 }

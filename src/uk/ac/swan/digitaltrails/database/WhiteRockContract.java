@@ -350,7 +350,6 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-
 	public static final class WaypointVideo implements MediaColumns {
 		
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(

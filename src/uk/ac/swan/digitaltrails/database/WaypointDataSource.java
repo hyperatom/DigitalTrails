@@ -110,7 +110,7 @@ public class WaypointDataSource extends DataSource {
 	 * @param id the id of the waypoint to delete
 	 */
 	public void deleteWaypoint(long id) {
-		mContext.getContentResolver().delete(URI, ALL_COLUMNS[0] + " = " + id, null);
+		mContext.getContentResolver().delete(URI, ALL_COLUMNS[0] + " == " + id, null);
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class WaypointDataSource extends DataSource {
 	 * @param walkId the walk to delete from
 	 */
 	public void deleteAllWaypointsInWalk(long walkId) {
-		mContext.getContentResolver().delete(URI, ALL_COLUMNS[5] + " = " + walkId, null);
+		mContext.getContentResolver().delete(URI, ALL_COLUMNS[5] + " == " + walkId, null);
 	}
 
 	/**

@@ -3,7 +3,11 @@ package uk.ac.swan.digitaltrails.database;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.swan.digitaltrails.components.Audio;
+import uk.ac.swan.digitaltrails.components.Photo;
+import uk.ac.swan.digitaltrails.components.Video;
 import uk.ac.swan.digitaltrails.components.Walk;
+import uk.ac.swan.digitaltrails.components.Waypoint;
 import uk.ac.swan.digitaltrails.utils.Duration;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -12,7 +16,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
-
+//TODO : Write convenience methods to get all data at once (walk, waypoint, descr etc).
 /**
  * @author Lewis Hancock
  *
@@ -165,6 +169,53 @@ public class WalkDataSource extends DataSource {
 		walk.setOwnerId(cursor.getLong(5));
 		walk.setWalkId(cursor.getLong(6));
 		return walk;
+	}
+	
+	/**
+	 * Convenience method to add everything at once.
+	 * @param walk
+	 */
+	public void addWalkAndComponents(Walk walk) {
+		// TODO: Sort welsh.
+		long walkId = this.addWalk(walk);
+		DescriptionDataSource descrDataSource = new EnglishWalkDescriptionDataSource(mContext);
+		descrDataSource.addDescription(walk.getEnglishDescriptions());
+		//descrDataSource = new WelshWalkDescriptionDataSource(mContext);
+		
+		WaypointDataSource wpDataSource = new WaypointDataSource(mContext);
+		for (Waypoint wp : walk.getWaypoints()) {
+			wp.setWalkId(walkId);
+			long wpId = wpDataSource.addWaypoint(wp);
+			
+			// Descriptions
+			wp.getEnglishDescription().setForeignId(wpId);
+			descrDataSource = new EnglishWaypointDescriptionDataSource(mContext);
+			descrDataSource.addDescription(wp.getEnglishDescription());
+			wp.getWelshDescription().setForeignId(wpId);
+			//descrDataSource = new WelshWaypointDescriptionDataSource(mContext);
+			//descrDataSource.addDescription(wp.getWelshDescription());
+			
+			// Media
+			MediaDataSource mediaDataSource = new AudioDataSource(mContext);
+			for (Audio audio : wp.getAudioFiles()) {
+				audio.setWaypointId(wpId);
+				mediaDataSource.addMedia(audio);
+			}
+			
+			mediaDataSource = new PhotoDataSource(mContext);
+			for (Photo photo : wp.getPhotos()) {
+				photo.setWaypointId(wpId);
+				mediaDataSource.addMedia(photo);
+			}
+			
+			// TODO: Uncomment when we can download videos.
+			
+//			mediaDataSource = new VideoDataSource(mContext);
+//			for (Video video : wp.getVideos()) {
+//				video.setWaypointId(wpId);
+//				mediaDataSource.addMedia(video);
+//			}
+		}
 	}
 	
 }
