@@ -1,13 +1,8 @@
 package uk.ac.swan.digitaltrails.database;
 
-import android.net.Uri;
 import android.content.ContentResolver;
+import android.net.Uri;
 import android.provider.BaseColumns;
-import android.content.ContentProviderClient;
-import android.content.ContentProviderOperation;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.Context;
 
 // TODO: Replace strings with constants from DbSchema etc.
 
@@ -439,15 +434,15 @@ public class WhiteRockContract {
 	 * @author Lewis Hancock
 	 *
 	 */
-	public static final class WaypointWithEnglishDescriptionWithMedia implements WaypointColumns, MediaColumns, WaypointDescriptionColumns {
+	public static final class WaypointComplete implements WaypointColumns, MediaColumns, WaypointDescriptionColumns {
 		public static final Uri CONTENT_URI = Uri.withAppendedPath(
-				WhiteRockContract.CONTENT_URI, "waypoint_and_english_and_media");
+				WhiteRockContract.CONTENT_URI, "waypoint_complete");
 		
 		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.waypoint_and_english_and_media";
+				"vnd.uk.ac.swan.digitaltrails.waypoint_complete";
 		
 		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
-				"vnd.uk.ac.swan.digitaltrails.waypoint_and_english_and_media";
+				"vnd.uk.ac.swan.digitaltrails.waypoint_complete";
 
 		public static final String SORT_ORDER_DEFAULT = ID + " ASC";	
 	
@@ -459,6 +454,55 @@ public class WhiteRockContract {
 														DbSchema.TABLE_WAYPOINT_VIDEO+"."+FILE_NAME};
 	}
 
+	/**
+	 * Use this to get an entire walk, complete with descriptions, waypoints, media etc.
+	 * @author Lewis H
+	 *
+	 */
+	public static final class WalkComplete implements WalkColumns, WalkDescriptionColumns, WaypointColumns, WaypointDescriptionColumns, MediaColumns {
+		public static final Uri CONTENT_URI = Uri.withAppendedPath(
+				WhiteRockContract.CONTENT_URI, "walk_complete");
+		
+		public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE +
+				"vnd.uk.ac.swan.digitaltrails.walk_complete";
+		
+		public static final String CONTENT_TYPE_DIR = ContentResolver.CURSOR_ITEM_BASE_TYPE +
+				"vnd.uk.ac.swan.digitaltrails.walk_complete";
+		
+		public static final String SORT_ORDER_DEFAULT = ID + " ASC";
+		
+		/**
+		 * Walk: Id, Duration, Distance, DownloadCount, difficulty, UserId, WalkId ( = Remote ID)
+		 * EnglishDescr: Id, Title, Short, Long, WalkId
+		 * WelshDescr: Id, Title, Short, Long, WalkId
+		 * Waypoint: Id, Lat, Long, IsReq, VisitOrder, UserId, WalkId, RemoteID
+		 * EnglishDescr: Id, Title, Short, Long, WaypointId, RemoteId
+		 * WelshDescr: Id, Title, Short, Long, WaypointId, RemoteId
+		 * Audio: Id, File, WaypointId, RemoteId
+		 * Image: Id, File, WaypointId, RemoteId
+		 * Video: Id, File, WaypointId, RemoteId
+		 */
+		public static final String[] PROJECTION_ALL = {
+			DbSchema.TABLE_WALK+"."+WalkColumns.ID, DURATION_MINUTES, DISTANCE_MILES, DOWNLOAD_COUNT, DIFFICULTY_RATING, DbSchema.TABLE_WALK+"."+WalkColumns.USER_ID, DbSchema.TABLE_WALK+"."+WalkColumns.WALK_ID,
+			
+			DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+WalkDescriptionColumns.ID, DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+WalkDescriptionColumns.TITLE, DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+WalkDescriptionColumns.SHORT_DESCR, DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+WalkDescriptionColumns.LONG_DESCR, DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+WalkDescriptionColumns.WALK_ID, 
+			
+			DbSchema.TABLE_WELSH_WALK_DESCR+"."+WalkDescriptionColumns.ID, DbSchema.TABLE_WELSH_WALK_DESCR+"."+WalkDescriptionColumns.TITLE, DbSchema.TABLE_WELSH_WALK_DESCR+"."+WalkDescriptionColumns.SHORT_DESCR, DbSchema.TABLE_WELSH_WALK_DESCR+"."+WalkDescriptionColumns.LONG_DESCR, DbSchema.TABLE_WELSH_WALK_DESCR+"."+WalkDescriptionColumns.WALK_ID,
+			
+			DbSchema.TABLE_WAYPOINT+"."+WaypointColumns.ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER, DbSchema.TABLE_WAYPOINT+"."+WaypointColumns.WALK_ID, DbSchema.TABLE_WAYPOINT+"."+WaypointColumns.USER_ID, DbSchema.TABLE_WAYPOINT+"."+WaypointColumns.REMOTE_WAYPOINT_ID,
+			
+			DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.ID, DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.TITLE, DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.SHORT_DESCR, DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.LONG_DESCR, DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.WAYPOINT_ID, DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.REMOTE_ID, 
+
+			DbSchema.TABLE_WELSH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.ID, DbSchema.TABLE_WELSH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.TITLE, DbSchema.TABLE_WELSH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.SHORT_DESCR, DbSchema.TABLE_WELSH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.LONG_DESCR, DbSchema.TABLE_WELSH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.WAYPOINT_ID, DbSchema.TABLE_WELSH_WAYPOINT_DESCR+"."+WaypointDescriptionColumns.REMOTE_ID, 
+
+			DbSchema.TABLE_WAYPOINT_AUDIO+"."+MediaColumns.ID, DbSchema.TABLE_WAYPOINT_AUDIO+"."+MediaColumns.FILE_NAME, DbSchema.TABLE_WAYPOINT_AUDIO+"."+MediaColumns.WAYPOINT_ID, DbSchema.TABLE_WAYPOINT_AUDIO+"."+MediaColumns.REMOTE_ID,
+		
+			DbSchema.TABLE_WAYPOINT_IMAGE+"."+MediaColumns.ID, DbSchema.TABLE_WAYPOINT_IMAGE+"."+MediaColumns.FILE_NAME, DbSchema.TABLE_WAYPOINT_IMAGE+"."+MediaColumns.WAYPOINT_ID, DbSchema.TABLE_WAYPOINT_IMAGE+"."+MediaColumns.REMOTE_ID,
+
+			DbSchema.TABLE_WAYPOINT_VIDEO+"."+MediaColumns.ID, DbSchema.TABLE_WAYPOINT_VIDEO+"."+MediaColumns.FILE_NAME, DbSchema.TABLE_WAYPOINT_VIDEO+"."+MediaColumns.WAYPOINT_ID, DbSchema.TABLE_WAYPOINT_VIDEO+"."+MediaColumns.REMOTE_ID,
+
+		};
+	}
 		
 	/**
 	 * Interface to define common columns to all tables.

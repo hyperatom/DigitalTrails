@@ -114,10 +114,10 @@ public class MyWalkListFragment extends WalkListFragment {
 		Log.d(TAG, "LoadFinished, data size: " + data.getCount());
 		mAdapter.swapCursor(data);
 		if (data != null && data.moveToFirst()) {
-			mWalkIds.add(data.getInt(0));
+			data.moveToPrevious();
 			while (data.moveToNext())
 			{
-				Log.d(TAG, ""+data.getInt(0));
+				Log.d(TAG, "Walk Id "+data.getInt(0));
 				mWalkIds.add(data.getInt(0));
 			}
 		}		

@@ -172,11 +172,11 @@ public class WhiteRockContentProvider extends ContentProvider {
 	/**
 	 * 
 	 */
-	private static final int WAYPOINT_WITH_MEDIA_WITH_ENGLISH_LIST = 80;
+	private static final int WAYPOINT_COMPLETE_LIST = 80;
 	/**
 	 * 
 	 */
-	private static final int WAYPOINT_WITH_MEDIA_WITH_ENGLISH_ID = 81;
+	private static final int WAYPOINT_COMPLETE_ID = 81;
 	/**
 	 * 
 	 */
@@ -185,20 +185,23 @@ public class WhiteRockContentProvider extends ContentProvider {
 	 * 
 	 */
 	private static final int WALK_WITH_ENGLISH_ID = 86;
+	
+	private static final int WALK_COMPLETE_LIST = 90;
+	
+	private static final int WALK_COMPLETE_ID = 91;
 
 	/** Handler for database. */
 	private DatabaseHandler mDbHandler;	
 	/** ThreadLocal storage for batch processing. */
 	private final ThreadLocal<Boolean> mIsInBatchMode = new ThreadLocal<Boolean>();
-	//TODO: Use constants from contract, not magic strings.
 	/**
 	 * Create UriMatcher
 	 * @return the UriMatcher to use.
 	 */
-	/**
-	 * @return
-	 */
 	private static UriMatcher buildUriMatcher() {
+		//TODO: Use constants from contract, not magic strings.
+		// Easiest way to do this is create a new String for each in the correct part
+		// of WhiteRockContract.java
 		final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 		final String authority = WhiteRockContract.AUTHORITY;
 		matcher.addURI(authority, "walk", WALK_LIST);
@@ -230,16 +233,17 @@ public class WhiteRockContentProvider extends ContentProvider {
 		matcher.addURI(authority, "settings_type", SETTINGS_TYPE_LIST);
 		matcher.addURI(authority, "settings_type/#", SETTINGS_TYPE_ID);
 
-		// These are VIEWS - provider does not allow insert, update, delete for now. Just read from them
+		// These are VIEWS - provider does not allow insert, update, delete. Just read from them
 		matcher.addURI(authority, "waypoint_and_english", WAYPOINT_WITH_ENGLISH_DESCR_LIST);
 		matcher.addURI(authority, "waypoint_and_english/#", WAYPOINT_WITH_ENGLISH_DESCR_ID);
-		matcher.addURI(authority, WhiteRockContract.WaypointWithMedia.CONTENT_URI.toString(), WAYPOINT_WITH_MEDIA_LIST);
-		matcher.addURI(authority, WhiteRockContract.WaypointWithMedia.CONTENT_URI.toString()+"/#", WAYPOINT_WITH_MEDIA_ID);
-		matcher.addURI(authority, "waypoint_and_english_and_media",	WAYPOINT_WITH_MEDIA_WITH_ENGLISH_LIST);
-		matcher.addURI(authority, "waypoint_and_english_and_media/#", WAYPOINT_WITH_MEDIA_WITH_ENGLISH_ID);
+		matcher.addURI(authority, "waypoint_and_media", WAYPOINT_WITH_MEDIA_LIST);
+		matcher.addURI(authority, "waypoint_and_media/#", WAYPOINT_WITH_MEDIA_ID);
+		matcher.addURI(authority, "waypoint_complete", WAYPOINT_COMPLETE_LIST);
+		matcher.addURI(authority, "waypoint_complete/#", WAYPOINT_COMPLETE_ID);
 		matcher.addURI(authority, "walk_and_english", WALK_WITH_ENGLISH_LIST);
 		matcher.addURI(authority, "walk_and_english/#", WALK_WITH_ENGLISH_ID);
-
+		matcher.addURI(authority, "walk_complete", WALK_COMPLETE_LIST);
+		matcher.addURI(authority, "walk_complete/#", WALK_COMPLETE_ID);
 		return matcher;
 	}
 
@@ -503,10 +507,10 @@ public class WhiteRockContentProvider extends ContentProvider {
 			return WhiteRockContract.WaypointWithMedia.CONTENT_TYPE;
 		case WAYPOINT_WITH_MEDIA_ID:
 			return WhiteRockContract.WaypointWithMedia.CONTENT_TYPE_DIR;
-		case WAYPOINT_WITH_MEDIA_WITH_ENGLISH_LIST:
-			return WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_TYPE;
-		case WAYPOINT_WITH_MEDIA_WITH_ENGLISH_ID:
-			return WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_TYPE_DIR;
+		case WAYPOINT_COMPLETE_LIST:
+			return WhiteRockContract.WaypointComplete.CONTENT_TYPE;
+		case WAYPOINT_COMPLETE_ID:
+			return WhiteRockContract.WaypointComplete.CONTENT_TYPE_DIR;
 		case WALK_WITH_ENGLISH_LIST:
 			return WhiteRockContract.WalkWithEnglishDescriptions.CONTENT_TYPE;
 		case WALK_WITH_ENGLISH_ID:
@@ -809,7 +813,7 @@ public class WhiteRockContentProvider extends ContentProvider {
 				sortOrder = WhiteRockContract.WaypointWithMedia.SORT_ORDER_DEFAULT;
 			}
 			break;
-		case WAYPOINT_WITH_MEDIA_WITH_ENGLISH_LIST:
+		case WAYPOINT_COMPLETE_LIST:
 			queryString = DbSchema.TABLE_WAYPOINT + " LEFT OUTER JOIN "
 					+ DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR + " ON "
 					+ DbSchema.TABLE_WAYPOINT + "." + WhiteRockContract.Waypoint.ID
@@ -823,11 +827,73 @@ public class WhiteRockContentProvider extends ContentProvider {
 					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_VIDEO + " ON "
 					+ DbSchema.TABLE_WAYPOINT + "." + WhiteRockContract.Waypoint.ID
 					+ " = " + DbSchema.TABLE_WAYPOINT_VIDEO + "." + WhiteRockContract.WaypointVideo.WAYPOINT_ID; 
-
 			builder.setTables(queryString);
 			if (TextUtils.isEmpty(sortOrder)) {
-				sortOrder = WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.SORT_ORDER_DEFAULT;
+				sortOrder = WhiteRockContract.WaypointComplete.SORT_ORDER_DEFAULT;
 			}
+			break;
+		case WALK_COMPLETE_LIST:
+			queryString = DbSchema.TABLE_WALK + " LEFT OUTER JOIN "
+				+ DbSchema.TABLE_ENGLISH_WALK_DESCR + " ON " 
+				+ DbSchema.TABLE_WALK+"."+WhiteRockContract.Walk.ID
+				+ " = " + DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+WhiteRockContract.EnglishWalkDescriptions.WALK_ID
+				+ " LEFT OUTER JOIN " + DbSchema.TABLE_WELSH_WALK_DESCR + " ON "
+				+ DbSchema.TABLE_WALK+"."+WhiteRockContract.Walk.ID
+				+ " = " + DbSchema.TABLE_WELSH_WALK_DESCR+"."+WhiteRockContract.WelshWalkDescriptions.WALK_ID
+				+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT + " ON "
+				+ DbSchema.TABLE_WALK+"."+WhiteRockContract.Walk.ID
+				+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.WALK_ID
+				+ " LEFT OUTER JOIN " + DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR + " ON "
+				+ DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR+"."+WhiteRockContract.EnglishWaypointDescriptions.WAYPOINT_ID
+				+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.ID
+				+ " LEFT OUTER JOIN " + DbSchema.TABLE_WELSH_WAYPOINT_DESCR + " ON "
+				+ DbSchema.TABLE_WELSH_WAYPOINT_DESCR+"."+WhiteRockContract.WelshWaypointDescriptions.WAYPOINT_ID
+				+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.ID
+				+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_AUDIO + " ON " 
+				+ DbSchema.TABLE_WAYPOINT_AUDIO+"."+WhiteRockContract.WaypointAudio.WAYPOINT_ID
+				+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.ID
+				+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_IMAGE + " ON " 
+				+ DbSchema.TABLE_WAYPOINT_IMAGE+"."+WhiteRockContract.WaypointImage.WAYPOINT_ID
+				+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.ID
+				+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_VIDEO + " ON " 
+				+ DbSchema.TABLE_WAYPOINT_VIDEO+"."+WhiteRockContract.WaypointVideo.WAYPOINT_ID
+				+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.ID									
+			;
+			
+			builder.setTables(queryString);
+			if (TextUtils.isEmpty(sortOrder)) {
+				sortOrder = WhiteRockContract.WalkComplete.SORT_ORDER_DEFAULT;
+			}
+			break;
+		case WALK_COMPLETE_ID:
+			queryString = DbSchema.TABLE_WALK + " LEFT OUTER JOIN "
+					+ DbSchema.TABLE_ENGLISH_WALK_DESCR + " ON " 
+					+ DbSchema.TABLE_WALK+"."+WhiteRockContract.Walk.ID
+					+ " = " + DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+WhiteRockContract.EnglishWalkDescriptions.WALK_ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WELSH_WALK_DESCR + " ON "
+					+ DbSchema.TABLE_WALK+"."+WhiteRockContract.Walk.ID
+					+ " = " + DbSchema.TABLE_WELSH_WALK_DESCR+"."+WhiteRockContract.WelshWalkDescriptions.WALK_ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT + " ON "
+					+ DbSchema.TABLE_WALK+"."+WhiteRockContract.Walk.ID
+					+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.WALK_ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR + " ON "
+					+ DbSchema.TABLE_ENGLISH_WAYPOINT_DESCR+"."+WhiteRockContract.EnglishWaypointDescriptions.WAYPOINT_ID
+					+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WELSH_WAYPOINT_DESCR + " ON "
+					+ DbSchema.TABLE_WELSH_WAYPOINT_DESCR+"."+WhiteRockContract.WelshWaypointDescriptions.WAYPOINT_ID
+					+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_AUDIO + " ON " 
+					+ DbSchema.TABLE_WAYPOINT_AUDIO+"."+WhiteRockContract.WaypointAudio.WAYPOINT_ID
+					+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_IMAGE + " ON " 
+					+ DbSchema.TABLE_WAYPOINT_IMAGE+"."+WhiteRockContract.WaypointImage.WAYPOINT_ID
+					+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.ID
+					+ " LEFT OUTER JOIN " + DbSchema.TABLE_WAYPOINT_VIDEO + " ON " 
+					+ DbSchema.TABLE_WAYPOINT_VIDEO+"."+WhiteRockContract.WaypointVideo.WAYPOINT_ID
+					+ " = " + DbSchema.TABLE_WAYPOINT+"."+WhiteRockContract.Waypoint.ID									
+				;
+			builder.setTables(queryString);
+			builder.appendWhere(WhiteRockContract.Walk._ID + " = " + uri.getLastPathSegment());
 			break;
 		case WALK_WITH_ENGLISH_LIST:
 			queryString = DbSchema.TABLE_WALK + " LEFT OUTER JOIN "

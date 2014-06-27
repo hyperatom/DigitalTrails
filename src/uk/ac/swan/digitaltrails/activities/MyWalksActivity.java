@@ -20,12 +20,9 @@ import uk.ac.swan.digitaltrails.fragments.AddWaypointMapFragment;
 import uk.ac.swan.digitaltrails.fragments.CreateWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.EditWalkFragment;
 import uk.ac.swan.digitaltrails.fragments.EditWaypointMapFragment;
-import uk.ac.swan.digitaltrails.fragments.MapFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkListFragment;
-import uk.ac.swan.digitaltrails.fragments.WalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
-import uk.ac.swan.digitaltrails.sync.SearchWalkLoader;
 import uk.ac.swan.digitaltrails.utils.GlobalFlags;
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -37,11 +34,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -178,8 +173,9 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	 */
 	@Override
 	public void onMapClosed(List<Waypoint> waypointList) {
-		Log.d(TAG, "onMapClosed call");
+		Log.d(TAG, "onMapClosed call - Num Waypoints: " + waypointList.size());
 		mWaypointList = waypointList;
+		Log.d(TAG, "mWaypointList size: " + mWaypointList.size());
 	}
 
 	/* (non-Javadoc)
@@ -439,39 +435,38 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	 * @param view
 	 */
 	public void createCreateButtonOnClick(View view) {
+		Log.d(TAG, "createCreateButtonOnClick with " + mWaypointList.size() + "waypoints");
+		for (Waypoint wp : mWaypointList) {
+			Log.d(TAG, "Waypoint: " + wp.getEnglishDescription());
+		}
 		if (mWaypointList == null || mWaypointList.size() <= 0) {
 			onBackPressed();
 			return;
 		}
 		// Walk Table
-		WalkDataSource walkDataSource = new WalkDataSource(this);
 		SharedPreferences settings = this.getSharedPreferences(GlobalFlags.PREF_NAME, 0);
-		long userId = settings.getInt("userId", -1);
-		long walkId = walkDataSource.addWalk(0, 0, 0, 0, userId); //TODO: Use real values for this
-		Log.d(TAG, "walkId value = " + walkId);
-		// EnglishWalkDescriptions table
 		EditText titleView = (EditText) findViewById(R.id.titledit);
 		EditText descr = (EditText) findViewById(R.id.walkDescriptionEdit);
-		DescriptionDataSource descrDataSource = new EnglishWalkDescriptionDataSource(this);
-		EnglishWalkDescription newDescr = new EnglishWalkDescription();
-		newDescr.setTitle(titleView.getText().toString());
-		newDescr.setShortDescription(descr.getText().toString().substring(0, descr.getText().length()/2));
-		newDescr.setLongDescription(descr.getText().toString());
-		newDescr.setForeignId(walkId);
-		descrDataSource.addDescription(newDescr);
+		long userId = settings.getInt("userId", -1);
 
-		WaypointDataSource wpDataSource = new WaypointDataSource(this);
-		// Waypoints
-		if (mWaypointList.size() > 0) {
-			descrDataSource = new EnglishWaypointDescriptionDataSource(this);
-			for (Waypoint wp : mWaypointList) {
-				long waypointId = wpDataSource.addWaypoint(wp);
-				EnglishWaypointDescription updatedDescr = wp.getEnglishDescription();
-				updatedDescr.setForeignId(waypointId);
-				descrDataSource.addDescription(updatedDescr);
-			}
-		}
+		Walk walk = new Walk();
+		EnglishWalkDescription engDesc = new EnglishWalkDescription();
+		engDesc.setTitle(titleView.getText().toString());
+		engDesc.setLongDescription(descr.getText().toString());
+		engDesc.setShortDescription(descr.getText().toString().substring(0, descr.getText().length()/2));
+		walk.setEnglishDescriptions(engDesc);
+		walk.setOwnerId(userId);
+		walk.setWalkId(-1);
+		ArrayList<Waypoint> temp = (ArrayList<Waypoint>) mWaypointList;
+		
+		Log.d(TAG, "Temp has " + temp.size() + "waypoints");
+		walk.setWaypoints((ArrayList<Waypoint>) mWaypointList);
+		
+		WalkDataSource walkDataSource = new WalkDataSource(getBaseContext());
+		walkDataSource.addWalkAndComponents(walk);
+		
 		mWaypointList.clear();
+		// refresh the activity.
 		reloadActivity();
 	}
 
@@ -523,11 +518,11 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 				WaypointDataSource wpdSource = new WaypointDataSource(getBaseContext());
 				DescriptionDataSource descdSource = new EnglishWalkDescriptionDataSource(getBaseContext());
 				descdSource.deleteAllDescriptions(walkId);
-				
+
 				// get all waypoints in the walk
-				Cursor cursor = wpdSource.getAllWaypointsInWalk(walkId, false, false, false, false, false);
+				Cursor cursor = wpdSource.getAllWaypointsInWalk(walkId);
+				mWaypointList = new ArrayList<Waypoint>();
 				if (cursor != null && cursor.moveToFirst()) {
-					mWaypointList = new ArrayList<Waypoint>();
 					while (cursor.moveToNext()) {
 						Waypoint wp = new Waypoint();
 						wp.setId(cursor.getInt(0));

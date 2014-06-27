@@ -4,10 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.swan.digitaltrails.R;
+import uk.ac.swan.digitaltrails.components.Audio;
 import uk.ac.swan.digitaltrails.components.Description;
+import uk.ac.swan.digitaltrails.components.EnglishWalkDescription;
 import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
 import uk.ac.swan.digitaltrails.components.Media;
+import uk.ac.swan.digitaltrails.components.Photo;
+import uk.ac.swan.digitaltrails.components.Video;
+import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.components.Waypoint;
+import uk.ac.swan.digitaltrails.components.WelshWalkDescription;
+import uk.ac.swan.digitaltrails.components.WelshWaypointDescription;
+import uk.ac.swan.digitaltrails.database.DbSchema;
+import uk.ac.swan.digitaltrails.database.WalkDataSource;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.AddWaypointDialogFragment.AddWaypointDialogListener;
 import android.app.Activity;
@@ -74,11 +83,10 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 	 * 
 	 */
 	protected LocationClient mLocationClient;
-	/** Waypoints for walk */
 	/**
-	 * 
+	 * The walk we are using
 	 */
-	protected ArrayList<Waypoint> mWaypointList;
+	protected Walk mWalk;
 	/** Listen for when we close the map */
 	/**
 	 * 
@@ -136,6 +144,8 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		super.onCreate(savedInstanceState);
 		Bundle args = getArguments();
 
+		mWalk = new Walk();
+		mWalk.setWaypoints(new ArrayList<Waypoint>());
 		// add fragment for the map as a child of the current fragment... little awkward but the best way I found
 		FragmentManager fm = getChildFragmentManager();
 		mFragment = (SupportMapFragment) fm.findFragmentById(R.id.map_container);
@@ -147,7 +157,6 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 			transaction.commit();
 		}
 		mLocationClient = new LocationClient(getActivity().getApplicationContext(), this, this);
-		mWaypointList = new ArrayList<Waypoint>();
 	}
 
 	/* (non-Javadoc)
@@ -184,7 +193,7 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 	 */
 	@Override
 	public void onDetach() {
-		mCallback.onMapClosed(mWaypointList);
+		mCallback.onMapClosed(mWalk.getWaypoints());
 		super.onDetach();
 	}
 
@@ -240,7 +249,11 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		String snippet = description.substring(0, description.length()/2);
 		double latitude = Double.parseDouble(((EditText) view.findViewById(R.id.latitude_edit)).getText().toString().trim());
 		double longitude = Double.parseDouble(((EditText) view.findViewById(R.id.longitude_edit)).getText().toString().trim());
-		wp.setEnglishDescription(new EnglishWaypointDescription(0, title+ "description", snippet, description));
+		EnglishWaypointDescription descr = new EnglishWaypointDescription();
+		descr.setTitle(title);
+		descr.setLongDescription(description);
+		descr.setShortDescription(snippet);
+		wp.setEnglishDescription(descr);
 		wp.setLatLng(new LatLng(latitude, longitude));
 		wp.setLatitude(latitude);
 		wp.setLongitude(longitude);
@@ -249,10 +262,10 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 		options.position(new LatLng(wp.getLatitude(), wp.getLongitude()));
 		options.title(wp.getEnglishDescription().getTitle());
 		options.snippet(wp.getEnglishDescription().getShortDescription());
-		mWaypointList.add(wp);
-		wp.setVisitOrder(mWaypointList.indexOf(wp));;
+		mWalk.getWaypoints().add(wp);
+		Log.d(TAG, "Added waypoint to walk");
+		wp.setVisitOrder(mWalk.getWaypoints().indexOf(wp));;
 		Marker marker = mMap.addMarker(options);
-		marker.setDraggable(true);
 		mMarkers.add(marker);
 		Toast toast = Toast.makeText(this.getActivity().getBaseContext(), "Waypoint Successfully Added", Toast.LENGTH_SHORT);
 		toast.show();
@@ -280,7 +293,7 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 	 */
 	protected void showEditDialog(Waypoint waypoint) {
 		Bundle args = new Bundle();
-		args.putLong(EditWaypointDialogFragment.ARG_INDEX, mWaypointList.indexOf(waypoint));
+		args.putLong(EditWaypointDialogFragment.ARG_INDEX, mWalk.getWaypoints().indexOf(waypoint));
 		args.putParcelable(EditWaypointDialogFragment.ARG_POSITION, waypoint.getLatLng());
 		args.putString(EditWaypointDialogFragment.ARG_TITLE, waypoint.getEnglishDescription().getTitle());
 		args.putString(EditWaypointDialogFragment.ARG_DESCRIPTION, waypoint.getEnglishDescription().getLongDescription());
@@ -399,13 +412,10 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 	 */
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		Uri baseUri = WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_URI;
-		String 	select  = "((" + WhiteRockContract.Waypoint.WALK_ID + " == " + args.getInt(ARG_POSITION) + "))";
-		// PROJECT_ALL for reference {WaypointColumns.ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER,
-		//WaypointColumns.WALK_ID, USER_ID,
-		//DescriptionColumns.ID TITLE, SHORT_DESCR, LONG_DESCR,
-		//FILE_NAME};
-		return new CursorLoader(getActivity().getBaseContext(), baseUri, WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.PROJECTION_ALL, select, null, WhiteRockContract.WaypointWithEnglishDescription.VISIT_ORDER + " COLLATE LOCALIZED ASC");
+		Uri baseUri = WhiteRockContract.WalkComplete.CONTENT_URI;
+		String 	select  = "((" + DbSchema.TABLE_WALK+"."+WhiteRockContract.Walk.ID + " == " + args.getInt("walkId") + "))";
+		return new CursorLoader(getActivity().getBaseContext(), baseUri, WhiteRockContract.WalkComplete.PROJECTION_ALL, select, null, WhiteRockContract.WalkComplete.VISIT_ORDER + " COLLATE LOCALIZED ASC");
+
 	}
 
 	/* (non-Javadoc)
@@ -413,50 +423,14 @@ LoaderCallbacks<Cursor>, AddWaypointDialogListener {
 	 */
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-		// create Waypoints from all the db info.
-		if (data != null && data.moveToFirst()) {
-			data.moveToPrevious();
-			Waypoint wp = new Waypoint();
-			ArrayList<Description> dList = new ArrayList<Description>();
-			ArrayList<Media> mediaList = new ArrayList<Media>();
-			while (data.moveToNext()) {
-				if (data.getLong(0) == wp.getId()) {
-					Media media = new Media();
-					media.setFileLocation(data.getString(11));
-					wp.getMediaFiles().add(media);
-				} else { 
-					if (!data.isFirst()) {
-						mWaypointList.add(wp);
-					}
-					dList = new ArrayList<Description>();
-					mediaList = new ArrayList<Media>();
-					wp = new Waypoint();
-					wp.setId(data.getLong(0));
-					wp.setLatitude(data.getDouble(1));
-					wp.setLongitude(data.getDouble(2));
-					wp.setLatLng(new LatLng(wp.getLatitude(), wp.getLongitude()));
-					wp.setIsRequest(data.getInt(3));
-					wp.setVisitOrder(data.getInt(4));
-					EnglishWaypointDescription desc = new EnglishWaypointDescription();
-					desc.setTitle(data.getString(8));
-					desc.setId(data.getLong(7));
-					desc.setShortDescription(data.getString(9));
-					desc.setLongDescription(data.getString(10));
-					dList.add(desc);
-					Media media = new Media();
-					media.setFileLocation(data.getString(11));
-					media.setWaypointId((int) wp.getId());
-					wp.setMedia(mediaList);
-					wp.setEnglishDescription(desc);
-					wp.setWelshDescription(null);
-					wp.getMediaFiles().add(media);
-				}
-			}
-			// add last wp.
-			mWaypointList.add(wp);
-			createMarkers(mWaypointList);
-		} 
 
+		WalkDataSource walkDataSource = new WalkDataSource(getActivity().getBaseContext());
+		mWalk = walkDataSource.LoadWalkAndComponentsFromCursor(data);
+		if (mWalk != null) {
+			createMarkers(mWalk.getWaypoints());
+		} else {
+			Toast.makeText(getActivity(), "Error Loading Walk", Toast.LENGTH_SHORT).show();
+		}
 		// In practice we may want to set the bounds to be that of the area we are walking in.
 		// for now I'm just going to zoom in this close cause I can.
 		if (mMarkers.size() > 0) {

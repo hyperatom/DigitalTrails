@@ -53,17 +53,16 @@ public class LaunchActivity extends ActionBarActivity{
 		setContentView(R.layout.activity_launch);
 		getSupportActionBar().hide();
 		mAccountManager = AccountManager.get(getBaseContext().getApplicationContext());
-		Log.d(TAG, "context: " + getBaseContext().getApplicationContext());
 		LaunchFragment launchFragment = new LaunchFragment();
-		try{
+		try {
 			Account[] acc = mAccountManager.getAccountsByType(AccountGeneral.ACCOUNT_TYPE);
 			if(acc.length != 0){
 				Intent in = new Intent(this, HomeActivity.class);
 				in.putExtra("account", acc[0]);
 				startActivity(in);
 			}
-		}catch(Exception e){
-			//Ignore it. Carry on. 
+		} catch(Exception e) {
+			Log.e(TAG, "Error in LaunchActivity onCreate: " + e.toString());
 		}
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_launcher, launchFragment).commit();
 	

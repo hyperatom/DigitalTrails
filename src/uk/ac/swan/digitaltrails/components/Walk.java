@@ -249,15 +249,10 @@ public class Walk implements Parcelable {
 	 * Default Constructor
 	 */
 	public Walk() {
-		// Does not set id or ownerId cause that would break things.
-		setDuration(0);
-		setDistance(0);
-		setDifficultyRating(0);
-		setDownloadCount(0);
 	}
 
 	/**
-	 * Constructor method.
+	 * Constructor method - best not to use it atm..
 	 * @param id
 	 * @param title
 	 * @param shortDescription

@@ -1,20 +1,27 @@
 package uk.ac.swan.digitaltrails.fragments;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.utils.WhiteRockApp;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,43 +30,84 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+/**
+ * Please, just trust this class cause I don't have time to document it. It is modified 
+ * from the official Android documentation - see all Lessons in this link http://developer.android.com/training/displaying-bitmaps/index.html
+ * @author Lewis H
+ *
+ */
 public class ImageGridFragment extends DialogFragment implements AdapterView.OnItemClickListener {
 	public static final String IMAGE_PATH_EXTRA = "paths";
+	public static final String ARG_AUDIO_PATH = "audio";
+	public static final String ARG_VIDEO_PATH = "video";
+	public static final String ARG_TITLE = "title";
+	public static final String ARG_DESCRIPTION = "description";
+	
+	private static final String TAG = "ImageGridFramgent";
 	private String[] mImagePaths;
+	private String[] mAudioPaths;
 
+	private SparseArray<String> mAudioSparseArray ;
 	private ImageAdapter mAdapter;
+	private String mTitle;
+	private String mDescription;
 	private Bitmap mPlaceHolderBitmap;
 	
-	public ImageGridFragment() {}
-	
+	public ImageGridFragment() { }
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle args = getArguments();
 		mImagePaths = args.getStringArray(IMAGE_PATH_EXTRA);
+		mAudioPaths = args.getStringArray(ARG_AUDIO_PATH);
+		
+		mAudioSparseArray = new SparseArray<String>();
+		
+		if (mAudioPaths.length > 0) {
+			for (int i = 0; i < mAudioPaths.length; i++) {
+				mAudioSparseArray.append(i, mAudioPaths[i]);
+			}
+		}
+		
+		mTitle = args.getString(ARG_TITLE);
+		mDescription = args.getString(ARG_DESCRIPTION);
 		mAdapter = new ImageAdapter(getActivity());
-		mPlaceHolderBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.aberaeronlogo);
+		mPlaceHolderBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View v = inflater.inflate(R.layout.image_grid_fragment, container, false);
 		final GridView mGridView = (GridView) v.findViewById(R.id.gridView);
+		final TextView descrLabel = (TextView) v.findViewById(R.id.description_label);
+		descrLabel.setText(mDescription+"\n");
 		mGridView.setAdapter(mAdapter);
 		mGridView.setOnItemClickListener(this);
+		getDialog().setTitle(mTitle);
 		return v;
 	}
 
+	
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-//        final Intent i = new Intent(getActivity(), ImageDetailActivity.class);
-//        i.putExtra(ImageDetailActivity.EXTRA_IMAGE, position);
-//        startActivity(i);
+    	Intent intent = new Intent(Intent.ACTION_VIEW);
+    	
+    	if (mImagePaths[position] == "android.resource://uk.ac.swan.digitaltrails/" + R.drawable.ic_action_volume_on + ".png") {
+    		Log.d(TAG, "Staritng intent to open: " + Uri.fromFile(new File(mAudioSparseArray.get(position)))); 
+    		intent.setDataAndType(Uri.fromFile(new File(mAudioSparseArray.get(position))), "audio/*");
+    	} else if (mImagePaths[position] == "videoClip") {
+    		//TODO: Update to be like audio when video is required
+    		//intent.setDataAndType(Uri.fromFile(new File(mImagePaths[position])), "video/*");
+    	} else {
+	    	intent.setDataAndType(Uri.fromFile(new File(mImagePaths[position])), "image/*");
+    	}
+    	startActivity(intent);
     }
 
     private class ImageAdapter extends BaseAdapter {
         private final Context mContext;
-
         public ImageAdapter(Context context) {
             super();
             mContext = context;
@@ -95,7 +143,6 @@ public class ImageGridFragment extends DialogFragment implements AdapterView.OnI
             return imageView;
         }
     }
-    
 
     public void loadBitmap(String path, ImageView imageView) {
     	if (cancelPotentialWork(path, imageView)) {
@@ -159,7 +206,6 @@ public class ImageGridFragment extends DialogFragment implements AdapterView.OnI
 			path = params[0];
 			return decodeSampledBitmapFromFile(path, 100, 100);
 		}
-		
 		
 		@Override
 		protected void onPostExecute(Bitmap bitmap) {

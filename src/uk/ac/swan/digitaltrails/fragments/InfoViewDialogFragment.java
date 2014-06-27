@@ -20,14 +20,10 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.plus.model.people.Person.Image;
 
-/**
- * 
- * @author Lewis Hancock
- *
- */
+
 /**
  * @author Lewis Hancock
- *
+ * REPLACED BY ImageGridFragment.java
  */
 public class InfoViewDialogFragment extends DialogFragment {
 	

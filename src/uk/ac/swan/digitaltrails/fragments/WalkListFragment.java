@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.components.Walk;
+import uk.ac.swan.digitaltrails.database.DbSchema;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -171,7 +172,7 @@ public class WalkListFragment extends ListFragment
 	/**
 	 * 
 	 */
-	protected static String [] WALK_SUMMARY_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions._ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, WhiteRockContract.EnglishWalkDescriptions.WALK_ID };
+	protected static String [] WALK_SUMMARY_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions._ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, DbSchema.TABLE_ENGLISH_WALK_DESCR+"."+WhiteRockContract.EnglishWalkDescriptions.WALK_ID };
 	
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int, android.os.Bundle)
@@ -197,10 +198,10 @@ public class WalkListFragment extends ListFragment
 		Log.d(TAG, "LoadFinished, data size: " + data.getCount());
 		mAdapter.swapCursor(data);
 		if (data != null && data.moveToFirst()) {
-			mWalkIds.add(data.getInt(2));
+			data.moveToPrevious();
 			while (data.moveToNext())
 			{
-				Log.d(TAG, ""+data.getInt(2));
+				Log.d(TAG, ""+data.getLong(2));
 				mWalkIds.add(data.getInt(2));
 			}
 		}		

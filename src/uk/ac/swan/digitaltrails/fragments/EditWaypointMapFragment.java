@@ -71,7 +71,7 @@ EditWaypointDialogFragment.EditWaypointDialogListener {
 
 					@Override
 					public void onInfoWindowClick(Marker marker) {
-						showEditDialog(mWaypointList.get(mMarkers.indexOf(marker)));
+						showEditDialog(mWalk.getWaypoints().get(mMarkers.indexOf(marker)));
 					}
 				});
 	}
@@ -84,8 +84,8 @@ EditWaypointDialogFragment.EditWaypointDialogListener {
 		Log.d(TAG, "Positive Click");
 		long index = dialog.getArguments().getLong(EditWaypointDialogFragment.ARG_INDEX); 
 		Log.d(TAG, "Index: " + index);
-		if (index < mWaypointList.size()) {
-			Waypoint wp = mWaypointList.get((int) index);
+		if (index < mWalk.getWaypoints().size()) {
+			Waypoint wp = mWalk.getWaypoints().get((int) index);
 			Log.d(TAG, wp.toString());
 			String title = ((EditText) view.findViewById(R.id.name_edit)).getText().toString().trim();
 			String description = ((EditText) view.findViewById(R.id.description_edit)).getText().toString().trim();

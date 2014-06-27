@@ -122,14 +122,8 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 		} else {
 			buttonStart.setEnabled(false);
 		}
-		
 	}
 
-	/**
-	 * 
-	 */
-	private static String[] WALK_DESCRIPTION_PROJECTION = {WhiteRockContract.EnglishWalkDescriptions.ID, WhiteRockContract.EnglishWalkDescriptions.TITLE, WhiteRockContract.EnglishWalkDescriptions.SHORT_DESCR, WhiteRockContract.EnglishWalkDescriptions.LONG_DESCR};
-	
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int, android.os.Bundle)
 	 */
@@ -147,7 +141,6 @@ public class WalkDetailsFragment extends Fragment implements LoaderCallbacks<Cur
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		if (data != null && data.moveToFirst()) {
-			Log.d("DATA LOG", "Cursor has info, pos: " + mCurrentPos);
 			for (int i = 0; i < data.getColumnCount(); i++) {
 				Log.d("DATA LOG", "Col " + i + " value: " + data.getString(i));
 			}

@@ -4,10 +4,19 @@ import java.util.ArrayList;
 
 import uk.ac.swan.digitaltrails.R;
 import uk.ac.swan.digitaltrails.accounts.AccountGeneral;
+import uk.ac.swan.digitaltrails.components.Audio;
 import uk.ac.swan.digitaltrails.components.Description;
+import uk.ac.swan.digitaltrails.components.EnglishWalkDescription;
 import uk.ac.swan.digitaltrails.components.EnglishWaypointDescription;
 import uk.ac.swan.digitaltrails.components.Media;
+import uk.ac.swan.digitaltrails.components.Photo;
+import uk.ac.swan.digitaltrails.components.Video;
+import uk.ac.swan.digitaltrails.components.Walk;
 import uk.ac.swan.digitaltrails.components.Waypoint;
+import uk.ac.swan.digitaltrails.components.WelshWalkDescription;
+import uk.ac.swan.digitaltrails.components.WelshWaypointDescription;
+import uk.ac.swan.digitaltrails.database.DbSchema;
+import uk.ac.swan.digitaltrails.database.WalkDataSource;
 import uk.ac.swan.digitaltrails.database.WhiteRockContract;
 import uk.ac.swan.digitaltrails.fragments.ErrorDialogFragment;
 import uk.ac.swan.digitaltrails.fragments.ImageGridFragment;
@@ -125,8 +134,8 @@ public class MapActivity extends ActionBarActivity implements
 	private GoogleMap mMap;
 	/** ArrayList of markers currently on the map */
 	private ArrayList<Marker> mMarkers;
-	/** ArrayList of waypoints in the walk */
-	private ArrayList<Waypoint> mWaypoints;
+	/** the walk we are on */
+	private Walk mWalk;
 	/** ArrayList of Geofences in the walk */
 	private ArrayList<Geofence> mGeofences;
 	/** The filter to use when loading data */
@@ -187,7 +196,6 @@ public class MapActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mInProgress = false;
-		mCurFilter = selectFilter.FILTER_WAYPOINT_WITH_DESCR;
 		setContentView(R.layout.activity_map);
 		Intent intent = getIntent();
 		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
@@ -200,7 +208,6 @@ public class MapActivity extends ActionBarActivity implements
 
 			int walkId = intent.getExtras().getInt("walkId");	
 			mMarkers = new ArrayList<Marker>();
-			mWaypoints = new ArrayList<Waypoint>();
 			initMap();
 			getSupportLoaderManager().initLoader(0, intent.getExtras(), this);
 
@@ -240,9 +247,9 @@ public class MapActivity extends ActionBarActivity implements
 				}
 			}
 		}
-		for (Waypoint wp : mWaypoints) {
+		for (Waypoint wp : mWalk.getWaypoints()) {
 			if (wp.getVisitOrder() == numVisited + 1) {
-				mMarkers.get(mWaypoints.indexOf(wp)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+				mMarkers.get(mWalk.getWaypoints().indexOf(wp)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
 			}
 		}
 	}
@@ -325,17 +332,54 @@ public class MapActivity extends ActionBarActivity implements
 	}
 	
 	private void showImageDialog(Waypoint wp) {
+		String audioPlaceHolder = "android.resource://uk.ac.swan.digitaltrails/" + R.drawable.ic_action_volume_on + ".png";
 		Bundle args = new Bundle();
 		int count = wp.getPhotos().size();
-		Log.d(TAG, "Count is: " + count);
-		String[] paths = new String[count];
-		
-		if (count > 0) {
-			for (int i = 0; i < count; ++i) {
-				paths[i] = wp.getPhotos().get(i).getFileLocation();
+		for (Photo p : wp.getPhotos()) {
+			Log.d(TAG, "FileLoc: " + p.getFileLocation());
+		}
+		int audioCount = wp.getAudioFiles().size();
+		int total = count+audioCount;
+		Log.d(TAG, "Count: " + count + " audio: " + audioCount + " total: " + total);
+		// fill with our placeholder images for audio.
+		// TODO: Update for use with video.
+		String[] paths = new String[total];
+		int x = 0;
+		if (count > 0 || audioCount > 0) {
+			for (int i = 0; i < total; i++) {
+				if (i < audioCount) {
+					paths[i] = audioPlaceHolder;
+					Log.d(TAG, "i inside audioCount: " + i);
+				} else {
+					Log.d(TAG, "i when we get to photos: " + i);
+					paths[i] = wp.getPhotos().get(x).getFileLocation();
+					x++;
+				}
 			}
 		}
+		
+		String[] audioPaths = new String[audioCount];
+
+		if (audioCount > 0) {
+			for (int i = 0; i < audioCount; i++) {
+				audioPaths[i] = wp.getAudioFiles().get(i).getFileLocation();
+			}
+		}
+		
+		// TODO: Uncomment when we want to work with videos.
+//		int videoCount = wp.getVideos().size();
+//		String[] videoPaths = new String[videoCount];
+//		
+//		if (videoCount > 0) {
+//			for (int i = 0; i < videoCount; i++) {
+//				videoPaths[i] = wp.getVideos().get(i).getFileLocation();
+//			}
+//		}
+		
 		args.putStringArray(ImageGridFragment.IMAGE_PATH_EXTRA, paths);
+		args.putStringArray(ImageGridFragment.ARG_AUDIO_PATH, audioPaths);
+		args.putString(ImageGridFragment.ARG_TITLE, wp.getEnglishDescription().getTitle());
+		args.putString(ImageGridFragment.ARG_DESCRIPTION, wp.getEnglishDescription().getLongDescription());
 		DialogFragment dialog = new ImageGridFragment();
 		dialog.setArguments(args);
 		dialog.show(getSupportFragmentManager(), "imageDialog");
@@ -454,7 +498,7 @@ public class MapActivity extends ActionBarActivity implements
 			public void onInfoWindowClick(Marker marker) {
 				// find waypoint and show dialog for it.
 				//showInfoViewDialog(mWaypoints.get(mMarkers.indexOf(marker)));
-				showImageDialog(mWaypoints.get(mMarkers.indexOf(marker)));
+				showImageDialog(mWalk.getWaypoints().get(mMarkers.indexOf(marker)));
 			}
 		});
 	}
@@ -511,28 +555,10 @@ public class MapActivity extends ActionBarActivity implements
 	 */
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		Uri baseUri = WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.CONTENT_URI;
-		String 	select  = "((" + WhiteRockContract.Waypoint.WALK_ID + " == " + args.getInt("walkId") + "))";
+		Uri baseUri = WhiteRockContract.WalkComplete.CONTENT_URI;
+		String 	select  = "((" + DbSchema.TABLE_WALK+"."+WhiteRockContract.Walk.ID + " == " + args.getInt("walkId") + "))";
 
-		/*
-		switch (mCurFilter) {
-		case FILTER_WAYPOINT_WITH_MEDIA:
-			baseUri = WhiteRockContract.WaypointWithMedia.CONTENT_URI;
-			select = "((" + WhiteRockContract.Waypoint.ID + " == " + args.getInt("markerId") + "))";
-			break;
-		case FILTER_WAYPOINT_WITH_DESCR:
-			baseUri = WhiteRockContract.WaypointWithEnglishDescription.CONTENT_URI;
-			select = "((" + WhiteRockContract.Waypoint.WALK_ID + " == " + args.getInt("walkId") + "))";
-			break;
-		default:
-			baseUri = WhiteRockContract.WaypointWithEnglishDescription.CONTENT_URI;
-			select  = "((" + WhiteRockContract.Waypoint.WALK_ID + " == " + args.getInt("walkId") + "))";
-			break;
-		}*/
-		// PROJECT_ALL for reference {WaypointColumns.ID, LATITUDE, LONGITUDE, IS_REQUEST, VISIT_ORDER,
-		//WaypointColumns.WALK_ID, USER_ID,
-		//TITLE, SHORT_DESCR, LONG_DESCR, FILE_NAME};
-		return new CursorLoader(this, baseUri, WhiteRockContract.WaypointWithEnglishDescriptionWithMedia.PROJECTION_ALL, select, null, WhiteRockContract.WaypointWithEnglishDescription.VISIT_ORDER + " COLLATE LOCALIZED ASC");
+		return new CursorLoader(this, baseUri, WhiteRockContract.WalkComplete.PROJECTION_ALL, select, null, WhiteRockContract.WalkComplete.VISIT_ORDER + " COLLATE LOCALIZED ASC");
 	}
 
 	/* (non-Javadoc)
@@ -541,52 +567,19 @@ public class MapActivity extends ActionBarActivity implements
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		// create Waypoints from all the db info.
-		// TODO: Tidy this mess up so we get our actual images from it.
-		if (data != null && data.moveToFirst()) {
-			if (mCurFilter == selectFilter.FILTER_WAYPOINT_WITH_DESCR) {
-				data.moveToPrevious();
-				Waypoint wp = new Waypoint();
-				ArrayList<Media> mediaList = new ArrayList<Media>();
-				while (data.moveToNext()) {
-					if (data.getLong(0) == wp.getId()) {
-						Media media = new Media();
-						media.setFileLocation(data.getString(11));
-						wp.getMediaFiles().add(media);
-					} else { 
-						if (!data.isFirst()) {
-							mWaypoints.add(wp);
-						}
-						mediaList = new ArrayList<Media>();
-						wp = new Waypoint();
-						wp.setId(data.getLong(0));
-						wp.setLatitude(data.getDouble(1));
-						wp.setLongitude(data.getDouble(2));
-						wp.setLatLng(new LatLng(wp.getLatitude(), wp.getLongitude()));
-						wp.setIsRequest(data.getInt(3));
-						wp.setVisitOrder(data.getInt(4));
-						EnglishWaypointDescription desc = new EnglishWaypointDescription();
-						desc.setTitle(data.getString(8));
-						desc.setId(data.getLong(7));
-						desc.setShortDescription(data.getString(9));
-						desc.setLongDescription(data.getString(10));
-						wp.setEnglishDescription(desc);
-						Media media = new Media();
-						media.setFileLocation(data.getString(11));
-						media.setWaypointId((int) wp.getId());
-						wp.setMedia(mediaList);
-						wp.getMediaFiles().add(media);
-					}
-				}
-				// add the last waypoint
-				mWaypoints.add(wp);
-				createMarkers(mWaypoints);
-				mGeofences = createGeofences(mMarkers);
-				mLocationClient = new LocationClient(this, this, this);
-				addGeofences();
-			} else if (mCurFilter == selectFilter.FILTER_WAYPOINT_WITH_MEDIA) {
-				mLoaderCursor = data;
-			}
+		// It might be better to create a map instead of just using the numbers and referring to projection..
+		WalkDataSource walkDataSource = new WalkDataSource(getBaseContext());
+		
+		mWalk = walkDataSource.LoadWalkAndComponentsFromCursor(data);
+		if (mWalk != null) {
+			createMarkers(mWalk.getWaypoints());
+			mGeofences = createGeofences(mMarkers);
+			mLocationClient = new LocationClient(this, this, this);
+			addGeofences();	
+		} else {
+			Toast.makeText(getBaseContext(), "Error loading walk", Toast.LENGTH_SHORT).show();
 		}
+	
 		
 		// In practice we may want to set the bounds to be that of the area we are walking in.
 		// for now I'm just going to zoom in this close cause I can.
