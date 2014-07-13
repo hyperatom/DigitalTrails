@@ -57,9 +57,8 @@ public class DigitalTrailsComServerAuthenticate implements ServerAuthenticate {
 		Account loggedIn = gson.fromJson(response, Account.class);
 		SharedPreferences settings = WhiteRockApp.getInstance().getSharedPreferences(GlobalFlags.PREF_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putInt("userId", loggedIn.id);
+		editor.putInt(GlobalFlags.PREF_USER_ID, loggedIn.id);
 		editor.commit();
-		Log.d(TAG, "userId logged in: " + settings.getInt("userId", -99));
 
 		return loggedIn;
 	}
@@ -85,7 +84,7 @@ public class DigitalTrailsComServerAuthenticate implements ServerAuthenticate {
 		Log.d(TAG, "pass = " + loggedIn.password);
 		SharedPreferences settings = WhiteRockApp.getInstance().getSharedPreferences(GlobalFlags.PREF_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putInt("userId", loggedIn.id);
+		editor.putInt(GlobalFlags.PREF_USER_ID, loggedIn.id);
 		editor.commit();
 		Log.d(TAG, "userId logged in: " + settings.getInt("userId", -99));
 		// TODO: remove id on logout

@@ -24,6 +24,7 @@ import uk.ac.swan.digitaltrails.fragments.MyWalkDetailsFragment;
 import uk.ac.swan.digitaltrails.fragments.MyWalkListFragment;
 import uk.ac.swan.digitaltrails.fragments.WalkListFragment;
 import uk.ac.swan.digitaltrails.utils.GlobalFlags;
+import uk.ac.swan.digitaltrails.utils.WhiteRockApp;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
@@ -70,6 +71,17 @@ MyWalkListFragment.OnWalkSelectedListener, AddWaypointMapFragment.OnMapClosedLis
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_walks);
+		
+//		// Check account
+//		AccountManager am = AccountManager.get(this);
+//		if (am.getAccountsByType(AccountGeneral.ACCOUNT_TYPE).length > 0) {
+//			Account a = am.getAccountsByType(AccountGeneral.ACCOUNT_TYPE)[0];
+//			SharedPreferences settings = WhiteRockApp.getInstance().getSharedPreferences(GlobalFlags.PREF_NAME, 0);
+//			SharedPreferences.Editor editor = settings.edit();
+//			editor.putInt(GlobalFlags.PREF_USER_ID, );
+//			editor.commit(); 
+//
+//		}
 		
 		if(getResources().getBoolean(R.bool.portrait_only)){
 	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

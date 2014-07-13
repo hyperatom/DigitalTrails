@@ -14,4 +14,5 @@ public interface GlobalFlags {
 	 * 
 	 */
 	public static final String PREF_NAME = "WhiteRockPrefs";
+	public static final String PREF_USER_ID = "userId";
 }

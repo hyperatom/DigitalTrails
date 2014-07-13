@@ -710,6 +710,9 @@ public class MapActivity extends ActionBarActivity implements
 		mInProgress = false;
 		mLocationClient.disconnect();
 	}
+
+	//TODO: all these logOutButton and onSync methods should be put into another class; not rewritten in each activity.
+	// Dunno who did this.
 	
 	public void logOutButton(MenuItem v){
 		AccountManager am = AccountManager.get(this);

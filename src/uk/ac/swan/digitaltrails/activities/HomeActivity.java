@@ -144,6 +144,9 @@ public class HomeActivity extends ActionBarActivity{
         ContentResolver.requestSync(mConnectedAccount, WhiteRockContract.AUTHORITY, settingsBundle);
 	}
 	
+	//TODO: Move logOut and onSync calls to a new class.
+	// Ensure you can't log out when not logged in as it crashes the program.
+	// Also, figure out a better way to log out (like, y'know, check it's ACTUALLY THE USERS ACCOUNT).
 	public void logOutButton(MenuItem v){
 		AccountManager am = AccountManager.get(this);
 		Account a = am.getAccountsByType(AccountGeneral.ACCOUNT_TYPE)[0];

@@ -77,14 +77,14 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 		final AccountManager accountMgr = AccountManager.get(mContext);
 		
 		String authToken = accountMgr.peekAuthToken(account, authTokenType);
-		Log.d(TAG, "peekAuthToken returned - " + authToken);
+		//Log.d(TAG, "peekAuthToken returned - " + authToken);
 		
 		// try to auth user.
 		if (TextUtils.isEmpty(authToken)) {
 			final String password = accountMgr.getPassword(account);
 			if (password != null) {
 				try {
-					Log.d(TAG, "re-auth with existing password");
+					//Log.d(TAG, "re-auth with existing password");
 					authToken = AccountGeneral.sServerAuthenticate.userSignIn(account.name, password, authTokenType);
 					
 				} catch (Exception e) {

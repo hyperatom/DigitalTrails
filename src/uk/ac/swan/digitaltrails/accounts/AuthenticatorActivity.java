@@ -179,8 +179,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 			Log.d(TAG, "NOT Adding new account");
 			String authToken = intent.getStringExtra(AccountManager.KEY_AUTHTOKEN);
 			String authTokenType = mAuthTokenType;
-			Log.d(TAG, "authTokenType: " + authTokenType);
-			Log.d(TAG, "Account: " + account.toString());
+			//Log.d(TAG, "authTokenType: " + authTokenType);
+			//Log.d(TAG, "Account: " + account.toString());
 			// create local account, set auth token.
 			mAccountManager.addAccountExplicitly(account, accountPassword, intent.getBundleExtra(AccountManager.KEY_USERDATA));
 			mAccountManager.setAuthToken(account, authTokenType, authToken);
